@@ -2,18 +2,28 @@ import 'package:flutter/material.dart';
 import 'profile_screen.dart';
 import '../constants.dart';
 
+final _scaffoldKey = GlobalKey<ScaffoldState>();
+
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text('CSV'),
         backgroundColor: primaryColor,
-        leading: IconButton(
-            onPressed: () => Scaffold.of(context).openDrawer(),
-            icon: Icon(Icons.align_horizontal_left)),
+        leading: GestureDetector(
+          onTap: () => _scaffoldKey.currentState!.openDrawer(),
+          child: Container(
+            height: 5.0,
+            width: 5.0,
+            child: ImageIcon(
+              AssetImage('assets/images/left-align.png'),
+            ),
+          ),
+        ),
       ),
       drawer: Theme(
         data: Theme.of(context).copyWith(
