@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'Screen/login/login.dart';
 
+import './screens/home_screen.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -12,8 +14,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'DeliMeals',
       theme: ThemeData(
-          primaryColor: Color.fromRGBO(146, 40, 105, 1),
-          accentColor: Color.fromRGBO(82, 51, 105, 1),
+          primarySwatch: Colors.blue,
+          primaryColor: Color(0xFF015777),
+          // primaryColor: Color.fromRGBO(146, 40, 105, 1),
+          accentColor: Color(0xFFf2f6f9),
           canvasColor: Color.fromRGBO(225, 254, 229, 1),
           errorColor: Colors.redAccent,
           fontFamily: 'Raleway',
@@ -26,13 +30,15 @@ class MyApp extends StatelessWidget {
               ),
               headline6:
                   TextStyle(fontSize: 24, fontFamily: 'RobotoCondensed'))),
-      home: Login(),
+      // home: Login(),
       // initialRoute:Login.routeName,
       // onGenerateRoute: ServiceAppRoute.generateRoute,
 
       // onUnknownRoute: (settings) {
       //   return MaterialPageRoute(builder: (ctx) => CategoryMainScreen());
       // },
+
+      home: Login(),
     );
   }
 }

@@ -5,117 +5,125 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Color(0xFF01577),
-      child: Column(
-        children: [
-          Container(
-            child: Column(
-              children: [
-                Text(
-                  'Fix It',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: displayHeight(context) * 0.06,
-                      color: Colors.white),
-                ),
-                Container(
-                  color: Colors.transparent,
-                  height: MediaQuery.of(context).size.height / 3.5,
-                  width: MediaQuery.of(context).size.width / 3.5,
-                  child: new Image.asset(
-                    'assets/images/login/csv_img.png',
-                    // width: 600.0,
-                    // height: 240.0,
-                    //fit: BoxFit.cover,
-                  ),
-                )
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 22),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  color: Colors.transparent,
-                  width: displayHeight(context) * 0.25,
-                  child: Text(
-                    'Login',
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    return Material(
+      child: Container(
+        color: Theme.of(context).accentColor,
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.only(top: 55),
+              width: double.infinity,
+              color: Theme.of(context).primaryColor,
+              child: Column(
+                children: [
+                  Text(
+                    'Welcome to csv',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: displayWidth(context) * 0.03,
+                        fontWeight: FontWeight.w300,
+                        fontSize: displayHeight(context) * 0.04,
                         color: Colors.white),
                   ),
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
+                  Container(
+                    // color: Colors.transparent,
+                    child: new Image.asset(
+                      'assets/images/login/csv_img.png',
+                      height: MediaQuery.of(context).size.height * 0.25,
+                      width: MediaQuery.of(context).size.width * 0.65,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  SizedBox(
+                    height: height * 0.05,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: height * 0.04,
+            ),
+            Center(
+              child: Text(
+                'Login',
+                // textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: height * 0.04,
+                    color: Colors.black),
+              ),
+            ),
+            SizedBox(
+              height: height * 0.06,
+            ),
+            Material(
+              elevation: 6.0,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40)),
+              child: TextField(
+                // controller: _myPasswordController,
+                // obscureText: !ispassshow,
+                keyboardType: TextInputType.text,
+                textInputAction: TextInputAction.done,
+                onEditingComplete: () => FocusScope.of(context).unfocus(),
+                style: TextStyle(fontSize: 18, color: Colors.grey),
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.only(top: 14),
+                  prefixIcon: Icon(Icons.lock),
+                  border: InputBorder.none,
+                  // suffixIcon: IconButton(
+                  //   icon: Icon(ispassshow
+                  //       ? Icons.visibility
+                  //       : Icons.visibility_off),
+                  //   onPressed: () {
+                  //     setState(() {
+                  //       ispassshow = !ispassshow;
+                  //     });
+                  //   },
+                  // ),
+                  hintText: "Enter Email ",
                 ),
-              ],
-            ),
-          ),
-          Material(
-            elevation: 6.0,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-            child: TextField(
-              // controller: _myPasswordController,
-              // obscureText: !ispassshow,
-              keyboardType: TextInputType.text,
-              textInputAction: TextInputAction.done,
-              onEditingComplete: () => FocusScope.of(context).unfocus(),
-              style: TextStyle(fontSize: 18, color: Colors.grey),
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(top: 14),
-                prefixIcon: Icon(Icons.lock),
-                border: InputBorder.none,
-                // suffixIcon: IconButton(
-                //   icon: Icon(ispassshow
-                //       ? Icons.visibility
-                //       : Icons.visibility_off),
-                //   onPressed: () {
-                //     setState(() {
-                //       ispassshow = !ispassshow;
-                //     });
-                //   },
-                // ),
-                hintText: "Enter Email ",
               ),
             ),
-          ),
-          SizedBox(
-              width: MediaQuery.of(context).size.width * 0.5,
-              height: MediaQuery.of(context).size.height * 0.01),
-          Material(
-            elevation: 6.0,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-            child: TextField(
-              // controller: _myPasswordController,
-              // obscureText: !ispassshow,
-              keyboardType: TextInputType.text,
-              textInputAction: TextInputAction.done,
-              onEditingComplete: () => FocusScope.of(context).unfocus(),
-              style: TextStyle(fontSize: 18, color: Colors.grey),
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(top: 14),
-                prefixIcon: Icon(Icons.lock),
-                border: InputBorder.none,
-                // suffixIcon: IconButton(
-                //   icon: Icon(ispassshow
-                //       ? Icons.visibility
-                //       : Icons.visibility_off),
-                //   onPressed: () {
-                //     setState(() {
-                //       ispassshow = !ispassshow;
-                //     });
-                //   },
-                // ),
-                hintText: "Enter Password ",
+            SizedBox(
+                width: MediaQuery.of(context).size.width * 0.5,
+                height: MediaQuery.of(context).size.height * 0.01),
+            Material(
+              color: Colors.white,
+              elevation: 6.0,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40)),
+              child: TextField(
+                // controller: _myPasswordController,
+                // obscureText: !ispassshow,
+                keyboardType: TextInputType.text,
+                textInputAction: TextInputAction.done,
+                onEditingComplete: () => FocusScope.of(context).unfocus(),
+                style: TextStyle(fontSize: 18, color: Colors.grey),
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.only(top: 14),
+                  prefixIcon: Icon(Icons.lock),
+                  border: InputBorder.none,
+                  // suffixIcon: IconButton(
+                  //   icon: Icon(ispassshow
+                  //       ? Icons.visibility
+                  //       : Icons.visibility_off),
+                  //   onPressed: () {
+                  //     setState(() {
+                  //       ispassshow = !ispassshow;
+                  //     });
+                  //   },
+                  // ),
+                  hintText: "Enter Password ",
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
