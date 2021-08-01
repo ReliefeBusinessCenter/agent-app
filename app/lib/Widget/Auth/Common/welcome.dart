@@ -10,15 +10,15 @@ class Welcome extends StatelessWidget {
         padding: EdgeInsets.only(top: 55),
         width: double.infinity,
         // color: Theme.of(context).primaryColor,
-        color: Theme.of(context).primaryColor,
+        color: Colors.white,
         child: Column(children: [
           Text(
-            'Welcome To Csv',
+            'Welcome To Trust Brokers',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontWeight: FontWeight.w300,
               fontSize: loginSize.getFontSize1,
-              color: Colors.white,
+              color: Theme.of(context).primaryColor,
             ),
           ),
           SizedBox(

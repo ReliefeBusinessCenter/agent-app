@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'profile_screen.dart';
-import '../constants.dart';
+import '../constants/constants.dart';
 
 final _scaffoldKey = GlobalKey<ScaffoldState>();
 
 class Home extends StatelessWidget {
-  static const routeName = '/home';
+  static const routeName = 'home';
+
   const Home({Key? key}) : super(key: key);
 
   @override

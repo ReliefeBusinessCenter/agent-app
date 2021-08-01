@@ -1,23 +1,19 @@
 import 'package:app/constants/login/size.dart';
 import 'package:flutter/material.dart';
 
-class CustomTextField extends StatelessWidget {
-  final String textFieldName;
-  final TextEditingController controller;
-
-  CustomTextField({required this.textFieldName, required this.controller});
+class SearchTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LoginSize loginSize = new LoginSize();
     loginSize.build(context);
-    return Material(
-      color: Colors.white,
-      elevation: 1.0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+    return Center(
       child: Container(
+        decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(40)),
         width: loginSize.getTextFieldWidth,
         child: TextField(
-          controller: this.controller,
+          controller: null,
           // obscureText: !ispassshow,
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.done,
@@ -25,7 +21,7 @@ class CustomTextField extends StatelessWidget {
           style: TextStyle(fontSize: 18, color: Colors.grey),
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(top: 14),
-            prefixIcon: Icon(Icons.email),
+            prefixIcon: Icon(Icons.search, color: Colors.grey),
             border: InputBorder.none,
             // suffixIcon: IconButton(
             //   icon: Icon(ispassshow
@@ -37,7 +33,8 @@ class CustomTextField extends StatelessWidget {
             //     });
             //   },
             // ),
-            hintText: this.textFieldName,
+            hintText: " Search Brokers",
+            hintStyle: TextStyle(color: Colors.black.withOpacity(0.3)),
           ),
         ),
       ),
