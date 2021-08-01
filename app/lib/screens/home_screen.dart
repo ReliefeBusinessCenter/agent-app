@@ -5,6 +5,7 @@ import '../constants.dart';
 final _scaffoldKey = GlobalKey<ScaffoldState>();
 
 class Home extends StatelessWidget {
+  static const routeName = '/home';
   const Home({Key? key}) : super(key: key);
 
   @override

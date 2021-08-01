@@ -1,6 +1,7 @@
+import 'package:app/routes/route.dart';
 import 'package:flutter/material.dart';
 
-import 'Screen/login/login.dart';
+import 'screens/login.dart';
 
 import './screens/home_screen.dart';
 
@@ -31,14 +32,14 @@ class MyApp extends StatelessWidget {
               headline6:
                   TextStyle(fontSize: 24, fontFamily: 'RobotoCondensed'))),
       // home: Login(),
-      // initialRoute:Login.routeName,
-      // onGenerateRoute: ServiceAppRoute.generateRoute,
+      initialRoute: Login.routeName,
+      onGenerateRoute: AppRoutes.generateRoute,
 
-      // onUnknownRoute: (settings) {
-      //   return MaterialPageRoute(builder: (ctx) => CategoryMainScreen());
-      // },
+      onUnknownRoute: (settings) {
+        return MaterialPageRoute(builder: (ctx) => Login());
+      },
 
-      home: Login(),
+      // home: Login(),
     );
   }
 }
