@@ -1,3 +1,4 @@
+import 'package:app/Widget/Dashboard/broker.dart';
 import 'package:app/Widget/Dashboard/customCategory.dart';
 import 'package:app/Widget/Dashboard/customSearchBar.dart';
 import 'package:app/screens/drawer.dart';
@@ -73,7 +74,19 @@ class _CustomerPageState extends State<CustomerPage> {
                   ],
                 ),
               ),
-            )
+            ),
+            Container(
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Broker(),
+                      Broker(),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
