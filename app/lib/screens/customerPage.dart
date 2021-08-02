@@ -75,15 +75,46 @@ class _CustomerPageState extends State<CustomerPage> {
                 ),
               ),
             ),
-            Container(
+            SingleChildScrollView(
+              scrollDirection: Axis.vertical,
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      Broker(),
-                      Broker(),
-                    ],
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        Broker(),
+                        Broker(),
+                      ],
+                    ),
                   ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        Broker(),
+                        Broker(),
+                      ],
+                    ),
+                  ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        Broker(),
+                        Broker(),
+                      ],
+                    ),
+                  ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        Broker(),
+                        Broker(),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
