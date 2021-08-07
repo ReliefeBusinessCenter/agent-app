@@ -4,6 +4,9 @@ import 'package:app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginButton extends StatelessWidget {
+  final String email;
+  final String password;
+  LoginButton({required this.email, required this.password});
   @override
   Widget build(BuildContext context) {
     LoginSize loginSize = new LoginSize();
@@ -14,6 +17,9 @@ class LoginButton extends StatelessWidget {
         child: InkWell(
           splashColor: Colors.white,
           onTap: () {
+            print("On tap button is clicked");
+            print("Email: $email");
+            print("Password: $password");
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => CustomerPage()),

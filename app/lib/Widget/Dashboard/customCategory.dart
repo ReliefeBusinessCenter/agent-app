@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CustomCategory extends StatefulWidget {
+  final String text;
+  final Function onPressed;
+
+  CustomCategory({required this.text, required this.onPressed});
   @override
   _CustomCategoryState createState() => _CustomCategoryState();
 }
@@ -22,13 +26,15 @@ class _CustomCategoryState extends State<CustomCategory> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.05),
               decoration: BoxDecoration(
                   color: this._color, borderRadius: BorderRadius.circular(15)),
-              width: MediaQuery.of(context).size.width * 0.3,
-              height: MediaQuery.of(context).size.height * 0.05,
+              // width: MediaQuery.of(context).size.width * 0.2,
+              height: MediaQuery.of(context).size.height * 0.035,
               child: Center(
                 child: Text(
-                  "All",
+                  widget.text,
                   // textAlign: TextAlign.center,
                   style: TextStyle(color: this._fontColor),
                 ),

@@ -2,8 +2,12 @@ import 'package:app/Widget/Dashboard/broker.dart';
 import 'package:app/Widget/Dashboard/customCategory.dart';
 import 'package:app/Widget/Dashboard/customSearchBar.dart';
 import 'package:app/screens/drawer.dart';
+import 'package:app/screens/favorite_screen.dart';
+import 'package:app/screens/history_screen.dart';
+import 'package:app/screens/map_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'home_fragment_screen.dart';
 import 'profile_screen.dart';
 import '../constants/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -46,81 +50,7 @@ class _CustomerPageState extends State<CustomerPage> {
         child: CustomerDrawer(),
       ),
       drawerEnableOpenDragGesture: true,
-      body: Container(
-        color: Color(0xFFf2f6f9),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: SearchTextField(),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    CustomCategory(),
-                    CustomCategory(),
-                    CustomCategory(),
-                    CustomCategory(),
-                    CustomCategory(),
-                    CustomCategory(),
-                    CustomCategory(),
-                    CustomCategory(),
-                    CustomCategory(),
-                    CustomCategory(),
-                    CustomCategory(),
-                  ],
-                ),
-              ),
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
-                children: [
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        Broker(),
-                        Broker(),
-                      ],
-                    ),
-                  ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        Broker(),
-                        Broker(),
-                      ],
-                    ),
-                  ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        Broker(),
-                        Broker(),
-                      ],
-                    ),
-                  ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        Broker(),
-                        Broker(),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+      body: _getDrawerItemWidget(this._selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -132,19 +62,19 @@ class _CustomerPageState extends State<CustomerPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.business,
+              Icons.history,
             ),
-            label: 'Business',
+            label: 'History',
             backgroundColor: Colors.white,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'School',
+            icon: Icon(Icons.location_on),
+            label: 'Map',
             backgroundColor: Colors.white,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
+            icon: Icon(Icons.star),
+            label: 'Favorit',
             backgroundColor: Colors.white,
           ),
         ],
@@ -160,5 +90,21 @@ class _CustomerPageState extends State<CustomerPage> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  _getDrawerItemWidget(int index) {
+    switch (index) {
+      case 0:
+        return new HomeFragment();
+      case 1:
+        return new HistoryScreen();
+      case 2:
+        return new MapScreen();
+      case 3:
+        return new FavoritScreen();
+
+      default:
+        return new HomeFragment();
+    }
   }
 }

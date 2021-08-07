@@ -6,6 +6,7 @@ class RecoveryEmailTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     final _myemailController = TextEditingController();
     return CustomTextField(
+      isObsecure: false,
       textFieldName: "Enter Email",
       controller: _myemailController,
       icon: Icon(Icons.email, color: Colors.black),

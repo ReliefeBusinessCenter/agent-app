@@ -1,9 +1,13 @@
+import 'package:app/screens/account_screen.dart';
+import 'package:app/screens/login.dart';
 import 'package:flutter/material.dart';
 
 class CustomerDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Theme.of(context).primaryColor.withOpacity(0.5),
+      width: MediaQuery.of(context).size.width * 0.8,
       child: Column(
         children: [
           UserAccountsDrawerHeader(
@@ -13,34 +17,32 @@ class CustomerDrawer extends StatelessWidget {
               backgroundImage: AssetImage("assets/images/16.jpg"),
             ),
             arrowColor: Theme.of(context).accentColor,
-//              decoration: BoxDecoration(
-//                gradient: LinearGradient(begin: Alignment.bottomLeft,end: Alignment.topRight,
-//                    colors:[Colors.blue,Colors.green]
-//                ),
-//                // color: Colors.purpleAccent
-//              ),
+            decoration: BoxDecoration(color: Theme.of(context).primaryColor),
           ),
           ListTile(
             leading: Icon(
               Icons.contact_page,
-              color: Theme.of(context).textTheme.bodyText2!.color,
+              color: Colors.white,
             ),
             title: Text(
               'Account',
               style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyText2!.color,
+                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 15),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AccountScreen()),
+              );
+            },
           ),
           // ListTile(
           //   leading: Icon(Icons.favorite),
           //   title: Text('favorite'),
           // ),
-          Divider(
-            height: 20,
-          ),
+          Divider(height: 20, color: Colors.white.withOpacity(0.6)),
           ListTile(
               leading: Icon(
                 Icons.logout,
@@ -54,7 +56,8 @@ class CustomerDrawer extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
               onTap: () {
-//                Navigator.of(context).pop();
+                // Navigator.pop(context);
+                Navigator.popAndPushNamed(context, Login.routeName);
               }),
           Divider(
             height: 20,

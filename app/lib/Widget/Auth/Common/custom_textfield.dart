@@ -2,6 +2,7 @@ import 'package:app/constants/login/size.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
+  final bool isObsecure;
   final String textFieldName;
   final Icon icon;
   final TextEditingController controller;
@@ -9,6 +10,7 @@ class CustomTextField extends StatelessWidget {
   CustomTextField(
       {required this.textFieldName,
       required this.controller,
+      required this.isObsecure,
       required this.icon});
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,7 @@ class CustomTextField extends StatelessWidget {
       child: Container(
         width: loginSize.getTextFieldWidth,
         child: TextField(
+          obscureText: this.isObsecure,
           controller: this.controller,
           // obscureText: !ispassshow,
           keyboardType: TextInputType.text,
@@ -41,6 +44,7 @@ class CustomTextField extends StatelessWidget {
             //     });
             //   },
             // ),
+
             hintText: this.textFieldName,
           ),
         ),

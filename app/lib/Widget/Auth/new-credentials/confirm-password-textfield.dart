@@ -7,6 +7,7 @@ class ConfirmPasswordTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     final _mypasswordController = TextEditingController();
     return CustomTextField(
+      isObsecure: true,
       textFieldName: "Confirm Password",
       controller: _mypasswordController,
       icon: Icon(

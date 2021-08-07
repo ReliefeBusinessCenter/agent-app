@@ -1,3 +1,4 @@
+import 'package:app/screens/brokers_detail_screen.dart';
 import 'package:flutter/material.dart';
 
 class Broker extends StatelessWidget {
@@ -6,7 +7,12 @@ class Broker extends StatelessWidget {
     String image =
         'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Spaghetti_Bolognese_mit_Parmesan_oder_Grana_Padano.jpg/800px-Spaghetti_Bolognese_mit_Parmesan_oder_Grana_Padano.jpg';
     return InkWell(
-      onTap: () {},
+      onTap: () {
+       Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => BrokersProfilePage()),
+            );
+      },
       child: SizedBox(
         width: MediaQuery.of(context).size.width * 0.5,
         height: MediaQuery.of(context).size.width * 0.7,
@@ -38,7 +44,7 @@ class Broker extends StatelessWidget {
                 color: Theme.of(context).primaryColor.withOpacity(0.1),
                 child: Center(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(11.0),
                     child: Text(
                       "Yared Solomon",
                       style: TextStyle(
@@ -83,7 +89,10 @@ class Broker extends StatelessWidget {
                     ),
                     IconButton(
                       color: Theme.of(context).primaryColor,
-                      icon: Icon(Icons.star_border),
+                      icon: Icon(
+                        Icons.star_border,
+                        size: MediaQuery.of(context).size.width * 0.07,
+                      ),
                       onPressed: () {},
                     ),
                   ],

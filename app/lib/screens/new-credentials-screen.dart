@@ -11,30 +11,32 @@ class NewCredentialsScreen extends StatelessWidget {
     double width = screenSize.width;
     double fontSize1 = height * 0.04;
 
-    return Material(
-      child: Container(
-        color: Theme.of(context).accentColor,
-        child: Column(
-          children: [
-            Welcome(),
-            SizedBox(
-              height: height * 0.04,
-            ),
-            NewCredentialText(),
-            SizedBox(
-              height: height * 0.06,
-            ),
-            NewPasswordTextField(),
-            SizedBox(height: height * 0.01),
-            ConfirmPasswordTextField(),
-            SizedBox(
-              height: height * 0.06,
-            ),
-            UpdateButton(),
-            SizedBox(
-              height: height * 0.03,
-            ),
-          ],
+    return Scaffold(
+      backgroundColor: Theme.of(context).accentColor,
+      body: SingleChildScrollView(
+        child: Expanded(
+          child: Column(
+            children: [
+              Welcome(),
+              SizedBox(
+                height: height * 0.04,
+              ),
+              NewCredentialText(),
+              SizedBox(
+                height: height * 0.06,
+              ),
+              NewPasswordTextField(),
+              SizedBox(height: height * 0.01),
+              ConfirmPasswordTextField(),
+              SizedBox(
+                height: height * 0.06,
+              ),
+              UpdateButton(),
+              SizedBox(
+                height: height * 0.03,
+              ),
+            ],
+          ),
         ),
       ),
     );

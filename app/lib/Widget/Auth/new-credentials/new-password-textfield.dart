@@ -7,6 +7,7 @@ class NewPasswordTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     final _myemailController = TextEditingController();
     return CustomTextField(
+        isObsecure: true,
         textFieldName: "New Password",
         controller: _myemailController,
         icon: Icon(

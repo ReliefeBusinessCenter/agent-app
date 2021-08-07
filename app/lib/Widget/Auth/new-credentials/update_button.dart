@@ -1,5 +1,7 @@
 import 'package:app/constants/login/size.dart';
+import 'package:app/screens/customerPage.dart';
 import 'package:app/screens/home_screen.dart';
+
 import 'package:flutter/material.dart';
 
 class UpdateButton extends StatelessWidget {
@@ -15,11 +17,9 @@ class UpdateButton extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Home()),
+              MaterialPageRoute(builder: (context) => CustomerPage()),
             );
           },
-
-          // onTap: () => _pushPage(context, Register()),
           child: Material(
             color: Theme.of(context).primaryColor,
             shape:
