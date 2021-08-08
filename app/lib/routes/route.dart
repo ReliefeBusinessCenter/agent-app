@@ -1,3 +1,4 @@
+import 'package:app/screens/brokers_detail_screen.dart';
 import 'package:app/screens/customerPage.dart';
 import 'package:app/screens/new-credentials-screen.dart';
 import 'package:app/screens/password_reset_screen.dart';
@@ -16,10 +17,14 @@ class AppRoutes {
       return MaterialPageRoute(builder: (context) => Home());
     } else if (settings.name == CustomerPage.routeName) {
       return MaterialPageRoute(builder: (context) => CustomerPage());
+      // } else if (settings.name == BrokersProfilePage.routeName) {
+      //   return MaterialPageRoute(builder: (context) => BrokersProfilePage());
+      // }
     } else if (settings.name == NewCredentialsScreen.routeName) {
       return MaterialPageRoute(builder: (context) => NewCredentialsScreen());
     } else if (settings.name == PasswordReset.routeName)
       return MaterialPageRoute(builder: (context) => PasswordReset());
+
     return MaterialPageRoute(builder: (context) => Login());
   }
 }

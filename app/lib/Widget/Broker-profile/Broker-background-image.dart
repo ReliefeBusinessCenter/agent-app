@@ -1,8 +1,15 @@
+import 'package:app/constants/customer-page/categories.dart';
+import 'package:app/model/broker.dart';
+import 'package:app/model/category.dart';
 import 'package:flutter/material.dart';
 
 class BrokerBackgroundImage extends StatelessWidget {
+  final Broker broker;
+  BrokerBackgroundImage({required this.broker});
   @override
   Widget build(BuildContext context) {
+    Category category = DUMMY_CATEGORIES
+        .firstWhere((element) => element.id == broker.categoryId);
     return Container(
       height: MediaQuery.of(context).size.height * 0.27,
       child: Stack(
@@ -27,11 +34,11 @@ class BrokerBackgroundImage extends StatelessWidget {
                 CircleAvatar(
                   maxRadius: MediaQuery.of(context).size.width * 0.15,
                   // minRadius: MediaQuery.of(context).size.width * 0.4,
-                  backgroundImage: AssetImage('assets/images/16.jpg'),
+                  backgroundImage: AssetImage(broker.image),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("Yared Solomon",
+                  child: Text(broker.name,
                       style: TextStyle(
                         fontSize: 20,
                         color: Theme.of(context).primaryColor.withOpacity(0.95),
@@ -42,7 +49,7 @@ class BrokerBackgroundImage extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text('House Broker',
+                      child: Text("${category.name} broker",
                           style: TextStyle(
                             fontSize: 15,
                             color:

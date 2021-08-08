@@ -4,17 +4,19 @@ import 'package:app/Widget/Broker-profile/custome_button.dart';
 import 'package:app/Widget/Broker-profile/hire_button.dart';
 import 'package:app/Widget/Broker-profile/select_option.dart';
 import 'package:app/Widget/Broker-profile/work_section.dart';
+import 'package:app/model/broker.dart';
 import 'package:flutter/material.dart';
 
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class BrokersProfilePage extends StatelessWidget {
   static const routeName = '/user/category/services/technicians/detail';
-  // final Technician technician;
-
-  // const UserTechnicianDetail({Key key, this.technician}) : super(key: key);
+  final Broker broker;
+  BrokersProfilePage({required this.broker});
   @override
   Widget build(BuildContext context) {
+    // Broker broker = ModalRoute.of(context)!.settings.arguments as Broker;
+    print("Broker name ${broker.name}");
     return Scaffold(
       backgroundColor: Color(0xFFf2f6f9),
       appBar: AppBar(),
@@ -34,19 +36,23 @@ class BrokersProfilePage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.max,
       children: [
-        BrokerBackgroundImage(),
+        BrokerBackgroundImage(
+          broker: this.broker,
+        ),
         SizedBox(height: MediaQuery.of(context).size.height * 0.05),
         SelectOption(),
         SizedBox(height: MediaQuery.of(context).size.height * 0.045),
-        AboutSection(),
+        AboutSection(broker: broker),
         divider,
-        WorkSection(),
+        WorkSection(broker: broker),
         divider,
         _buildPortifolioSection(context),
         Expanded(
           child: Container(),
         ),
-        HireButton(),
+        HireButton(
+          broker: broker,
+        ),
       ],
     );
   }

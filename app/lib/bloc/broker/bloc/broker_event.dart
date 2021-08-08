@@ -5,7 +5,8 @@ abstract class BrokerEvent {}
 
 class SelectEvent extends BrokerEvent {
   final int categoryId;
-  SelectEvent({required this.categoryId});
+  final String search;
+  SelectEvent({required this.categoryId, required this.search});
 }
 
 class SearchEvent extends BrokerEvent {

@@ -1,6 +1,9 @@
+import 'package:app/model/broker.dart';
 import 'package:flutter/material.dart';
 
 class AboutSection extends StatelessWidget {
+  final Broker broker;
+  AboutSection({required this.broker});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,7 +24,7 @@ class AboutSection extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text("Hi I'm Yared Solomon a Broking  Expert from addis."),
+            child: Text("${broker.about}"),
           ),
         ],
       ),

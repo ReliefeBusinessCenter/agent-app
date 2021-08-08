@@ -13,6 +13,7 @@ class SelectOption extends StatelessWidget {
           children: [
             Expanded(
               child: CustomButton(
+                brokerName: '',
                 label: 'Profile',
                 backgroundColor: Theme.of(context).primaryColor,
                 foregroundColor: Colors.white,
@@ -21,6 +22,7 @@ class SelectOption extends StatelessWidget {
             ),
             Expanded(
               child: CustomButton(
+                brokerName: '',
                 label: 'Views',
                 backgroundColor: Colors.white,
                 foregroundColor: Theme.of(context).primaryColor,

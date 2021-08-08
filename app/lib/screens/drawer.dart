@@ -1,3 +1,4 @@
+import 'package:app/Widget/Drawer/custom_list.dart';
 import 'package:app/screens/account_screen.dart';
 import 'package:app/screens/login.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +7,8 @@ class CustomerDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).primaryColor.withOpacity(0.5),
-      width: MediaQuery.of(context).size.width * 0.8,
+      color: Theme.of(context).primaryColor,
+      width: MediaQuery.of(context).size.width * 0.6,
       child: Column(
         children: [
           UserAccountsDrawerHeader(
@@ -19,25 +20,80 @@ class CustomerDrawer extends StatelessWidget {
             arrowColor: Theme.of(context).accentColor,
             decoration: BoxDecoration(color: Theme.of(context).primaryColor),
           ),
-          ListTile(
-            leading: Icon(
+          CustomeList(
+            title: "Account",
+            subTitle: "Update Profile",
+            icon: Icon(
               Icons.contact_page,
               color: Colors.white,
             ),
-            title: Text(
-              'Account',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15),
-            ),
-            onTap: () {
+            onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => AccountScreen()),
               );
             },
           ),
+          CustomeList(
+            title: "Agent",
+            subTitle: "Become an agent",
+            icon: Icon(
+              Icons.support_agent,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              print("Setting apge");
+            },
+          ),
+          ListTile(
+            title: Text("Settings",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15)),
+            leading: Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
+          ),
+          CustomeList(
+            title: "Share",
+            subTitle: "Share this app",
+            icon: Icon(
+              Icons.share,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              print("share");
+            },
+          ),
+          // ListTile(
+          // leading: Icon(
+          //   Icons.contact_page,
+          //   color: Colors.white,
+          // ),
+          //   title: Text(
+          //     'Account',
+          //     style: TextStyle(
+          //         color: Colors.white,
+          //         fontWeight: FontWeight.bold,
+          //         fontSize: 15),
+          //   ),
+          //   subtitle: Text(
+          //     "Update Profile",
+          //     style: TextStyle(
+          //       color: Colors.white.withOpacity(0.7),
+          //       fontWeight: FontWeight.w300,
+          //       // fontSize: 15
+          //     ),
+          //   ),
+          //   onTap: () {
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => AccountScreen()),
+          // );
+          //   },
+          // ),
           // ListTile(
           //   leading: Icon(Icons.favorite),
           //   title: Text('favorite'),
@@ -63,13 +119,14 @@ class CustomerDrawer extends StatelessWidget {
             height: 20,
           ),
           ListTile(
-            trailing: Icon(Icons.close),
+            trailing: Icon(Icons.close, color: Colors.white.withOpacity(0.7)),
             title: Text(
               'Close',
               style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyText2!.color,
-                  fontSize: 15,
-                  fontWeight: FontWeight.normal),
+                fontSize: 15,
+                color: Colors.white.withOpacity(0.7),
+                fontWeight: FontWeight.w300,
+              ),
             ),
             onTap: () {
               Navigator.of(context).pop();
@@ -77,6 +134,13 @@ class CustomerDrawer extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+
+  void goToProfilePage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AccountScreen()),
     );
   }
 }

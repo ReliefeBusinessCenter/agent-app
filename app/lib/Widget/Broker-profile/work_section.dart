@@ -1,9 +1,12 @@
+import 'package:app/model/broker.dart';
 import 'package:flutter/material.dart';
 
 import 'custome_circular_step_progress.dart';
 import 'work-detail.dart';
 
 class WorkSection extends StatelessWidget {
+  final Broker broker;
+  WorkSection({required this.broker});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,23 +17,23 @@ class WorkSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             WorkDetail(
-              circularStepProgressIndicator:
-                  CustomeCircularStepProgress(currentStep: 20),
+              circularStepProgressIndicator: CustomeCircularStepProgress(
+                  currentStep: broker.completedWorks.toInt()),
               label: 'Completed \nworks',
             ),
             WorkDetail(
-              circularStepProgressIndicator:
-                  CustomeCircularStepProgress(currentStep: 40),
+              circularStepProgressIndicator: CustomeCircularStepProgress(
+                  currentStep: broker.workInProgress.toInt()),
               label: 'Work In \n Progress',
             ),
             WorkDetail(
-              circularStepProgressIndicator:
-                  CustomeCircularStepProgress(currentStep: 60),
+              circularStepProgressIndicator: CustomeCircularStepProgress(
+                  currentStep: broker.communicationSkill.toInt()),
               label: 'Communication \Skill',
             ),
             WorkDetail(
-              circularStepProgressIndicator:
-                  CustomeCircularStepProgress(currentStep: 80),
+              circularStepProgressIndicator: CustomeCircularStepProgress(
+                  currentStep: broker.brokingSkill.toInt()),
               label: 'Broking\n Skill',
             ),
           ],

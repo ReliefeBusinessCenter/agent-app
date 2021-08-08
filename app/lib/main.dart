@@ -1,8 +1,11 @@
 import 'package:app/bloc/broker/bloc/broker_bloc.dart';
+import 'package:app/bloc/favorit/bloc/favorite_bloc.dart';
+import 'package:app/repository/brokersRepository.dart';
 import 'package:app/routes/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'data_provider/brokersDataProvider.dart';
 import 'screens/login.dart';
 
 import './screens/home_screen.dart';
@@ -12,13 +15,20 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  // BrokersDataProvider brokersDataProvider = new BrokersDataProvider();
+  BrokersRepository brokersRepository =
+      new BrokersRepository(brokerDataProvider: BrokersDataProvider());
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
           BlocProvider<BrokerBloc>(
-            create: (_) => BrokerBloc()..add(SelectEvent(categoryId: 0)),
-          )
+            create: (_) => BrokerBloc(brokersRepository: brokersRepository)
+              ..add(FetchEvent()),
+          ),
+          BlocProvider<FavoriteBloc>(
+            create: (_) => FavoriteBloc()..add(Initial()),
+          ),
         ],
         child: MaterialApp(
           title: 'DeliMeals',
