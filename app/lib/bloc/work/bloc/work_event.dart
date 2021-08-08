@@ -1,0 +1,18 @@
+part of 'work_bloc.dart';
+
+abstract class WorkEvent extends Equatable {
+  const WorkEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+class AddWork extends WorkEvent {
+  final Work work;
+  AddWork({required this.work});
+}
+
+class DeleteWork extends WorkEvent {
+  final Work work;
+  DeleteWork({required this.work});
+}
