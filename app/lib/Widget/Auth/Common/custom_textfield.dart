@@ -23,6 +23,9 @@ class CustomTextField extends StatelessWidget {
       child: Container(
         width: loginSize.getTextFieldWidth,
         child: TextField(
+          onChanged: (value) {
+            print("Item : ${value}");
+          },
           obscureText: this.isObsecure,
           controller: this.controller,
           // obscureText: !ispassshow,
@@ -34,17 +37,6 @@ class CustomTextField extends StatelessWidget {
             contentPadding: EdgeInsets.only(top: 14),
             prefixIcon: this.icon,
             border: InputBorder.none,
-            // suffixIcon: IconButton(
-            //   icon: Icon(ispassshow
-            //       ? Icons.visibility
-            //       : Icons.visibility_off),
-            //   onPressed: () {
-            //     setState(() {
-            //       ispassshow = !ispassshow;
-            //     });
-            //   },
-            // ),
-
             hintText: this.textFieldName,
           ),
         ),

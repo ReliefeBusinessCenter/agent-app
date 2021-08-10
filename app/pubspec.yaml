@@ -36,6 +36,9 @@ dependencies:
   step_progress_indicator: ^1.0.1
   flutter_bloc: ^7.1.0
   awesome_dialog: ^2.1.0
+  file_picker: ^3.0.4
+  file: ^6.1.2
+  flutter_switch: ^0.3.2
 
 
 dev_dependencies:

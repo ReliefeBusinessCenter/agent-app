@@ -7,7 +7,7 @@ abstract class FavoriteEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class Initial extends FavoriteEvent {}
+class FavoriteInitialFetch extends FavoriteEvent {}
 
 class Favorite extends FavoriteEvent {
   final Broker broker;

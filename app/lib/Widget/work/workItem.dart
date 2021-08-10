@@ -1,8 +1,17 @@
+import 'package:app/bloc/work/bloc/work_bloc.dart';
+import 'package:app/model/work.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WorkItem extends StatelessWidget {
+  late WorkBloc workBloc;
+  final Work work;
+  WorkItem({required this.work});
   @override
   Widget build(BuildContext context) {
+    workBloc = BlocProvider.of<WorkBloc>(context);
+
     return Card(
       color: Theme.of(context).accentColor,
       elevation: 1.0,
@@ -18,7 +27,7 @@ class WorkItem extends StatelessWidget {
           child: Icon(Icons.work, color: Theme.of(context).primaryColor),
         ),
         title: Text(
-          "Business Broking",
+          work.WorkName,
           style: TextStyle(
               color: Theme.of(context).primaryColor,
               fontWeight: FontWeight.bold),
@@ -29,7 +38,7 @@ class WorkItem extends StatelessWidget {
           children: <Widget>[
             Icon(Icons.pending,
                 color: Theme.of(context).primaryColor.withOpacity(0.4)),
-            Text(" Pending",
+            Text(work.WorkStatus,
                 style: TextStyle(color: Theme.of(context).primaryColor))
           ],
         ),
@@ -38,7 +47,35 @@ class WorkItem extends StatelessWidget {
               Icons.more_vert,
               color: Theme.of(context).primaryColor,
             ),
-            onSelected: (value) async {},
+            onSelected: (value) async {
+              if (value == 1) {
+                // make it done
+                AwesomeDialog(
+                  context: context,
+                  dialogType: DialogType.INFO,
+                  animType: AnimType.BOTTOMSLIDE,
+                  title: 'Action Not Allowed',
+                  desc:
+                      'To change the done status of this work, the broker should respond first',
+                  btnCancelOnPress: () {},
+                  btnOkOnPress: () {},
+                )..show();
+              } else {
+                // delete the work history.
+                AwesomeDialog(
+                  context: context,
+                  dialogType: DialogType.WARNING,
+                  animType: AnimType.BOTTOMSLIDE,
+                  title: 'Confirm Us',
+                  desc: 'Are you sure you want to delete this work?',
+                  btnCancelOnPress: () {},
+                  btnOkOnPress: () {
+                    workBloc.add(DeleteWork(work: work));
+                    // Navigator.pop(context);
+                  },
+                )..show();
+              }
+            },
             itemBuilder: (context) => [
                   PopupMenuItem(
                     child: Icon(Icons.done, color: Colors.green),

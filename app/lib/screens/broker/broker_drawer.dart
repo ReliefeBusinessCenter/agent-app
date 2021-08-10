@@ -1,11 +1,22 @@
 import 'package:app/Widget/Drawer/custom_list.dart';
 import 'package:app/screens/account_screen.dart';
 import 'package:app/screens/becomeAnAgent.dart';
+import 'package:app/screens/broker/broker_account_screen.dart';
+import 'package:app/screens/broker/broker_main_page.dart';
 import 'package:app/screens/customerPage.dart';
 import 'package:app/screens/login.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 
-class CustomerDrawer extends StatelessWidget {
+import 'saving_and_loans.dart';
+
+class BrokerDrawer extends StatefulWidget {
+  @override
+  _BrokerDrawerState createState() => _BrokerDrawerState();
+}
+
+class _BrokerDrawerState extends State<BrokerDrawer> {
+  bool status = false;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,6 +33,25 @@ class CustomerDrawer extends StatelessWidget {
             arrowColor: Theme.of(context).accentColor,
             decoration: BoxDecoration(color: Theme.of(context).primaryColor),
           ),
+          Container(
+            alignment: Alignment.topLeft,
+            child: FlutterSwitch(
+              width: MediaQuery.of(context).size.width * 0.24,
+              height: MediaQuery.of(context).size.height * 0.04,
+              valueFontSize: 15.0,
+              toggleSize: 15.0,
+              value: status,
+              borderRadius: 30.0,
+              padding: 8.0,
+              showOnOff: true,
+              onToggle: (val) {
+                setState(() {
+                  status = val;
+                });
+              },
+            ),
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.03),
           CustomeList(
             title: "Dashboard",
             subTitle: "See List of brokers",
@@ -30,7 +60,7 @@ class CustomerDrawer extends StatelessWidget {
               color: Colors.white,
             ),
             onPressed: () {
-              Navigator.pushNamed(context, CustomerPage.routeName);
+              Navigator.pushNamed(context, BrokerMain.routeName);
             },
           ),
           CustomeList(
@@ -41,22 +71,18 @@ class CustomerDrawer extends StatelessWidget {
               color: Colors.white,
             ),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => AccountScreen()),
-              );
+              Navigator.pushNamed(context, BrokerAccountScreen.routeName);
             },
           ),
           CustomeList(
-            title: "Agent",
-            subTitle: "Become an agent",
+            title: "Saving and Loans",
+            subTitle: "Wallet",
             icon: Icon(
-              Icons.support_agent,
+              Icons.attach_money,
               color: Colors.white,
             ),
             onPressed: () {
-              print("Setting apge");
-              Navigator.pushNamed(context, BecomeAnAgent.routeName);
+              Navigator.pushNamed(context, SavingAndLoan.routeName);
             },
           ),
           ListTile(

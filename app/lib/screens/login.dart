@@ -1,15 +1,24 @@
 import 'package:app/Widget/Auth/auth-export.dart';
+import 'package:app/logic/login/login.dart';
 import 'package:app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatelessWidget {
   static String routeName = "/login";
+  TextEditingController passwordController = new TextEditingController();
+  TextEditingController emailController = new TextEditingController();
+  void loginHandler(BuildContext context) {
+    print("Login Handler state");
+    print("Email:${emailController.text}");
+    print("Password:${passwordController.text}");
+    LoginLogic(
+            email: emailController.text.toString(),
+            password: passwordController.text.toString())
+        .build(context);
+  }
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController passwordController = new TextEditingController();
-    TextEditingController emailController = new TextEditingController();
-
     EmailTextField emailTextField = new EmailTextField(
       myemailController: emailController,
     );
@@ -34,16 +43,20 @@ class Login extends StatelessWidget {
               SizedBox(
                 height: height * 0.06,
               ),
-              emailTextField,
+              CustomTextField(
+                  textFieldName: "Enter Email",
+                  controller: emailController,
+                  isObsecure: false,
+                  icon: Icon(
+                    Icons.email,
+                    color: Colors.black,
+                  )),
               SizedBox(height: height * 0.01),
               passwordTextField,
               SizedBox(
                 height: height * 0.06,
               ),
-              LoginButton(
-                email: emailController.text,
-                password: passwordController.text,
-              ),
+              LoginButton(onPressed: () => loginHandler(context)),
               SizedBox(
                 height: height * 0.03,
               ),

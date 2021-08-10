@@ -7,6 +7,8 @@ abstract class WorkEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class WorkInitialFetch extends WorkEvent {}
+
 class AddWork extends WorkEvent {
   final Work work;
   AddWork({required this.work});

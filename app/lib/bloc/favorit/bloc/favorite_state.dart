@@ -1,6 +1,6 @@
 part of 'favorite_bloc.dart';
 
-class FavoriteState extends Equatable {
+class FavoriteState {
   final List<Broker> favorit_brokers;
 
   FavoriteState({required this.favorit_brokers});
@@ -11,4 +11,10 @@ class FavoriteState extends Equatable {
 
 class FavoriteInitial extends FavoriteState {
   FavoriteInitial() : super(favorit_brokers: []);
+}
+
+class UnFavoriteSuccess extends FavoriteState {
+  final List<Broker> favorit_brokers;
+  UnFavoriteSuccess({required this.favorit_brokers})
+      : super(favorit_brokers: favorit_brokers);
 }

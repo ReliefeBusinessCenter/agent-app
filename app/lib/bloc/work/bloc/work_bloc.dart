@@ -8,7 +8,7 @@ part 'work_event.dart';
 part 'work_state.dart';
 
 class WorkBloc extends Bloc<WorkEvent, WorkState> {
-  WorkBloc() : super(WorkInitial());
+  WorkBloc() : super(WorkInitial(work_history: []));
 
   @override
   Stream<WorkState> mapEventToState(
@@ -20,17 +20,18 @@ class WorkBloc extends Bloc<WorkEvent, WorkState> {
       if (!works.contains(event.work)) {
         works.add(event.work);
       }
-      yield (WorkState(work_history: works));
+      yield (AdddWorkSuccess(work_history: works));
     } else if (event is DeleteWork) {
       //  Delete event
       List<Work> works = state.work_history;
       if (works.contains(event.work)) {
         works.remove(event.work);
       }
-      yield (WorkState(work_history: works));
+      yield (DeleteSuccessState(work_history: works));
     } else {
       // Initial
-      yield (WorkState(work_history: []));
+      List<Work> works = state.work_history;
+      yield WorkInitial(work_history: works);
     }
   }
 }

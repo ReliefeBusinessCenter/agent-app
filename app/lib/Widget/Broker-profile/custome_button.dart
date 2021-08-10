@@ -2,7 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  final Function onTap;
+  final VoidCallback onTap;
   final Color backgroundColor;
   final Color foregroundColor;
   final String label;
@@ -32,28 +32,6 @@ class CustomButton extends StatelessWidget {
                 )),
           ),
         ),
-        onTap: () {
-          // Navigator.pop(context);
-          AwesomeDialog(
-            context: context,
-            dialogType: DialogType.INFO,
-            animType: AnimType.BOTTOMSLIDE,
-            title: 'Confirm Us',
-            desc: 'You are Hiring $brokerName. Do you want to continue?',
-            btnCancelOnPress: () {},
-            btnOkOnPress: () {
-              AwesomeDialog(
-                context: context,
-                dialogType: DialogType.SUCCES,
-                animType: AnimType.BOTTOMSLIDE,
-                title: 'Success',
-                desc: 'Your process have been successfully processed.',
-                btnOkOnPress: () {
-                  Navigator.pop(context);
-                },
-              )..show();
-            },
-          )..show();
-        });
+        onTap: this.onTap);
   }
 }

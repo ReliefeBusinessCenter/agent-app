@@ -31,8 +31,8 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
         favorites.remove(event.broker);
       }
 
-      yield (FavoriteState(favorit_brokers: favorites));
-    } else if (event is Initial) {
+      yield UnFavoriteSuccess(favorit_brokers: favorites);
+    } else if (event is FavoriteInitialFetch) {
       yield FavoriteInitial();
     }
   }

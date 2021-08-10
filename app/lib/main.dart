@@ -1,5 +1,6 @@
 import 'package:app/bloc/broker/bloc/broker_bloc.dart';
 import 'package:app/bloc/favorit/bloc/favorite_bloc.dart';
+import 'package:app/bloc/work/bloc/work_bloc.dart';
 import 'package:app/repository/brokersRepository.dart';
 import 'package:app/routes/route.dart';
 import 'package:flutter/material.dart';
@@ -23,11 +24,13 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider<BrokerBloc>(
-            create: (_) => BrokerBloc(brokersRepository: brokersRepository)
-              ..add(FetchEvent()),
-          ),
+              create: (_) => BrokerBloc(brokersRepository: brokersRepository)
+                ..add(FetchEvent())),
           BlocProvider<FavoriteBloc>(
-            create: (_) => FavoriteBloc()..add(Initial()),
+            create: (_) => FavoriteBloc()..add(FavoriteInitialFetch()),
+          ),
+          BlocProvider<WorkBloc>(
+            create: (_) => WorkBloc()..add(WorkInitialFetch()),
           ),
         ],
         child: MaterialApp(
