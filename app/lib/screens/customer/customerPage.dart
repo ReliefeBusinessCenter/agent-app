@@ -1,15 +1,17 @@
 import 'package:app/Widget/Dashboard/broker.dart';
 import 'package:app/Widget/Dashboard/customCategory.dart';
 import 'package:app/Widget/Dashboard/customSearchBar.dart';
-import 'package:app/screens/drawer.dart';
-import 'package:app/screens/favorite_screen.dart';
-import 'package:app/screens/history_screen.dart';
-import 'package:app/screens/map_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import '../../constants.dart';
+import 'drawer.dart';
+import 'favorite_screen.dart';
+import 'history_screen.dart';
 import 'home_fragment_screen.dart';
+import 'map_screen.dart';
 import 'profile_screen.dart';
-import '../constants/constants.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 final _scaffoldKey = GlobalKey<ScaffoldState>();

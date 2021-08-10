@@ -1,9 +1,11 @@
 import 'package:app/constants/login/size.dart';
-import 'package:app/screens/Auth/new-credentials-screen.dart';
+import 'package:app/screens/broker/broker_main_page.dart';
+import 'package:app/screens/customer/customerPage.dart';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 
-class NextButton extends StatelessWidget {
+class SavingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LoginSize loginSize = new LoginSize();
@@ -14,10 +16,17 @@ class NextButton extends StatelessWidget {
         child: InkWell(
           splashColor: Colors.white,
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => NewCredentialsScreen()),
-            );
+            AwesomeDialog(
+              context: context,
+              dialogType: DialogType.SUCCES,
+              animType: AnimType.BOTTOMSLIDE,
+              title: 'Done',
+              desc:
+                  'You have successfully registered for Saving and Loans Service',
+              btnOkOnPress: () {
+                Navigator.popAndPushNamed(context, BrokerMain.routeName);
+              },
+            )..show();
           },
 
           // onTap: () => _pushPage(context, Register()),
@@ -33,7 +42,7 @@ class NextButton extends StatelessWidget {
 
               child: Center(
                   child: Text(
-                'Next',
+                'Submit',
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,

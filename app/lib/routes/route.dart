@@ -1,15 +1,10 @@
-import 'package:app/screens/becomeAnAgent.dart';
+import 'package:app/screens/Auth/auth_exports.dart';
 import 'package:app/screens/broker/broker_account_screen.dart';
 import 'package:app/screens/broker/broker_main_page.dart';
 import 'package:app/screens/broker/saving_and_loans.dart';
-import 'package:app/screens/brokers_detail_screen.dart';
-import 'package:app/screens/customerPage.dart';
-import 'package:app/screens/new-credentials-screen.dart';
-import 'package:app/screens/password_reset_screen.dart';
+import 'package:app/screens/customer/becomeAnAgent.dart';
+import 'package:app/screens/customer/customerPage.dart';
 import 'package:flutter/material.dart';
-
-import '../screens/home_screen.dart';
-import '../screens/login.dart';
 
 bool isAuthenticated = false;
 

@@ -1,6 +1,5 @@
 import 'package:app/constants/login/size.dart';
-import 'package:app/screens/customerPage.dart';
-import 'package:app/screens/home_screen.dart';
+import 'package:app/screens/customer/customerPage.dart';
 
 import 'package:flutter/material.dart';
 

@@ -1,9 +1,11 @@
 import 'package:app/Widget/Drawer/custom_list.dart';
-import 'package:app/screens/account_screen.dart';
-import 'package:app/screens/becomeAnAgent.dart';
-import 'package:app/screens/customerPage.dart';
-import 'package:app/screens/login.dart';
+import 'package:app/screens/Auth/login.dart';
+
 import 'package:flutter/material.dart';
+
+import 'account_screen.dart';
+import 'becomeAnAgent.dart';
+import 'customerPage.dart';
 
 class CustomerDrawer extends StatelessWidget {
   @override

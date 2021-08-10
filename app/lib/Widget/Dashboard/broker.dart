@@ -1,6 +1,7 @@
 import 'package:app/bloc/favorit/bloc/favorite_bloc.dart';
 import 'package:app/model/broker.dart';
-import 'package:app/screens/brokers_detail_screen.dart';
+import 'package:app/screens/customer/brokers_detail_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

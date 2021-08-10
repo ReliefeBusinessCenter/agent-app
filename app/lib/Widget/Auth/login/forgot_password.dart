@@ -1,5 +1,6 @@
 import 'package:app/constants/login/size.dart';
-import 'package:app/screens/password_reset_screen.dart';
+import 'package:app/screens/Auth/password_reset_screen.dart';
+
 import 'package:flutter/material.dart';
 
 class ResetPasswordOption extends StatelessWidget {

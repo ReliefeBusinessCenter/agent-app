@@ -1,6 +1,7 @@
+import 'package:app/screens/Auth/auth_exports.dart';
 import 'package:app/screens/broker/broker_main_page.dart';
-import 'package:app/screens/customerPage.dart';
-import 'package:app/screens/login.dart';
+import 'package:app/screens/customer/customerPage.dart';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
 

@@ -1,5 +1,6 @@
 import 'package:app/constants/login/size.dart';
-import 'package:app/screens/home_screen.dart';
+import 'package:app/screens/customer/home_screen.dart';
+
 import 'package:flutter/material.dart';
 
 class LoginButton extends StatelessWidget {

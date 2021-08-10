@@ -1,5 +1,6 @@
-import 'package:app/screens/drawer.dart';
 import 'package:flutter/material.dart';
+
+import 'drawer.dart';
 
 class AccountScreen extends StatelessWidget {
   static const routeName = '/account';

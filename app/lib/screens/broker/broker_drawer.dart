@@ -1,10 +1,9 @@
 import 'package:app/Widget/Drawer/custom_list.dart';
-import 'package:app/screens/account_screen.dart';
-import 'package:app/screens/becomeAnAgent.dart';
+import 'package:app/screens/Auth/auth_exports.dart';
+
 import 'package:app/screens/broker/broker_account_screen.dart';
 import 'package:app/screens/broker/broker_main_page.dart';
-import 'package:app/screens/customerPage.dart';
-import 'package:app/screens/login.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 
@@ -33,28 +32,30 @@ class _BrokerDrawerState extends State<BrokerDrawer> {
             arrowColor: Theme.of(context).accentColor,
             decoration: BoxDecoration(color: Theme.of(context).primaryColor),
           ),
-          Container(
+          Align(
             alignment: Alignment.topLeft,
-            child: FlutterSwitch(
-              width: MediaQuery.of(context).size.width * 0.24,
-              height: MediaQuery.of(context).size.height * 0.04,
-              valueFontSize: 15.0,
-              toggleSize: 15.0,
-              value: status,
-              borderRadius: 30.0,
-              padding: 8.0,
-              showOnOff: true,
-              onToggle: (val) {
-                setState(() {
-                  status = val;
-                });
-              },
+            child: Container(
+              alignment: Alignment.topLeft,
+              child: FlutterSwitch(
+                width: MediaQuery.of(context).size.width * 0.2,
+                height: MediaQuery.of(context).size.height * 0.03,
+                valueFontSize: 11.0,
+                toggleSize: 15.0,
+                value: status,
+                borderRadius: 30.0,
+                padding: 8.0,
+                showOnOff: true,
+                onToggle: (val) {
+                  setState(() {
+                    status = val;
+                  });
+                },
+              ),
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.03),
           CustomeList(
             title: "Dashboard",
-            subTitle: "See List of brokers",
             icon: Icon(
               Icons.dashboard,
               color: Colors.white,
@@ -62,6 +63,7 @@ class _BrokerDrawerState extends State<BrokerDrawer> {
             onPressed: () {
               Navigator.pushNamed(context, BrokerMain.routeName);
             },
+            subTitle: '',
           ),
           CustomeList(
             title: "Account",
@@ -124,8 +126,8 @@ class _BrokerDrawerState extends State<BrokerDrawer> {
                 // Navigator.pop(context);
                 Navigator.popAndPushNamed(context, Login.routeName);
               }),
-          Divider(
-            height: 20,
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.09,
           ),
           ListTile(
             trailing: Icon(Icons.close, color: Colors.white.withOpacity(0.7)),
@@ -143,13 +145,6 @@ class _BrokerDrawerState extends State<BrokerDrawer> {
           )
         ],
       ),
-    );
-  }
-
-  void goToProfilePage(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => AccountScreen()),
     );
   }
 }

@@ -1,18 +1,16 @@
 import 'package:app/Widget/Dashboard/broker.dart';
 import 'package:app/Widget/Dashboard/customCategory.dart';
 import 'package:app/Widget/Dashboard/customSearchBar.dart';
-import 'package:app/screens/broker/broker_home_fragment.dart';
-import 'package:app/screens/broker/order_history_fragment.dart';
-import 'package:app/screens/drawer.dart';
-import 'package:app/screens/favorite_screen.dart';
-import 'package:app/screens/history_screen.dart';
-import 'package:app/screens/map_screen.dart';
+import 'package:app/screens/broker/broker_chat.dart';
+import 'package:app/screens/broker/broker_customer_list.dart';
+import 'package:app/screens/broker/work_order.dart';
+import 'package:app/screens/broker/work_deals.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../home_fragment_screen.dart';
 import 'broker_drawer.dart';
 
 final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -30,20 +28,6 @@ class _BrokerMainState extends State<BrokerMain> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(
-        title: Text('Trust Brokers'),
-        backgroundColor: Theme.of(context).primaryColor,
-        leading: GestureDetector(
-          onTap: () => _scaffoldKey.currentState!.openDrawer(),
-          child: Container(
-            height: 5.0,
-            width: 5.0,
-            child: ImageIcon(
-              AssetImage('assets/images/left-align.png'),
-            ),
-          ),
-        ),
-      ),
       drawer: Theme(
         data: Theme.of(context).copyWith(
           canvasColor: Theme.of(context)
@@ -71,6 +55,20 @@ class _BrokerMainState extends State<BrokerMain> {
             label: 'Deals',
             backgroundColor: Colors.white,
           ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.people,
+            ),
+            label: 'Customers',
+            backgroundColor: Colors.white,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.chat,
+            ),
+            label: 'Chat',
+            backgroundColor: Colors.white,
+          ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Theme.of(context).primaryColor,
@@ -89,12 +87,15 @@ class _BrokerMainState extends State<BrokerMain> {
   _getDrawerItemWidget(int index) {
     switch (index) {
       case 0:
-        return new BrokerHome();
+        return new WorkOrder(scaffoldKey: _scaffoldKey);
       case 1:
-        return new BrokerOrderHistory();
-
+        return new WorkDeals(scaffoldKey: _scaffoldKey);
+      case 2:
+        return new BrokerCustomerList(scaffoldKey: _scaffoldKey);
+      case 3:
+        return new BrokerChat(scaffoldKey: _scaffoldKey);
       default:
-        return new BrokerHome();
+        return new WorkOrder(scaffoldKey: _scaffoldKey);
     }
   }
 }

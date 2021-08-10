@@ -4,7 +4,7 @@ import 'package:app/constants/customer-page/categories.dart';
 import 'package:app/model/broker.dart';
 import 'package:app/model/category.dart';
 import 'package:app/model/work.dart';
-import 'package:app/screens/home_screen.dart';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

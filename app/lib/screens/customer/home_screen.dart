@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../constants.dart';
 import 'profile_screen.dart';
-import '../constants/constants.dart';
 
 final _scaffoldKey = GlobalKey<ScaffoldState>();
 
