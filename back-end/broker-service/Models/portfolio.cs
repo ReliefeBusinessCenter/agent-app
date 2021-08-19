@@ -10,19 +10,15 @@ namespace broker.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PortfolioId { get; set; }
+         public string Image { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
 
+        // Navigational properties
         public int BrokerId { get; set; }
+        public Broker Broker { get; set; }
 
-        public string Image { get; set; }
 
-
-       public string  Name { get; set; }
-
-       public string  Description { get; set; }
-
-       public Broker Broker { get; set; }
-
-    
 
 
 

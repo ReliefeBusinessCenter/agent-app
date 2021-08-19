@@ -10,19 +10,17 @@ namespace broker.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ReviewId { get; set; }
+        public int rate { get; set; }
+
+        //  Navigational properties
 
         public int CustomerId { get; set; }
-
+        public Customer Customer { get; set; }
         public int BrokerId { get; set; }
+        public Broker Broker { get; set; }
 
 
-       public int  rate { get; set; }
 
-       public Customer Customer { get; set; }
-       public Broker Broker { get; set; }
-       
-
-    
 
 
 
