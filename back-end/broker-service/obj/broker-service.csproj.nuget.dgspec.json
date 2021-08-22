@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\yared\\Documents\\Company\\eXs\\agent\\broker-app\\back-end\\broker-service\\broker-service.csproj": {}
+    "c:\\Users\\yared\\Documents\\Company\\eXs\\agent\\broker-app\\back-end\\broker-service\\broker-service.csproj": {}
   },
   "projects": {
-    "C:\\Users\\yared\\Documents\\Company\\eXs\\agent\\broker-app\\back-end\\broker-service\\broker-service.csproj": {
+    "c:\\Users\\yared\\Documents\\Company\\eXs\\agent\\broker-app\\back-end\\broker-service\\broker-service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\yared\\Documents\\Company\\eXs\\agent\\broker-app\\back-end\\broker-service\\broker-service.csproj",
+        "projectUniqueName": "c:\\Users\\yared\\Documents\\Company\\eXs\\agent\\broker-app\\back-end\\broker-service\\broker-service.csproj",
         "projectName": "broker-service",
-        "projectPath": "C:\\Users\\yared\\Documents\\Company\\eXs\\agent\\broker-app\\back-end\\broker-service\\broker-service.csproj",
+        "projectPath": "c:\\Users\\yared\\Documents\\Company\\eXs\\agent\\broker-app\\back-end\\broker-service\\broker-service.csproj",
         "packagesPath": "C:\\Users\\yared\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\yared\\Documents\\Company\\eXs\\agent\\broker-app\\back-end\\broker-service\\obj\\",
+        "outputPath": "c:\\Users\\yared\\Documents\\Company\\eXs\\agent\\broker-app\\back-end\\broker-service\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\yared\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.1.1, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[5.0.9, )"

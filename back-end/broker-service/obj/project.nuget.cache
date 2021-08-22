@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "dhLzp1P6Te3QR/yns+3fCIOdi1ybgd0ThS1JvB4gGsLEB2YRxZ1WcX7QyDN6SaYHH8SMrsG3rPKb6s1Xmx4O1g==",
+  "dgSpecHash": "uNupQWTZkbUTwNCKQad+cJ58HePP9XP5/8hi3x6Y2w/GukKBxsoMdKTFgqLmeDkqUZOxsgpWlcmATcEeJcLi+Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\yared\\Documents\\Company\\eXs\\agent\\broker-app\\back-end\\broker-service\\broker-service.csproj",
+  "projectFilePath": "c:\\Users\\yared\\Documents\\Company\\eXs\\agent\\broker-app\\back-end\\broker-service\\broker-service.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\yared\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
+    "C:\\Users\\yared\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
     "C:\\Users\\yared\\.nuget\\packages\\entityframework\\5.0.0\\entityframework.5.0.0.nupkg.sha512",
     "C:\\Users\\yared\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\yared\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.0.0\\microsoft.aspnetcore.authentication.abstractions.2.0.0.nupkg.sha512",
@@ -101,7 +103,7 @@
     "C:\\Users\\yared\\.nuget\\packages\\system.private.datacontractserialization\\4.3.0\\system.private.datacontractserialization.4.3.0.nupkg.sha512",
     "C:\\Users\\yared\\.nuget\\packages\\system.private.uri\\4.3.2\\system.private.uri.4.3.2.nupkg.sha512",
     "C:\\Users\\yared\\.nuget\\packages\\system.reflection\\4.3.0\\system.reflection.4.3.0.nupkg.sha512",
-    "C:\\Users\\yared\\.nuget\\packages\\system.reflection.emit\\4.3.0\\system.reflection.emit.4.3.0.nupkg.sha512",
+    "C:\\Users\\yared\\.nuget\\packages\\system.reflection.emit\\4.7.0\\system.reflection.emit.4.7.0.nupkg.sha512",
     "C:\\Users\\yared\\.nuget\\packages\\system.reflection.emit.ilgeneration\\4.3.0\\system.reflection.emit.ilgeneration.4.3.0.nupkg.sha512",
     "C:\\Users\\yared\\.nuget\\packages\\system.reflection.emit.lightweight\\4.3.0\\system.reflection.emit.lightweight.4.3.0.nupkg.sha512",
     "C:\\Users\\yared\\.nuget\\packages\\system.reflection.extensions\\4.3.0\\system.reflection.extensions.4.3.0.nupkg.sha512",

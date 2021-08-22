@@ -12,6 +12,9 @@ namespace broker.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int BuyID { get; set; }
 
+        public int  UserID { get; set; }
+        public User User { get; set; }
+
 
 
 
