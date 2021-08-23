@@ -10,10 +10,11 @@ namespace broker.Models
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int BuyID { get; set; }
+        public int BuyId { get; set; }
 
-        public int  UserID { get; set; }
-        public User User { get; set; }
+        public int Quantity { get; set; }
+        public string Color { get; set; }
+        public int ProductId { get; set; }
 
 
 

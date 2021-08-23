@@ -1,5 +1,6 @@
 
 
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -26,6 +27,8 @@ namespace broker.Models
         public string Sex { get; set; }
         
         public string Role { get; set; }
+
+     public ICollection<Buy> Buys { get; set; }
 
 
 

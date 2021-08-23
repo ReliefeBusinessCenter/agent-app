@@ -13,9 +13,9 @@ namespace broker.Data
             _context = context;
         }
 
-         async Task<bool>  IRepository<User>.DeleteData(User service)
+         async Task<bool>  IRepository<User>.DeleteData(User user)
         {
-            _context.Users.Remove(service);
+            _context.Users.Remove(user);
             await _context.SaveChangesAsync();
             return true;
         }
@@ -23,28 +23,28 @@ namespace broker.Data
         async Task<List<User>> IRepository<User>.GetData()
         {
             var data = await _context.Users
-            // .Include(e => e.Role)
+             .Include(e => e.Buys)
              .ToListAsync();
             return data;
         }
 
        async Task<User> IRepository<User>.GetDataById(int id)
         {
-            return await _context.Users.FirstOrDefaultAsync(x => x.UserId == id);
+            return await _context.Users .Include(e => e.Buys).FirstOrDefaultAsync(x => x.UserId == id);
         }
 
-        async Task<User> IRepository<User>.InsertData(User service)
+        async Task<User> IRepository<User>.InsertData(User user)
         {
-             _context.Users.Add(service);
+             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-            return service;
+            return user;
         }
 
-        async Task<User> IRepository<User>.UpdateData(User service)
+        async Task<User> IRepository<User>.UpdateData(User user)
         {
-             _context.Update(service).Property(x => x.UserId).IsModified = false;
+             _context.Update(user).Property(x => x.UserId).IsModified = false;
             await _context.SaveChangesAsync();
-            return service;
+            return user;
         }
         
 

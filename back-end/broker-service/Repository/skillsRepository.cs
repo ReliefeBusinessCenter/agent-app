@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using broker.Models;
@@ -5,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace broker.Data
 {
-    public class SkillsRepository : IRepository<Broker>
+    public class SkillsRepository : IRepository<Skills>
     {
         private readonly DataContext _context;
         public SkillsRepository(DataContext context)
@@ -13,22 +14,27 @@ namespace broker.Data
             _context = context;
         }
 
-        public Task<bool> DeleteData(Broker service)
+        public async Task<bool> DeleteData(Skills skills)
         {
-            throw new System.NotImplementedException();
+              Console.WriteLine("Delete skills method invoked");
+            _context.Skills.Remove(skills);
+            await _context.SaveChangesAsync();
+            return true;
         }
     
-        public Task<List<Broker>> GetData()
+        public async Task<List<Skills>> GetData()
         {
-            throw new System.NotImplementedException();
+            Console.WriteLine("Get  Skills  method invoked");
+             var model = await _context.Skills.ToListAsync();
+            return model;
         }
 
-        public Task<Broker> GetDataById(int id)
+        public async Task<Skills> GetDataById(int id)
         {
-            throw new System.NotImplementedException();
+             return await _context.Skills.FirstOrDefaultAsync(x => x.SkillsId== id);
         }
 
-        public Task<List<Broker>> GetPaginatedData(int pageNumber, int pageSize, string orderBy, string search)
+        public Task<List<Skills>> GetPaginatedData(int pageNumber, int pageSize, string orderBy, string search)
         {
             throw new System.NotImplementedException();
         }
@@ -38,14 +44,20 @@ namespace broker.Data
             throw new System.NotImplementedException();
         }
 
-        public Task<Broker> InsertData(Broker service)
+        public async Task<Skills> InsertData(Skills skills)
         {
-            throw new System.NotImplementedException();
+             Console.WriteLine("Create Skills  data  method invoked");
+            _context.Skills.Add(skills);
+
+            await _context.SaveChangesAsync();
+            return skills;
         }
 
-        public Task<Broker> UpdateData(Broker service)
+        public async Task<Skills> UpdateData(Skills skills)
         {
-            throw new System.NotImplementedException();
+            _context.Update(skills).Property(x => x.SkillsId).IsModified = false;
+            await _context.SaveChangesAsync();
+            return skills;
         }
     }
 }

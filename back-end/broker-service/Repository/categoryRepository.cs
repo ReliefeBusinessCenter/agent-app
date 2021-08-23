@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using broker.Models;
@@ -5,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace broker.Data
 {
-    public class CategoryRepository : IRepository<Broker>
+    public class CategoryRepository : IRepository<Category>
     {
         private readonly DataContext _context;
         public CategoryRepository(DataContext context)
@@ -13,22 +14,27 @@ namespace broker.Data
             _context = context;
         }
 
-        public Task<bool> DeleteData(Broker service)
+        public async Task<bool> DeleteData(Category catigory)
         {
-            throw new System.NotImplementedException();
+              Console.WriteLine("Delete catogory method invoked");
+            _context.Catigories.Remove(catigory);
+            await _context.SaveChangesAsync();
+            return true;
         }
     
-        public Task<List<Broker>> GetData()
-        {
-            throw new System.NotImplementedException();
+        public async Task<List<Category>> GetData()
+        {   
+            Console.WriteLine("Get  catogory method invoked");
+             var model = await _context.Catigories.ToListAsync();
+            return model;
         }
 
-        public Task<Broker> GetDataById(int id)
+        public async Task<Category> GetDataById(int id)
         {
-            throw new System.NotImplementedException();
+            return await _context.Catigories.FirstOrDefaultAsync(x => x.CategoryId== id);
         }
 
-        public Task<List<Broker>> GetPaginatedData(int pageNumber, int pageSize, string orderBy, string search)
+        public Task<List<Category>> GetPaginatedData(int pageNumber, int pageSize, string orderBy, string search)
         {
             throw new System.NotImplementedException();
         }
@@ -38,14 +44,21 @@ namespace broker.Data
             throw new System.NotImplementedException();
         }
 
-        public Task<Broker> InsertData(Broker service)
+        public async Task<Category> InsertData(Category catigory)
         {
-            throw new System.NotImplementedException();
+            
+            Console.WriteLine("Create catigory  data  method invoked");
+            _context.Catigories.Add(catigory);
+
+            await _context.SaveChangesAsync();
+            return catigory;
         }
 
-        public Task<Broker> UpdateData(Broker service)
+        public async Task<Category> UpdateData(Category catigory)
         {
-            throw new System.NotImplementedException();
+            _context.Update(catigory).Property(x => x.CategoryId).IsModified = false;
+            await _context.SaveChangesAsync();
+            return catigory;
         }
     }
 }

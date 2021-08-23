@@ -10,7 +10,7 @@ using broker.Data;
 namespace broker_service.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210822195603_InitialCreate")]
+    [Migration("20210823210910_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,7 +31,7 @@ namespace broker_service.Migrations
                     b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CatigoryId")
+                    b.Property<int?>("SkillsId")
                         .HasColumnType("int");
 
                     b.Property<int?>("UserId")
@@ -39,7 +39,9 @@ namespace broker_service.Migrations
 
                     b.HasKey("BrokerId");
 
-                    b.HasIndex("CatigoryId");
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("SkillsId");
 
                     b.HasIndex("UserId");
 
@@ -48,37 +50,41 @@ namespace broker_service.Migrations
 
             modelBuilder.Entity("broker.Models.Buy", b =>
                 {
-                    b.Property<int>("BuyID")
+                    b.Property<int>("BuyId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BrokerId")
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserID")
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("BuyID");
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("BrokerId");
+                    b.HasKey("BuyId");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Buys");
                 });
 
-            modelBuilder.Entity("broker.Models.Catigory", b =>
+            modelBuilder.Entity("broker.Models.Category", b =>
                 {
-                    b.Property<int>("CatigoryId")
+                    b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CatigoryName")
-                        .HasColumnType("int");
+                    b.Property<string>("CatigoryName")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CatigoryId");
+                    b.HasKey("CategoryId");
 
                     b.ToTable("Catigories");
                 });
@@ -90,7 +96,7 @@ namespace broker_service.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("CustomerId");
@@ -107,13 +113,13 @@ namespace broker_service.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BrokerId")
+                    b.Property<int?>("BrokerId")
                         .HasColumnType("int");
 
                     b.Property<string>("Color")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CustomerId")
+                    b.Property<int?>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<string>("DealsStatus")
@@ -125,9 +131,6 @@ namespace broker_service.Migrations
                     b.Property<string>("PaymentOption")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
@@ -136,8 +139,6 @@ namespace broker_service.Migrations
                     b.HasIndex("BrokerId");
 
                     b.HasIndex("CustomerId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Deals");
                 });
@@ -149,10 +150,10 @@ namespace broker_service.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BrokerId")
+                    b.Property<int?>("BrokerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CustomerId")
+                    b.Property<int?>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<string>("DeliveryStatus")
@@ -177,7 +178,7 @@ namespace broker_service.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BrokerId")
+                    b.Property<int?>("BrokerId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -196,18 +197,6 @@ namespace broker_service.Migrations
                     b.ToTable("Portfolios");
                 });
 
-            modelBuilder.Entity("broker.Models.Product", b =>
-                {
-                    b.Property<int>("ProductId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.HasKey("ProductId");
-
-                    b.ToTable("Product");
-                });
-
             modelBuilder.Entity("broker.Models.Review", b =>
                 {
                     b.Property<int>("ReviewId")
@@ -215,10 +204,10 @@ namespace broker_service.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BrokerId")
+                    b.Property<int?>("BrokerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CustomerId")
+                    b.Property<int?>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<int>("rate")
@@ -233,15 +222,43 @@ namespace broker_service.Migrations
                     b.ToTable("Reviews");
                 });
 
+            modelBuilder.Entity("broker.Models.Sales", b =>
+                {
+                    b.Property<int>("SalesId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("BrokerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("SalesId");
+
+                    b.HasIndex("BrokerId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Sales");
+                });
+
             modelBuilder.Entity("broker.Models.Skills", b =>
                 {
                     b.Property<int>("SkillsId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BrokerId")
-                        .HasColumnType("int");
 
                     b.Property<double>("BrokingSkill")
                         .HasColumnType("float");
@@ -256,9 +273,6 @@ namespace broker_service.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("SkillsId");
-
-                    b.HasIndex("BrokerId")
-                        .IsUnique();
 
                     b.ToTable("Skills");
                 });
@@ -301,136 +315,94 @@ namespace broker_service.Migrations
 
             modelBuilder.Entity("broker.Models.Broker", b =>
                 {
-                    b.HasOne("broker.Models.Catigory", "Catigory")
+                    b.HasOne("broker.Models.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CatigoryId");
+                        .HasForeignKey("CategoryId");
+
+                    b.HasOne("broker.Models.Skills", "Skills")
+                        .WithMany()
+                        .HasForeignKey("SkillsId");
 
                     b.HasOne("broker.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
 
-                    b.Navigation("Catigory");
+                    b.Navigation("Category");
+
+                    b.Navigation("Skills");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("broker.Models.Buy", b =>
                 {
-                    b.HasOne("broker.Models.Broker", null)
+                    b.HasOne("broker.Models.User", null)
                         .WithMany("Buys")
-                        .HasForeignKey("BrokerId");
-
-                    b.HasOne("broker.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("broker.Models.Customer", b =>
                 {
                     b.HasOne("broker.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("broker.Models.Deals", b =>
                 {
-                    b.HasOne("broker.Models.Broker", "Broker")
+                    b.HasOne("broker.Models.Broker", null)
                         .WithMany("Deals")
-                        .HasForeignKey("BrokerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BrokerId");
 
-                    b.HasOne("broker.Models.Customer", "Customer")
+                    b.HasOne("broker.Models.Customer", null)
                         .WithMany("Deals")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("broker.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Broker");
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("Product");
+                        .HasForeignKey("CustomerId");
                 });
 
             modelBuilder.Entity("broker.Models.Delivery", b =>
                 {
-                    b.HasOne("broker.Models.Broker", "Broker")
+                    b.HasOne("broker.Models.Broker", null)
                         .WithMany("Deliveries")
-                        .HasForeignKey("BrokerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BrokerId");
 
-                    b.HasOne("broker.Models.Customer", "Customer")
+                    b.HasOne("broker.Models.Customer", null)
                         .WithMany("Delivery")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Broker");
-
-                    b.Navigation("Customer");
+                        .HasForeignKey("CustomerId");
                 });
 
             modelBuilder.Entity("broker.Models.Portfolio", b =>
                 {
-                    b.HasOne("broker.Models.Broker", "Broker")
+                    b.HasOne("broker.Models.Broker", null)
                         .WithMany("Portfolios")
-                        .HasForeignKey("BrokerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Broker");
+                        .HasForeignKey("BrokerId");
                 });
 
             modelBuilder.Entity("broker.Models.Review", b =>
                 {
-                    b.HasOne("broker.Models.Broker", "Broker")
+                    b.HasOne("broker.Models.Broker", null)
                         .WithMany("Reviews")
-                        .HasForeignKey("BrokerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BrokerId");
 
-                    b.HasOne("broker.Models.Customer", "Customer")
+                    b.HasOne("broker.Models.Customer", null)
                         .WithMany("Reviews")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Broker");
-
-                    b.Navigation("Customer");
+                        .HasForeignKey("CustomerId");
                 });
 
-            modelBuilder.Entity("broker.Models.Skills", b =>
+            modelBuilder.Entity("broker.Models.Sales", b =>
                 {
-                    b.HasOne("broker.Models.Broker", "Broker")
-                        .WithOne("Skills")
-                        .HasForeignKey("broker.Models.Skills", "BrokerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("broker.Models.Broker", null)
+                        .WithMany("Sales")
+                        .HasForeignKey("BrokerId");
 
-                    b.Navigation("Broker");
+                    b.HasOne("broker.Models.Customer", null)
+                        .WithMany("Sales")
+                        .HasForeignKey("CustomerId");
                 });
 
             modelBuilder.Entity("broker.Models.Broker", b =>
                 {
-                    b.Navigation("Buys");
-
                     b.Navigation("Deals");
 
                     b.Navigation("Deliveries");
@@ -439,7 +411,7 @@ namespace broker_service.Migrations
 
                     b.Navigation("Reviews");
 
-                    b.Navigation("Skills");
+                    b.Navigation("Sales");
                 });
 
             modelBuilder.Entity("broker.Models.Customer", b =>
@@ -449,6 +421,13 @@ namespace broker_service.Migrations
                     b.Navigation("Delivery");
 
                     b.Navigation("Reviews");
+
+                    b.Navigation("Sales");
+                });
+
+            modelBuilder.Entity("broker.Models.User", b =>
+                {
+                    b.Navigation("Buys");
                 });
 #pragma warning restore 612, 618
         }

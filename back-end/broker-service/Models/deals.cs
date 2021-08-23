@@ -17,13 +17,8 @@ namespace broker.Models
         public string DealsStatus { get; set; }
 
 
-        // Navigational properties
-        public int CustomerId { get; set; }
-        public Customer Customer { get; set; }
-        public int BrokerId { get; set; }
-        public Broker Broker { get; set; }
-        public int ProductId { get; set; }
-        public Product Product { get; set; }
+     
+       
 
 
 

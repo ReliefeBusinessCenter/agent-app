@@ -14,15 +14,17 @@ namespace broker.Models
         public ICollection<Portfolio> Portfolios { get; set; }
         public ICollection<Delivery> Deliveries { get; set; }
         public ICollection<Deals> Deals { get; set; }
-        public ICollection<Buy> Buys { get; set; }
+    
         public ICollection<Review> Reviews { get; set; }
-         public Skills Skills { get; set; }
+        public ICollection<Sales> Sales { get; set; }
+        public Skills Skills { get; set; }
+        public Category Category { get; set; }
 
         // navigational properties
-        public int? UserId { get; set; }
+        
         public User User { get; set; }
-        public int? CategoryId { get; set; }
-        public Catigory Catigory { get; set; }
+       
+      
        
      }
 }

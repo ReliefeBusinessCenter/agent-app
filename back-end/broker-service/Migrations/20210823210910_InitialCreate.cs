@@ -10,25 +10,29 @@ namespace broker_service.Migrations
                 name: "Catigories",
                 columns: table => new
                 {
-                    CatigoryId = table.Column<int>(type: "int", nullable: false)
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CatigoryName = table.Column<int>(type: "int", nullable: false)
+                    CatigoryName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Catigories", x => x.CatigoryId);
+                    table.PrimaryKey("PK_Catigories", x => x.CategoryId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Product",
+                name: "Skills",
                 columns: table => new
                 {
-                    ProductId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
+                    SkillsId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CommunicationSkill = table.Column<double>(type: "float", nullable: false),
+                    BrokingSkill = table.Column<double>(type: "float", nullable: false),
+                    WorkDone = table.Column<double>(type: "float", nullable: false),
+                    WorkInProgress = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product", x => x.ProductId);
+                    table.PrimaryKey("PK_Skills", x => x.SkillsId);
                 });
 
             migrationBuilder.CreateTable(
@@ -57,21 +61,49 @@ namespace broker_service.Migrations
                 {
                     BrokerId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: true),
+                    SkillsId = table.Column<int>(type: "int", nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: true),
-                    CatigoryId = table.Column<int>(type: "int", nullable: true)
+                    UserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Brokers", x => x.BrokerId);
                     table.ForeignKey(
-                        name: "FK_Brokers_Catigories_CatigoryId",
-                        column: x => x.CatigoryId,
+                        name: "FK_Brokers_Catigories_CategoryId",
+                        column: x => x.CategoryId,
                         principalTable: "Catigories",
-                        principalColumn: "CatigoryId",
+                        principalColumn: "CategoryId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Brokers_Skills_SkillsId",
+                        column: x => x.SkillsId,
+                        principalTable: "Skills",
+                        principalColumn: "SkillsId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Brokers_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Buys",
+                columns: table => new
+                {
+                    BuyId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    Color = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Buys", x => x.BuyId);
+                    table.ForeignKey(
+                        name: "FK_Buys_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
@@ -84,7 +116,7 @@ namespace broker_service.Migrations
                 {
                     CustomerId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -94,33 +126,7 @@ namespace broker_service.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Buys",
-                columns: table => new
-                {
-                    BuyID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserID = table.Column<int>(type: "int", nullable: false),
-                    BrokerId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Buys", x => x.BuyID);
-                    table.ForeignKey(
-                        name: "FK_Buys_Brokers_BrokerId",
-                        column: x => x.BrokerId,
-                        principalTable: "Brokers",
-                        principalColumn: "BrokerId",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Buys_Users_UserID",
-                        column: x => x.UserID,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -132,7 +138,7 @@ namespace broker_service.Migrations
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BrokerId = table.Column<int>(type: "int", nullable: false)
+                    BrokerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -142,30 +148,7 @@ namespace broker_service.Migrations
                         column: x => x.BrokerId,
                         principalTable: "Brokers",
                         principalColumn: "BrokerId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Skills",
-                columns: table => new
-                {
-                    SkillsId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CommunicationSkill = table.Column<double>(type: "float", nullable: false),
-                    BrokingSkill = table.Column<double>(type: "float", nullable: false),
-                    WorkDone = table.Column<double>(type: "float", nullable: false),
-                    WorkInProgress = table.Column<double>(type: "float", nullable: false),
-                    BrokerId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Skills", x => x.SkillsId);
-                    table.ForeignKey(
-                        name: "FK_Skills_Brokers_BrokerId",
-                        column: x => x.BrokerId,
-                        principalTable: "Brokers",
-                        principalColumn: "BrokerId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -179,9 +162,8 @@ namespace broker_service.Migrations
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PaymentOption = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DealsStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
-                    BrokerId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    BrokerId = table.Column<int>(type: "int", nullable: true),
+                    CustomerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -191,19 +173,13 @@ namespace broker_service.Migrations
                         column: x => x.BrokerId,
                         principalTable: "Brokers",
                         principalColumn: "BrokerId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Deals_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "CustomerId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Deals_Product_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Product",
-                        principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -214,8 +190,8 @@ namespace broker_service.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DeliveryStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
-                    BrokerId = table.Column<int>(type: "int", nullable: false)
+                    BrokerId = table.Column<int>(type: "int", nullable: true),
+                    CustomerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -225,13 +201,13 @@ namespace broker_service.Migrations
                         column: x => x.BrokerId,
                         principalTable: "Brokers",
                         principalColumn: "BrokerId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Deliveries_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "CustomerId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -241,8 +217,8 @@ namespace broker_service.Migrations
                     ReviewId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     rate = table.Column<int>(type: "int", nullable: false),
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
-                    BrokerId = table.Column<int>(type: "int", nullable: false)
+                    BrokerId = table.Column<int>(type: "int", nullable: true),
+                    CustomerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -252,19 +228,53 @@ namespace broker_service.Migrations
                         column: x => x.BrokerId,
                         principalTable: "Brokers",
                         principalColumn: "BrokerId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Reviews_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "CustomerId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Sales",
+                columns: table => new
+                {
+                    SalesId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    Color = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    BrokerId = table.Column<int>(type: "int", nullable: true),
+                    CustomerId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sales", x => x.SalesId);
+                    table.ForeignKey(
+                        name: "FK_Sales_Brokers_BrokerId",
+                        column: x => x.BrokerId,
+                        principalTable: "Brokers",
+                        principalColumn: "BrokerId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Sales_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "CustomerId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Brokers_CatigoryId",
+                name: "IX_Brokers_CategoryId",
                 table: "Brokers",
-                column: "CatigoryId");
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Brokers_SkillsId",
+                table: "Brokers",
+                column: "SkillsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Brokers_UserId",
@@ -272,14 +282,9 @@ namespace broker_service.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Buys_BrokerId",
+                name: "IX_Buys_UserId",
                 table: "Buys",
-                column: "BrokerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Buys_UserID",
-                table: "Buys",
-                column: "UserID");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Customers_UserId",
@@ -295,11 +300,6 @@ namespace broker_service.Migrations
                 name: "IX_Deals_CustomerId",
                 table: "Deals",
                 column: "CustomerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Deals_ProductId",
-                table: "Deals",
-                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Deliveries_BrokerId",
@@ -327,10 +327,14 @@ namespace broker_service.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Skills_BrokerId",
-                table: "Skills",
-                column: "BrokerId",
-                unique: true);
+                name: "IX_Sales_BrokerId",
+                table: "Sales",
+                column: "BrokerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sales_CustomerId",
+                table: "Sales",
+                column: "CustomerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -351,19 +355,19 @@ namespace broker_service.Migrations
                 name: "Reviews");
 
             migrationBuilder.DropTable(
-                name: "Skills");
-
-            migrationBuilder.DropTable(
-                name: "Product");
-
-            migrationBuilder.DropTable(
-                name: "Customers");
+                name: "Sales");
 
             migrationBuilder.DropTable(
                 name: "Brokers");
 
             migrationBuilder.DropTable(
+                name: "Customers");
+
+            migrationBuilder.DropTable(
                 name: "Catigories");
+
+            migrationBuilder.DropTable(
+                name: "Skills");
 
             migrationBuilder.DropTable(
                 name: "Users");

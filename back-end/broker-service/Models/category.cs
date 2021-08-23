@@ -5,13 +5,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace broker.Models
 {
-    public class Catigory
+    public class Category
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CatigoryId { get; set; }
+        public int CategoryId { get; set; }
 
-        public int CatigoryName { get; set; }
+        public string CatigoryName { get; set; }
 
       
     

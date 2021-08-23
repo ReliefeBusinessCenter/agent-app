@@ -26,81 +26,45 @@ namespace broker.Data
         public async Task<List<Broker>> GetData()
         {
             //   var model = await _context.Brokers.ToListAsync();
-            // return model;
+            // return model;wewewe
 
             var data = await _context.Brokers
              .Include(e => e.User)
-            //  .Include(e => e.Portfolios)
-            //  .Include(e => e.Deals)
-            //  .Include(e => e.Deliveries)
+             .Include(e => e.Portfolios)
+             .Include(e => e.Reviews)
+             .Include(e=>e.Category)
+             .Include(e => e.Deals)
+              .Include(e => e.Skills)
+             .Include(e => e.Deliveries)
              .ToListAsync();
             return data;
         }
 
         public async Task<Broker> GetDataById(int id)
         {
-            return await _context.Brokers.FirstOrDefaultAsync(x => x.BrokerId == id);
+            // return await _context.Brokers
+            //  .Include(e => e.User)
+            // .Where(x => x.BrokerId.Equals(id));
+            // FirstOrDefaultAsync(x => x.BrokerId == id);
+            var data = await _context.Brokers
+             .Include(e => e.User)
+             .Include(e=>e.Category)
+         
+             .Include(e => e.Skills)
+             .Include(e => e.Portfolios)
+             .Include(e => e.Deals)
+           
+             .Include(e => e.Deliveries)
+             .Include(e => e.Reviews)
+             .ToListAsync();
+
+            return data.FirstOrDefault(x => x.BrokerId == id);
+             
         }
 
-        public async Task<List<Broker>> GetPaginatedData(int pageNumber, int pageSize, string orderBy, string search)
+        public  Task<List<Broker>> GetPaginatedData(int pageNumber, int pageSize, string orderBy, string search)
         {
-           switch (orderBy)
-                     {
-                        case "Category":
-                                if(search=="0"){
-                                   return await _context.Brokers
-                                    .OrderBy(s=>s.CategoryId)
-                                    .Skip((pageNumber - 1) * pageSize)
-                                    .Take(pageSize)
-                                    .ToListAsync();
-                     
-                                }else{
-                                     return await _context.Brokers
-                                    .Where(b => b.User.FullName.Contains(search))
-                                    .OrderBy(s=>s.CategoryId)
-                                    .Skip((pageNumber - 1) * pageSize)
-                                    .Take(pageSize)
-                                    .ToListAsync();
-                                 }
-                            // model=model.orderBy(s=>s.Category).ToListAsync();
-                                
-                    case "location":
-                            if(search=="0"){
-                                return await _context.Brokers
-                                    .OrderBy(s=>s.BrokerId)
-                                    .Skip((pageNumber - 1) * pageSize)
-                                    .Take(pageSize)
-                                    .ToListAsync();
-                            }else{
-                                return await _context.Brokers
-                                        .Where(b => b.User.FullName.Contains(search))
-                                        .OrderBy(s=>s.CategoryId)
-                                        .Skip((pageNumber - 1) * pageSize)
-                                        .Take(pageSize)
-                                        .ToListAsync();
-                            }
-                            // model=model.orderBy(s=>s.ServiceName).ToListAsync();
-                       
-                   
-                         default:
-                            if(search=="0"){
-                                return await _context.Brokers
-                                    .OrderBy(s=>s.CategoryId)
-                                    .Skip((pageNumber - 1) * pageSize)
-                                    .Take(pageSize)
-                                    .ToListAsync();
-                            }else{
-                                return await _context.Brokers
-                                    .Where(b => b.User.FullName.Contains(search))
-                                    .OrderBy(s=>s.CategoryId)
-                                    .Skip((pageNumber - 1) * pageSize)
-                                    .Take(pageSize)
-                                    .ToListAsync();
-                            }
-                            // model=model.orderBy(s=>s.ServiceName).ToListAsync();
-                           
-
-                     }
+          throw new System.NotImplementedException();
         }
 
         public async Task<int> GetTotalPage(int pageSize, string search)

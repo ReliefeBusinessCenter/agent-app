@@ -15,10 +15,10 @@ namespace broker.Models
 
         public ICollection<Deals> Deals { get; set; }
         public ICollection<Delivery> Delivery { get; set; }
-
+public ICollection<Sales> Sales { get; set; }
 
         // Navigational properties
-        public int UserId { get; set; }
+  
         public User User { get; set; }
 
 

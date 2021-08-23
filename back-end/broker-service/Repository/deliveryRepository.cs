@@ -1,11 +1,13 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using broker.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace broker.Data
 {
-    public class DeliveryRepository : IRepository<Broker>
+    public class DeliveryRepository : IRepository<Delivery>
     {
         private readonly DataContext _context;
         public DeliveryRepository(DataContext context)
@@ -13,22 +15,38 @@ namespace broker.Data
             _context = context;
         }
 
-        public Task<bool> DeleteData(Broker service)
+        public async Task<bool> DeleteData(Delivery delivery)
         {
-            throw new System.NotImplementedException();
-        }
-    
-        public Task<List<Broker>> GetData()
-        {
-            throw new System.NotImplementedException();
+            Console.WriteLine("Delete delivery method invoked");
+            _context.Deliveries.Remove(delivery);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
-        public Task<Broker> GetDataById(int id)
+        public async Task<List<Delivery>> GetData()
         {
-            throw new System.NotImplementedException();
+            Console.WriteLine("Get  Delivery  method invoked");
+            // 
+            var data = await _context.Deliveries
+
+
+           .ToListAsync();
+            return data;
+            // 
+
         }
 
-        public Task<List<Broker>> GetPaginatedData(int pageNumber, int pageSize, string orderBy, string search)
+        public async Task<Delivery> GetDataById(int id)
+        {
+            var data = await _context.Deliveries
+
+
+               .ToListAsync();
+
+            return data.FirstOrDefault(x => x.DeliveryId == id);
+        }
+
+        public Task<List<Delivery>> GetPaginatedData(int pageNumber, int pageSize, string orderBy, string search)
         {
             throw new System.NotImplementedException();
         }
@@ -38,14 +56,20 @@ namespace broker.Data
             throw new System.NotImplementedException();
         }
 
-        public Task<Broker> InsertData(Broker service)
+        public async Task<Delivery> InsertData(Delivery delivery)
         {
-            throw new System.NotImplementedException();
+            Console.WriteLine("Create Delivery  data  method invoked");
+            _context.Deliveries.Add(delivery);
+
+            await _context.SaveChangesAsync();
+            return delivery;
         }
 
-        public Task<Broker> UpdateData(Broker service)
+        public async Task<Delivery> UpdateData(Delivery delivery)
         {
-            throw new System.NotImplementedException();
+            _context.Update(delivery).Property(x => x.DeliveryId).IsModified = false;
+            await _context.SaveChangesAsync();
+            return delivery;
         }
     }
 }

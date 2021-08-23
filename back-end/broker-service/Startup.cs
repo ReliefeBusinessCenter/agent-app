@@ -1,19 +1,15 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using broker.Data;
 using broker.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 namespace broker_service
 {
@@ -32,6 +28,11 @@ namespace broker_service
             
             services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("brokerConnection")));
             services.AddControllers();
+            //  services.AddControllersWithViews()
+
+    // .AddNewtonsoftJson(options =>
+    // options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
              services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddCors(option =>
             {
@@ -48,10 +49,13 @@ namespace broker_service
             // services.AddScoped<IRepository<Broker>, BrokerRepository>();
 
             services.AddScoped<IRepository<Broker>, BrokerRepository>();
-            // services.AddScoped<IRepository<Role>, RoleRepository>();
-            // services.AddScoped<IRepository<User>, UserRepository>();
-            // services.AddScoped<IRepository<Technician>, TechnicianRepository>();
+            services.AddScoped<IRepository<User>, UserRepository>();
+            services.AddScoped<IRepository<Category>, CategoryRepository>();
+            services.AddScoped<IRepository<Skills>, SkillsRepository>();
+            services.AddScoped<IRepository<Portfolio>, PortfolioRepository>();
+            services.AddScoped<IRepository<Delivery>, DeliveryRepository>();
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
