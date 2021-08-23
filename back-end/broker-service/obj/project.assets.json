@@ -6866,11 +6866,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\yared\\Documents\\Company\\eXs\\agent\\broker-app\\back-end\\broker-service\\broker-service.csproj",
+      "projectUniqueName": "C:\\Users\\yared\\Documents\\Company\\eXs\\agent\\broker-app\\back-end\\broker-service\\broker-service.csproj",
       "projectName": "broker-service",
-      "projectPath": "c:\\Users\\yared\\Documents\\Company\\eXs\\agent\\broker-app\\back-end\\broker-service\\broker-service.csproj",
+      "projectPath": "C:\\Users\\yared\\Documents\\Company\\eXs\\agent\\broker-app\\back-end\\broker-service\\broker-service.csproj",
       "packagesPath": "C:\\Users\\yared\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\yared\\Documents\\Company\\eXs\\agent\\broker-app\\back-end\\broker-service\\obj\\",
+      "outputPath": "C:\\Users\\yared\\Documents\\Company\\eXs\\agent\\broker-app\\back-end\\broker-service\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\yared\\AppData\\Roaming\\NuGet\\NuGet.Config",

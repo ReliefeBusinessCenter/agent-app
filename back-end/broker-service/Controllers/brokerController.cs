@@ -6,6 +6,7 @@ using System;
 using broker.Data;
 using broker.Models;
 using AutoMapper;
+using broker.Dto;
 
 namespace Controllers
 {
@@ -71,13 +72,9 @@ namespace Controllers
            var model = await _brokerRepository.GetPaginatedData(pageNumber,pageSize,orderBy,search);
 
         var totalPage= await _brokerRepository.GetTotalPage(pageSize,search);
-        // Broker broker= new ServiceData(totalPage,model);
+        BrokerData broker= new BrokerData(totalPage,model);
              
-             
-    // var totalRecords = await context.Customers.CountAsync();
-    // return Ok(new PagedResponse<List<Customer>>(pagedData, validFilter.PageNumber, validFilter.PageSize));
-            //  return Ok(_mapper.Map<ServiceDto>(model));
-             return Ok(service);
+             return Ok(broker);
         }
         
     }

@@ -24,15 +24,7 @@ namespace broker.Models
         public int? CategoryId { get; set; }
         public Catigory Catigory { get; set; }
        
-
-
-
-
-
-
-
-
-
-    }
-
+     }
 }
+
+

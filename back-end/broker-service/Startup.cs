@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using broker.Data;
+using broker.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,11 +32,25 @@ namespace broker_service
             
             services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("brokerConnection")));
             services.AddControllers();
+             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddCors(option =>
+            {
+                option.AddPolicy("allowedOrigin",
+                    builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
+                    );
+            });
             services.AddSwaggerGen(c =>
             {
                 // c.SwaggerDoc("v1", new OpenApiInfo { Title = "broker_service", Version = "v1" });
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "broker_service", Description = "Swagger Core API" });
             });
+
+            // services.AddScoped<IRepository<Broker>, BrokerRepository>();
+
+            services.AddScoped<IRepository<Broker>, BrokerRepository>();
+            // services.AddScoped<IRepository<Role>, RoleRepository>();
+            // services.AddScoped<IRepository<User>, UserRepository>();
+            // services.AddScoped<IRepository<Technician>, TechnicianRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

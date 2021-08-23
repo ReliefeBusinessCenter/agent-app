@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "uNupQWTZkbUTwNCKQad+cJ58HePP9XP5/8hi3x6Y2w/GukKBxsoMdKTFgqLmeDkqUZOxsgpWlcmATcEeJcLi+Q==",
+  "dgSpecHash": "BMmsVYFxhu7o9dN1+ia2VIuyYXzUKrcrxrUU+RPzn3w6Toq2GXVjtKiT++rFAFsTV04bcp7lql3Kz5X9YgVAcw==",
   "success": true,
-  "projectFilePath": "c:\\Users\\yared\\Documents\\Company\\eXs\\agent\\broker-app\\back-end\\broker-service\\broker-service.csproj",
+  "projectFilePath": "C:\\Users\\yared\\Documents\\Company\\eXs\\agent\\broker-app\\back-end\\broker-service\\broker-service.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\yared\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\yared\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
