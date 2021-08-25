@@ -20,7 +20,7 @@ namespace Controllers
         {
             _salesRepository = repo;
             _mapper = mapper;
-        }
+        } 
         [HttpGet]
         public async Task<IActionResult> GetSales()
         {
