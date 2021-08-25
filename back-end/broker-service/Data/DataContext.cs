@@ -25,6 +25,7 @@ namespace broker.Data
         public DbSet<Deals> Deals { get; set; }
         public DbSet<Delivery> Deliveries { get; set; }
         public DbSet<Buy> Buys { get; set; }
+           public DbSet<Sales> Sales { get; set; }
     }
 }
 

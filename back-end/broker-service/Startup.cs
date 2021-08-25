@@ -57,6 +57,7 @@ namespace broker_service
             services.AddScoped<IRepository<Deals>, DealsRepository>();
             services.AddScoped<IRepository<Review>, ViewRepository>();
             services.AddScoped<IRepository<Customer>, CustomerRepository>();
+             services.AddScoped<IRepository<Sales>, SalesRepository>();
         }
 
 

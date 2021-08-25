@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using broker.Models;
@@ -5,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace broker.Data
 {
-    public class SalesRepository : IRepository<Broker>
+    public class SalesRepository : IRepository<Sales>
     {
         private readonly DataContext _context;
         public SalesRepository(DataContext context)
@@ -13,22 +14,27 @@ namespace broker.Data
             _context = context;
         }
 
-        public Task<bool> DeleteData(Broker service)
+        public async Task<bool> DeleteData(Sales sales)
         {
-            throw new System.NotImplementedException();
+             Console.WriteLine("Delete Sales method invoked");
+            _context.Sales.Remove(sales);
+            await _context.SaveChangesAsync();
+            return true;
         }
     
-        public Task<List<Broker>> GetData()
+        public async Task<List<Sales>> GetData()
         {
-            throw new System.NotImplementedException();
+            Console.WriteLine("Get  Sales method invoked");
+             var model = await _context.Sales.ToListAsync();
+            return model;
         }
 
-        public Task<Broker> GetDataById(int id)
+        public async Task<Sales> GetDataById(int id)
         {
-            throw new System.NotImplementedException();
+              return await _context.Sales.FirstOrDefaultAsync(x => x.SalesId== id);
         }
 
-        public Task<List<Broker>> GetPaginatedData(int pageNumber, int pageSize, string orderBy, string search)
+        public Task<List<Sales>> GetPaginatedData(int pageNumber, int pageSize, string orderBy, string search)
         {
             throw new System.NotImplementedException();
         }
@@ -38,14 +44,21 @@ namespace broker.Data
             throw new System.NotImplementedException();
         }
 
-        public Task<Broker> InsertData(Broker service)
+        public async Task<Sales> InsertData(Sales sales)
         {
-            throw new System.NotImplementedException();
+            
+             Console.WriteLine("Create Sales  data  method invoked");
+            _context.Sales.Add(sales);
+
+            await _context.SaveChangesAsync();
+            return sales;
         }
 
-        public Task<Broker> UpdateData(Broker service)
+        public async Task<Sales> UpdateData(Sales sales)
         {
-            throw new System.NotImplementedException();
+            _context.Update(sales).Property(x => x.SalesId).IsModified = false;
+            await _context.SaveChangesAsync();
+            return sales;
         }
     }
 }
