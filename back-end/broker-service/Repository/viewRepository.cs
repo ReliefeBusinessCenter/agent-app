@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using broker.Models;
@@ -5,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace broker.Data
 {
-    public class ViewRepository : IRepository<Broker>
+    public class ViewRepository : IRepository<Review>
     {
         private readonly DataContext _context;
         public ViewRepository(DataContext context)
@@ -13,22 +14,27 @@ namespace broker.Data
             _context = context;
         }
 
-        public Task<bool> DeleteData(Broker service)
+        public async Task<bool> DeleteData(Review  review)
         {
-            throw new System.NotImplementedException();
+           Console.WriteLine("Delete Review method invoked");
+            _context.Reviews.Remove(review);
+            await _context.SaveChangesAsync();
+            return true;
         }
     
-        public Task<List<Broker>> GetData()
+        public async Task<List<Review>> GetData()
         {
-            throw new System.NotImplementedException();
+             Console.WriteLine("Get  review   method invoked");
+             var model = await _context.Reviews.ToListAsync();
+            return model;
         }
 
-        public Task<Broker> GetDataById(int id)
+        public async Task<Review> GetDataById(int id)
         {
-            throw new System.NotImplementedException();
+            return await _context.Reviews.FirstOrDefaultAsync(x => x.ReviewId== id);
         }
 
-        public Task<List<Broker>> GetPaginatedData(int pageNumber, int pageSize, string orderBy, string search)
+        public Task<List<Review>> GetPaginatedData(int pageNumber, int pageSize, string orderBy, string search)
         {
             throw new System.NotImplementedException();
         }
@@ -38,14 +44,20 @@ namespace broker.Data
             throw new System.NotImplementedException();
         }
 
-        public Task<Broker> InsertData(Broker service)
+        public async Task<Review> InsertData(Review review)
         {
-            throw new System.NotImplementedException();
+             Console.WriteLine("Create View  data  method invoked");
+            _context.Reviews.Add(review);
+
+            await _context.SaveChangesAsync();
+            return review;
         }
 
-        public Task<Broker> UpdateData(Broker service)
+        public async Task<Review> UpdateData(Review  review)
         {
-            throw new System.NotImplementedException();
+            _context.Update(review).Property(x => x.ReviewId).IsModified = false;
+            await _context.SaveChangesAsync();
+            return review;
         }
     }
 }

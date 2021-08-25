@@ -25,15 +25,15 @@ namespace broker_service
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
             services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("brokerConnection")));
             services.AddControllers();
             //  services.AddControllersWithViews()
 
-    // .AddNewtonsoftJson(options =>
-    // options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            // .AddNewtonsoftJson(options =>
+            // options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddCors(option =>
             {
                 option.AddPolicy("allowedOrigin",
@@ -54,6 +54,9 @@ namespace broker_service
             services.AddScoped<IRepository<Skills>, SkillsRepository>();
             services.AddScoped<IRepository<Portfolio>, PortfolioRepository>();
             services.AddScoped<IRepository<Delivery>, DeliveryRepository>();
+            services.AddScoped<IRepository<Deals>, DealsRepository>();
+            services.AddScoped<IRepository<Review>, ViewRepository>();
+            services.AddScoped<IRepository<Customer>, CustomerRepository>();
         }
 
 
