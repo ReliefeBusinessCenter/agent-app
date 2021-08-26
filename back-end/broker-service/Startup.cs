@@ -33,7 +33,7 @@ namespace broker_service
             services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("brokerConnection")));
             services.AddControllers();
 
-              var appSettingsSection = Configuration.GetSection("AppSettings");
+            var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
 
             // configure jwt authentication
@@ -85,8 +85,8 @@ namespace broker_service
             services.AddScoped<IRepository<Deals>, DealsRepository>();
             services.AddScoped<IRepository<Review>, ViewRepository>();
             services.AddScoped<IRepository<Customer>, CustomerRepository>();
-             services.AddScoped<IRepository<Sales>, SalesRepository>();
-              services.AddScoped<IRepository<Buy>, BuyRepository>();
+            services.AddScoped<IRepository<Sales>, SalesRepository>();
+            services.AddScoped<IRepository<Buy>, BuyRepository>();
         }
 
 

@@ -1,4 +1,4 @@
-namespace fixit.Entities
+namespace broker.Entity
 {
     public static class RoleEntity
     {

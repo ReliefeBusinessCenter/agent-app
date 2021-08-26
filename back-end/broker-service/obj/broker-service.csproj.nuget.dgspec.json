@@ -83,6 +83,10 @@
             "System.Data.Entity.Repository": {
               "target": "Package",
               "version": "[2.0.0.1, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.12.2, )"
             }
           },
           "imports": [
