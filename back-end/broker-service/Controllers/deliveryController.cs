@@ -7,9 +7,11 @@ using broker.Data;
 using broker.Models;
 using AutoMapper;
 using broker.Dto;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Controllers
-{
+{   
+      [Authorize]
     [Route("api/delivery")]
     [ApiController]
     public class DeliveryController : ControllerBase

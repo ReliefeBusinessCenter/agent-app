@@ -7,11 +7,15 @@ using broker.Data;
 using broker.Models;
 using AutoMapper;
 using broker.Dto;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Controllers
-{
-    [Route("api/brokers")]
+{   
+    [Authorize]
+   
     [ApiController]
+     [Route("api/brokers")]
     public class BrokerController : ControllerBase
     {
         private readonly IRepository<Broker> _brokerRepository;
@@ -21,6 +25,7 @@ namespace Controllers
             _brokerRepository = repo;
             _mapper = mapper;
         }
+          [Authorize(AuthenticationSchemes=JwtBearerDefaults.AuthenticationScheme,Roles = "Customer")]
         [HttpGet]
         public async Task<IActionResult> GetBrokers()
         {

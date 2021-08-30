@@ -7,11 +7,15 @@ using broker.Data;
 using broker.Models;
 using AutoMapper;
 using broker.Dto;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Controllers
-{
+{   
+    [Authorize]
+     [ApiController]
     [Route("api/buys")]
-    [ApiController]
+   
     public class BuysController : ControllerBase
     {
         private readonly IRepository<Buy> _buysRepository;
@@ -21,6 +25,8 @@ namespace Controllers
             _buysRepository = repo;
             _mapper = mapper;
         } 
+        [Authorize(AuthenticationSchemes=JwtBearerDefaults.AuthenticationScheme,Roles = "Customer")]
+   
         [HttpGet]
         public async Task<IActionResult> GetBuys()
         {

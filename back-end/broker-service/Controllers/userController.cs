@@ -18,6 +18,7 @@ using broker.Models;
 using broker.Helpers;
 using broker.Entity;
 using broker.Dto;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Controllers
 {
@@ -93,7 +94,8 @@ namespace Controllers
             userEntity.Token = tokenHandler.WriteToken(token);
             return Ok(userEntity);
         }
-        [Authorize(Roles = "Customer")]
+        // [Authorize(Roles = "Customer")]
+        [Authorize(AuthenticationSchemes=JwtBearerDefaults.AuthenticationScheme,Roles = "Customer")]
         //    [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetUsers()
@@ -118,7 +120,7 @@ namespace Controllers
             await _userRepository.UpdateData(user);
             return Ok(userDto);
         }
-
+  [Authorize(AuthenticationSchemes=JwtBearerDefaults.AuthenticationScheme,Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {

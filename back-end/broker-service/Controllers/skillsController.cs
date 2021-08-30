@@ -7,9 +7,11 @@ using broker.Data;
 using broker.Models;
 using AutoMapper;
 using broker.Dto;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Controllers
-{
+{   
+      [Authorize]
     [Route("api/skills")]
     [ApiController]
     public class SkillsController : ControllerBase
