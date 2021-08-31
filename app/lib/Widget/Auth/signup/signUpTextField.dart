@@ -94,11 +94,11 @@ class CustomTextField extends StatelessWidget {
         //   return val;
         // },
         validator: (val) {
-          if (val!.length == 0) {
+          if (val! == null) {
             return "This field is required";
           } else {
-            String? value = this.validator!(val);
-            return value;
+            // String? value = this.validator!(val);
+
           }
         },
       ),
