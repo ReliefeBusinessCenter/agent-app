@@ -1,13 +1,17 @@
 import 'package:app/bloc/broker/bloc/broker_bloc.dart';
 import 'package:app/bloc/favorit/bloc/favorite_bloc.dart';
 import 'package:app/bloc/work/bloc/work_bloc.dart';
+import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/repository/brokersRepository.dart';
+import 'package:app/repository/user_repository.dart';
 import 'package:app/routes/route.dart';
 import 'package:app/screens/Auth/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:http/http.dart' as http;
+import 'bloc/auth/bloc/auth_bloc.dart';
 import 'data_provider/brokersDataProvider.dart';
+import 'data_provider/user_data_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,8 +19,16 @@ void main() {
 
 class MyApp extends StatelessWidget {
   // BrokersDataProvider brokersDataProvider = new BrokersDataProvider();
+    http.Client httpClient = http.Client();
   BrokersRepository brokersRepository =
       new BrokersRepository(brokerDataProvider: BrokersDataProvider());
+       UserRepository userRepository = UserRepository(
+    userDataProvider: UserDataProvider(
+      httpClient:  http.Client(),
+      userPreferences: UserPreferences(),
+    ),
+  );
+  
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -24,6 +36,13 @@ class MyApp extends StatelessWidget {
           BlocProvider<BrokerBloc>(
               create: (_) => BrokerBloc(brokersRepository: brokersRepository)
                 ..add(FetchEvent())),
+                
+                 BlocProvider<AuthBloc>(
+            create: (_) => AuthBloc(
+              userRepository: this.userRepository,
+              userPreference: UserPreferences(),
+            )..add(AutoLoginEvent()),
+          ),
           BlocProvider<FavoriteBloc>(
             create: (_) => FavoriteBloc()..add(FavoriteInitialFetch()),
           ),
@@ -53,7 +72,7 @@ class MyApp extends StatelessWidget {
           // home: Login(),
           initialRoute: Login.routeName,
           onGenerateRoute: AppRoutes.generateRoute,
-
+         
           onUnknownRoute: (settings) {
             return MaterialPageRoute(builder: (ctx) => Login());
           },

@@ -1,17 +1,21 @@
 import 'package:app/constants/login/size.dart';
 import 'package:flutter/material.dart';
 
-class CustomTextField extends StatelessWidget {
-  final bool isObsecure;
+class CustomLoginTextField extends StatelessWidget {
   final String textFieldName;
-  final Icon icon;
   final TextEditingController controller;
+  final IconData icon;
+  final Function validator;
+  final bool obsecureText;
 
-  CustomTextField(
-      {required this.textFieldName,
-      required this.controller,
-      required this.isObsecure,
-      required this.icon});
+  CustomLoginTextField({
+    required this.textFieldName,
+    required this.controller,
+    required this.icon,
+    required this.validator,
+    required this.obsecureText,
+  });
+
   @override
   Widget build(BuildContext context) {
     LoginSize loginSize = new LoginSize();
@@ -22,23 +26,28 @@ class CustomTextField extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
       child: Container(
         width: loginSize.getTextFieldWidth,
-        child: TextField(
-          onChanged: (value) {
-            print("Item : ${value}");
-          },
-          obscureText: this.isObsecure,
+        child: TextFormField(
           controller: this.controller,
-          // obscureText: !ispassshow,
+          obscureText: this.obsecureText,
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.done,
           onEditingComplete: () => FocusScope.of(context).unfocus(),
           style: TextStyle(fontSize: 18, color: Colors.grey),
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(top: 14),
-            prefixIcon: this.icon,
+            prefixIcon: Icon(this.icon),
             border: InputBorder.none,
-            hintText: this.textFieldName,
+            hintText: 'Enter ${this.textFieldName}',
+            errorStyle: TextStyle(
+              color: Colors.red,
+              fontWeight: FontWeight.bold,
+              textBaseline: TextBaseline.alphabetic,
+               
+            ),
+            errorMaxLines: 1,
+
           ),
+          validator: (value) => validator(value),
         ),
       ),
     );

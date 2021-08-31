@@ -1,4 +1,6 @@
 import 'package:app/screens/Auth/auth_exports.dart';
+import 'package:app/screens/Auth/password-register-screen.dart';
+import 'package:app/screens/Auth/signUp_screen.dart';
 import 'package:app/screens/broker/broker_account_screen.dart';
 import 'package:app/screens/broker/broker_main_page.dart';
 import 'package:app/screens/broker/saving_and_loans.dart';
@@ -27,9 +29,14 @@ class AppRoutes {
       return MaterialPageRoute(builder: (context) => NewCredentialsScreen());
     } else if (settings.name == BecomeAnAgent.routeName) {
       return MaterialPageRoute(builder: (context) => BecomeAnAgent());
+    } else if (settings.name == SignUpPageScreen.routeName) {
+      return MaterialPageRoute(builder: (context) => SignUpPageScreen());
+   }else if(settings.name==PasswordRegisterScreen.routeName){
+    return MaterialPageRoute(builder:(context)=>PasswordRegisterScreen());
+  
     } else if (settings.name == PasswordReset.routeName)
       return MaterialPageRoute(builder: (context) => PasswordReset());
-
+  
     return MaterialPageRoute(builder: (context) => Login());
   }
 }
