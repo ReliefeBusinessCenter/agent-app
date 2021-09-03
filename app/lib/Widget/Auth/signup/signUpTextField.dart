@@ -35,74 +35,52 @@ class CustomTextField extends StatelessWidget {
         //   textStyle: TextStyle(color: Colors.black),
         //   child:
         Container(
-      width: loginSize.getTextFieldWidth,
-      child: TextFormField(
-        controller: this.controller,
-        obscureText: this.obsecureText,
-        // initialValue: this.initialValue,
-        keyboardType: TextInputType.text,
-        textInputAction: TextInputAction.done,
-        onEditingComplete: () => FocusScope.of(context).unfocus(),
-        style: TextStyle(fontSize: 18, color: Colors.grey),
-        decoration: InputDecoration(
-          labelText: this.textFieldName,
-          fillColor: Colors.white,
-          border: new OutlineInputBorder(
-            borderRadius: new BorderRadius.circular(25.0),
-            borderSide: new BorderSide(),
-          ),
-          //fillColor: Colors.green
+            width: loginSize.getTextFieldWidth,
+            child: TextFormField(
+                controller: this.controller,
+                obscureText: this.obsecureText,
+                // initialValue: this.initialValue,
+                keyboardType: TextInputType.text,
+                textInputAction: TextInputAction.done,
+                validator: (val) {
+                  if (val!.length == 0) {
+                    return "This field is required";
+                  } else {
+                    return null;
+                  }
+                },
+                onEditingComplete: () => FocusScope.of(context).unfocus(),
+                style: TextStyle(fontSize: 18, color: Colors.grey),
+                decoration: InputDecoration(
+                    labelText: this.textFieldName,
+                    fillColor: Colors.white,
+                    border: new OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(25.0),
+                      borderSide: new BorderSide(),
+                    ),
+                    //fillColor: Colors.green
 
-          contentPadding: EdgeInsets.only(
-            top: 6,
-            bottom: 6,
-            left: 12,
-          ),
-          // border: InputBorder.none,
-          // prefixText: '${this.textFieldName}',
-          suffixIcon: Container(
-            width: 2,
-            child: Center(
-              child: this.isRequired
-                  ? Text(
-                      '*',
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                    contentPadding: EdgeInsets.only(
+                      top: 6,
+                      bottom: 6,
+                      left: 12,
+                    ),
+                    // border: InputBorder.none,
+                    // prefixText: '${this.textFieldName}',
+                    suffixIcon: Container(
+                      width: 2,
+                      child: Center(
+                        child: this.isRequired
+                            ? Text(
+                                '*',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                              )
+                            : Text(''),
                       ),
-                    )
-                  : Text(''),
-            ),
-          ),
-
-          // hintText: '${this.textFieldName}',
-          errorStyle: TextStyle(
-            color: Colors.red,
-            fontWeight: FontWeight.bold,
-            textBaseline: TextBaseline.alphabetic,
-          ),
-          // errorMaxLines: 1,
-          // hintText: "${this.textFieldName}",
-        ),
-        // validator: (value) {
-        //   if (this.validator != null) {
-        //     String? val = this.validator!(value);
-        //     return val;
-        //   }
-        //   String? val = LengthValidator(value, this.minLength);
-        //   return val;
-        // },
-        validator: (val) {
-          if (val! == null) {
-            return "This field is required";
-          } else {
-            // String? value = this.validator!(val);
-
-          }
-        },
-      ),
-      // )
-    );
+                    ))));
   }
 }

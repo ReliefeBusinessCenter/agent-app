@@ -41,26 +41,26 @@ class HomeFragment extends StatelessWidget {
                     List<Widget> categories = [];
                     print(
                         "the home screen is rebuilding because of the bloc call and this is the category id ${state.selectedCategoryId}");
-                    for (int i = 0; i < DUMMY_CATEGORIES.length; i++) {
-                      print(DUMMY_CATEGORIES[i].name);
-                      categories.add(CustomCategory(
-                        backgroundColor:
-                            state.selectedCategoryId == DUMMY_CATEGORIES[i].id
-                                ? Theme.of(context).primaryColor
-                                : Color(0xFF015777).withOpacity(0.05),
-                        fontColor:
-                            state.selectedCategoryId == DUMMY_CATEGORIES[i].id
-                                ? Colors.white
-                                : Colors.black.withOpacity(0.8),
-                        text: DUMMY_CATEGORIES[i].name,
-                        onPressed: () {
-                          print(
-                              "This is teh name of the category:${DUMMY_CATEGORIES[i].name}");
-                          brokerBloc.add(SelectEvent(
-                              categoryId: DUMMY_CATEGORIES[i].id, search: ''));
-                        },
-                      ));
-                    }
+                    // for (int i = 0; i < DUMMY_CATEGORIES.length; i++) {
+                    //   print(DUMMY_CATEGORIES[i].name);
+                    //   categories.add(CustomCategory(
+                    //     backgroundColor:
+                    //         state.selectedCategoryId == DUMMY_CATEGORIES[i].id
+                    //             ? Theme.of(context).primaryColor
+                    //             : Color(0xFF015777).withOpacity(0.05),
+                    //     fontColor:
+                    //         state.selectedCategoryId == DUMMY_CATEGORIES[i].id
+                    //             ? Colors.white
+                    //             : Colors.black.withOpacity(0.8),
+                    //     text: DUMMY_CATEGORIES[i].name,
+                    //     onPressed: () {
+                    //       print(
+                    //           "This is teh name of the category:${DUMMY_CATEGORIES[i].name}");
+                    //       brokerBloc.add(SelectEvent(
+                    //           categoryId: DUMMY_CATEGORIES[i].id, search: ''));
+                    //     },
+                    //   ));
+                    // }
 
                     return Row(children: categories);
                   },

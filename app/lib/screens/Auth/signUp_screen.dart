@@ -1,3 +1,4 @@
+import 'package:app/Widget/Auth/signup/broker/categories-dropdown-button.dart';
 import 'package:app/Widget/Auth/signup/next-button.dart';
 import 'package:app/Widget/Auth/signup/role-dropdown.dart';
 import 'package:app/Widget/Auth/signup/sex-dropdown.dart';
@@ -142,7 +143,9 @@ class SignUpPageScreen extends StatelessWidget {
                                 height:
                                     MediaQuery.of(context).size.height * 0.02,
                               ),
-                              RoleDropDown()
+                              RoleDropDown(),  
+                              CategoryDropDownButton()
+
                             ]),
                           ),
                         ),

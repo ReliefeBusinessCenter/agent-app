@@ -18,12 +18,12 @@ class HireButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     workBloc = BlocProvider.of<WorkBloc>(context);
-    Category category = DUMMY_CATEGORIES
+    Category category = []
         .firstWhere((element) => element.id == broker.categoryId);
     Work work = new Work(
         AssignedBrokerName: broker.name,
-        WorkName: '${category.name} Broking',
-        WorkDetail: "broking on the ${category.name} area",
+        WorkName: '${category.catigoryName} Broking',
+        WorkDetail: "broking on the ${category.catigoryName} area",
         WorkStatus: "Pending");
     return GestureDetector(
       onTap: () {},

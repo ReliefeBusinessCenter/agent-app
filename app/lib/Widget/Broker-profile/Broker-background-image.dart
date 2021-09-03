@@ -8,8 +8,8 @@ class BrokerBackgroundImage extends StatelessWidget {
   BrokerBackgroundImage({required this.broker});
   @override
   Widget build(BuildContext context) {
-    Category category = DUMMY_CATEGORIES
-        .firstWhere((element) => element.id == broker.categoryId);
+    Category category =
+        [].firstWhere((element) => element.id == broker.categoryId);
     return Container(
       height: MediaQuery.of(context).size.height * 0.27,
       child: Stack(
@@ -49,7 +49,7 @@ class BrokerBackgroundImage extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text("${category.name} broker",
+                      child: Text("${category.catigoryName} broker",
                           style: TextStyle(
                             fontSize: 15,
                             color:

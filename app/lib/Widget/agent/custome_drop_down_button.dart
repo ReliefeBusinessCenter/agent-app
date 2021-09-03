@@ -8,7 +8,7 @@ class CustomeDropDownButton extends StatefulWidget {
 }
 
 class _MyState extends State<CustomeDropDownButton> {
-  List<Category> catigories = DUMMY_CATEGORIES;
+  List<Category> catigories = [];
 
   int _value = 1;
   @override
