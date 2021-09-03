@@ -1,8 +1,6 @@
 part of 'category_bloc.dart';
 
-
-
-// 
+//
 
 abstract class CategoryEvent {
   const CategoryEvent();
@@ -14,3 +12,5 @@ class SelectCategory extends CategoryEvent {
   final int? categoryId;
   SelectCategory({required this.categoryId});
 }
+
+

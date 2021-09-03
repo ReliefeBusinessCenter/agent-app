@@ -1,5 +1,6 @@
 import 'package:app/bloc/favorit/bloc/favorite_bloc.dart';
-import 'package:app/model/broker.dart';
+import 'package:app/model/broker/broker.dart';
+
 import 'package:app/screens/customer/brokers_detail_screen.dart';
 
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class _BrokerItemState extends State<BrokerItem> {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Spaghetti_Bolognese_mit_Parmesan_oder_Grana_Padano.jpg/800px-Spaghetti_Bolognese_mit_Parmesan_oder_Grana_Padano.jpg';
     return InkWell(
       onTap: () {
-        print("This is the broker name ${widget.broker.name}");
+        print("This is the broker name ${widget.broker.user!.fullName}");
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -52,7 +53,7 @@ class _BrokerItemState extends State<BrokerItem> {
                   ),
                 ),
                 child: Image.asset(
-                  this.widget.broker.image,
+                  this.widget.broker.user!.picture as String,
                   height: MediaQuery.of(context).size.height * 0.20,
                   width: double.infinity,
                   fit: BoxFit.fill,
@@ -65,7 +66,7 @@ class _BrokerItemState extends State<BrokerItem> {
                   child: Padding(
                     padding: const EdgeInsets.all(11.0),
                     child: Text(
-                      this.widget.broker.name,
+                      this.widget.broker.user!.fullName as String,
                       style: TextStyle(
                         fontSize: 15,
                         color: Theme.of(context).primaryColor.withOpacity(0.95),
@@ -85,7 +86,7 @@ class _BrokerItemState extends State<BrokerItem> {
                       children: [
                         Row(
                           children: [
-                            Text("${this.widget.broker.rating}",
+                            Text("${this.widget.broker.reviews![0].rate as String}",
                                 style: TextStyle(
                                     color: Colors.black.withOpacity(0.5))),
                             Icon(Icons.star,
@@ -97,7 +98,7 @@ class _BrokerItemState extends State<BrokerItem> {
                           width: 6,
                         ),
                         Text(
-                          "${this.widget.broker.view}M views",
+                          "${this.widget.broker.reviews![0].rate}M views",
                           style:
                               TextStyle(color: Colors.black.withOpacity(0.5)),
                         )

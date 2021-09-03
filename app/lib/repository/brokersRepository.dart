@@ -1,14 +1,16 @@
-import 'package:app/data_provider/brokersDataProvider.dart';
-import 'package:app/model/broker.dart';
+
+import 'package:app/data_provider/broker-data-provider.dart';
+import 'package:app/model/broker/broker.dart';
+
 
 class BrokersRepository {
-  late final BrokersDataProvider brokerDataProvider;
+  late final BrokerDataProvider brokerDataProvider;
   BrokersRepository({
     required this.brokerDataProvider,
   });
 
-  Future<List<Broker>> getBrokers(int categoryId, String search) async {
-    List<Broker> data = await brokerDataProvider.getBrokers(categoryId, search);
+  Future<List<Broker>> getBrokers() async {
+    List<Broker> data = await brokerDataProvider.getBrokers() as List<Broker>;
     print("Data arrived at the data provider $data");
     return data;
   }

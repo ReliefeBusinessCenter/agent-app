@@ -1,7 +1,8 @@
 import 'dart:async';
 
 // import 'package:app/Widget/Dashboard/broker.dart';
-import 'package:app/model/broker.dart';
+
+import 'package:app/model/broker/broker.dart';
 import 'package:app/model/category.dart';
 import 'package:app/repository/brokersRepository.dart';
 import 'package:bloc/bloc.dart';
@@ -26,7 +27,8 @@ class BrokerBloc extends Bloc<BrokerEvent, BrokerState> {
     // TODO: implement mapEventToState
     if (event is FetchEvent) {
       try {
-        List<Broker> brokers = (await this.brokersRepository.getBrokers(0, ''));
+        List<Broker> brokers = (await this.brokersRepository.getBrokers());
+        print("Data arrived at the data provider: ${brokers}");
 
         if (brokers != null) {
           yield BrokersLoadSuccess(selectedCategoryId: 0, brokers: brokers);
@@ -38,9 +40,7 @@ class BrokerBloc extends Bloc<BrokerEvent, BrokerState> {
     if (event is SelectEvent) {
       print("select even is called");
 
-      List<Broker> brokers = (await this
-          .brokersRepository
-          .getBrokers(event.categoryId, event.search));
+      List<Broker> brokers = (await this.brokersRepository.getBrokers());
       yield BrokersLoadSuccess(
           selectedCategoryId: event.categoryId, brokers: brokers);
 

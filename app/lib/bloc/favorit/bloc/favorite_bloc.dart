@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:app/model/broker.dart';
+
+import 'package:app/model/broker/broker.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 

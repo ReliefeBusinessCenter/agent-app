@@ -1,7 +1,8 @@
 import 'package:app/bloc/favorit/bloc/favorite_bloc.dart';
 import 'package:app/bloc/work/bloc/work_bloc.dart';
 import 'package:app/constants/customer-page/categories.dart';
-import 'package:app/model/broker.dart';
+import 'package:app/model/broker/broker.dart';
+
 import 'package:app/model/category.dart';
 import 'package:app/model/work.dart';
 
@@ -19,9 +20,9 @@ class HireButton extends StatelessWidget {
   Widget build(BuildContext context) {
     workBloc = BlocProvider.of<WorkBloc>(context);
     Category category = []
-        .firstWhere((element) => element.id == broker.categoryId);
+        .firstWhere((element) => element.id == broker.category!.categoryId);
     Work work = new Work(
-        AssignedBrokerName: broker.name,
+        AssignedBrokerName: broker.user!.fullName as String,
         WorkName: '${category.catigoryName} Broking',
         WorkDetail: "broking on the ${category.catigoryName} area",
         WorkStatus: "Pending");
@@ -30,8 +31,8 @@ class HireButton extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.all(10),
         child: CustomButton(
-            brokerName: broker.name,
-            label: 'Hire ${broker.name}',
+            brokerName: broker.user!.fullName as String,
+            label: 'Hire ${broker.user!.fullName as String}',
             backgroundColor: Theme.of(context).primaryColor,
             foregroundColor: Colors.white,
             onTap: () {
@@ -40,7 +41,7 @@ class HireButton extends StatelessWidget {
                 dialogType: DialogType.INFO,
                 animType: AnimType.BOTTOMSLIDE,
                 title: 'Confirm Us',
-                desc: 'You are Hiring ${broker.name}. Do you want to continue?',
+                desc: 'You are Hiring ${broker.user!.fullName as String}. Do you want to continue?',
                 btnCancelOnPress: () {},
                 btnOkOnPress: () {
                   AwesomeDialog(

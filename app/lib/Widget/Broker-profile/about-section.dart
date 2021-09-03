@@ -1,4 +1,5 @@
-import 'package:app/model/broker.dart';
+
+import 'package:app/model/broker/broker.dart';
 import 'package:flutter/material.dart';
 
 class AboutSection extends StatelessWidget {
@@ -24,7 +25,7 @@ class AboutSection extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text("${broker.about}"),
+            child: Text("About page"),
           ),
         ],
       ),

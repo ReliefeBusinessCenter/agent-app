@@ -1,5 +1,6 @@
 import 'package:app/constants/customer-page/categories.dart';
-import 'package:app/model/broker.dart';
+import 'package:app/model/broker/broker.dart';
+
 import 'package:app/model/category.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +10,7 @@ class BrokerBackgroundImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Category category =
-        [].firstWhere((element) => element.id == broker.categoryId);
+        [].firstWhere((element) => element.id == broker.category!.categoryId);
     return Container(
       height: MediaQuery.of(context).size.height * 0.27,
       child: Stack(
@@ -34,11 +35,11 @@ class BrokerBackgroundImage extends StatelessWidget {
                 CircleAvatar(
                   maxRadius: MediaQuery.of(context).size.width * 0.15,
                   // minRadius: MediaQuery.of(context).size.width * 0.4,
-                  backgroundImage: AssetImage(broker.image),
+                  backgroundImage: AssetImage(broker.user!.picture as String),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(broker.name,
+                  child: Text(broker.user!.fullName as String,
                       style: TextStyle(
                         fontSize: 20,
                         color: Theme.of(context).primaryColor.withOpacity(0.95),

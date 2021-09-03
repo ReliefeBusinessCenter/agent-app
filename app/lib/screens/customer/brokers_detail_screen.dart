@@ -4,7 +4,8 @@ import 'package:app/Widget/Broker-profile/custome_button.dart';
 import 'package:app/Widget/Broker-profile/hire_button.dart';
 import 'package:app/Widget/Broker-profile/select_option.dart';
 import 'package:app/Widget/Broker-profile/work_section.dart';
-import 'package:app/model/broker.dart';
+import 'package:app/model/broker/broker.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:step_progress_indicator/step_progress_indicator.dart';
@@ -16,7 +17,7 @@ class BrokersProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Broker broker = ModalRoute.of(context)!.settings.arguments as Broker;
-    print("Broker name ${broker.name}");
+    print("Broker name ${broker.user!.fullName}");
     return Scaffold(
       backgroundColor: Color(0xFFf2f6f9),
       appBar: AppBar(),

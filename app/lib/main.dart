@@ -1,6 +1,7 @@
 import 'package:app/bloc/broker/bloc/broker_bloc.dart';
 import 'package:app/bloc/favorit/bloc/favorite_bloc.dart';
 import 'package:app/bloc/work/bloc/work_bloc.dart';
+import 'package:app/data_provider/broker-data-provider.dart';
 import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/repository/brokersRepository.dart';
 import 'package:app/repository/category_repository.dart';
@@ -12,7 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'bloc/auth/bloc/auth_bloc.dart';
 import 'bloc/category/bloc/category_bloc.dart';
-import 'data_provider/brokersDataProvider.dart';
+
 import 'data_provider/categories_data_provider.dart';
 import 'data_provider/user_data_provider.dart';
 
@@ -23,8 +24,12 @@ void main() {
 class MyApp extends StatelessWidget {
   // BrokersDataProvider brokersDataProvider = new BrokersDataProvider();
   http.Client httpClient = http.Client();
-  BrokersRepository brokersRepository =
-      new BrokersRepository(brokerDataProvider: BrokersDataProvider());
+  BrokersRepository brokersRepository = new BrokersRepository(
+      brokerDataProvider: BrokerDataProvider(
+    httpClient: http.Client(),
+    userPreferences: UserPreferences(),
+  ));
+  
   UserRepository userRepository = UserRepository(
     userDataProvider: UserDataProvider(
       httpClient: http.Client(),
@@ -32,12 +37,11 @@ class MyApp extends StatelessWidget {
     ),
   );
 
-  CategoryRepository  categoryRepository = CategoryRepository(
+  CategoryRepository categoryRepository = CategoryRepository(
     categoryDataProvider: CategoriesDataProvider(
       httpClient: http.Client(),
       userPreferences: UserPreferences(),
     ),
-   
   );
 
   @override
@@ -53,14 +57,13 @@ class MyApp extends StatelessWidget {
               userPreference: UserPreferences(),
             )..add(AutoLoginEvent()),
           ),
-          // 
+          //
           BlocProvider<CategoryBloc>(
             create: (_) => CategoryBloc(
               categoryRepository: this.categoryRepository,
-              
             )..add(FetchCategories()),
           ),
-          // 
+          //
           BlocProvider<FavoriteBloc>(
             create: (_) => FavoriteBloc()..add(FavoriteInitialFetch()),
           ),
