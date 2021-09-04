@@ -14,6 +14,7 @@ import 'package:http/http.dart' as http;
 import 'bloc/auth/bloc/auth_bloc.dart';
 import 'bloc/category/bloc/category_bloc.dart';
 
+import 'bloc/register/bloc/register_bloc.dart';
 import 'data_provider/categories_data_provider.dart';
 import 'data_provider/user_data_provider.dart';
 
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
     httpClient: http.Client(),
     userPreferences: UserPreferences(),
   ));
-  
+
   UserRepository userRepository = UserRepository(
     userDataProvider: UserDataProvider(
       httpClient: http.Client(),
@@ -69,6 +70,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<WorkBloc>(
             create: (_) => WorkBloc()..add(WorkInitialFetch()),
+          ),
+          BlocProvider<RegisterBloc>(
+            create: (_) => RegisterBloc()..add(Initialization()),
           ),
         ],
         child: MaterialApp(

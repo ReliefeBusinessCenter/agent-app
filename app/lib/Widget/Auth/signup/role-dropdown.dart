@@ -1,4 +1,5 @@
 import 'package:app/Widget/Auth/signup/signp-customeDropDown.dart';
+import 'package:app/bloc/register/bloc/register_bloc.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,10 +13,10 @@ class RoleDropDown extends StatefulWidget {
 
 class _RoleDropDownState extends State<RoleDropDown> {
   String value = 'Pay Later';
-  // late OrdersBloc ordersBloc;
+  late RegisterBloc registerBloc;
   @override
   Widget build(BuildContext context) {
-    // ordersBloc = BlocProvider.of<OrdersBloc>(context);
+    registerBloc = BlocProvider.of<RegisterBloc>(context);
     return CustomeDropDownButton(
       dropDownItems: [
         DropdownMenuItem(
@@ -45,7 +46,9 @@ class _RoleDropDownState extends State<RoleDropDown> {
           value: "Broker",
         ),
       ],
-      onChanged: () {},
+      onChanged: (value) {
+        registerBloc.add(AddTypeUser(userType: value));
+      },
       value: "Customer",
       // onChanged: this.onChanged,
 

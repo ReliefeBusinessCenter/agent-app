@@ -3,8 +3,10 @@ import 'package:app/Widget/Auth/signup/next-button.dart';
 import 'package:app/Widget/Auth/signup/role-dropdown.dart';
 import 'package:app/Widget/Auth/signup/sex-dropdown.dart';
 import 'package:app/Widget/Auth/signup/signUpTextField.dart';
+import 'package:app/bloc/register/bloc/register_bloc.dart';
 import 'package:app/screens/Auth/password-register-screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpPageScreen extends StatelessWidget {
   static const routeName = '/signup';
@@ -17,9 +19,11 @@ class SignUpPageScreen extends StatelessWidget {
   final TextEditingController subCityController = new TextEditingController();
   final TextEditingController kebeleController = new TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  late RegisterBloc registerBloc;
+
   @override
   Widget build(BuildContext context) {
-  
+    registerBloc = BlocProvider.of<RegisterBloc>(context);
     return Scaffold(
         backgroundColor: Theme.of(context).accentColor,
         appBar: AppBar(
@@ -81,59 +85,75 @@ class SignUpPageScreen extends StatelessWidget {
                                 validator: null,
                                 obsecureText: false,
                                 isRequired: false,
+                                onChanged: (String value) {
+                                  print("Write: ${value}");
+                                  registerBloc.add(AddName(name: value));
+                                },
                               ),
                               SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height * 0.02,
                               ),
                               CustomTextField(
-                                minLength: 0,
-                                textFieldName: 'Email',
-                                controller: nameController,
-                                initialValue: '',
-                                validator: null,
-                                obsecureText: false,
-                                isRequired: false,
-                              ),
+                                  minLength: 0,
+                                  textFieldName: 'Email',
+                                  controller: emailController,
+                                  initialValue: '',
+                                  validator: null,
+                                  obsecureText: false,
+                                  isRequired: false,
+                                  onChanged: (String value) {
+                                    print("Write: ${value}");
+                                    registerBloc.add(AddEmail(email: value));
+                                  }),
                               SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height * 0.02,
                               ),
                               CustomTextField(
-                                minLength: 0,
-                                textFieldName: 'City',
-                                controller: cityController,
-                                initialValue: '',
-                                validator: null,
-                                obsecureText: false,
-                                isRequired: false,
-                              ),
+                                  minLength: 0,
+                                  textFieldName: 'City',
+                                  controller: cityController,
+                                  initialValue: '',
+                                  validator: null,
+                                  obsecureText: false,
+                                  isRequired: false,
+                                  onChanged: (String value) {
+                                    print("Write: ${value}");
+                                    registerBloc.add(AddCity(city: value));
+                                  }),
                               SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height * 0.02,
                               ),
                               CustomTextField(
-                                minLength: 0,
-                                textFieldName: 'Sub City',
-                                controller: subCityController,
-                                initialValue: '',
-                                validator: null,
-                                obsecureText: false,
-                                isRequired: false,
-                              ),
+                                  minLength: 0,
+                                  textFieldName: 'Sub City',
+                                  controller: subCityController,
+                                  initialValue: '',
+                                  validator: null,
+                                  obsecureText: false,
+                                  isRequired: false,
+                                  onChanged: (String value) {
+                                    print("Write: ${value}");
+                                    registerBloc.add(AddCity(city: value));
+                                  }),
                               SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height * 0.02,
                               ),
                               CustomTextField(
-                                minLength: 0,
-                                textFieldName: 'Kebele',
-                                controller: kebeleController,
-                                initialValue: '',
-                                validator: null,
-                                obsecureText: false,
-                                isRequired: false,
-                              ),
+                                  minLength: 0,
+                                  textFieldName: 'Kebele',
+                                  controller: kebeleController,
+                                  initialValue: '',
+                                  validator: null,
+                                  obsecureText: false,
+                                  isRequired: false,
+                                  onChanged: (String value) {
+                                    print("Write: ${value}");
+                                    registerBloc.add(AddKebele(kebele: value));
+                                  }),
                               SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height * 0.02,
@@ -143,9 +163,16 @@ class SignUpPageScreen extends StatelessWidget {
                                 height:
                                     MediaQuery.of(context).size.height * 0.02,
                               ),
-                              RoleDropDown(),  
-                              CategoryDropDownButton()
-
+                              RoleDropDown(),
+                              BlocBuilder<RegisterBloc, RegisterState>(
+                                builder: (context, state) {
+                                  return Visibility(
+                                      visible: state.user!.role == "Broker"
+                                          ? true
+                                          : false,
+                                      child: CategoryDropDownButton());
+                                },
+                              )
                             ]),
                           ),
                         ),
@@ -153,6 +180,17 @@ class SignUpPageScreen extends StatelessWidget {
                           onTapped: () {
                             if (_formKey.currentState!.validate()) {
                               print("Validated successfully");
+                              BlocListener<RegisterBloc, RegisterState>(
+                                listener: (context, state) {
+                                  if (state.user!.role == 'Broker') {
+                                    // Additional Broker information woll come here
+                                    
+                                  } else {
+                                  // Additional customer information will come here
+                                  }
+                                },
+                                child: Container(),
+                              );
                               Navigator.pushNamed(
                                   context, PasswordRegisterScreen.routeName);
                             }

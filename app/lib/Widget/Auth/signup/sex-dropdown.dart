@@ -1,4 +1,5 @@
 import 'package:app/Widget/Auth/signup/signp-customeDropDown.dart';
+import 'package:app/bloc/register/bloc/register_bloc.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,9 +14,11 @@ class SexDropDown extends StatefulWidget {
 class _SexDropDownState extends State<SexDropDown> {
   String value = 'Pay Later';
   // late OrdersBloc ordersBloc;
+  late RegisterBloc registerBloc;
   @override
   Widget build(BuildContext context) {
     // ordersBloc = BlocProvider.of<OrdersBloc>(context);
+    registerBloc = BlocProvider.of<RegisterBloc>(context);
     return CustomeDropDownButton(
       dropDownItems: [
         DropdownMenuItem(
@@ -45,7 +48,10 @@ class _SexDropDownState extends State<SexDropDown> {
           value: "Female",
         ),
       ],
-      onChanged: () {},
+      onChanged: (value) {
+        print("Value changes: ${value}");
+        registerBloc.add(AddGender(gender: value));
+      },
       value: "Male",
       // onChanged: this.onChanged,
 
@@ -57,6 +63,7 @@ class _SexDropDownState extends State<SexDropDown> {
     print("payment time on changed method");
     setState(() {
       value = value;
+
       // print(widget.dropDownItems[_value].chil);
     });
 

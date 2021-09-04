@@ -10,6 +10,8 @@ class CustomTextField extends StatelessWidget {
   final bool isRequired;
   final String initialValue;
   final int minLength;
+  final Function onChanged;
+
   CustomTextField({
     required this.textFieldName,
     required this.controller,
@@ -18,6 +20,7 @@ class CustomTextField extends StatelessWidget {
     required this.isRequired,
     required this.initialValue,
     required this.minLength,
+    required this.onChanged,
   });
 
   @override
@@ -51,6 +54,7 @@ class CustomTextField extends StatelessWidget {
                 },
                 onEditingComplete: () => FocusScope.of(context).unfocus(),
                 style: TextStyle(fontSize: 18, color: Colors.grey),
+                 onChanged: (value) => this.onChanged(value.toString()),
                 decoration: InputDecoration(
                     labelText: this.textFieldName,
                     fillColor: Colors.white,
