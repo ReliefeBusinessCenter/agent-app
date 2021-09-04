@@ -15,6 +15,10 @@ part 'broker_state.dart';
 class BrokerBloc extends Bloc<BrokerEvent, BrokerState> {
   final BrokersRepository brokersRepository;
   List<Broker> brokerList = [];
+  List<Broker> selectedCategories = [];
+  List<Broker> searchedBrokers = [];
+  int? categoryId = null;
+  String? searchBrokerName='';
   int page = 0;
 
   BrokerBloc({required this.brokersRepository}) : super(BrokerInitial());
@@ -31,23 +35,53 @@ class BrokerBloc extends Bloc<BrokerEvent, BrokerState> {
         print("Data arrived at the data provider: ${brokers}");
 
         if (brokers != null) {
-          yield BrokersLoadSuccess(selectedCategoryId: 0, brokers: brokers);
+          brokerList = brokers;
+          yield BrokersLoadSuccess(selectedCategoryId: 0, brokers: brokerList);
         } else {
           yield BrokersLoadFailed(message: "Unable to load brokers");
         }
       } catch (e) {}
     }
     if (event is SelectEvent) {
-      print("select even is called");
+      print("select event from product bloc");
+      //
+      print("Category Id: ${event.categoryId}");
+      this.selectedCategories = [];
+      print("Select event i scalled");
+      this.categoryId = event.categoryId;
+      if (event.categoryId == 0) {
+        print("selact all event have been called");
+        print("Broker list: ${brokerList}");
+        yield BrokersLoadSuccess(
+            selectedCategoryId: event.categoryId, brokers: brokerList);
+      } else {
+        for (int i = 0; i < brokerList.length; i++) {
+          int brokerCatID = brokerList[i].category!.categoryId as int;
 
-      List<Broker> brokers = (await this.brokersRepository.getBrokers());
-      yield BrokersLoadSuccess(
-          selectedCategoryId: event.categoryId, brokers: brokers);
+          // print("This is the category ID for th product: ${productCatID}");
+          if (brokerCatID == (event.categoryId)) {
+            print("All category has ben clicked");
+            this.selectedCategories.add(brokerList[i]);
+          }
 
-      // filteredBrokers.add(
-      //     state.brokers.map((e) => e.categoryId == state.selectedCategoryId));
-      print("This is the selected category id: ${event.categoryId}");
-      print("This is the state data for the brokers ${state.brokers}");
+          print("Products: ${this.selectedCategories}");
+          yield BrokersLoadSuccess(
+              selectedCategoryId: event.categoryId,
+              brokers: selectedCategories);
+        }
+      }
+
+      // print("Products: ${this.selectedCategories[0].order}");
+      // print("select even is called");
+
+      // List<Broker> brokers = (await this.brokersRepository.getBrokers());
+      // yield BrokersLoadSuccess(
+      //     selectedCategoryId: event.categoryId, brokers: brokers);
+
+      // // filteredBrokers.add(
+      // //     state.brokers.map((e) => e.categoryId == state.selectedCategoryId));
+      // print("This is the selected category id: ${event.categoryId}");
+      // print("This is the state data for the brokers ${state.brokers}");
 
       // yield (BrokersLoadSuccess(
       //     selectedCategoryId: event.categoryId, brokers: filteredBrokers)
@@ -55,7 +89,40 @@ class BrokerBloc extends Bloc<BrokerEvent, BrokerState> {
       //     );
     } else if (event is SearchEvent) {
       // search event
+      //
+      this.searchedBrokers = [];
+      print("Search event is scalled");
+      this.searchBrokerName=event.name;
+      this.page = 1;
 
+      //  filter from the cache
+      for (int i = 0; i < brokerList.length; i++) {
+        if (brokerList[i]
+        .user!
+            .fullName!
+            .toLowerCase()
+            .contains(this.searchBrokerName.toString().toLowerCase())) {
+          this.searchedBrokers.add(brokerList[i]);
+        }
+      }
+      // if (event.isSubmited) {
+      //   List<Data> products =
+      //       (await this.productRepository.getProducts(page, this.categoryId));
+      // }
+
+      // yield (ProductLoadSuccess(
+      //   page: page,
+      //   products: this.searchedProducts,
+      //   selectedCategoryId: this.categoryId,
+      //   searchProductName: this.searchProductName,
+      // )
+
+       yield BrokersLoadSuccess( 
+              selectedCategoryId: state.selectedCategoryId,
+              brokers: searchedBrokers);
+
+      
+      
     } else if (event is FetchEvent) {
       // fetch event
     }

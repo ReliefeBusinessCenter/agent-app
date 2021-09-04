@@ -21,8 +21,7 @@ class SearchTextField extends StatelessWidget {
               return TextField(
                 onChanged: (text) {
                   print("This is the text that have been written $text");
-                  brokerBloc.add(SelectEvent(
-                      categoryId: state.selectedCategoryId, search: text));
+                  brokerBloc.add(SearchEvent(name: text));
                 },
                 controller: null,
                 // obscureText: !ispassshow,

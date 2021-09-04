@@ -9,8 +9,8 @@ class BrokerBackgroundImage extends StatelessWidget {
   BrokerBackgroundImage({required this.broker});
   @override
   Widget build(BuildContext context) {
-    Category category =
-        [].firstWhere((element) => element.id == broker.category!.categoryId);
+    // Category category =
+    //     [].firstWhere((element) => element.id == broker.category!.categoryId);
     return Container(
       height: MediaQuery.of(context).size.height * 0.27,
       child: Stack(
@@ -35,7 +35,9 @@ class BrokerBackgroundImage extends StatelessWidget {
                 CircleAvatar(
                   maxRadius: MediaQuery.of(context).size.width * 0.15,
                   // minRadius: MediaQuery.of(context).size.width * 0.4,
-                  backgroundImage: AssetImage(broker.user!.picture as String),
+                  backgroundImage: AssetImage(
+                    'assets/images/16.jpg',
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -50,7 +52,7 @@ class BrokerBackgroundImage extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text("${category.catigoryName} broker",
+                      child: Text("${broker.category!.catigoryName} broker",
                           style: TextStyle(
                             fontSize: 15,
                             color:

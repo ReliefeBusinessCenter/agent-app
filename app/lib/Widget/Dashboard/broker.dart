@@ -53,7 +53,7 @@ class _BrokerItemState extends State<BrokerItem> {
                   ),
                 ),
                 child: Image.asset(
-                  this.widget.broker.user!.picture as String,
+                  'assets/images/16.jpg',
                   height: MediaQuery.of(context).size.height * 0.20,
                   width: double.infinity,
                   fit: BoxFit.fill,
@@ -86,7 +86,7 @@ class _BrokerItemState extends State<BrokerItem> {
                       children: [
                         Row(
                           children: [
-                            Text("${this.widget.broker.reviews![0].rate as String}",
+                            Text("8.1M",
                                 style: TextStyle(
                                     color: Colors.black.withOpacity(0.5))),
                             Icon(Icons.star,
@@ -98,7 +98,7 @@ class _BrokerItemState extends State<BrokerItem> {
                           width: 6,
                         ),
                         Text(
-                          "${this.widget.broker.reviews![0].rate}M views",
+                          "${this.widget.broker.reviews!.length == 0 ? "10" : this.widget.broker.reviews![0].rate} M views",
                           style:
                               TextStyle(color: Colors.black.withOpacity(0.5)),
                         )

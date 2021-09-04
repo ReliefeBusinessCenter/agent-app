@@ -19,12 +19,12 @@ class HireButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     workBloc = BlocProvider.of<WorkBloc>(context);
-    Category category = []
-        .firstWhere((element) => element.id == broker.category!.categoryId);
+    // Category category = []
+    //     .firstWhere((element) => element.id == broker.category!.categoryId);
     Work work = new Work(
         AssignedBrokerName: broker.user!.fullName as String,
-        WorkName: '${category.catigoryName} Broking',
-        WorkDetail: "broking on the ${category.catigoryName} area",
+        WorkName: '${broker.category!.catigoryName} Broking',
+        WorkDetail: "broking on the ${broker.category!.catigoryName} area",
         WorkStatus: "Pending");
     return GestureDetector(
       onTap: () {},
@@ -41,7 +41,8 @@ class HireButton extends StatelessWidget {
                 dialogType: DialogType.INFO,
                 animType: AnimType.BOTTOMSLIDE,
                 title: 'Confirm Us',
-                desc: 'You are Hiring ${broker.user!.fullName as String}. Do you want to continue?',
+                desc:
+                    'You are Hiring ${broker.user!.fullName as String}. Do you want to continue?',
                 btnCancelOnPress: () {},
                 btnOkOnPress: () {
                   AwesomeDialog(

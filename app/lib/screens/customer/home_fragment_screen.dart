@@ -55,7 +55,7 @@ class HomeFragment extends StatelessWidget {
                         text: "All",
                         onPressed: () {
                           // print(
-                          // "This is teh name of the category:${DUMMY_CATEGORIES[i].name}");
+                          // "This is the name of the category:${DUMMY_CATEGORIES[i].name}");
                           brokerBloc
                               .add(SelectEvent(categoryId: 0, search: ''));
 
