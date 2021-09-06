@@ -21,7 +21,12 @@ namespace broker.Data
             await _context.SaveChangesAsync();
             return true;
         }
-    
+
+        public Task<Skills> GetByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<List<Skills>> GetData()
         {
             Console.WriteLine("Get  Skills  method invoked");

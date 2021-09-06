@@ -10,9 +10,12 @@ namespace broker.Data
     public class BrokerRepository : IRepository<Broker>
     {
         private readonly DataContext _context;
-        public BrokerRepository(DataContext context)
+
+        private  IRepository<User> _userRepository;
+        public BrokerRepository(DataContext context )
         {
             _context = context;
+
         }
 
         public async Task<bool> DeleteData(Broker service)
@@ -21,6 +24,11 @@ namespace broker.Data
             _context.Brokers.Remove(service);
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        public Task<Broker> GetByEmail(string email)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<List<Broker>> GetData()
@@ -85,13 +93,31 @@ namespace broker.Data
              
         }
 
-        public async Task<Broker> InsertData(Broker service)
+        public async Task<Broker> InsertData(Broker broker)
         {
               Console.WriteLine("Create data  method invoked");
-            _context.Brokers.Add(service);
+              Console.WriteLine("Broker", broker);
+        // Add user
+        _context.Users.Add(broker.User);
+            await _context.SaveChangesAsync();
+             // get user by email
+            User user=await _context.Users .Include(e => e.Buys).FirstOrDefaultAsync(x => x.Email == broker.User.Email);
+            // Add skills
+            _context.Skills.Add(broker.Skills);
+              await _context.SaveChangesAsync();
+               // get skills by email
+            // User user=await _context.Users .Include(e => e.Buys).FirstOrDefaultAsync(x => x.Email == broker.User.Email);
+           
+            // add broker
+            Broker newBroker=new Broker();
+            
+            
+
+
+            _context.Brokers.Add(broker);
 
             await _context.SaveChangesAsync();
-            return service;
+            return broker;
         }
 
         public async Task<Broker> UpdateData(Broker service)
@@ -101,6 +127,12 @@ namespace broker.Data
             _context.SaveChanges();
              return service;
         }
+
+       
+
+        
+
+       
 
     }
 }

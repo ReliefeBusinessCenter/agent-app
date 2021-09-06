@@ -23,7 +23,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 namespace Controllers
 {
 
-    [Authorize]
+    // [Authorize]
     [ApiController]
     [Route("api/users")]
     public class UserController : ControllerBase
@@ -95,7 +95,7 @@ namespace Controllers
             return Ok(userEntity);
         }
         // [Authorize(Roles = "Customer")]
-        [Authorize(AuthenticationSchemes=JwtBearerDefaults.AuthenticationScheme,Roles = "Customer")]
+        // [Authorize(AuthenticationSchemes=JwtBearerDefaults.AuthenticationScheme,Roles = "Customer")]
         //    [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetUsers()
@@ -104,8 +104,16 @@ namespace Controllers
             return Ok(_mapper.Map<IEnumerable<UserDto>>(model));
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(int id)
+        // [HttpGet("email")]
+        // public async Task<IActionResult> GetUserById(int id)
+        // {
+        //     Console.WriteLine("Returning job of id" + id);
+        //     var model = await _userRepository.GetDataById(id);
+        //     return Ok(_mapper.Map<UserDto>(model));
+        // }
+
+         [HttpGet("{email}")]
+        public async Task<IActionResult> GetUserByEmail(int id)
         {
             Console.WriteLine("Returning job of id" + id);
             var model = await _userRepository.GetDataById(id);
@@ -120,9 +128,9 @@ namespace Controllers
             await _userRepository.UpdateData(user);
             return Ok(userDto);
         }
-  [Authorize(AuthenticationSchemes=JwtBearerDefaults.AuthenticationScheme,Roles = "Admin")]
+//   [Authorize(AuthenticationSchemes=JwtBearerDefaults.AuthenticationScheme,Roles = "Admin")]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteUser(int id) 
         {
             Console.WriteLine("DELETE USER");
             var model = await _userRepository.GetDataById(id);

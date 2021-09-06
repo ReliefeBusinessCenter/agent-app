@@ -10,6 +10,7 @@ namespace broker.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SkillsId { get; set; }
+            // public Broker Broker { get; set; }
         public double CommunicationSkill { get; set; }
         public double BrokingSkill { get; set; }
         public double WorkDone { get; set; }

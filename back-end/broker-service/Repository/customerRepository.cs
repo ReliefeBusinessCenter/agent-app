@@ -23,6 +23,11 @@ namespace broker.Data
             return true;
         }
 
+        public Task<Customer> GetByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<List<Customer>> GetData()
         {
             //   var model = await _context.Brokers.ToListAsync();

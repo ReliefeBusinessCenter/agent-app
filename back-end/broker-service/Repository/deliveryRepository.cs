@@ -23,6 +23,11 @@ namespace broker.Data
             return true;
         }
 
+        public Task<Delivery> GetByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<List<Delivery>> GetData()
         {
             Console.WriteLine("Get  Delivery  method invoked");

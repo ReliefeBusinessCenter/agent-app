@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Controllers
 {   
-    [Authorize]
+    // [Authorize]
     [Route("api/categories")]
     [ApiController]
     public class CategoryController : ControllerBase
@@ -38,7 +38,7 @@ namespace Controllers
             var model = await _catigoryRepository.GetDataById(id);
             return Ok(_mapper.Map<CategoryDto>(model));
         }
-         [Authorize(AuthenticationSchemes=JwtBearerDefaults.AuthenticationScheme,Roles = "Admin")]
+        //  [Authorize(AuthenticationSchemes=JwtBearerDefaults.AuthenticationScheme,Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateCategories(CategoryDto categoryDto)
         {
@@ -47,7 +47,7 @@ namespace Controllers
             await _catigoryRepository.UpdateData(category);
             return Ok(categoryDto);
         }
-        [Authorize(AuthenticationSchemes=JwtBearerDefaults.AuthenticationScheme,Roles = "Admin")]
+        // [Authorize(AuthenticationSchemes=JwtBearerDefaults.AuthenticationScheme,Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategories(int id)
         {
@@ -56,7 +56,7 @@ namespace Controllers
             await _catigoryRepository.DeleteData(categories);
             return Ok(model);
         }
-          [Authorize(AuthenticationSchemes=JwtBearerDefaults.AuthenticationScheme,Roles = "Admin")]
+        //   [Authorize(AuthenticationSchemes=JwtBearerDefaults.AuthenticationScheme,Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCategories(int id, CategoryDto categoryDto)
         {

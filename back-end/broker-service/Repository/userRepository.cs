@@ -13,7 +13,11 @@ namespace broker.Data
             _context = context;
         }
 
-         async Task<bool>  IRepository<User>.DeleteData(User user)
+        // public UserRepository()
+        // {
+        // }
+
+        async Task<bool>  IRepository<User>.DeleteData(User user)
         {
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
@@ -31,6 +35,11 @@ namespace broker.Data
        async Task<User> IRepository<User>.GetDataById(int id)
         {
             return await _context.Users .Include(e => e.Buys).FirstOrDefaultAsync(x => x.UserId == id);
+        }
+
+        public async Task<User> GetByEmail(string email)
+        {
+            return await _context.Users .Include(e => e.Buys).FirstOrDefaultAsync(x => x.Email == email);
         }
 
         async Task<User> IRepository<User>.InsertData(User user)

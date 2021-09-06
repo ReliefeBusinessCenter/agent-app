@@ -21,7 +21,12 @@ namespace broker.Data
             await _context.SaveChangesAsync();
             return true;
         }
-    
+
+        public Task<Portfolio> GetByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<List<Portfolio>> GetData()
         {
              Console.WriteLine("Get  portfolio  method invoked");

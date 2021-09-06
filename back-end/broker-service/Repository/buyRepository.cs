@@ -22,6 +22,11 @@ namespace broker.Data
             return true;
         }
 
+        public Task<Buy> GetByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<List<Buy>> GetData()
         {
              Console.WriteLine("Get  Buys method invoked");

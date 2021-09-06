@@ -28,7 +28,7 @@ namespace broker.Models
         
         public string Role { get; set; }
 
-     public ICollection<Buy> Buys { get; set; }
+        public ICollection<Buy> Buys { get; set; }
 
 
 

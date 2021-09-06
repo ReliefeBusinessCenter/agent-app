@@ -21,7 +21,12 @@ namespace broker.Data
             await _context.SaveChangesAsync();
             return true;
         }
-    
+
+        public Task<Review> GetByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<List<Review>> GetData()
         {
              Console.WriteLine("Get  review   method invoked");

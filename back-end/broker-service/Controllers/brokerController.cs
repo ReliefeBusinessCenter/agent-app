@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Controllers
 {   
-    [Authorize]
+    // [Authorize]
    
     [ApiController]
      [Route("api/brokers")]
@@ -42,7 +42,7 @@ namespace Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> CreateTechnician(BrokerDto brokerDto)
+        public async Task<IActionResult> CreateBroker(BrokerDto brokerDto)
         {
             Console.WriteLine("Creating brokers");
             var Broker = _mapper.Map<Broker>(brokerDto);
