@@ -8,6 +8,9 @@ import 'package:app/screens/Auth/password-register-screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'broker-detail-registeration-screen.dart';
+import 'customer-detail-registeration-screen.dart';
+
 class SignUpPageScreen extends StatelessWidget {
   static const routeName = '/signup';
   final TextEditingController nameController = new TextEditingController();
@@ -184,15 +187,20 @@ class SignUpPageScreen extends StatelessWidget {
                                 listener: (context, state) {
                                   if (state.user!.role == 'Broker') {
                                     // Additional Broker information woll come here
-                                    
+
+                                    Navigator.pushNamed(
+                                        context, BrokerDetailScreen.routeName);
                                   } else {
-                                  // Additional customer information will come here
+                                    // Additional customer information will come here
+                                    Navigator.pushNamed(context,
+                                        CustomerDetailScreen.routeName);
                                   }
                                 },
                                 child: Container(),
                               );
-                              Navigator.pushNamed(
-                                  context, PasswordRegisterScreen.routeName);
+                              
+                              // Navigator.pushNamed(
+                              //     context, PasswordRegisterScreen.routeName);
                             }
                           },
                         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomerDetailScreen extends StatelessWidget {
-  const CustomerDetailScreen({Key? key}) : super(key: key);
+  static const routeName = '/customer-detail';
 
   @override
   Widget build(BuildContext context) {
