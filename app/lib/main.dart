@@ -2,9 +2,11 @@ import 'package:app/bloc/broker/bloc/broker_bloc.dart';
 import 'package:app/bloc/favorit/bloc/favorite_bloc.dart';
 import 'package:app/bloc/work/bloc/work_bloc.dart';
 import 'package:app/data_provider/broker-data-provider.dart';
+import 'package:app/data_provider/customer-data-provider.dart';
 import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/repository/brokersRepository.dart';
 import 'package:app/repository/category_repository.dart';
+import 'package:app/repository/customer_repository.dart';
 import 'package:app/repository/user_repository.dart';
 import 'package:app/routes/route.dart';
 import 'package:app/screens/Auth/login.dart';
@@ -45,6 +47,12 @@ class MyApp extends StatelessWidget {
     ),
   );
 
+   CustomerRepository customerRepository = new CustomerRepository(
+      customerDataProvider: CustomerDataProvider(
+    httpClient: http.Client(),
+    userPreferences: UserPreferences(),
+  ));
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -56,7 +64,7 @@ class MyApp extends StatelessWidget {
             create: (_) => AuthBloc(
               userRepository: this.userRepository,
               userPreference: UserPreferences(),
-            )..add(AutoLoginEvent()),
+            )..add(AutoLoginEvent()), 
           ),
           //
           BlocProvider<CategoryBloc>(
@@ -72,7 +80,7 @@ class MyApp extends StatelessWidget {
             create: (_) => WorkBloc()..add(WorkInitialFetch()),
           ),
           BlocProvider<RegisterBloc>(
-            create: (_) => RegisterBloc()..add(Initialization()),
+            create: (_) => RegisterBloc(brokersRepository: brokersRepository, customerRepositoy: customerRepository)..add(Initialization()),
           ),
         ],
         child: MaterialApp(
@@ -101,7 +109,7 @@ class MyApp extends StatelessWidget {
           onUnknownRoute: (settings) {
             return MaterialPageRoute(builder: (ctx) => Login());
           },
-
+ 
           // home: Login(),
         ));
   }

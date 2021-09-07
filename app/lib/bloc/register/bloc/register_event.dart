@@ -38,3 +38,6 @@ class AddTypeUser extends RegisterEvent {
   final String userType;
   AddTypeUser({required this.userType});
 }
+class RegisterUser extends RegisterEvent{
+  
+}

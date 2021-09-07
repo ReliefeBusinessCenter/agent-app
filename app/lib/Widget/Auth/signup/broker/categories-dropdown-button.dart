@@ -57,6 +57,8 @@ class _CategoryDropDownButtonState extends State<CategoryDropDownButton> {
 
             // value:state.request.paymentWhen as String,
           );
+        } else if (state is CategoryLoading) {
+          return CircularProgressIndicator();
         }
         return Container();
       },

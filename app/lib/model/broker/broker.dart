@@ -1,16 +1,16 @@
-import 'package:app/model/broker/review.dart';
+import 'package:app/model/review.dart';
 import 'package:app/model/broker/skills.dart';
 
 import 'category.dart';
-import 'deals.dart';
-import 'delivery.dart';
+import '../deals.dart';
+import '../delivery.dart';
 import 'portfolio.dart';
 import 'user.dart';
 
 class Broker {
   int? brokerId;
   List<Portfolios>? portfolios;
-  List<Deliveries>? deliveries;
+  List<Delivery>? deliveries;
   List<Deals>? deals;
   List<Reviews>? reviews;
   Skills? skills;
@@ -38,9 +38,9 @@ class Broker {
       });
     }
     if (json['deliveries'] != null) {
-      deliveries = <Deliveries>[];
+      deliveries = <Delivery>[];
       json['deliveries'].forEach((v) {
-        deliveries!.add(new Deliveries.fromJson(v));
+        deliveries!.add(new Delivery.fromJson(v));
       });
     }
     if (json['deals'] != null) {

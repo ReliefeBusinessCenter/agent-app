@@ -26,30 +26,32 @@ class SignUpPageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String type = 'customer';
+
     registerBloc = BlocProvider.of<RegisterBloc>(context);
+    registerBloc.add(Initialization());
     return Scaffold(
         backgroundColor: Theme.of(context).accentColor,
         appBar: AppBar(
           title: Text("Register"),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Material(
+            padding: const EdgeInsets.all(8.0),
+            child: Material(
               elevation: 1,
               borderRadius: BorderRadius.circular(30),
               child: Container(
-                height: MediaQuery.of(context).size.height,
-                // padding: EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
+                  height: MediaQuery.of(context).size.height,
+                  // padding: EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Form(
+                      key: _formKey,
+                      child: Column(children: [
                         Container(
                           // alignment: Alignment.topCenter,
                           width: MediaQuery.of(context).size.width,
@@ -169,6 +171,25 @@ class SignUpPageScreen extends StatelessWidget {
                               RoleDropDown(),
                               BlocBuilder<RegisterBloc, RegisterState>(
                                 builder: (context, state) {
+                                  // if (state is RegisterUpdateLoading) {
+                                  //   return CircularProgressIndicator();
+                                  // }
+                                  if (state is RegisterUpdateSuccess) {
+                                    if (state.user!.role == "Broker") {
+                                      type = 'broker';
+                                    } else if (state.user!.role == "Customer") {
+                                      type = 'customer';
+                                    }
+                                    return Visibility(
+                                        visible: state.user!.role == "Broker"
+                                            ? true
+                                            : false,
+                                        child: CategoryDropDownButton());
+                                  }
+                                  if (state.user!.role == "Broker") {
+                                    type = 'broker';
+                                  }
+
                                   return Visibility(
                                       visible: state.user!.role == "Broker"
                                           ? true
@@ -179,37 +200,23 @@ class SignUpPageScreen extends StatelessWidget {
                             ]),
                           ),
                         ),
-                        Next(
-                          onTapped: () {
-                            if (_formKey.currentState!.validate()) {
-                              print("Validated successfully");
-                              BlocListener<RegisterBloc, RegisterState>(
-                                listener: (context, state) {
-                                  if (state.user!.role == 'Broker') {
-                                    // Additional Broker information woll come here
-
-                                    Navigator.pushNamed(
-                                        context, BrokerDetailScreen.routeName);
-                                  } else {
-                                    // Additional customer information will come here
-                                    Navigator.pushNamed(context,
-                                        CustomerDetailScreen.routeName);
-                                  }
-                                },
-                                child: Container(),
-                              );
-                              
-                              // Navigator.pushNamed(
-                              //     context, PasswordRegisterScreen.routeName);
+                        Next(onTapped: () {
+                          if (_formKey.currentState!.validate()) {
+                            print("Validated successfully");
+                            print("User Type: ${type}");
+                            if (type == 'customer') {
+                              Navigator.of(context)
+                                  .pushNamed(CustomerDetailScreen.routeName);
+                            } else {
+                              Navigator.of(context)
+                                  .pushNamed(BrokerDetailScreen.routeName);
                             }
-                          },
-                        ),
-                      ],
+                          }
+                        }),
+                      ]),
                     ),
-                  ),
-                ),
-              )),
-        ));
+                  )),
+            )));
   }
 
   void validate() {

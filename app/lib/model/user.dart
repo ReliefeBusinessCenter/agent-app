@@ -1,3 +1,4 @@
+
 class User {
   int? userId;
   String? fullName;
@@ -8,7 +9,10 @@ class User {
   String? picture;
   String? sex;
   String? role;
-  List<Null>? buys;
+  String? city;
+  String? subCity;
+  String? kebele;
+  Null? buys;
 
   User(
       {this.userId,
@@ -20,6 +24,9 @@ class User {
       this.picture,
       this.sex,
       this.role,
+      this.city, 
+      this.subCity,
+      this.kebele,
       this.buys});
 
   User.fromJson(Map<String, dynamic> json) {
@@ -32,12 +39,7 @@ class User {
     picture = json['picture'];
     sex = json['sex'];
     role = json['role'];
-    // if (json['buys'] != null) {
-    //   buys = <Null>[];
-    //   json['buys'].forEach((v) {
-    //     buys!.add(new Null.fromJson(v));
-    //   });
-    // }
+    buys = json['buys'];
   }
 
   Map<String, dynamic> toJson() {
@@ -51,9 +53,7 @@ class User {
     data['picture'] = this.picture;
     data['sex'] = this.sex;
     data['role'] = this.role;
-    // if (this.buys != null) {
-    //   data['buys'] = this.buys!.map((v) => v!.toJson()).toList();
-    // }
+    data['buys'] = this.buys;
     return data;
   }
 }

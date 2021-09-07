@@ -1,11 +1,11 @@
-class Deliveries {
+class Delivery {
   int? deliveryId;
   String? deliveryStatus;
   String? location;
 
-  Deliveries({this.deliveryId, this.deliveryStatus, this.location});
+  Delivery({this.deliveryId, this.deliveryStatus, this.location});
 
-  Deliveries.fromJson(Map<String, dynamic> json) {
+  Delivery.fromJson(Map<String, dynamic> json) {
     deliveryId = json['deliveryId'];
     deliveryStatus = json['deliveryStatus'];
     location = json['location'];
