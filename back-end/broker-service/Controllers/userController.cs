@@ -19,6 +19,10 @@ using broker.Helpers;
 using broker.Entity;
 using broker.Dto;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+// using Microsoft.Extensions.Hosting.Internal;
 
 namespace Controllers
 {
@@ -30,15 +34,20 @@ namespace Controllers
     {
         private readonly IRepository<User> _userRepository;
         private readonly IMapper _mapper;
+        [Obsolete]
+        private static IHostingEnvironment _environment;
 
         private List<User> registeredUsers;
         private readonly AppSettings _appSettings;
 
-        public UserController(IRepository<User> repo, IMapper mapper, IOptions<AppSettings> appSettings)
+        // public static IHostingEnvironment Environment { get => _environment; set => _environment = value; }
+
+        public UserController(IRepository<User> repo, IMapper mapper, IOptions<AppSettings> appSettings, IHostingEnvironment environment)
         {
             _userRepository = repo;
             _mapper = mapper;
             _appSettings = appSettings.Value;
+            _environment = environment;
 
 
 
@@ -112,7 +121,7 @@ namespace Controllers
         //     return Ok(_mapper.Map<UserDto>(model));
         // }
 
-         [HttpGet("{email}")]
+        [HttpGet("{email}")]
         public async Task<IActionResult> GetUserByEmail(int id)
         {
             Console.WriteLine("Returning job of id" + id);
@@ -125,12 +134,23 @@ namespace Controllers
         {
             Console.WriteLine("Creating Users");
             var user = _mapper.Map<User>(userDto);
+             Console.WriteLine("Entered tot he image upload");
+
+            string fName = userDto.Picture.FileName;
+            Console.WriteLine(fName);
+            string path = Path.Combine(_environment.ContentRootPath, "Images/" + userDto.Picture.FileName);
+            using (var stream = new FileStream(path, FileMode.Create))
+            { 
+                await userDto.Picture.CopyToAsync(stream);
+            }
+            // return file.FileName;
+            user.Picture=userDto.Picture.FileName;
             await _userRepository.UpdateData(user);
             return Ok(userDto);
         }
-//   [Authorize(AuthenticationSchemes=JwtBearerDefaults.AuthenticationScheme,Roles = "Admin")]
+        //   [Authorize(AuthenticationSchemes=JwtBearerDefaults.AuthenticationScheme,Roles = "Admin")]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id) 
+        public async Task<IActionResult> DeleteUser(int id)
         {
             Console.WriteLine("DELETE USER");
             var model = await _userRepository.GetDataById(id);
@@ -146,6 +166,26 @@ namespace Controllers
             await _userRepository.UpdateData(userModel);
             return Ok(userModel);
         }
+        [HttpPost("uploadfileg")]
+        public async Task<string> UploadFile([FromForm] IFormFile file)
+        {
+            Console.WriteLine("Entered tot he image upload");
+
+            string fName = file.FileName;
+            Console.WriteLine(fName);
+            string path = Path.Combine(_environment.ContentRootPath, "Images/" + file.FileName);
+            using (var stream = new FileStream(path, FileMode.Create))
+            { 
+                await file.CopyToAsync(stream);
+            }
+            return file.FileName;
+        }
+        [HttpGet("getimage")]
+public IActionResult Get(string name)
+{
+    var image = System.IO.File.OpenRead(name);
+    return File(image, "image/jpeg");
+}
     }
 
 }

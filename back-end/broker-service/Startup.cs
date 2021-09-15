@@ -14,6 +14,7 @@ using broker.Helpers;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using ImageUploader.Handler;
 
 namespace broker_service
 {
@@ -74,6 +75,11 @@ namespace broker_service
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "broker_service", Description = "Swagger Core API" });
             });
 
+            
+            services.AddTransient<IImageHandler, ImageHandler>();
+            services.AddTransient<ImageWriter.Interface.IImageWriter, 
+                                  ImageWriter.Classes.ImageWriter>();
+
             // services.AddScoped<IRepository<Broker>, BrokerRepository>();
 
             services.AddScoped<IRepository<Broker>, BrokerRepository>();
@@ -99,7 +105,7 @@ namespace broker_service
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "broker_service v1"));
             }
-
+app.UseStaticFiles();
             app.UseHttpsRedirection();
 
             app.UseRouting();

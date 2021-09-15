@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Controllers
 {   
-    [Authorize]
+    // [Authorize]
      [ApiController]
     [Route("api/buys")]
    
@@ -25,7 +25,7 @@ namespace Controllers
             _buysRepository = repo;
             _mapper = mapper;
         } 
-        [Authorize(AuthenticationSchemes=JwtBearerDefaults.AuthenticationScheme,Roles = "Customer")]
+        // [Authorize(AuthenticationSchemes=JwtBearerDefaults.AuthenticationScheme,Roles = "Customer")]
    
         [HttpGet]
         public async Task<IActionResult> GetBuys()

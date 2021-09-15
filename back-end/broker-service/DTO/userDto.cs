@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 using System.Collections.Generic;
 using broker.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace broker.Dto
 {
@@ -24,8 +26,9 @@ namespace broker.Dto
         public string Phone { get; set; }
 
         public string Address { get; set; }
-
-        public string Picture { get; set; }
+ [FromForm]
+        public IFormFile Picture { get; set; }
+        // public string Picture { get; set; }
 
         public string Sex { get; set; }
         

@@ -8,6 +8,8 @@ using broker.Models;
 using AutoMapper;
 using broker.Dto;
 using Microsoft.AspNetCore.Authorization;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Controllers
 {   
@@ -18,10 +20,12 @@ namespace Controllers
     {
         private readonly IRepository<Customer> _customerRepository;
         private readonly IMapper _mapper;
-        public CustomerController(IRepository<Customer> repo, IMapper mapper)
+         private static IHostingEnvironment _environment;
+        public CustomerController(IRepository<Customer> repo, IMapper mapper, IHostingEnvironment environment)
         {
             _customerRepository = repo;
             _mapper = mapper;
+            _environment=environment;
         }
         [HttpGet]
         public async Task<IActionResult> GetCustomers()
@@ -43,6 +47,19 @@ namespace Controllers
         {
             Console.WriteLine("Creating customers");
             var customer = _mapper.Map<Customer>(customerDto);
+            Console.WriteLine("Creating Users");
+            // var user = _mapper.Map<User>(userDto);
+            //  Console.WriteLine("Entered tot he image upload");
+
+            // string fName = customerDto.User.Picture.FileName;
+            // Console.WriteLine(fName);
+            // string path = Path.Combine(_environment.ContentRootPath, "Images/" + fName);
+            // using (var stream = new FileStream(path, FileMode.Create))
+            // { 
+            //     await customerDto.User.Picture.CopyToAsync(stream);
+            // }
+            // // return file.FileName;
+            // customer.User.Picture=customerDto.User.Picture.FileName;
             await _customerRepository.UpdateData(customer);
             return Ok(customerDto);
         }

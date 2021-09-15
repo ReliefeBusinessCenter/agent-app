@@ -23,10 +23,7 @@ namespace broker.Models
         // navigational properties
         
         public User User { get; set; }
-       
-      
-       
-     }
+   }
 }
 
 

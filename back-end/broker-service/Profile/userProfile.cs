@@ -17,14 +17,13 @@ namespace broker.Profiles
             .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.Phone))
             .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address))
             .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId))
-            .ForMember(dest => dest.Picture, opt => opt.MapFrom(src => src.Picture))
+            // .ForMember(dest => dest.Picture, opt => opt.MapFrom(src => src.Picture))
             .ForMember(dest => dest.Sex, opt => opt.MapFrom(src => src.Sex))
             .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role));
             CreateMap<UserDto, broker.Models.User>();
 
         }
         //  
-
 
 
 
