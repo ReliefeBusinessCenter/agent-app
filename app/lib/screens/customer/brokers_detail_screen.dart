@@ -4,25 +4,70 @@ import 'package:app/Widget/Broker-profile/custome_button.dart';
 import 'package:app/Widget/Broker-profile/hire_button.dart';
 import 'package:app/Widget/Broker-profile/select_option.dart';
 import 'package:app/Widget/Broker-profile/work_section.dart';
+import 'package:app/bloc/delivery/bloc/delivery_bloc.dart';
 import 'package:app/model/broker/broker.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class BrokersProfilePage extends StatelessWidget {
   static const routeName = '/user/category/services/technicians/detail';
   final Broker broker;
+  late DeliveryBloc deliveryBloc;
   BrokersProfilePage({required this.broker});
   @override
   Widget build(BuildContext context) {
-    // Broker broker = ModalRoute.of(context)!.settings.arguments as Broker;
+    // Broker brokedr = ModalRoute.of(context)!.settings.arguments as Broker;
+    deliveryBloc = BlocProvider.of<DeliveryBloc>(context);
+    deliveryBloc.add(DeliveryInitializationEvent());
     print("Broker name ${broker.user!.fullName}");
     return Scaffold(
-      backgroundColor: Color(0xFFf2f6f9),
-      appBar: AppBar(),
-      body: _buildPortraitView(context),
-    );
+        backgroundColor: Color(0xFFf2f6f9),
+        appBar: AppBar(),
+        body: ProgressHUD(
+          child: BlocBuilder<DeliveryBloc, DeliveryState>(
+            builder: (context, state) {
+              if (state is DeliveryCreating) {
+                // delivery createing
+                final progress = ProgressHUD.of(context);
+                // if (!isShowing) {
+                //   if (progress != null) {
+                //     setState(() {
+                //       isShowing = true;
+                //     });
+
+                // }
+                progress!.showWithText("Hiring");
+                print("delivery creating  method called");
+              } else if (state is DeliveryCreateSuccess) {
+                // delivery success method
+                deliveryBloc.add(DeliveryInitializationEvent());
+                Navigator.of(context).pop();
+                print("Delivery create sucess method");
+              } else if (state is DeliveryCreateFailed) {
+                // delivery failed method
+                print("Delivery create method failed");
+                 AwesomeDialog(
+                    context: context,
+                    dialogType: DialogType.SUCCES,
+                    animType: AnimType.BOTTOMSLIDE,
+                    title: 'Warning',
+                    desc: 'Failed to Create Delivers',
+                    btnOkOnPress: () {
+                      // workBloc.add(AddWork(work: work));
+                     
+                    },
+                  )..show();
+
+              }
+              return _buildPortraitView(context);
+            },
+          ),
+        ));
   }
 
   Widget _buildPortraitView(BuildContext context) {

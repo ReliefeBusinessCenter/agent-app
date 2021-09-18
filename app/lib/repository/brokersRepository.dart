@@ -1,4 +1,5 @@
 
+import 'package:app/Widget/Broker-profile/Broker-background-image.dart';
 import 'package:app/data_provider/broker-data-provider.dart';
 import 'package:app/model/broker/broker.dart';
 
@@ -11,6 +12,11 @@ class BrokersRepository {
 
   Future<List<Broker>> getBrokers() async {
     List<Broker> data = await brokerDataProvider.getBrokers() as List<Broker>;
+    print("Data arrived at the data provider $data");
+    return data;
+  }
+   Future<bool> createBroker(Broker broker) async {
+    bool data = (await brokerDataProvider.createBroker(broker));
     print("Data arrived at the data provider $data");
     return data;
   }

@@ -7,9 +7,9 @@ class RegisterState {
 }
 
 class RegisterInitial extends RegisterState {
-  final User? user;
+  final User user;
   // RegisterInitial({required this.user});
-  RegisterInitial({ this.user}) : super(user: user, broker: Broker());
+  RegisterInitial({required this.user}) : super(user: User(), broker: Broker());
 }
 
 class RegisterUpdateSuccess extends RegisterState {
@@ -18,7 +18,7 @@ class RegisterUpdateSuccess extends RegisterState {
   // RegisterUpdateSuccess();
   RegisterUpdateSuccess({this.user, this.broker})
       : super(user: user, broker: broker);
-}
+} 
 
 class RegisterUpdateLoading extends RegisterState {}
 

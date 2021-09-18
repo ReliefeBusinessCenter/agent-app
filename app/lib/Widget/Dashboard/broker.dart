@@ -98,7 +98,7 @@ class _BrokerItemState extends State<BrokerItem> {
                           width: 6,
                         ),
                         Text(
-                          "${this.widget.broker.reviews!.length == 0 ? "10" : this.widget.broker.reviews![0].rate} M views",
+                          "${this.widget.broker.reviews == null ? "10" : this.widget.broker.reviews![0].rate} M views",
                           style:
                               TextStyle(color: Colors.black.withOpacity(0.5)),
                         )

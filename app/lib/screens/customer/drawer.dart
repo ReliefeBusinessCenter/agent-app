@@ -1,4 +1,7 @@
 import 'package:app/Widget/Drawer/custom_list.dart';
+import 'package:app/model/broker/user.dart';
+import 'package:app/model/login_info.dart';
+import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/screens/Auth/login.dart';
 
 import 'package:flutter/material.dart';
@@ -8,18 +11,28 @@ import 'becomeAnAgent.dart';
 import 'customerPage.dart';
 
 class CustomerDrawer extends StatelessWidget {
+  User user = new User();
+  void Initializeuser() async {
+    UserPreferences userPreference = new UserPreferences();
+    LoggedUserInfo? loggedUserInfo = await userPreference.getUserInformation();
+    print("User Object from the Drawer: ${loggedUserInfo!.user!.fullName}");
+    this.user = loggedUserInfo.user as User;
+  }
+
   @override
   Widget build(BuildContext context) {
+    Initializeuser();
     return Container(
       color: Theme.of(context).primaryColor,
       width: MediaQuery.of(context).size.width * 0.6,
       child: Column(
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text("Yared Solomon"),
-            accountEmail: Text("yaredyaya16@gmail.com"),
+            accountName: Text("${this.user.fullName as String}"),
+            accountEmail: Text("${this.user.email as String}"),
             currentAccountPicture: CircleAvatar(
-              backgroundImage: AssetImage("assets/images/16.jpg"),
+              backgroundImage: NetworkImage(
+                  "http://192.168.211.201:5000/api/users/getimage?name=images/${this.user.picture}"),
             ),
             arrowColor: Theme.of(context).accentColor,
             decoration: BoxDecoration(color: Theme.of(context).primaryColor),

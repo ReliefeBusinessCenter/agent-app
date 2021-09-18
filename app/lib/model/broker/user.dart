@@ -1,4 +1,6 @@
 
+import 'buy.dart';
+
 class User {
   int? userId;
   String? fullName;
@@ -12,7 +14,7 @@ class User {
   String? city;
   String? subCity;
   String? kebele;
-  Null? buys;
+List<dynamic>? buys;
 
   User(
       {this.userId,

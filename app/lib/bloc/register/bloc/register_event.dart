@@ -38,6 +38,36 @@ class AddTypeUser extends RegisterEvent {
   final String userType;
   AddTypeUser({required this.userType});
 }
-class RegisterUser extends RegisterEvent{
-  
+
+class AddImage extends RegisterEvent {
+  final String image;
+  AddImage({required this.image});
 }
+
+class AddPassword extends RegisterEvent {
+  final String password;
+  AddPassword({required this.password});
+}
+
+// broker registeration
+class AddCommunicationSkills extends RegisterEvent {
+  final double skill;
+  AddCommunicationSkills({required this.skill});
+}
+
+class AddBrookingSkills extends RegisterEvent {
+  final double skill;
+  AddBrookingSkills({required this.skill});
+}
+
+class AddWorkDone extends RegisterEvent {
+  final double skill;
+  AddWorkDone({required this.skill});
+}
+
+class AddWorkInProgress extends RegisterEvent {
+  final double skill;
+  AddWorkInProgress({required this.skill});
+}
+
+class RegisterUser extends RegisterEvent {}

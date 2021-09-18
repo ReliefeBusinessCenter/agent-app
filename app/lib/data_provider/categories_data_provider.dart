@@ -21,7 +21,7 @@ class CategoriesDataProvider {
     // String? token = await this.userPreferences.getUserToken();
     late List<Category> categories_return = [];
     try {
-      final url = Uri.parse('http://192.168.106.201:5000/api/categories/');
+      final url = Uri.parse('http://192.168.211.201:5000/api/categories/');
 
       final response = await http.get(
         url,

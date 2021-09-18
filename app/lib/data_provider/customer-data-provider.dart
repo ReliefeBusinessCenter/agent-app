@@ -13,59 +13,112 @@ class CustomerDataProvider {
       {required this.httpClient, required this.userPreferences})
       : assert(httpClient != null);
 
+
+Future<Customer?> getCustomerByEmail(String email) async {
+    // String? token = await this.userPreferences.getUserToken();
+    // late List<Category> categories_return = [];
+    late Customer customer;
+    try {
+      final url = Uri.parse('http://192.168.211.201:5000/api/customers/$email');
+
+      final response = await http.get(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          // 'Authorization': 'Bearer $token',
+        },
+      );
+      print('Arrived here ${response.body}');
+      if (response.statusCode == 200) {
+        final extractedData = json.decode(response.body);
+
+        final data = extractedData;
+
+        return Customer.fromJson(data);
+
+        // return (data.map((customer) => Customer.fromJson(customer)).toList());
+      } else {
+        print(response.body);
+        throw Exception('Failed to get customer by email');
+      }
+    } catch (e) {
+      print("Exception throuwn $e");
+    }
+    return null;
+  }
+  
   Future<bool> createCustomer(Customer? customer) async {
     String? token = await this.userPreferences.getUserToken();
     // late List<Data> products_return = [];
-    print("order mthod invocked");
+    print("++++++++++++++++++++++++++++Customer create method invocked");
+    print("Customer Data:${customer!.toJson()}");
     try {
       // final url = Uri.parse('http://csv.jithvar.com/api/v1/orders');
-      final url = Uri.parse('http://192.168.106.201:5000/api/customers/');
-      final response = await http.post(url,
+      final url = Uri.parse('http://192.168.211.201:5000/api/customers/');
+
+      // image upload
+
+      var request = http.MultipartRequest('POST',
+          Uri.parse('http://192.168.211.201:5000/api/users/uploadfileg'));
+      print("request");
+
+      request.files.add(await http.MultipartFile.fromPath(
+          'file', customer.user!.picture as String));
+      print("added to multipart");
+
+      var res = await http.Response.fromStream(await request.send());
+
+      print("Image Upload Response: ${res.statusCode}");
+      if (res.statusCode == 200) {
+        print("Photo Name:  ${res.body}");
+        // send other customer data here
+        final response = await http.post(
+          url,
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
             'Authorization': 'Bearer $token',
           },
+          //      if (data.uploadedPhoto != null) {
+          //   request.files.add(await http.MultipartFile.fromPath(
+          //       'uploaded_photo', data.uploaded Photo!));
+          // }
           body: jsonEncode({
-            // "total": request!.total,
-            // "payment_when": request.paymentWhen,
-            // "payment_method": request.paymentMethod,
-            // "type_of_wallet": request.typeOfWallet,
-            // "transaction_id": request.transactionId,
-            // "amount_paid": request.amountPaid,
-            // "amount_remaining": request.amountRemaining,
-            // "address_id": 324,
-            // "client_id": request.clientId,
-            // "cart": request.cart
-
             "reviews": [],
             "deals": [],
             "delivery": [],
             "sales": [],
             "user": {
-              "fullName": customer!.user!.fullName,
+              "fullName": customer.user!.fullName,
               "email": customer.user!.email,
               "password": customer.user!.password,
-              "phone": customer.user!.phone,
+              "phone": "0916897173",
               "address": "Ethiopia/Dessie",
-              "picture": "yared.jpg",
-              "sex":customer.user!.sex,
+              "picture": res.body.toString(),
+              "sex": customer.user!.sex,
               "role": customer.user!.role,
-              "buys": null
+              "buys": null,
             }
-          }));
-
-      print(
-          "Http response ${response.statusCode} and response body ${response.body}");
-      if (response.statusCode == 201) {
-        return true;
+          }),
+        );
+        print(
+            "Http response ${response.statusCode} and response body ${response.body}");
+        if (response.statusCode == 200) {
+          return true;
+        } else {
+          print(response.body);
+          throw Exception('Failed to Save Customer Data');
+        }
       } else {
-        print(response.body);
-        throw Exception('Failed to load courses');
+        // error
+        throw Exception("Failed to upload image");
       }
     } catch (e) {
       print("Exception throuwn $e");
     }
     return false;
   }
+
+
 }

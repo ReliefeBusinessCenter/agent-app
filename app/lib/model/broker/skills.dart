@@ -1,9 +1,9 @@
 class Skills {
   int? skillsId;
-  int? communicationSkill;
-  int? brokingSkill;
-  int? workDone;
-  int? workInProgress;
+  double? communicationSkill;
+  double? brokingSkill;
+  double? workDone;
+  double? workInProgress;
 
   Skills(
       {this.skillsId,
@@ -13,11 +13,14 @@ class Skills {
       this.workInProgress});
 
   Skills.fromJson(Map<String, dynamic> json) {
+    print("++++++++++++json parse method have been called");
     skillsId = json['skillsId'];
     communicationSkill = json['communicationSkill'];
     brokingSkill = json['brokingSkill'];
     workDone = json['workDone'];
     workInProgress = json['workInProgress'];
+
+    print("+++++++++++++++Finished parsing skills");
   }
 
   Map<String, dynamic> toJson() {

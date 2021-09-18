@@ -1,4 +1,3 @@
-
 class User {
   int? userId;
   String? fullName;
@@ -13,6 +12,7 @@ class User {
   String? subCity;
   String? kebele;
   Null? buys;
+  String? imagePath;
 
   User(
       {this.userId,
@@ -24,9 +24,10 @@ class User {
       this.picture,
       this.sex,
       this.role,
-      this.city, 
+      this.city,
       this.subCity,
       this.kebele,
+      this.imagePath,
       this.buys});
 
   User.fromJson(Map<String, dynamic> json) {

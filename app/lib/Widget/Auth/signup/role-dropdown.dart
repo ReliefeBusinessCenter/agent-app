@@ -47,6 +47,7 @@ class _RoleDropDownState extends State<RoleDropDown> {
         ),
       ],
       onChanged: (value) {
+        print("Value: ${value}");
         registerBloc.add(AddTypeUser(userType: value));
       },
       value: "Customer",

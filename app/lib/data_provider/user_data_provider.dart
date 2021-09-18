@@ -19,7 +19,7 @@ class UserDataProvider {
         "login clicked: email:${loginInfo.email} and password:${loginInfo.password}");
     LoggedUserInfo loggedUserInfo;
     final urlLogin =
-        Uri.parse('http://192.168.106.201:5000/api/users/authenticate');
+        Uri.parse('http://192.168.211.201:5000/api/users/authenticate');
     try {
       final response = await http.post(urlLogin,
           headers: {

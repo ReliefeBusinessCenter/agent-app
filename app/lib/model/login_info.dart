@@ -1,6 +1,4 @@
-
-
-import 'package:app/model/user.dart';
+import 'package:app/model/broker/user.dart';
 
 class LoginInfo {
   late String email;
@@ -28,7 +26,7 @@ class LoggedUserInfo {
     print("converting json");
     token = json['token'];
     print("---lf--2");
-    user =  User.fromJson(json['user']);
+    user = User.fromJson(json['user']);
     print("Completed the json converting token:${token} user:${user}");
   }
 // write from json

@@ -1,7 +1,9 @@
+import 'package:app/model/broker/user.dart';
+
 import '../deals.dart';
 import '../delivery.dart';
 import '../review.dart';
-import '../user.dart';
+
 
 class Customer {
   int? customerId;

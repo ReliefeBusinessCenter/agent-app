@@ -1,24 +1,70 @@
+import 'dart:io';
+
 import 'package:app/Widget/Auth/signup/add_profile_picture.dart';
 import 'package:app/Widget/Auth/signup/signUpTextField.dart';
 import 'package:app/Widget/Auth/signup/register-button.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+// import 'package:file/file.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
-
+import 'package:image_picker/image_picker.dart';
+// import 'package:image_picker/image_picker.dart';
 import 'login.dart';
 
-class CustomerDetailScreen extends StatelessWidget {
+class CustomerDetailScreen extends StatefulWidget {
   static const routeName = '/customer-detail';
+
+  @override
+  _CustomerDetailScreenState createState() => _CustomerDetailScreenState();
+}
+
+class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
   final _formKey = GlobalKey<FormState>();
+
   final TextEditingController passwordController = new TextEditingController();
+
   final TextEditingController confirmPasswordController =
       new TextEditingController();
+
+  final TextEditingController photoController = new TextEditingController();
+  final ImagePicker _picker = ImagePicker();
+  late PickedFile _imageFile;
+
   late RegisterBloc registerBloc;
+
+  void uploadPhotoHandler() async {
+    // FilePickerResult? result = await FilePicker.platform.pickFiles();
+    // if (result != null) {
+    //   File file = File(result.files.single.path!);
+    //   setState(() {
+    //     photoController.text = file.path;
+    //   });
+    // } else {
+    //   // User canceled the picker
+    // }
+
+    // print("Uploaded File Image: ${photoController.text}");
+    // registerBloc.add(AddImage(image: photoController.text));
+    // PickedFile _imageFile;
+
+    try {
+      final pickedFile = await _picker.getImage(source: ImageSource.gallery);
+      setState(() {
+        _imageFile = pickedFile!;
+        photoController.text = _imageFile.path;
+      });
+      print("Uploaded File Image: ${photoController.text}");
+      registerBloc.add(AddImage(image: photoController.text));
+    } catch (e) {
+      print("Image picker error " + e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final TextEditingController fileController = new TextEditingController();
     registerBloc = BlocProvider.of<RegisterBloc>(context);
     return Scaffold(
         appBar: AppBar(
@@ -102,7 +148,7 @@ class CustomerDetailScreen extends StatelessWidget {
                                                     .width *
                                                 0.05),
                                         child: Text(
-                                          "Register to Continue to Trust Broker!",
+                                          "Password and Profile Picture",
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 15),
@@ -127,8 +173,9 @@ class CustomerDetailScreen extends StatelessWidget {
                                             obsecureText: true,
                                             isRequired: false,
                                             onChanged: (String value) {
-                                              print("Write: ${value}");
-                                              // registerBloc.add(AddName(name: value));
+                                              print("Write: $value");
+                                              registerBloc.add(
+                                                  AddPassword(password: value));
                                             },
                                           ),
                                           SizedBox(
@@ -154,9 +201,9 @@ class CustomerDetailScreen extends StatelessWidget {
                                                 0.02,
                                           ),
                                           ProfileFileInput(
-                                            controller: fileController,
+                                            controller: photoController,
                                             isRequired: true,
-                                            onPressed: () {},
+                                            onPressed: uploadPhotoHandler,
                                             textFieldName: '',
                                           ),
                                           SizedBox(
@@ -166,6 +213,7 @@ class CustomerDetailScreen extends StatelessWidget {
                                                 0.02,
                                           ),
                                           RegisterButton(
+                                            name: "Register",
                                             onTapped: () {
                                               if (_formKey.currentState!
                                                   .validate()) {

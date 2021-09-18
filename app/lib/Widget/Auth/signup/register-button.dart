@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterButton extends StatelessWidget {
+  final String name;
+
   // late OrdersBloc ordersBloc;
   // List<Data> products;
   // Checkout({required this.products});
   final VoidCallback onTapped;
-  RegisterButton({required this.onTapped});
+  RegisterButton({required this.onTapped, required this.name});
   @override
   Widget build(BuildContext context) {
     // ordersBloc = BlocProvider.of<OrdersBloc>(context);
@@ -20,7 +22,7 @@ class RegisterButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
           child: Center(
-            child: Text("Register",
+            child: Text(this.name,
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

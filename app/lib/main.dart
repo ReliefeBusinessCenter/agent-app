@@ -1,12 +1,15 @@
 import 'package:app/bloc/broker/bloc/broker_bloc.dart';
+import 'package:app/bloc/delivery/bloc/delivery_bloc.dart';
 import 'package:app/bloc/favorit/bloc/favorite_bloc.dart';
 import 'package:app/bloc/work/bloc/work_bloc.dart';
 import 'package:app/data_provider/broker-data-provider.dart';
 import 'package:app/data_provider/customer-data-provider.dart';
+import 'package:app/data_provider/delivery-data-provider.dart';
 import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/repository/brokersRepository.dart';
 import 'package:app/repository/category_repository.dart';
 import 'package:app/repository/customer_repository.dart';
+import 'package:app/repository/delivery_repository.dart';
 import 'package:app/repository/user_repository.dart';
 import 'package:app/routes/route.dart';
 import 'package:app/screens/Auth/login.dart';
@@ -24,7 +27,7 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget { 
   // BrokersDataProvider brokersDataProvider = new BrokersDataProvider();
   http.Client httpClient = http.Client();
   BrokersRepository brokersRepository = new BrokersRepository(
@@ -38,6 +41,7 @@ class MyApp extends StatelessWidget {
       httpClient: http.Client(),
       userPreferences: UserPreferences(),
     ),
+    
   );
 
   CategoryRepository categoryRepository = CategoryRepository(
@@ -49,6 +53,12 @@ class MyApp extends StatelessWidget {
 
    CustomerRepository customerRepository = new CustomerRepository(
       customerDataProvider: CustomerDataProvider(
+    httpClient: http.Client(),
+    userPreferences: UserPreferences(),
+  ));
+
+  DeliveryRepository deliveryRepo = new DeliveryRepository(
+      deliveryDataProvider: DeliveryDataProvider(
     httpClient: http.Client(),
     userPreferences: UserPreferences(),
   ));
@@ -66,6 +76,12 @@ class MyApp extends StatelessWidget {
               userPreference: UserPreferences(),
             )..add(AutoLoginEvent()), 
           ),
+          BlocProvider<DeliveryBloc>(
+            create: (_) => DeliveryBloc(
+              deliveryRepository: this.deliveryRepo,
+           customerRepository: this.customerRepository
+            )..add(DeliveryInitializationEvent()), 
+          ),
           //
           BlocProvider<CategoryBloc>(
             create: (_) => CategoryBloc(
@@ -74,7 +90,7 @@ class MyApp extends StatelessWidget {
           ),
           //
           BlocProvider<FavoriteBloc>(
-            create: (_) => FavoriteBloc()..add(FavoriteInitialFetch()),
+            create: (_) => FavoriteBloc()..add(FavoriteInitialFetch()), 
           ),
           BlocProvider<WorkBloc>(
             create: (_) => WorkBloc()..add(WorkInitialFetch()),
@@ -101,7 +117,7 @@ class MyApp extends StatelessWidget {
                     color: Color.fromRGBO(20, 31, 51, 1),
                   ),
                   headline6:
-                      TextStyle(fontSize: 24, fontFamily: 'RobotoCondensed'))),
+ TextStyle(fontSize: 24, fontFamily: 'RobotoCondensed'))),
           // home: Login(),
           initialRoute: Login.routeName,
           onGenerateRoute: AppRoutes.generateRoute,
@@ -113,4 +129,5 @@ class MyApp extends StatelessWidget {
           // home: Login(),
         ));
   }
-}
+} 
+

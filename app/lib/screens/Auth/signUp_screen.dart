@@ -11,22 +11,39 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'broker-detail-registeration-screen.dart';
 import 'customer-detail-registeration-screen.dart';
 
-class SignUpPageScreen extends StatelessWidget {
+class SignUpPageScreen extends StatefulWidget {
   static const routeName = '/signup';
+
+  @override
+  _SignUpPageScreenState createState() => _SignUpPageScreenState();
+}
+
+class _SignUpPageScreenState extends State<SignUpPageScreen> {
   final TextEditingController nameController = new TextEditingController();
+
   final TextEditingController emailController = new TextEditingController();
+
   final TextEditingController passwordController = new TextEditingController();
+
   final TextEditingController phoneController = new TextEditingController();
+
   final TextEditingController addressController = new TextEditingController();
+
   final TextEditingController cityController = new TextEditingController();
+
   final TextEditingController subCityController = new TextEditingController();
+
   final TextEditingController kebeleController = new TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
+
   late RegisterBloc registerBloc;
+
+  String type = 'Customer';
 
   @override
   Widget build(BuildContext context) {
-    String type = 'customer';
+    // String type = 'Customer';
 
     registerBloc = BlocProvider.of<RegisterBloc>(context);
     registerBloc.add(Initialization());
@@ -171,23 +188,21 @@ class SignUpPageScreen extends StatelessWidget {
                               RoleDropDown(),
                               BlocBuilder<RegisterBloc, RegisterState>(
                                 builder: (context, state) {
+                                  print("Entered to the signup screen");
                                   // if (state is RegisterUpdateLoading) {
                                   //   return CircularProgressIndicator();
                                   // }
                                   if (state is RegisterUpdateSuccess) {
                                     if (state.user!.role == "Broker") {
-                                      type = 'broker';
+                                      type = 'Broker';
                                     } else if (state.user!.role == "Customer") {
-                                      type = 'customer';
+                                      type = 'Customer';
                                     }
                                     return Visibility(
                                         visible: state.user!.role == "Broker"
                                             ? true
                                             : false,
                                         child: CategoryDropDownButton());
-                                  }
-                                  if (state.user!.role == "Broker") {
-                                    type = 'broker';
                                   }
 
                                   return Visibility(
@@ -204,7 +219,7 @@ class SignUpPageScreen extends StatelessWidget {
                           if (_formKey.currentState!.validate()) {
                             print("Validated successfully");
                             print("User Type: ${type}");
-                            if (type == 'customer') {
+                            if (type == 'Customer') {
                               Navigator.of(context)
                                   .pushNamed(CustomerDetailScreen.routeName);
                             } else {
