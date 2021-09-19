@@ -42,6 +42,7 @@ class HireButton extends StatelessWidget {
             onTap: () {
                deliveryBloc.add(SelectBrokerEvent(broker: this.broker));
                       deliveryBloc.add(DeliveryCreateEvent());
+                      workBloc.add(AddWork(work: work));
               // AwesomeDialog(
               //   context: context,
               //   dialogType: DialogType.INFO,

@@ -21,7 +21,7 @@ class DeliveryDataProvider {
     print("Customer Data:${delivery!.toJson()}");
     try {
       // final url = Uri.parse('http://csv.jithvar.com/api/v1/orders');
-      final url = Uri.parse('http://192.168.211.201:5000/api/customers/');
+      final url = Uri.parse('http://192.168.211.201:5000/api/delivery/');
 
       // send other customer data here
       final response = await http.post(
@@ -31,9 +31,10 @@ class DeliveryDataProvider {
           'Accept': 'application/json',
           'Authorization': 'Bearer $token',
         },
+
         body: jsonEncode({
-          "deliveryStatus": delivery.deliveryStatus,
-          "location": delivery.location,
+          "deliveryStatus": "Pending",
+          "location": "Awasa",
           "broker": {"brokerId": delivery.broker!.brokerId},
           "customer": {"customerId": delivery.customer!.customerId}
         }),
@@ -51,6 +52,4 @@ class DeliveryDataProvider {
     }
     return false;
   }
-
-  
 }

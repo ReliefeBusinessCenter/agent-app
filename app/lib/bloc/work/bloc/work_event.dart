@@ -15,6 +15,6 @@ class AddWork extends WorkEvent {
 }
 
 class DeleteWork extends WorkEvent {
-  final Work work;
+  final Delivery work;
   DeleteWork({required this.work});
 }

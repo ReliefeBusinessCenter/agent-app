@@ -93,7 +93,7 @@ class MyApp extends StatelessWidget {
             create: (_) => FavoriteBloc()..add(FavoriteInitialFetch()), 
           ),
           BlocProvider<WorkBloc>(
-            create: (_) => WorkBloc()..add(WorkInitialFetch()),
+            create: (_) => WorkBloc(customerRepository: customerRepository, brokerRepository: brokersRepository)..add(WorkInitialFetch()),
           ),
           BlocProvider<RegisterBloc>(
             create: (_) => RegisterBloc(brokersRepository: brokersRepository, customerRepositoy: customerRepository)..add(Initialization()),

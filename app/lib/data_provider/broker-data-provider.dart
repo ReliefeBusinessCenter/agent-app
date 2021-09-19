@@ -50,7 +50,39 @@ class BrokerDataProvider {
     }
     return brokers_return;
   }
+Future<Broker?> getBrokerById(int id) async {
+    String? token = await this.userPreferences.getUserToken();
+     Broker? broker_return=null;
+    print("This is the Broker Id:${id}");
+    try {
+      final url = Uri.parse('http://192.168.211.201:5000/api/brokers/${id}');
 
+      final response = await http.get(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        final extractedData = json.decode(response.body);
+
+        final data = extractedData;
+
+        print("Data:${data}");
+
+        return  Broker.fromJson(data);
+      } else {
+        print(response.body);
+        throw Exception('Failed to load courses');
+      }
+    } catch (e) {
+      print("Exception throuwn $e");
+    }
+    return broker_return;
+  }
   Future<bool> createBroker(Broker? broker) async {
     String? token = await this.userPreferences.getUserToken();
     // late List<Data> products_return = [];

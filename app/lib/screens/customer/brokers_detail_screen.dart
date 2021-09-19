@@ -29,8 +29,8 @@ class BrokersProfilePage extends StatelessWidget {
         backgroundColor: Color(0xFFf2f6f9),
         appBar: AppBar(),
         body: ProgressHUD(
-          child: BlocBuilder<DeliveryBloc, DeliveryState>(
-            builder: (context, state) {
+          child: BlocConsumer<DeliveryBloc, DeliveryState>(
+            listener: (context, state) {
               if (state is DeliveryCreating) {
                 // delivery createing
                 final progress = ProgressHUD.of(context);
@@ -39,8 +39,7 @@ class BrokersProfilePage extends StatelessWidget {
                 //     setState(() {
                 //       isShowing = true;
                 //     });
-
-                // }
+                 // }
                 progress!.showWithText("Hiring");
                 print("delivery creating  method called");
               } else if (state is DeliveryCreateSuccess) {
@@ -51,19 +50,19 @@ class BrokersProfilePage extends StatelessWidget {
               } else if (state is DeliveryCreateFailed) {
                 // delivery failed method
                 print("Delivery create method failed");
-                 AwesomeDialog(
-                    context: context,
-                    dialogType: DialogType.SUCCES,
-                    animType: AnimType.BOTTOMSLIDE,
-                    title: 'Warning',
-                    desc: 'Failed to Create Delivers',
-                    btnOkOnPress: () {
-                      // workBloc.add(AddWork(work: work));
-                     
-                    },
-                  )..show();
-
+                AwesomeDialog(
+                  context: context,
+                  dialogType: DialogType.SUCCES,
+                  animType: AnimType.BOTTOMSLIDE,
+                  title: 'Warning',
+                  desc: 'Failed to Create Delivers',
+                  btnOkOnPress: () {
+                    // workBloc.add(AddWork(work: work));
+                  },
+                )..show();
               }
+            },
+            builder: (context, state) {
               return _buildPortraitView(context);
             },
           ),

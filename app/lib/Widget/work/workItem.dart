@@ -1,4 +1,5 @@
 import 'package:app/bloc/work/bloc/work_bloc.dart';
+import 'package:app/model/delivery.dart';
 import 'package:app/model/work.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WorkItem extends StatelessWidget {
   late WorkBloc workBloc;
-  final Work work;
+  final Delivery work;
   WorkItem({required this.work});
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,8 @@ class WorkItem extends StatelessWidget {
           child: Icon(Icons.work, color: Theme.of(context).primaryColor),
         ),
         title: Text(
-          work.WorkName,
+          work.broker!.user!.fullName as String,
+          // "broker test",
           style: TextStyle(
               color: Theme.of(context).primaryColor,
               fontWeight: FontWeight.bold),
@@ -38,7 +40,7 @@ class WorkItem extends StatelessWidget {
           children: <Widget>[
             Icon(Icons.pending,
                 color: Theme.of(context).primaryColor.withOpacity(0.4)),
-            Text(work.WorkStatus,
+            Text(work.deliveryStatus as String,
                 style: TextStyle(color: Theme.of(context).primaryColor))
           ],
         ),
