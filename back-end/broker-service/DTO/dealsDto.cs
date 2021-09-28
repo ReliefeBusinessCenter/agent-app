@@ -11,7 +11,7 @@ namespace broker.Dto
 
 
 
-      [Key]
+     [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DealsId { get; set; }
         public int Quantity { get; set; }
@@ -19,6 +19,10 @@ namespace broker.Dto
         public string Color { get; set; }
         public string PaymentOption { get; set; }
         public string DealsStatus { get; set; }
+        // navigational property
+     public Broker Broker { get; set; }
+
+        public Customer Customer { get; set; }
 
 
 

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "9eCny8orpiLM2tF7VaAI2a8sO2d8WR4+6NmJ1kELPKSM1Rv97FGyqWZlkLairanG/kA/i7fh3AXKIzZWPlCIFg==",
+  "dgSpecHash": "SEkajQG9x0k81hxvkpDe2xirBBXmuiiTouV/UlimJd8fin41qWOTmMQ5YdxavqGOp6OlHWp55NVq1HP1jeF9uQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\yared\\Documents\\Company\\eXs\\agent\\broker-app\\back-end\\broker-service\\broker-service.csproj",
   "expectedPackageFiles": [
@@ -144,7 +144,8 @@
     "C:\\Users\\yared\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\yared\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\yared\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\yared\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    "C:\\Users\\yared\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
+    "C:\\Users\\yared\\.nuget\\packages\\microsoft.netcore.app.ref\\5.0.0\\microsoft.netcore.app.ref.5.0.0.nupkg.sha512"
   ],
   "logs": [
     {

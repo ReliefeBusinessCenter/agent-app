@@ -23,9 +23,21 @@ namespace broker.Data
             return true;
         }
 
-        public Task<Delivery> GetByEmail(string email)
-        {
-            throw new NotImplementedException();
+        public async Task<Delivery> GetByEmail(string email)
+        {       
+
+            UserRepository repository=new UserRepository();
+            User user= await repository.GetByEmail(email);
+            Console.WriteLine("User Object form the delivery" + user);
+
+            // var user = await _context.Brokers.FirstOrDefault(x => x.User.Email.Contains(email));
+            // if(user.r)
+            var data = await _context.Deliveries
+            //   .Include(e => e.Broker)
+            //   .Include(e => e.Customer)
+              .ToListAsync();
+            
+            return data.FirstOrDefault(x => x.DeliveryStatus == email);
         }
 
         public async Task<List<Delivery>> GetData()
@@ -33,6 +45,11 @@ namespace broker.Data
             Console.WriteLine("Get  Delivery  method invoked");
             // 
             var data = await _context.Deliveries
+            //  .Include(delivery => delivery.Broker).ThenInclude(broker => broker.User)
+            // .Include(delivery => delivery.Customer).ThenInclude(customer => customer.User)
+
+
+
 
 
            .ToListAsync();
@@ -44,7 +61,8 @@ namespace broker.Data
         public async Task<Delivery> GetDataById(int id)
         {
             var data = await _context.Deliveries
-
+//  .Include(e => e.Broker)
+            // .Include(e => e.Customer)
 
                .ToListAsync();
 

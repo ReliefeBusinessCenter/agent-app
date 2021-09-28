@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Controllers
 {   
-      [Authorize]
+    //   [Authorize]
     [Route("api/delivery")]
     [ApiController]
     public class DeliveryController : ControllerBase

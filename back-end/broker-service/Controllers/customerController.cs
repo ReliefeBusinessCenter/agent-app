@@ -34,14 +34,22 @@ namespace Controllers
             return Ok(_mapper.Map<IEnumerable<CustomerDto>>(model));
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetCustomerById(int id)
+        // [HttpGet("{id}")]
+        // public async Task<IActionResult> GetCustomerById(int id)
+        // {
+        //     Console.WriteLine("Returning technician of id" + id);
+        //     var model = await _customerRepository.GetDataById(id);
+        //     return Ok(_mapper.Map<CustomerDto>(model));
+        // }
+        // get customers by email
+        [HttpGet("{email}")]
+        public async Task<IActionResult> GetCustomerByEmail(string email)
         {
-            Console.WriteLine("Returning technician of id" + id);
-            var model = await _customerRepository.GetDataById(id);
+            Console.WriteLine("Returning customer of email" + email);
+            var model = await _customerRepository.GetByEmail(email);
             return Ok(_mapper.Map<CustomerDto>(model));
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> CreateCustomer(CustomerDto  customerDto)
         {
@@ -72,6 +80,7 @@ namespace Controllers
             await _customerRepository.DeleteData(customer);
             return Ok(model);
         }
+        
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCustomer(int id, CustomerDto  customerDto)
         {

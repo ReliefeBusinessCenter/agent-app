@@ -13,6 +13,10 @@ namespace broker.Data
             _context = context;
         }
 
+        public UserRepository()
+        {
+        }
+
         // public UserRepository()
         // {
         // }

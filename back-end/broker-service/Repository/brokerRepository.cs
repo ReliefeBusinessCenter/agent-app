@@ -11,7 +11,7 @@ namespace broker.Data
     {
         private readonly DataContext _context;
 
-        private  IRepository<User> _userRepository;
+        // private  IRepository<User> _userRepository;
         public BrokerRepository(DataContext context )
         {
             _context = context;
@@ -38,12 +38,12 @@ namespace broker.Data
 
             var data = await _context.Brokers
              .Include(e => e.User)
-             .Include(e => e.Portfolios)
-             .Include(e => e.Reviews)
+             .Include(e => e.Portfolio)
+             .Include(e => e.Review)
              .Include(e=>e.Category)
              .Include(e => e.Deals)
               .Include(e => e.Skills)
-             .Include(e => e.Deliveries)
+             .Include(e => e.Delivery)
              .ToListAsync();
             return data;
         }
@@ -59,11 +59,12 @@ namespace broker.Data
              .Include(e=>e.Category)
          
              .Include(e => e.Skills)
-             .Include(e => e.Portfolios)
+             .Include(e => e.Portfolio)
              .Include(e => e.Deals)
            
-             .Include(e => e.Deliveries)
-             .Include(e => e.Reviews)
+             .Include(broker => broker.Delivery)
+             .Include(e => e.Review)
+              .AsSingleQuery()
              .ToListAsync();
 
             return data.FirstOrDefault(x => x.BrokerId == id);
@@ -122,10 +123,7 @@ namespace broker.Data
 
         public async Task<Broker> UpdateData(Broker service)
         {
-             Console.WriteLine("Update method  invoked");
-                _context.Update(service).Property(x => x.BrokerId).IsModified = false;
-            _context.SaveChanges();
-             return service;
+             throw new System.NotImplementedException();
         }
 
        

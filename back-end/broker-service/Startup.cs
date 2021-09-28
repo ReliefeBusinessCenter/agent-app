@@ -31,7 +31,12 @@ namespace broker_service
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("brokerConnection")));
+            services.AddDbContext<DataContext>(opt => opt.UseSqlServer(
+                Configuration.GetConnectionString("brokerConnection"),
+                 o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)
+                
+                ));
+            
             services.AddControllers();
 
             var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -57,10 +62,10 @@ namespace broker_service
                     ValidateAudience = false
                 };
             });
-            //  services.AddControllersWithViews()
+             services.AddControllersWithViews()
 
-            // .AddNewtonsoftJson(options =>
-            // options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            .AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddCors(option =>

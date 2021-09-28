@@ -23,9 +23,21 @@ namespace broker.Data
             return true;
         }
 
-        public Task<Customer> GetByEmail(string email)
+        public async Task<Customer> GetByEmail(string email) 
         {
-            throw new NotImplementedException();
+             // FirstOrDefaultAsync(x => x.BrokerId == id);
+            var data = await _context.Customers
+             .Include(e => e.User)
+             
+             .Include(e => e.Reviews)
+            
+             .Include(e => e.Deals)
+             
+             
+             .Include(e => e.Delivery)
+             .ToListAsync();
+
+            return data.FirstOrDefault(x => x.User.Email.Contains(email));
         }
 
         public async Task<List<Customer>> GetData()
@@ -59,11 +71,14 @@ namespace broker.Data
              .Include(e => e.Deals)
              
              .Include(e => e.Delivery)
+             
              .ToListAsync();
 
-            return data.FirstOrDefault(x => x.CustomerId == id);
+            return data.FirstOrDefault(x => x.User.UserId == id);
              
         }
+
+
 
         public  Task<List<Customer>> GetPaginatedData(int pageNumber, int pageSize, string orderBy, string search)
         {

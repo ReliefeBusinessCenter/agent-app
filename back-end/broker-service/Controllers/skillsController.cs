@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Controllers
 {   
-      [Authorize]
+    //   [Authorize]
     [Route("api/skills")]
     [ApiController]
     public class SkillsController : ControllerBase

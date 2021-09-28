@@ -21,14 +21,16 @@ namespace Controllers
         private readonly IRepository<Broker> _brokerRepository;
         private readonly IMapper _mapper;
         public BrokerController(IRepository<Broker> repo, IMapper mapper)
-        {
+        {   
+
             _brokerRepository = repo;
             _mapper = mapper;
         }
-          [Authorize(AuthenticationSchemes=JwtBearerDefaults.AuthenticationScheme,Roles = "Customer")]
+        //   [Authorize(AuthenticationSchemes=JwtBearerDefaults.AuthenticationScheme,Roles = "Customer")]
         [HttpGet]
         public async Task<IActionResult> GetBrokers()
-        {
+        {   
+            Console.WriteLine("Get Brokers Method invocked");
             var model = await _brokerRepository.GetData();
             return Ok(_mapper.Map<IEnumerable<BrokerDto>>(model));
         }
@@ -46,7 +48,7 @@ namespace Controllers
         {
             Console.WriteLine("Creating brokers");
             var Broker = _mapper.Map<Broker>(brokerDto);
-            await _brokerRepository.UpdateData(Broker);
+            await _brokerRepository.InsertData(Broker);
             return Ok(brokerDto);
         }
         // [Authorize(Roles = RoleEntity.Admin)]
