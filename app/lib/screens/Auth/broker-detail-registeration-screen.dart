@@ -13,13 +13,17 @@ import 'login.dart';
 class BrokerDetailScreen extends StatelessWidget {
   static const routeName = '/broker-detail';
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController passwordController = new TextEditingController();
-  final TextEditingController confirmPasswordController =
+  final TextEditingController communicationController =
       new TextEditingController();
+  final TextEditingController brookingSkillsController =
+      new TextEditingController();
+  final TextEditingController workDoneController = new TextEditingController();
+  final TextEditingController workInProgressController =
+      new TextEditingController();
+
   late RegisterBloc registerBloc;
   @override
   Widget build(BuildContext context) {
-    final TextEditingController fileController = new TextEditingController();
     registerBloc = BlocProvider.of<RegisterBloc>(context);
     return Scaffold(
         appBar: AppBar(
@@ -121,17 +125,19 @@ class BrokerDetailScreen extends StatelessWidget {
                                             child: Column(children: [
                                           CustomTextField(
                                             minLength: 0,
+
                                             textFieldName:
                                                 'Communication Skills',
-                                            controller: passwordController,
+                                            controller: communicationController,
                                             initialValue: '',
                                             validator: null,
                                             obsecureText: false,
                                             isRequired: false,
                                             onChanged: (String value) {
-                                              print("Write: $value");
                                               registerBloc.add(
-                                                  AddPassword(password: value));
+                                                  AddCommunicationSkills(
+                                                      skill:
+                                                          double.parse(value)));
                                             },
                                           ),
                                           SizedBox(
@@ -144,12 +150,18 @@ class BrokerDetailScreen extends StatelessWidget {
                                               minLength: 0,
                                               textFieldName: 'Brooking Skills',
                                               controller:
-                                                  confirmPasswordController,
+                                                  brookingSkillsController,
                                               initialValue: '',
                                               validator: null,
                                               obsecureText: false,
                                               isRequired: false,
-                                              onChanged: (String value) {}),
+                                              onChanged: (String value) {
+                                                print("Write: $value");
+                                                registerBloc.add(
+                                                    AddBrookingSkills(
+                                                        skill: double.parse(
+                                                            value)));
+                                              }),
                                           SizedBox(
                                             height: MediaQuery.of(context)
                                                     .size
@@ -159,13 +171,17 @@ class BrokerDetailScreen extends StatelessWidget {
                                           CustomTextField(
                                               minLength: 0,
                                               textFieldName: 'Work Done',
-                                              controller:
-                                                  confirmPasswordController,
+                                              controller: workDoneController,
                                               initialValue: '',
                                               validator: null,
                                               obsecureText: false,
                                               isRequired: false,
-                                              onChanged: (String value) {}),
+                                              onChanged: (String value) {
+                                                print("Write: $value");
+                                                registerBloc.add(AddWorkDone(
+                                                    skill:
+                                                        double.parse(value)));
+                                              }),
                                           SizedBox(
                                             height: MediaQuery.of(context)
                                                     .size
@@ -182,18 +198,24 @@ class BrokerDetailScreen extends StatelessWidget {
                                               minLength: 0,
                                               textFieldName: 'Work In Progress',
                                               controller:
-                                                  confirmPasswordController,
+                                                  workInProgressController,
                                               initialValue: '',
                                               validator: null,
                                               obsecureText: false,
                                               isRequired: false,
-                                              onChanged: (String value) {}),
-                                          ProfileFileInput(
-                                            controller: fileController,
-                                            isRequired: true,
-                                            onPressed: () {},
-                                            textFieldName: '',
-                                          ),
+                                              onChanged: (String value) {
+                                                print("Write: $value");
+                                                registerBloc.add(
+                                                    AddWorkInProgress(
+                                                        skill: double.parse(
+                                                            value)));
+                                              }),
+                                          // ProfileFileInput(
+                                          //   controller: fileController,
+                                          //   isRequired: true,
+                                          //   onPressed: () {},
+                                          //   textFieldName: '',
+                                          // ),
                                           SizedBox(
                                             height: MediaQuery.of(context)
                                                     .size

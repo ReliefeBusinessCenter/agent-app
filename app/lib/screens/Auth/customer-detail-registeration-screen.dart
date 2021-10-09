@@ -85,7 +85,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                 progress!.showWithText("Creating");
               } else if (state is RegisterCreateSuccess) {
                 // this.isShowing = false;
-
+                registerBloc.add(Initialization());
                 Navigator.popAndPushNamed(context, Login.routeName);
                 // return Container(child: Text("Created Successfully"));
               } else if (state is RegisterCreateFailed) {
@@ -95,11 +95,12 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                   animType: AnimType.BOTTOMSLIDE,
                   title: 'Order Creating failed',
                   desc: 'Fill all the information carefully!',
-                  btnCancelOnPress: () {
-                    Navigator.popAndPushNamed(context, Login.routeName);
-                  },
+                  // btnCancelOnPress: () {
+                  //   Navigator.popAndPushNamed(context, Login.routeName);
+                  // },
                   btnOkOnPress: () {
-                    Navigator.popAndPushNamed(context, Login.routeName);
+                    // Navigator.popAndPushNamed(context, Login.routeName);
+                    
                   },
                 )..show();
               }

@@ -1,4 +1,5 @@
 import 'package:app/constants/customer-page/categories.dart';
+import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/broker.dart';
 
 import 'package:app/model/category.dart';
@@ -35,11 +36,13 @@ class BrokerBackgroundImage extends StatelessWidget {
                 CircleAvatar(
                   maxRadius: MediaQuery.of(context).size.width * 0.15,
                   // minRadius: MediaQuery.of(context).size.width * 0.4,
-                  backgroundImage: AssetImage(
-                    'assets/images/16.jpg',
-                  ),
+                  backgroundImage: NetworkImage(
+                      "${Ip.ip}/api/users/getimage?name=wwwroot/images/${this.broker.user!.picture as String}"),
                 ),
                 Padding(
+
+
+                  
                   padding: const EdgeInsets.all(8.0),
                   child: Text(broker.user!.fullName as String,
                       style: TextStyle(

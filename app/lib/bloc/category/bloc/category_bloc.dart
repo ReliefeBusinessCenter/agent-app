@@ -1,10 +1,9 @@
 import 'dart:async';
 
-import 'package:app/model/category.dart';
-import 'package:app/model/category.dart';
+
+import 'package:app/model/broker/category.dart';
 import 'package:app/repository/category_repository.dart';
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 
 part 'category_event.dart';
 part 'category_state.dart';

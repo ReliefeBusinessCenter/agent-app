@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:app/ip/ip.dart';
 import 'package:app/model/customer/customer.dart';
 import 'package:app/preferences/user_preference_data.dart';
 
@@ -19,7 +20,7 @@ Future<Customer?> getCustomerByEmail(String email) async {
     // late List<Category> categories_return = [];
     late Customer customer;
     try {
-      final url = Uri.parse('http://192.168.211.201:5000/api/customers/$email');
+      final url = Uri.parse('${Ip.ip}/api/customers/$email');
 
       final response = await http.get(
         url,
@@ -55,12 +56,12 @@ Future<Customer?> getCustomerByEmail(String email) async {
     print("Customer Data:${customer!.toJson()}");
     try {
       // final url = Uri.parse('http://csv.jithvar.com/api/v1/orders');
-      final url = Uri.parse('http://192.168.211.201:5000/api/customers/');
+      final url = Uri.parse('${Ip.ip}/api/customers/');
 
       // image upload
 
       var request = http.MultipartRequest('POST',
-          Uri.parse('http://192.168.211.201:5000/api/users/uploadfileg'));
+          Uri.parse('${Ip.ip}/api/users/uploadfileg'));
       print("request");
 
       request.files.add(await http.MultipartFile.fromPath(

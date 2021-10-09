@@ -9,6 +9,7 @@ import 'package:app/model/work.dart';
 import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/repository/brokersRepository.dart';
 import 'package:app/repository/customer_repository.dart';
+import 'package:app/repository/delivery_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -18,16 +19,20 @@ part 'work_state.dart';
 class WorkBloc extends Bloc<WorkEvent, WorkState> {
   final CustomerRepository customerRepository;
   final BrokersRepository brokerRepository;
+  final DeliveryRepository deliveryRepository;
   // WorkBloc();
-  WorkBloc({required this.customerRepository, required this.brokerRepository})
+  WorkBloc(
+      {required this.customerRepository,
+      required this.brokerRepository,
+      required this.deliveryRepository})
       : super(WorkInitial(work_history: []));
 
   @override
   Stream<WorkState> mapEventToState(
     WorkEvent event,
   ) async* {
-    if (event is AddWork) {
-      yield AddWorkLoading();
+    if (event is FetchWork) {
+      yield WorkLoading();
       //  add event
       // ine logged in user
       UserPreferences userPreference = new UserPreferences();
@@ -56,12 +61,30 @@ class WorkBloc extends Bloc<WorkEvent, WorkState> {
       // }
       yield (AdddWorkSuccess(delivery_history: works));
     } else if (event is DeleteWork) {
-      // //  Delete event
-      // List<Work> works = state.work_history;
-      // if (works.contains(event.work)) {
-      //   works.remove(event.work);
-      // }
-      // yield (DeleteSuccessState(work_history: works));
+      yield WorkLoading();
+      bool isDeleted = await this
+          .deliveryRepository
+          .deleteDelivery(event.work.deliveryId as int);
+      if (isDeleted == true) {
+        yield DeleteSuccessState(delivery_history: state.delivery_history);
+      } else {
+        yield DeleteFailedState(
+            delivery_history: state.delivery_history,
+            message: "Failed to Delete");
+      }
+    } else if (event is MarkAsDoneWork) {
+        yield WorkLoading();
+      bool isUpdated = await this.deliveryRepository.updateDelivery(event.work);
+      if (isUpdated == true) {
+// updated successfully
+        yield UpdateSuccessState(
+            delivery_history: state.delivery_history, message: "Updated");
+      } else {
+// failed to updated
+        yield UpdateFailedState(
+            delivery_history: state.delivery_history,
+            message: "Failed to Update");
+      }
     } else {
       // // Initial
       // List<Work> works = state.work_history;

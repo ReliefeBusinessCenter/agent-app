@@ -1,4 +1,5 @@
 import 'package:app/bloc/favorit/bloc/favorite_bloc.dart';
+import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/broker.dart';
 
 import 'package:app/screens/customer/brokers_detail_screen.dart';
@@ -52,8 +53,8 @@ class _BrokerItemState extends State<BrokerItem> {
                     (15),
                   ),
                 ),
-                child: Image.asset(
-                  'assets/images/16.jpg',
+                child: Image.network(
+                  "${Ip.ip}/api/users/getimage?name=wwwroot/images/${widget.broker.user!.picture as String}",
                   height: MediaQuery.of(context).size.height * 0.20,
                   width: double.infinity,
                   fit: BoxFit.fill,

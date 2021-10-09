@@ -20,10 +20,11 @@ class BrokersRepository {
     print("Data arrived at the data provider $data");
     return data;
   }
-  
+
   Future<Broker?> getBrokerById(int id) async {
 Broker data = await brokerDataProvider.getBrokerById(id) as Broker;
     print("Data arrived at the Repository  $data");
     return data;
   }
+  
 }

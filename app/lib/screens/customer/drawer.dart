@@ -32,7 +32,7 @@ class CustomerDrawer extends StatelessWidget {
             accountEmail: Text("${this.user.email as String}"),
             currentAccountPicture: CircleAvatar(
               backgroundImage: NetworkImage(
-                  "http://192.168.211.201:5000/api/users/getimage?name=images/${this.user.picture}"),
+                  "http://192.168.211.201:5000/api/users/getimage?name=wwwroot/images/${this.user.picture}"),
             ),
             arrowColor: Theme.of(context).accentColor,
             decoration: BoxDecoration(color: Theme.of(context).primaryColor),

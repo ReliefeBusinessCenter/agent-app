@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:app/model/category.dart';
+import 'package:app/ip/ip.dart';
+import 'package:app/model/broker/category.dart';
+//import 'package:app/model/category.dart';
 import 'package:app/preferences/user_preference_data.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -21,7 +23,7 @@ class CategoriesDataProvider {
     // String? token = await this.userPreferences.getUserToken();
     late List<Category> categories_return = [];
     try {
-      final url = Uri.parse('http://192.168.211.201:5000/api/categories/');
+      final url = Uri.parse('${Ip.ip}/api/categories/');
 
       final response = await http.get(
         url,

@@ -74,6 +74,7 @@ class OrderItem extends StatelessWidget {
                     child:
                         Text("Accept", style: TextStyle(color: Colors.green)),
                     value: 1,
+                    
                   ),
                   PopupMenuItem(
                     child: Text("Reject", style: TextStyle(color: Colors.red)),

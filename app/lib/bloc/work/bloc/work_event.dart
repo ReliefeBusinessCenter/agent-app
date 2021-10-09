@@ -9,12 +9,17 @@ abstract class WorkEvent extends Equatable {
 
 class WorkInitialFetch extends WorkEvent {}
 
-class AddWork extends WorkEvent {
-  final Work work;
-  AddWork({required this.work});
+class FetchWork extends WorkEvent {
+  
+ 
 }
 
 class DeleteWork extends WorkEvent {
   final Delivery work;
   DeleteWork({required this.work});
+}
+
+class MarkAsDoneWork extends WorkEvent {
+  final Delivery work;
+  MarkAsDoneWork({required this.work});
 }

@@ -46,7 +46,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
     // String type = 'Customer';
 
     registerBloc = BlocProvider.of<RegisterBloc>(context);
-    registerBloc.add(Initialization());
+    // registerBloc.add(Initialization());
     return Scaffold(
         backgroundColor: Theme.of(context).accentColor,
         appBar: AppBar(
@@ -210,6 +210,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                           ? true
                                           : false,
                                       child: CategoryDropDownButton());
+                                      
                                 },
                               )
                             ]),

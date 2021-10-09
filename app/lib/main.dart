@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
     userPreferences: UserPreferences(),
   ));
 
+ 
   UserRepository userRepository = UserRepository(
     userDataProvider: UserDataProvider(
       httpClient: http.Client(),
@@ -76,6 +77,7 @@ class MyApp extends StatelessWidget {
               userPreference: UserPreferences(),
             )..add(AutoLoginEvent()), 
           ),
+          
           BlocProvider<DeliveryBloc>(
             create: (_) => DeliveryBloc(
               deliveryRepository: this.deliveryRepo,
@@ -83,17 +85,18 @@ class MyApp extends StatelessWidget {
             )..add(DeliveryInitializationEvent()), 
           ),
           //
+
           BlocProvider<CategoryBloc>(
             create: (_) => CategoryBloc(
               categoryRepository: this.categoryRepository,
             )..add(FetchCategories()),
           ),
-          //
+          // 
           BlocProvider<FavoriteBloc>(
             create: (_) => FavoriteBloc()..add(FavoriteInitialFetch()), 
           ),
           BlocProvider<WorkBloc>(
-            create: (_) => WorkBloc(customerRepository: customerRepository, brokerRepository: brokersRepository)..add(WorkInitialFetch()),
+            create: (_) => WorkBloc(customerRepository: customerRepository, brokerRepository: brokersRepository, deliveryRepository: deliveryRepo)..add(WorkInitialFetch()),
           ),
           BlocProvider<RegisterBloc>(
             create: (_) => RegisterBloc(brokersRepository: brokersRepository, customerRepositoy: customerRepository)..add(Initialization()),
