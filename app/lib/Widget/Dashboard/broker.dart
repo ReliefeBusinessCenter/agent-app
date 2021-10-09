@@ -54,7 +54,7 @@ class _BrokerItemState extends State<BrokerItem> {
                   ),
                 ),
                 child: Image.network(
-                  "${Ip.ip}/api/users/getimage?name=wwwroot/images/${widget.broker.user!.picture as String}",
+                  "${Ip.ip}/api/users/get/?fileName=${widget.broker.user!.picture as String}",
                   height: MediaQuery.of(context).size.height * 0.20,
                   width: double.infinity,
                   fit: BoxFit.fill,

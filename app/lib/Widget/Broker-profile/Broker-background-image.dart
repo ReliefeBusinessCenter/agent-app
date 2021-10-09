@@ -37,12 +37,9 @@ class BrokerBackgroundImage extends StatelessWidget {
                   maxRadius: MediaQuery.of(context).size.width * 0.15,
                   // minRadius: MediaQuery.of(context).size.width * 0.4,
                   backgroundImage: NetworkImage(
-                      "${Ip.ip}/api/users/getimage?name=wwwroot/images/${this.broker.user!.picture as String}"),
+                      "${Ip.ip}/api/users/get/?fileName=${this.broker.user!.picture as String}"),
                 ),
                 Padding(
-
-
-                  
                   padding: const EdgeInsets.all(8.0),
                   child: Text(broker.user!.fullName as String,
                       style: TextStyle(
