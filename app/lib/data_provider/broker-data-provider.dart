@@ -51,7 +51,39 @@ class BrokerDataProvider {
     }
     return brokers_return;
   }
+Future<Broker?> getBrokerByEmail(String email) async {
+    // String? token = await this.userPreferences.getUserToken();
+    // late List<Category> categories_return = [];
+    late Broker broker;
+    try {
+      final url = Uri.parse('${Ip.ip}/api/brokers/$email');
 
+      final response = await http.get(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          // 'Authorization': 'Bearer $token',
+        },
+      );
+      print('Arrived here ${response.body}');
+      if (response.statusCode == 200) {
+        final extractedData = json.decode(response.body);
+
+        final data = extractedData;
+
+        return Broker.fromJson(data);
+
+        // return (data.map((customer) => Customer.fromJson(customer)).toList());
+      } else {
+        print(response.body);
+        throw Exception('Failed to get broker by email');
+      }
+    } catch (e) {
+      print("Exception throuwn $e");
+    }
+    return null;
+  }
   Future<Broker?> getBrokerById(int id) async {
     String? token = await this.userPreferences.getUserToken();
     Broker? broker_return = null;

@@ -15,7 +15,6 @@ class WorkItem extends StatelessWidget {
 
     return BlocBuilder<WorkBloc, WorkState>(
       builder: (context, state) {
-        
         return Card(
           color: Theme.of(context).accentColor,
           elevation: 1.0,
@@ -54,7 +53,7 @@ class WorkItem extends StatelessWidget {
                   color: Theme.of(context).primaryColor,
                 ),
                 onSelected: (value) async {
-                  if (value == 1) {
+                  if (value == 1 && work.deliveryStatus == "Pending") {
                     // make it done
                     AwesomeDialog(
                       context: context,
@@ -66,6 +65,9 @@ class WorkItem extends StatelessWidget {
                       btnCancelOnPress: () {},
                       btnOkOnPress: () {},
                     )..show();
+                  } else if ((value == 1 &&
+                      work.deliveryStatus == "Accepted")) {
+                    workBloc.add(MarkAsDoneWork(work: work));
                   } else {
                     // delete the work history.
                     AwesomeDialog(

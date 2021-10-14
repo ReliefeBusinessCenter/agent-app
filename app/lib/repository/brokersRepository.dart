@@ -26,5 +26,10 @@ Broker data = await brokerDataProvider.getBrokerById(id) as Broker;
     print("Data arrived at the Repository  $data");
     return data;
   }
+   Future<Broker?> getBrokerByEmail(String email) async {
+    Broker? data = await brokerDataProvider.getBrokerByEmail(email);
+    print("Broker arrived at the repository: ${data!.toJson()}");
+    return data;
+  }
   
 }

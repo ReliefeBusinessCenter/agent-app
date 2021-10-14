@@ -1,21 +1,48 @@
 import 'dart:convert';
 
+import 'package:app/model/broker/broker.dart';
+import 'package:app/model/customer/customer.dart';
 import 'package:app/model/login_info.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserPreferences {
+  // User Information
   Future<void> storeUserInformation(LoggedUserInfo info) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('user_info', jsonEncode(info));
   }
-
-  Future<LoggedUserInfo?> getUserInformation() async {
+  
+ Future<LoggedUserInfo?> getUserInformation() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? u_info = prefs.getString('user_info');
     Map<String, dynamic> json = jsonDecode(u_info!) as Map<String, dynamic>;
     var user = LoggedUserInfo.fromJson(json);
     return user;
+  }
+  // Customer Information
+  Future<void> storeCustomerInformation(Customer customer) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('customer_info', jsonEncode(customer));
+  }
+   Future<Customer?> getCustomerInformation() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? u_info = prefs.getString('customer_info');
+    Map<String, dynamic> json = jsonDecode(u_info!) as Map<String, dynamic>;
+    var customer = Customer.fromJson(json);
+    return customer;
+  }
+// Broker Information
+ Future<void> storeBrokerInformation(Broker broker) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('broker_info', jsonEncode(broker));
+  }
+   Future<Broker?> getBrokerInformation() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? u_info = prefs.getString('broker_info');
+    Map<String, dynamic> json = jsonDecode(u_info!) as Map<String, dynamic>;
+    var broker = Broker.fromJson(json);
+    return broker;
   }
    
   Future<void> storeTokenAndExpiration(String token, String expiry) async {

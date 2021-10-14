@@ -27,6 +27,7 @@ class CustomerDrawer extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.6,
       child: Column(
         children: [
+          
           UserAccountsDrawerHeader(
             accountName: Text("${this.user.fullName as String}"),
             accountEmail: Text("${this.user.email as String}"),

@@ -6,6 +6,7 @@ import 'package:app/model/broker/skills.dart';
 import 'package:app/model/broker/user.dart';
 // import 'package:app/model/broker/user.dart';
 import 'package:app/model/customer/customer.dart';
+import 'package:app/model/user.dart';
 
 import 'package:app/repository/brokersRepository.dart';
 import 'package:app/repository/customer_repository.dart';
@@ -150,7 +151,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         print("Entered to the customer page");
         // customer registeration
         Customer customer = new Customer();
-        customer.user = user;
+        customer.user = user as User?;
         print("Customer Data At the Bloc: ${customer.user!.toJson()}");
         bool isCreated = await this.customerRepositoy.createCustomers(customer);
         if (isCreated == true) {

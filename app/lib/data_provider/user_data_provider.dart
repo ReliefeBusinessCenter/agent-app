@@ -2,16 +2,26 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:app/ip/ip.dart';
+import 'package:app/model/broker/broker.dart';
+import 'package:app/model/customer/customer.dart';
 import 'package:app/model/login_info.dart';
 import 'package:app/preferences/user_preference_data.dart';
+import 'package:app/repository/brokersRepository.dart';
+import 'package:app/repository/customer_repository.dart';
 
 import 'package:http/http.dart' as http;
 
 class UserDataProvider {
   final http.Client httpClient;
   final UserPreferences userPreferences;
+  final CustomerRepository customerRepository;
+  final BrokersRepository brokerRepository;
 
-  UserDataProvider({required this.httpClient, required this.userPreferences});
+  UserDataProvider(
+      {required this.httpClient,
+      required this.userPreferences,
+      required this.customerRepository,
+      required this.brokerRepository});
 
   final String baseUrl = 'http://csv.jithvar.com/api/v1';
 
@@ -19,8 +29,7 @@ class UserDataProvider {
     print(
         "login clicked: email:${loginInfo.email} and password:${loginInfo.password}");
     LoggedUserInfo loggedUserInfo;
-    final urlLogin =
-        Uri.parse('${Ip.ip}/api/users/authenticate');
+    final urlLogin = Uri.parse('${Ip.ip}/api/users/authenticate');
     try {
       final response = await http.post(urlLogin,
           headers: {
@@ -54,6 +63,21 @@ class UserDataProvider {
         await this.userPreferences.storeEmail(loginInfo.email);
         print("----59");
         await this.userPreferences.storePassword(loginInfo.password);
+
+        // Store Role Information
+        if (loggedUserInfo.user!.role == "Customer") {
+          Customer customer = await this
+                  .customerRepository
+                  .getCustomerByEmail(loggedUserInfo.user!.email as String)
+              as Customer;
+          await this.userPreferences.storeCustomerInformation(customer);
+        } else {
+           Broker broker = await this
+                  .brokerRepository
+                  .getBrokerByEmail(loggedUserInfo.user!.email as String)
+              as Broker;
+          await this.userPreferences.storeBrokerInformation(broker);
+        }
         print('--------------login');
         print(loggedUserInfo.token);
         print('--------------login');

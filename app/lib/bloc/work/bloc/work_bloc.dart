@@ -49,13 +49,13 @@ class WorkBloc extends Bloc<WorkEvent, WorkState> {
       print("User Email address: ${user.email}");
       List<Delivery> works = customer.delivery as List<Delivery>;
 // add broker data here
-      for (int i = 0; i < works.length; i++) {
-        Broker broker = await this
-            .brokerRepository
-            .getBrokerById(works[i].brokerId as int) as Broker;
-        works[i].broker = broker;
-      }
-      print("Value of the Customer After Parsing: ${works}");
+      // for (int i = 0; i < works.length; i++) {
+      //   Broker broker = await this
+      //       .brokerRepository
+      //       .getBrokerById(works[i].brokerId as int) as Broker;
+      //   works[i].broker = broker;
+      // }
+      // print("Value of the Customer After Parsing: ${works}");
       // if (!works.contains(event.work)) {
       //   works.add(event.work);
       // }
@@ -65,6 +65,9 @@ class WorkBloc extends Bloc<WorkEvent, WorkState> {
       bool isDeleted = await this
           .deliveryRepository
           .deleteDelivery(event.work.deliveryId as int);
+
+      //
+
       if (isDeleted == true) {
         yield DeleteSuccessState(delivery_history: state.delivery_history);
       } else {
@@ -73,8 +76,12 @@ class WorkBloc extends Bloc<WorkEvent, WorkState> {
             message: "Failed to Delete");
       }
     } else if (event is MarkAsDoneWork) {
-        yield WorkLoading();
+      yield WorkLoading();
+      //
+      Delivery delivery = event.work;
+      delivery.deliveryStatus = "Done";
       bool isUpdated = await this.deliveryRepository.updateDelivery(event.work);
+
       if (isUpdated == true) {
 // updated successfully
         yield UpdateSuccessState(

@@ -14,6 +14,10 @@ class DeliveryDataProvider {
   DeliveryDataProvider(
       {required this.httpClient, required this.userPreferences})
       : assert(httpClient != null);
+      
+
+
+
 
 // create delivery
   Future<bool> createDelivery(Delivery? delivery) async {
@@ -32,13 +36,15 @@ class DeliveryDataProvider {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
+          'Authorization': 'Bearer $token', 
         },
         body: jsonEncode({
-          "deliveryStatus": "Pending",
+          "deliveryStatus": "Accepted",
           "location": "Awasa",
-          "broker": {"brokerId": delivery.broker!.brokerId},
-          "customer": {"customerId": delivery.customer!.customerId}
+          "brokerId": delivery.broker!.brokerId,
+          "customerId": delivery.customer!.customerId
+          // "broker": {"brokerId": delivery.broker!.brokerId},
+          // "customer": {"customerId": delivery.customer!.customerId}
         }),
       );
 
@@ -64,7 +70,8 @@ class DeliveryDataProvider {
     print("Delivery Id:${id}");
     try {
       // final url = Uri.parse('http://csv.jithvar.com/api/v1/orders');
-      final url = Uri.parse('http://192.168.211.201:5000/api/delivery/${id}');
+      final url = Uri.parse('${Ip.ip}/api/delivery/${id}');
+      // final url = Uri.parse('http://192.168.211.201:5000/api/delivery/${id}');
 
       // send other customer data here
       final response = await http.delete(
@@ -92,7 +99,9 @@ class DeliveryDataProvider {
     print("Customer Data:${delivery!.toJson()}");
     try {
       // final url = Uri.parse('http://csv.jithvar.com/api/v1/orders');
-      final url = Uri.parse('${Ip.ip}/api/delivery/');
+
+      final url = Uri.parse('${Ip.ip}/api/delivery/${delivery.deliveryId}');
+
 
       // send other customer data here
       final response = await http.put(
@@ -106,8 +115,8 @@ class DeliveryDataProvider {
           "deliveryId": delivery.deliveryId,
           "deliveryStatus": delivery.deliveryStatus,
           "location": "Awasa",
-          "broker": {"brokerId": delivery.broker!.brokerId},
-          "customer": {"customerId": delivery.customer!.customerId}
+          "brokerId": delivery.broker!.brokerId,
+          "customerId": delivery.customer!.customerId
         }),
       );
       print(
