@@ -208,55 +208,39 @@ class _AppDrawerState extends State<AppDrawer> {
                         if (state.user.user != null) {
                           if (state.user.user!.picture != null) {
                             if (state.user.user!.picture != null) {
+                              print(
+                                  "++++++++Have Image: ${state.user.user!.picture as String}");
                               photoPath = state.user.user!.picture ?? photoPath;
 
-                              // photo = CircleAvatar(
-                              //   radius: 45,
-                              //   child: Container(
-                              //     clipBehavior: Clip.hardEdge,
-                              //     child: CachedNetworkImage(
-                              //       imageUrl: "${Ip.ip}/api/users/get/?fileName=${state.user.user!.picture as String}"),
-                              //       height: MediaQuery.of(context).size.height *
-                              //           0.18,
-                              //       width: double.infinity,
-                              //       fit: BoxFit.fill,
-                              //       placeholder: (context, url) => Container(
-                              //         color: Colors.white,
-                              //       ),
-                              //       errorWidget: (context, url, error) =>
-                              //           Container(
-                              //         color: Colors.black,
-                              //         child: Icon(Icons.error),
-                              //       ),
-                              //     ),
-                              //     // child: Image.network('${baseUrl}/${client.photoPath}'),
-                              //     decoration: BoxDecoration(
-                              //       borderRadius: BorderRadius.circular(40),
-                              //     ),
-                              //   ),
-                               photo = CircleAvatar(
-                          radius: 45,
-                          child: Container(
-                            clipBehavior: Clip.hardEdge,
-                            child: CachedNetworkImage(
-                              imageUrl: "${Ip.ip}/api/users/get/?fileName=${state.user.user!.picture as String}",
-                              height: MediaQuery.of(context).size.height * 0.18,
-                              width: double.infinity,
-                              fit: BoxFit.fill,
-                              placeholder: (context, url) => Container(
-                                color: Colors.white,
-                              ),
-                              errorWidget: (context, url, error) => Container(
-                                color: Colors.black,
-                                child: Icon(Icons.error),
-                              ),
-                            ),
-                            // child: Image.network('${baseUrl}/${client.photoPath}'),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(40),
-                            ),
-                          ),
-                        );
+                              photo = CircleAvatar(
+                                radius: 45,
+                                backgroundColor: Colors.white,
+                                child: Container(
+                                  clipBehavior: Clip.hardEdge,
+                                  child: Image(
+                                    image: NetworkImage(
+                                      "${Ip.ip}/api/users/get/?fileName=${state.user.user!.picture as String}",
+
+                                      // fit: BoxFit.fill,
+                                      // placeholder: (context, url) => Container(
+                                      //   color: Colors.white,
+                                      // ),
+                                      // errorWidget: (context, url, error) =>
+                                      //     Container(
+                                      //   color: Colors.black,
+                                      //   child: Icon(Icons.error),
+                                      // ),
+                                    ),
+                                    height: MediaQuery.of(context).size.height *
+                                        0.18,
+                                    width: double.infinity,
+                                  ),
+                                  // child: Image.network('${baseUrl}/${client.photoPath}'),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(40),
+                                  ),
+                                ),
+                              );
                             } else {
                               photo = CircleAvatar(
                                 radius: 45,
