@@ -46,6 +46,7 @@ dependencies:
   flutter_progress_hud: ^2.0.0
   image_picker: ^0.8.4
   flutter_launcher_icons: ^0.9.2
+  cached_network_image: ^3.1.0
 
 
 dev_dependencies:

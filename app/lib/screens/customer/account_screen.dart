@@ -9,7 +9,7 @@ class AccountScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).accentColor,
       appBar: AppBar(),
-      drawer: CustomerDrawer(),
+      drawer: AppDrawer(),
       body: Container(
         child: Center(child: Text("Account Screen")),
       ),

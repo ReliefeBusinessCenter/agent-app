@@ -28,7 +28,7 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
     return Scaffold(
       backgroundColor: Theme.of(context).accentColor,
       appBar: AppBar(),
-      drawer: CustomerDrawer(),
+      drawer: AppDrawer(),
       body: Container(
         alignment: Alignment.topCenter,
         child: SingleChildScrollView(

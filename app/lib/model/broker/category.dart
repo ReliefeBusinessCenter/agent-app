@@ -5,7 +5,7 @@ class Category {
   Category({this.categoryId, this.catigoryName});
 
   Category.fromJson(Map<String, dynamic> json) {
-    categoryId = json['catigoryId'];
+    categoryId = json['categoryId'];
     catigoryName = json['catigoryName'];
   }
 
