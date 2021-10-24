@@ -130,7 +130,7 @@ class MyApp extends StatelessWidget {
               fontFamily: 'Raleway',
               textTheme: ThemeData.light().textTheme.copyWith(
                   bodyText1: TextStyle(
-                    color: Color.fromRGBO(255, 231, 255, 1),
+                    color  : Color.fromRGBO(255, 231, 255, 1),
                   ),
                   bodyText2: TextStyle(
                     color: Color.fromRGBO(20, 31, 51, 1),

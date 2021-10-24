@@ -72,10 +72,10 @@ class UserDataProvider {
               as Customer;
           await this.userPreferences.storeCustomerInformation(customer);
         } else {
-           Broker broker = await this
-                  .brokerRepository
-                  .getBrokerByEmail(loggedUserInfo.user!.email as String)
-              as Broker;
+          Broker broker = await this
+              .brokerRepository
+              .getBrokerByEmail(loggedUserInfo.user!.email as String) as Broker;
+          print("Broker To Be stored ${broker.toJson()}");
           await this.userPreferences.storeBrokerInformation(broker);
         }
         print('--------------login');

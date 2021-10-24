@@ -3,7 +3,7 @@ import 'dart:async';
 // import 'package:app/Widget/Dashboard/broker.dart';
 
 import 'package:app/model/broker/broker.dart';
-import 'package:app/model/category.dart';
+// import 'package:app/model/category.dart';
 import 'package:app/repository/brokersRepository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
@@ -51,7 +51,7 @@ class BrokerBloc extends Bloc<BrokerEvent, BrokerState> {
       this.categoryId = event.categoryId;
       if (event.categoryId == 0) {
         print("selact all event have been called");
-        print("Broker list: ${brokerList}");
+        print("Broker list: $brokerList");
         yield BrokersLoadSuccess(
             selectedCategoryId: event.categoryId, brokers: brokerList);
       } else {

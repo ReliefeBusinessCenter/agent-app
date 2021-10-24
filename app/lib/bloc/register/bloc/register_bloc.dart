@@ -107,7 +107,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       // add communication skills
     } else if (event is AddBrokerType) {
       print(
-          "++++++++________Arrived on the bloc with the follwoing value: ${event.category}");
+          "++++++++________Arrived on the bloc with the follwoing value: ${event.category!.categoryId}");
       // adding the broker category here
       // Category category = event.category;
       broker.category = event.category;
@@ -151,7 +151,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         print("Entered to the customer page");
         // customer registeration
         Customer customer = new Customer();
-        customer.user = user as User?;
+        customer.user = user;
         print("Customer Data At the Bloc: ${customer.user!.toJson()}");
         bool isCreated = await this.customerRepositoy.createCustomers(customer);
         if (isCreated == true) {

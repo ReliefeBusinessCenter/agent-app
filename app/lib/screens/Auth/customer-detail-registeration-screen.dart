@@ -4,6 +4,7 @@ import 'package:app/Widget/Auth/signup/add_profile_picture.dart';
 import 'package:app/Widget/Auth/signup/signUpTextField.dart';
 import 'package:app/Widget/Auth/signup/register-button.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';
+import 'package:app/screens/Auth/signUp_screen.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 // import 'package:file/file.dart';
 import 'package:file_picker/file_picker.dart';
@@ -99,8 +100,10 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                   //   Navigator.popAndPushNamed(context, Login.routeName);
                   // },
                   btnOkOnPress: () {
-                    // Navigator.popAndPushNamed(context, Login.routeName);
-                    
+                    // Navigator.pop(context);
+                    // Navigator.pop()
+                    Navigator.popAndPushNamed(context, Login.routeName);
+                    registerBloc.add(Initialization());
                   },
                 )..show();
               }

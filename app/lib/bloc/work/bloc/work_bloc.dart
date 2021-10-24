@@ -32,6 +32,7 @@ class WorkBloc extends Bloc<WorkEvent, WorkState> {
     WorkEvent event,
   ) async* {
     if (event is FetchWork) {
+      List<Delivery> works = [];
       yield WorkLoading();
       //  add event
       // ine logged in user
@@ -40,25 +41,22 @@ class WorkBloc extends Bloc<WorkEvent, WorkState> {
           await userPreference.getUserInformation();
 // define user here
       User user = loggedUserInfo!.user as User;
-      String email = await userPreference.getUserEmail() as String;
+
       // call the get customer by email method
-      Customer customer = await this
-          .customerRepository
-          .getCustomerByEmail(user.email as String) as Customer;
-      print("Customer Data: ${customer.toJson()}");
-      print("User Email address: ${user.email}");
-      List<Delivery> works = customer.delivery as List<Delivery>;
-// add broker data here
-      // for (int i = 0; i < works.length; i++) {
-      //   Broker broker = await this
-      //       .brokerRepository
-      //       .getBrokerById(works[i].brokerId as int) as Broker;
-      //   works[i].broker = broker;
-      // }
-      // print("Value of the Customer After Parsing: ${works}");
-      // if (!works.contains(event.work)) {
-      //   works.add(event.work);
-      // }
+      if (user.role == "Customer") {
+        Customer customer =    await userPreference.getCustomerInformation() as Customer;
+        print("Customer Data: ${customer.toJson()}");
+        print("User Email address: ${user.email}");
+         works=customer.delivery as List<Delivery>;
+      } else {
+        Broker broker =    await userPreference.getBrokerInformation() as Broker;
+        print("Broker Data: ${broker.toJson()}");
+        print("User Email address: ${user.email}");
+         works=broker.delivery as List<Delivery>;
+      }
+
+      // List<Delivery> works = customer.delivery as List<Delivery>;
+
       yield (AdddWorkSuccess(delivery_history: works));
     } else if (event is DeleteWork) {
       yield WorkLoading();
@@ -92,7 +90,42 @@ class WorkBloc extends Bloc<WorkEvent, WorkState> {
             delivery_history: state.delivery_history,
             message: "Failed to Update");
       }
-    } else {
+    } else if(event is MarkAsAccepted){
+       yield WorkLoading();
+      //
+      Delivery delivery = event.work;
+      delivery.deliveryStatus = "Accepted";
+      bool isUpdated = await this.deliveryRepository.updateDelivery(event.work);
+
+      if (isUpdated == true) {
+// updated successfully
+        yield UpdateSuccessState(
+            delivery_history: state.delivery_history, message: "Updated");
+      } else {
+// failed to updated
+        yield UpdateFailedState(
+            delivery_history: state.delivery_history,
+            message: "Failed to Update");
+      }
+    }else if(event is MarkAsRejected){
+       yield WorkLoading();
+      //
+      Delivery delivery = event.work;
+      delivery.deliveryStatus = "Rejected";
+      bool isUpdated = await this.deliveryRepository.updateDelivery(event.work);
+
+      if (isUpdated == true) {
+// updated successfully
+        yield UpdateSuccessState(
+            delivery_history: state.delivery_history, message: "Updated");
+      } else {
+// failed to updated
+        yield UpdateFailedState(
+            delivery_history: state.delivery_history,
+            message: "Failed to Update");
+      }
+    }
+    else {
       // // Initial
       // List<Work> works = state.work_history;
       // yield WorkInitial(work_history: works);

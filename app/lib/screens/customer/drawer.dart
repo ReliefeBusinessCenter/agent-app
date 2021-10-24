@@ -198,7 +198,7 @@ class _AppDrawerState extends State<AppDrawer> {
           //other styles
         ),
         child: Container(
-            width: MediaQuery.of(context).size.width * 0.80,
+            width: MediaQuery.of(context).size.width * 0.60,
             child: Drawer(
                 child: BlocConsumer<AuthBloc, AuthState>(
                     listener: (context, state) {},
@@ -294,6 +294,9 @@ class _AppDrawerState extends State<AppDrawer> {
                               decoration: BoxDecoration(
                                   color: Theme.of(context).primaryColor),
                             ),
+                            Divider(
+                                height: 20,
+                                color: Colors.white.withOpacity(0.6)),
                             CustomeList(
                               title: "Dashboard",
                               subTitle: "See List of brokers",
@@ -356,44 +359,50 @@ class _AppDrawerState extends State<AppDrawer> {
                                 print("share");
                               },
                             ),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.23),
                             Divider(
                                 height: 20,
                                 color: Colors.white.withOpacity(0.6)),
-                            ListTile(
-                                leading: Icon(
-                                  Icons.logout,
-                                  color: Theme.of(context).errorColor,
-                                ),
-                                title: Text(
-                                  'Log Out',
-                                  style: TextStyle(
-                                      color: Theme.of(context).errorColor,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                onTap: () {
-                                  // Navigator.pop(context);
-                                  Navigator.popAndPushNamed(
-                                      context, Login.routeName);
-                                }),
-                            Divider(
-                              height: 20,
+                            Container(
+                              alignment: Alignment.bottomCenter,
+                              child: ListTile(
+                                  leading: Icon(
+                                    Icons.logout,
+                                    color: Theme.of(context).errorColor,
+                                  ),
+                                  title: Text(
+                                    'Log Out',
+                                    style: TextStyle(
+                                        color: Theme.of(context).errorColor,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  onTap: () {
+                                    // Navigator.pop(context);
+                                    Navigator.popAndPushNamed(
+                                        context, Login.routeName);
+                                  }),
                             ),
-                            ListTile(
-                              trailing: Icon(Icons.close,
-                                  color: Colors.white.withOpacity(0.7)),
-                              title: Text(
-                                'Close',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.white.withOpacity(0.7),
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              ),
-                              onTap: () {
-                                Navigator.of(context).pop();
-                              },
-                            )
+                            // Divider(
+                            //   height: 20,
+                            // ),
+                            // ListTile(
+                            //   trailing: Icon(Icons.close,
+                            //       color: Colors.white.withOpacity(0.7)),
+                            //   title: Text(
+                            //     'Close',
+                            //     style: TextStyle(
+                            //       fontSize: 15,
+                            //       color: Colors.white.withOpacity(0.7),
+                            //       fontWeight: FontWeight.w300,
+                            //     ),
+                            //   ),
+                            //   onTap: () {
+                            //     Navigator.of(context).pop();
+                            //   },
+                            // )
                           ],
                         );
                       }

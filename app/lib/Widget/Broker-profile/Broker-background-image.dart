@@ -2,7 +2,7 @@ import 'package:app/constants/customer-page/categories.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/broker.dart';
 
-import 'package:app/model/category.dart';
+// import 'package:app/model/category.dart';
 import 'package:flutter/material.dart';
 
 class BrokerBackgroundImage extends StatelessWidget {

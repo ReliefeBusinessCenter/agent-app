@@ -29,12 +29,7 @@ class HistoryScreen extends StatelessWidget {
               } else if (state is UpdateFailedState) {
                 // update failed state
               } else if (state is WorkLoading) {
-                // isShowing = true;
-                // print("work loading state invocked");
-                // final progress = ProgressHUD.of(context);
-                // if (isShowing == true) {
-                //   progress!.showWithText("Loading");
-                // }
+                
                 return Center(child: CircularProgressIndicator());
               } else if (state is AdddWorkSuccess) {
                 return ListView.builder(
@@ -44,24 +39,9 @@ class HistoryScreen extends StatelessWidget {
                         ));
               }
               return Container();
-              // if (state is AdddWorkSuccess) {
-              //   print(
-              //       "+++++++______+++++ Add Work Event have been called ++++++___++++++");
-              //   print("State Calue:${state.delivery_history}");
-              //   isShowing = false;
-              // }
+              
             },
-            // builder: (context, state) {
-            //   if (state is AdddWorkSuccess) {
-            //     return ListView.builder(
-            //         itemCount: state.delivery_history.length,
-            //         itemBuilder: (context, index) => WorkItem(
-            //               work: state.delivery_history[index],
-            //             ));
-            //   }
-
-            //   return Container();
-            // },
+           
           ),
         )));
   }

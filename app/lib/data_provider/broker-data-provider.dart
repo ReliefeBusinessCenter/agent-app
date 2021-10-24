@@ -51,7 +51,8 @@ class BrokerDataProvider {
     }
     return brokers_return;
   }
-Future<Broker?> getBrokerByEmail(String email) async {
+
+  Future<Broker?> getBrokerByEmail(String email) async {
     // String? token = await this.userPreferences.getUserToken();
     // late List<Category> categories_return = [];
     late Broker broker;
@@ -71,7 +72,8 @@ Future<Broker?> getBrokerByEmail(String email) async {
         final extractedData = json.decode(response.body);
 
         final data = extractedData;
-
+        print(
+            "Data after Parsing +++++>>>>> ${Broker.fromJson(data).toJson()}");
         return Broker.fromJson(data);
 
         // return (data.map((customer) => Customer.fromJson(customer)).toList());
@@ -84,6 +86,7 @@ Future<Broker?> getBrokerByEmail(String email) async {
     }
     return null;
   }
+
   Future<Broker?> getBrokerById(int id) async {
     String? token = await this.userPreferences.getUserToken();
     Broker? broker_return = null;
@@ -150,7 +153,7 @@ Future<Broker?> getBrokerByEmail(String email) async {
               "deals": [],
               "reviews": [],
               "skills": {
-                "communicationSkill":  broker.skills!.communicationSkill,
+                "communicationSkill": broker.skills!.communicationSkill,
                 "brokingSkill": broker.skills!.brokingSkill,
                 "workDone": broker.skills!.workDone,
                 "workInProgress": broker.skills!.workInProgress,
@@ -183,7 +186,7 @@ Future<Broker?> getBrokerByEmail(String email) async {
           throw Exception('Failed to load courses');
         }
       }
-    }  catch (e) {
+    } catch (e) {
       print("Exception throuwn $e");
     }
     return false;
