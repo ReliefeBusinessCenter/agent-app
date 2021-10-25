@@ -237,7 +237,9 @@ class BrokerDetailScreen extends StatelessWidget {
                                             },
                                           )
                                         ])))
-                                  ]))))));
+                                  ])))
+                                  
+                                  )));
             },
           ),
         ));

@@ -14,7 +14,39 @@ class CustomerDataProvider {
       {required this.httpClient, required this.userPreferences})
       : assert(httpClient != null);
 
+  Future<List<Customer>?> getCustomers() async {
+    String? token = await this.userPreferences.getUserToken();
+    late List<Customer> customers_return = [];
+    
+    try {
+      final url = Uri.parse('${Ip.ip}/api/customers');
 
+      final response = await http.get(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        final extractedData = json.decode(response.body) as List;
+
+        final data = extractedData;
+
+        print("Data:$data");
+
+        return (data.map((customer) => Customer.fromJson(customer)).toList());
+      } else {
+        print(response.body);
+        throw Exception('Failed to load courses');
+      }
+    } catch (e) {
+      print("Exception throuwn $e");
+    }
+    return customers_return;
+  }
 Future<Customer?> getCustomerByEmail(String email) async {
     // String? token = await this.userPreferences.getUserToken();
     // late List<Category> categories_return = [];

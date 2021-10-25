@@ -39,7 +39,7 @@ class DeliveryDataProvider {
           'Authorization': 'Bearer $token', 
         },
         body: jsonEncode({
-          "deliveryStatus": "Accepted",
+          "deliveryStatus": "Pending",
           "location": "Awasa",
           "brokerId": delivery.broker!.brokerId,
           "customerId": delivery.customer!.customerId
@@ -96,7 +96,7 @@ class DeliveryDataProvider {
     String? token = await this.userPreferences.getUserToken();
     // late List<Data> products_return = [];
     print("++++++++++++++++++++++++++++Customer create method invocked");
-    print("Customer Data:${delivery!.toJson()}");
+    print("Delivery Data:${delivery!.toJson()}");
     try {
       // final url = Uri.parse('http://csv.jithvar.com/api/v1/orders');
 

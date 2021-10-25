@@ -20,4 +20,10 @@ class CustomerRepository {
     print("Customer arrived at the repository: ${data!.toJson()}");
     return data;
   }
+
+  Future<List<Customer>> getCustomers() async {
+    List<Customer> data = await customerDataProvider.getCustomers() as List<Customer>;
+    print("Data arrived at the data provider ${data.map((e) => e.toJson())}");
+    return data;
+  }
 }

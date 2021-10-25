@@ -19,6 +19,7 @@ import 'package:http/http.dart' as http;
 import 'bloc/auth/bloc/auth_bloc.dart';
 import 'bloc/category/bloc/category_bloc.dart';
 
+import 'bloc/customer/customer_bloc.dart' as customerBloc;
 import 'bloc/register/bloc/register_bloc.dart';
 import 'data_provider/categories_data_provider.dart';
 import 'data_provider/user_data_provider.dart';
@@ -59,7 +60,6 @@ class MyApp extends StatelessWidget {
     ),
   );
 
-
   CustomerRepository customerRepository = new CustomerRepository(
       customerDataProvider: CustomerDataProvider(
     httpClient: http.Client(),
@@ -75,10 +75,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-        providers: [ 
+        providers: [
           BlocProvider<BrokerBloc>(
               create: (_) => BrokerBloc(brokersRepository: brokersRepository)
                 ..add(FetchEvent())),
+                
           BlocProvider<AuthBloc>(
             create: (_) => AuthBloc(
               userRepository: this.userRepository,
@@ -86,6 +87,10 @@ class MyApp extends StatelessWidget {
             )..add(AutoLoginEvent()),
           ),
 
+BlocProvider<customerBloc.CustomerBloc>(
+              create: (_) =>
+                  customerBloc.CustomerBloc(customerRepository: customerRepository)
+                    ..add(customerBloc.FetchEvent())),
           BlocProvider<DeliveryBloc>(
             create: (_) => DeliveryBloc(
                 deliveryRepository: this.deliveryRepo,
@@ -130,7 +135,7 @@ class MyApp extends StatelessWidget {
               fontFamily: 'Raleway',
               textTheme: ThemeData.light().textTheme.copyWith(
                   bodyText1: TextStyle(
-                    color  : Color.fromRGBO(255, 231, 255, 1),
+                    color: Color.fromRGBO(255, 231, 255, 1),
                   ),
                   bodyText2: TextStyle(
                     color: Color.fromRGBO(20, 31, 51, 1),

@@ -17,7 +17,7 @@ class BrokerBloc extends Bloc<BrokerEvent, BrokerState> {
   List<Broker> brokerList = [];
   List<Broker> selectedCategories = [];
   List<Broker> searchedBrokers = [];
-  int? categoryId = null;
+  int? categoryId;
   String? searchBrokerName = '';
   int page = 0;
 

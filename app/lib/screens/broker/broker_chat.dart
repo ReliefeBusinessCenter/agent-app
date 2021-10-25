@@ -24,7 +24,7 @@ class BrokerChat extends StatelessWidget {
       ),
       backgroundColor: Theme.of(context).accentColor,
       body: Center(
-        child: Text("Broker Chat Room"),
+        child: Text("Broker Chat Room Comming Soon ...."),
       ),
     );
   }
