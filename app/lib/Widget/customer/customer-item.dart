@@ -1,3 +1,4 @@
+import 'package:app/Widget/customer/customer-profile-page.dart';
 import 'package:app/bloc/favorit/bloc/favorite_bloc.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/broker.dart';
@@ -22,19 +23,19 @@ class _CustomerItemState extends State<CustomerItem> {
   @override
   Widget build(BuildContext context) {
     favoriteBloc = BlocProvider.of<FavoriteBloc>(context);
-    String image =
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Spaghetti_Bolognese_mit_Parmesan_oder_Grana_Padano.jpg/800px-Spaghetti_Bolognese_mit_Parmesan_oder_Grana_Padano.jpg';
+   
     return InkWell(
       onTap: () {
         print("This is the broker name ${widget.customer.user!.fullName}");
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => CustomerItem(
+              builder: (context) => CustomerProfilePage(
                     customer: widget.customer,
                   )),
         );
       },
+
       child: SizedBox(
         width: MediaQuery.of(context).size.width * 0.5,
         height: MediaQuery.of(context).size.width * 0.7,
@@ -99,11 +100,11 @@ class _CustomerItemState extends State<CustomerItem> {
                         SizedBox(
                           width: 6,
                         ),
-                        Text(
-                          "${this.widget.customer.reviews == null ? "10" : this.widget.customer.reviews![0].rate} M views",
-                          style:
-                              TextStyle(color: Colors.black.withOpacity(0.5)),
-                        )
+                        // Text(
+                        //   "${this.widget.customer.reviews == null ? "10" : this.widget.customer.reviews![0].rate} M views",
+                        //   style:
+                        //       TextStyle(color: Colors.black.withOpacity(0.5)),
+                        // )
                       ],
                     ),
                     SizedBox(

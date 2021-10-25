@@ -25,7 +25,7 @@ class BrokerCustomerList extends StatelessWidget {
             Expanded(
               child: BlocBuilder<CustomerBloc, CustomerState>(
                 builder: (context, state) {
-                  if (state is BrokersLoadSuccess) {
+                  if (state is CustomersLoadSuccess) {
                     print(
                         "Successfully loadded to the screen: ${state.customers}");
                     return LazyLoadScrollView(
@@ -45,7 +45,7 @@ class BrokerCustomerList extends StatelessWidget {
                                 customer: state.customers[index],
                               ));
                             }));
-                  } else if (state is BrokersLoading) {
+                  } else if (state is CustomersLoading) {
                     return Center(
                       child: CircularProgressIndicator(),
                     );

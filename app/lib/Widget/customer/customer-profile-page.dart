@@ -17,8 +17,9 @@ import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 import 'customer-background-image.dart';
 
+// ignore: must_be_immutable
 class CustomerProfilePage extends StatelessWidget {
-  static const routeName = '/user/category/services/technicians/detail';
+  static const routeName = '/customer/detail';
   final Customer customer;
   late DeliveryBloc deliveryBloc;
   CustomerProfilePage({required this.customer});

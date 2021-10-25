@@ -21,8 +21,7 @@ class _BrokerItemState extends State<BrokerItem> {
   @override
   Widget build(BuildContext context) {
     favoriteBloc = BlocProvider.of<FavoriteBloc>(context);
-    String image =
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Spaghetti_Bolognese_mit_Parmesan_oder_Grana_Padano.jpg/800px-Spaghetti_Bolognese_mit_Parmesan_oder_Grana_Padano.jpg';
+   
     return InkWell(
       onTap: () {
         print("This is the broker name ${widget.broker.user!.fullName}");
