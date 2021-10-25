@@ -12,13 +12,14 @@ class Customer {
   List<Delivery>? delivery;
   // List<Sales>? sales;
   User? user;
-
+bool? isFavorite;
   Customer(
       {this.customerId,
       this.reviews,
       this.deals,
       this.delivery,
       // this.sales,
+      this.isFavorite,
       this.user});
 
   Customer.fromJson(Map<String, dynamic> json) {

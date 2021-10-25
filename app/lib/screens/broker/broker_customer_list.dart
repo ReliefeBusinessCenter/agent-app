@@ -1,6 +1,8 @@
 import 'package:app/Widget/Dashboard/broker.dart';
 import 'package:app/Widget/Dashboard/customSearchBar.dart';
+import 'package:app/Widget/customer/customer-item.dart';
 import 'package:app/bloc/broker/bloc/broker_bloc.dart';
+import 'package:app/bloc/customer/customer_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
@@ -21,11 +23,11 @@ class BrokerCustomerList extends StatelessWidget {
               child: SearchTextField(),
             ),
             Expanded(
-              child: BlocBuilder<BrokerBloc, BrokerState>(
+              child: BlocBuilder<CustomerBloc, CustomerState>(
                 builder: (context, state) {
                   if (state is BrokersLoadSuccess) {
                     print(
-                        "Successfully loadded to the screen: ${state.brokers}");
+                        "Successfully loadded to the screen: ${state.customers}");
                     return LazyLoadScrollView(
                         onEndOfPage: () {},
                         child: GridView.builder(
@@ -36,11 +38,11 @@ class BrokerCustomerList extends StatelessWidget {
                               mainAxisExtent:
                                   MediaQuery.of(context).size.height * 0.35,
                             ),
-                            itemCount: state.brokers.length,
+                            itemCount: state.customers.length,
                             itemBuilder: (BuildContext ctx, index) {
                               return Container(
-                                  child: BrokerItem(
-                                broker: state.brokers[index],
+                                  child: CustomerItem(
+                                customer: state.customers[index],
                               ));
                             }));
                   } else if (state is BrokersLoading) {
