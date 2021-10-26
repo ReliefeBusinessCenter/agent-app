@@ -1,4 +1,5 @@
-import 'package:app/model/category.dart';
+import 'package:app/model/broker/category.dart';
+// import 'package:app/model/category.dart';
 import 'package:flutter/material.dart';
 import 'package:app/constants/customer-page/categories.dart';
 

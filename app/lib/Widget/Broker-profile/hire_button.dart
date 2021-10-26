@@ -4,7 +4,7 @@ import 'package:app/bloc/work/bloc/work_bloc.dart';
 import 'package:app/constants/customer-page/categories.dart';
 import 'package:app/model/broker/broker.dart';
 
-import 'package:app/model/category.dart';
+// import 'package:app/model/category.dart';
 import 'package:app/model/work.dart';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -42,7 +42,7 @@ class HireButton extends StatelessWidget {
             onTap: () {
                deliveryBloc.add(SelectBrokerEvent(broker: this.broker));
                       deliveryBloc.add(DeliveryCreateEvent());
-                      workBloc.add(AddWork(work: work));
+                      workBloc.add(FetchWork());
               // AwesomeDialog(
               //   context: context,
               //   dialogType: DialogType.INFO,

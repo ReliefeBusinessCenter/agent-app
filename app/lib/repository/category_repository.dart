@@ -1,5 +1,6 @@
 import 'package:app/data_provider/categories_data_provider.dart';
-import 'package:app/model/category.dart';
+import 'package:app/model/broker/category.dart';
+
 
 
 class CategoryRepository {

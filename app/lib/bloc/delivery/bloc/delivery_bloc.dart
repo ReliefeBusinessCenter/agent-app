@@ -30,15 +30,16 @@ class DeliveryBloc extends Bloc<DeliveryEvent, DeliveryState> {
       // delivery initialization
       UserPreferences userPreference = new UserPreferences();
 // define logged in user
-      LoggedUserInfo? loggedUserInfo =
-          await userPreference.getUserInformation();
+      Customer? customer =
+          await userPreference.getCustomerInformation();
 // define user here
-      User user = loggedUserInfo!.user as User;
+      // User user = loggedUserInfo!.user as User;
       // call the get customer by email method
-      Customer customer = await this
-          .customerRepository
-          .getCustomerByEmail(user.email as String) as Customer;
-      print("User Email address: ${user.email}");
+      // Customer customer = await this
+      //     .customerRepository
+      //     .getCustomerByEmail(user.email as String) as Customer;
+
+      // print("User Email address: ${user.email}");
       // update the state of the delivery with customer data
       Delivery delivery = state.delivery as Delivery;
       delivery.customer = customer;

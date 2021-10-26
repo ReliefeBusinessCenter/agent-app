@@ -1,4 +1,5 @@
 import 'package:app/bloc/favorit/bloc/favorite_bloc.dart';
+import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/broker.dart';
 
 import 'package:app/screens/customer/brokers_detail_screen.dart';
@@ -20,8 +21,7 @@ class _BrokerItemState extends State<BrokerItem> {
   @override
   Widget build(BuildContext context) {
     favoriteBloc = BlocProvider.of<FavoriteBloc>(context);
-    String image =
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Spaghetti_Bolognese_mit_Parmesan_oder_Grana_Padano.jpg/800px-Spaghetti_Bolognese_mit_Parmesan_oder_Grana_Padano.jpg';
+   
     return InkWell(
       onTap: () {
         print("This is the broker name ${widget.broker.user!.fullName}");
@@ -52,8 +52,8 @@ class _BrokerItemState extends State<BrokerItem> {
                     (15),
                   ),
                 ),
-                child: Image.asset(
-                  'assets/images/16.jpg',
+                child: Image.network(
+                  "${Ip.ip}/api/users/get/?fileName=${widget.broker.user!.picture as String}",
                   height: MediaQuery.of(context).size.height * 0.20,
                   width: double.infinity,
                   fit: BoxFit.fill,

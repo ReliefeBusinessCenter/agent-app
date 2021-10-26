@@ -19,6 +19,7 @@ import 'package:http/http.dart' as http;
 import 'bloc/auth/bloc/auth_bloc.dart';
 import 'bloc/category/bloc/category_bloc.dart';
 
+import 'bloc/customer/customer_bloc.dart' as customerBloc;
 import 'bloc/register/bloc/register_bloc.dart';
 import 'data_provider/categories_data_provider.dart';
 import 'data_provider/user_data_provider.dart';
@@ -27,7 +28,7 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget { 
+class MyApp extends StatelessWidget {
   // BrokersDataProvider brokersDataProvider = new BrokersDataProvider();
   http.Client httpClient = http.Client();
   BrokersRepository brokersRepository = new BrokersRepository(
@@ -38,10 +39,18 @@ class MyApp extends StatelessWidget {
 
   UserRepository userRepository = UserRepository(
     userDataProvider: UserDataProvider(
-      httpClient: http.Client(),
-      userPreferences: UserPreferences(),
-    ),
-    
+        httpClient: http.Client(),
+        userPreferences: UserPreferences(),
+        brokerRepository: new BrokersRepository(
+            brokerDataProvider: BrokerDataProvider(
+          httpClient: http.Client(),
+          userPreferences: UserPreferences(),
+        )),
+        customerRepository: CustomerRepository(
+            customerDataProvider: CustomerDataProvider(
+          httpClient: http.Client(),
+          userPreferences: UserPreferences(),
+        ))),
   );
 
   CategoryRepository categoryRepository = CategoryRepository(
@@ -51,7 +60,7 @@ class MyApp extends StatelessWidget {
     ),
   );
 
-   CustomerRepository customerRepository = new CustomerRepository(
+  CustomerRepository customerRepository = new CustomerRepository(
       customerDataProvider: CustomerDataProvider(
     httpClient: http.Client(),
     userPreferences: UserPreferences(),
@@ -70,19 +79,27 @@ class MyApp extends StatelessWidget {
           BlocProvider<BrokerBloc>(
               create: (_) => BrokerBloc(brokersRepository: brokersRepository)
                 ..add(FetchEvent())),
+                
           BlocProvider<AuthBloc>(
             create: (_) => AuthBloc(
               userRepository: this.userRepository,
               userPreference: UserPreferences(),
-            )..add(AutoLoginEvent()), 
+            )..add(AutoLoginEvent()),
           ),
+
+BlocProvider<customerBloc.CustomerBloc>(
+              create: (_) =>
+                  customerBloc.CustomerBloc(customerRepository: customerRepository)
+                    ..add(customerBloc.FetchEvent())),
           BlocProvider<DeliveryBloc>(
             create: (_) => DeliveryBloc(
-              deliveryRepository: this.deliveryRepo,
-           customerRepository: this.customerRepository
-            )..add(DeliveryInitializationEvent()), 
+                deliveryRepository: this.deliveryRepo,
+                customerRepository: this.customerRepository)
+              ..add(DeliveryInitializationEvent()),
           ),
+
           //
+
           BlocProvider<CategoryBloc>(
             create: (_) => CategoryBloc(
               categoryRepository: this.categoryRepository,
@@ -90,20 +107,27 @@ class MyApp extends StatelessWidget {
           ),
           //
           BlocProvider<FavoriteBloc>(
-            create: (_) => FavoriteBloc()..add(FavoriteInitialFetch()), 
+            create: (_) => FavoriteBloc()..add(FavoriteInitialFetch()),
           ),
           BlocProvider<WorkBloc>(
-            create: (_) => WorkBloc(customerRepository: customerRepository, brokerRepository: brokersRepository)..add(WorkInitialFetch()),
+            create: (_) => WorkBloc(
+                customerRepository: customerRepository,
+                brokerRepository: brokersRepository,
+                deliveryRepository: deliveryRepo)
+              ..add(WorkInitialFetch()),
           ),
           BlocProvider<RegisterBloc>(
-            create: (_) => RegisterBloc(brokersRepository: brokersRepository, customerRepositoy: customerRepository)..add(Initialization()),
+            create: (_) => RegisterBloc(
+                brokersRepository: brokersRepository,
+                customerRepositoy: customerRepository)
+              ..add(Initialization()),
           ),
         ],
         child: MaterialApp(
           title: 'DeliMeals',
           theme: ThemeData(
               primarySwatch: Colors.blue,
-              primaryColor: Color(0xFF015777),
+              primaryColor: Color(0xFF263238),
               // primaryColor: Color.fromRGBO(146, 40, 105, 1),
               accentColor: Color(0xFFf2f6f9),
               canvasColor: Color.fromRGBO(225, 254, 229, 1),
@@ -117,7 +141,7 @@ class MyApp extends StatelessWidget {
                     color: Color.fromRGBO(20, 31, 51, 1),
                   ),
                   headline6:
- TextStyle(fontSize: 24, fontFamily: 'RobotoCondensed'))),
+                      TextStyle(fontSize: 24, fontFamily: 'RobotoCondensed'))),
           // home: Login(),
           initialRoute: Login.routeName,
           onGenerateRoute: AppRoutes.generateRoute,
@@ -125,9 +149,8 @@ class MyApp extends StatelessWidget {
           onUnknownRoute: (settings) {
             return MaterialPageRoute(builder: (ctx) => Login());
           },
- 
+
           // home: Login(),
         ));
   }
-} 
-
+}

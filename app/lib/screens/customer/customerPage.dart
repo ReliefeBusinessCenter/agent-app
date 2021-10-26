@@ -49,7 +49,7 @@ class _CustomerPageState extends State<CustomerPage> {
               primaryColor, //This will change the drawer background to blue.
           //other styles
         ),
-        child: CustomerDrawer(),
+        child: AppDrawer(),
       ),
       drawerEnableOpenDragGesture: true,
       body: _getDrawerItemWidget(this._selectedIndex),

@@ -7,7 +7,7 @@ namespace broker.Models
 {
     public class Buy
     {
-
+ 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int BuyId { get; set; }

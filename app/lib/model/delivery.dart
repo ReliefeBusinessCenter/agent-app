@@ -24,7 +24,8 @@ class Delivery {
     deliveryStatus = json['deliveryStatus'];
     location = json['location'];
     brokerId = json['brokerId'];
-    broker = json['broker'];
+    broker =
+        json['broker'] != null ? new Broker.fromJson(json['broker']) : null;
     customerId = json['customerId'];
     customer = json['customer'] != null
         ? new Customer.fromJson(json['customer'])
@@ -37,7 +38,9 @@ class Delivery {
     data['deliveryStatus'] = this.deliveryStatus;
     data['location'] = this.location;
     data['brokerId'] = this.brokerId;
-    data['broker'] = this.broker;
+    if (this.broker != null) {
+      data['broker'] = this.broker!.toJson();
+    }
     data['customerId'] = this.customerId;
     if (this.customer != null) {
       data['customer'] = this.customer!.toJson();

@@ -16,8 +16,8 @@ class CustomCategory extends StatefulWidget {
 }
 
 class _CustomCategoryState extends State<CustomCategory> {
-  Color _color = Color(0xFF015777).withOpacity(0.05);
-  Color _fontColor = Colors.black.withOpacity(0.8);
+  // Color _color = Color(0xFF015777).withOpacity(0.05);
+  // Color _fontColor = Colors.black.withOpacity(0.8);
 
   @override
   Widget build(BuildContext context) {

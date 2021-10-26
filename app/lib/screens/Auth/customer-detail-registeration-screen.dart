@@ -4,6 +4,7 @@ import 'package:app/Widget/Auth/signup/add_profile_picture.dart';
 import 'package:app/Widget/Auth/signup/signUpTextField.dart';
 import 'package:app/Widget/Auth/signup/register-button.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';
+import 'package:app/screens/Auth/signUp_screen.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 // import 'package:file/file.dart';
 import 'package:file_picker/file_picker.dart';
@@ -85,7 +86,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                 progress!.showWithText("Creating");
               } else if (state is RegisterCreateSuccess) {
                 // this.isShowing = false;
-
+                registerBloc.add(Initialization());
                 Navigator.popAndPushNamed(context, Login.routeName);
                 // return Container(child: Text("Created Successfully"));
               } else if (state is RegisterCreateFailed) {
@@ -95,11 +96,14 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                   animType: AnimType.BOTTOMSLIDE,
                   title: 'Order Creating failed',
                   desc: 'Fill all the information carefully!',
-                  btnCancelOnPress: () {
-                    Navigator.popAndPushNamed(context, Login.routeName);
-                  },
+                  // btnCancelOnPress: () {
+                  //   Navigator.popAndPushNamed(context, Login.routeName);
+                  // },
                   btnOkOnPress: () {
+                    // Navigator.pop(context);
+                    // Navigator.pop()
                     Navigator.popAndPushNamed(context, Login.routeName);
+                    registerBloc.add(Initialization());
                   },
                 )..show();
               }

@@ -10,7 +10,7 @@ import 'user.dart';
 class Broker {
   int? brokerId;
   List<Portfolios>? portfolios;
-  List<Delivery>? deliveries;
+  List<Delivery>? delivery;
   List<Deals>? deals;
   List<Reviews>? reviews;
   Skills? skills;
@@ -21,7 +21,7 @@ class Broker {
   Broker(
       {this.brokerId,
       this.portfolios,
-      this.deliveries,
+      this.delivery,
       this.deals,
       this.reviews,
       this.skills,
@@ -37,10 +37,10 @@ class Broker {
         portfolios!.add(new Portfolios.fromJson(v));
       });
     }
-    if (json['deliveries'] != null) {
-      deliveries = <Delivery>[];
-      json['deliveries'].forEach((v) {
-        deliveries!.add(new Delivery.fromJson(v));
+    if (json['delivery'] != null) {
+      delivery = <Delivery>[];
+      json['delivery'].forEach((v) {
+        delivery!.add(new Delivery.fromJson(v));
       });
     }
     if (json['deals'] != null) {
@@ -69,8 +69,8 @@ class Broker {
     if (this.portfolios != null) {
       data['portfolios'] = this.portfolios!.map((v) => v.toJson()).toList();
     }
-    if (this.deliveries != null) {
-      data['deliveries'] = this.deliveries!.map((v) => v.toJson()).toList();
+    if (this.delivery != null) {
+      data['delivery'] = this.delivery!.map((v) => v.toJson()).toList();
     }
     if (this.deals != null) {
       data['deals'] = this.deals!.map((v) => v.toJson()).toList();

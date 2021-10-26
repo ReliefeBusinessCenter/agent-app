@@ -1,6 +1,6 @@
 import 'package:app/data_provider/categories_data_provider.dart';
 import 'package:app/data_provider/customer-data-provider.dart';
-import 'package:app/model/category.dart';
+// import 'package:app/model/category.dart';
 import 'package:app/model/customer/customer.dart';
 
 class CustomerRepository {
@@ -18,6 +18,12 @@ class CustomerRepository {
   Future<Customer?> getCustomerByEmail(String email) async {
     Customer? data = await customerDataProvider.getCustomerByEmail(email);
     print("Customer arrived at the repository: ${data!.toJson()}");
+    return data;
+  }
+
+  Future<List<Customer>> getCustomers() async {
+    List<Customer> data = await customerDataProvider.getCustomers() as List<Customer>;
+    print("Data arrived at the data provider ${data.map((e) => e.toJson())}");
     return data;
   }
 }

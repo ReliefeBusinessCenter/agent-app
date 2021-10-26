@@ -3,7 +3,7 @@ import 'dart:async';
 // import 'package:app/Widget/Dashboard/broker.dart';
 
 import 'package:app/model/broker/broker.dart';
-import 'package:app/model/category.dart';
+// import 'package:app/model/category.dart';
 import 'package:app/repository/brokersRepository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
@@ -17,8 +17,8 @@ class BrokerBloc extends Bloc<BrokerEvent, BrokerState> {
   List<Broker> brokerList = [];
   List<Broker> selectedCategories = [];
   List<Broker> searchedBrokers = [];
-  int? categoryId = null;
-  String? searchBrokerName='';
+  int? categoryId;
+  String? searchBrokerName = '';
   int page = 0;
 
   BrokerBloc({required this.brokersRepository}) : super(BrokerInitial());
@@ -51,12 +51,13 @@ class BrokerBloc extends Bloc<BrokerEvent, BrokerState> {
       this.categoryId = event.categoryId;
       if (event.categoryId == 0) {
         print("selact all event have been called");
-        print("Broker list: ${brokerList}");
+        print("Broker list: $brokerList");
         yield BrokersLoadSuccess(
             selectedCategoryId: event.categoryId, brokers: brokerList);
       } else {
         for (int i = 0; i < brokerList.length; i++) {
           int brokerCatID = brokerList[i].category!.categoryId as int;
+          print("Broker Categrory Id:${brokerList[i].category!.toJson()}");
 
           // print("This is the category ID for th product: ${productCatID}");
           if (brokerCatID == (event.categoryId)) {
@@ -92,13 +93,13 @@ class BrokerBloc extends Bloc<BrokerEvent, BrokerState> {
       //
       this.searchedBrokers = [];
       print("Search event is scalled");
-      this.searchBrokerName=event.name;
+      this.searchBrokerName = event.name;
       this.page = 1;
 
       //  filter from the cache
       for (int i = 0; i < brokerList.length; i++) {
         if (brokerList[i]
-        .user!
+            .user!
             .fullName!
             .toLowerCase()
             .contains(this.searchBrokerName.toString().toLowerCase())) {
@@ -117,12 +118,9 @@ class BrokerBloc extends Bloc<BrokerEvent, BrokerState> {
       //   searchProductName: this.searchProductName,
       // )
 
-       yield BrokersLoadSuccess( 
-              selectedCategoryId: state.selectedCategoryId,
-              brokers: searchedBrokers);
-
-      
-      
+      yield BrokersLoadSuccess(
+          selectedCategoryId: state.selectedCategoryId,
+          brokers: searchedBrokers);
     } else if (event is FetchEvent) {
       // fetch event
     }

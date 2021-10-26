@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/broker.dart';
 import 'package:app/preferences/user_preference_data.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,7 +23,7 @@ class BrokerDataProvider {
     late List<Broker> brokers_return = [];
     print("This is the caategory Id");
     try {
-      final url = Uri.parse('http://192.168.211.201:5000/api/brokers');
+      final url = Uri.parse('${Ip.ip}/api/brokers');
 
       final response = await http.get(
         url,
@@ -50,12 +51,48 @@ class BrokerDataProvider {
     }
     return brokers_return;
   }
-Future<Broker?> getBrokerById(int id) async {
+
+  Future<Broker?> getBrokerByEmail(String email) async {
+    // String? token = await this.userPreferences.getUserToken();
+    // late List<Category> categories_return = [];
+    late Broker broker;
+    try {
+      final url = Uri.parse('${Ip.ip}/api/brokers/$email');
+
+      final response = await http.get(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          // 'Authorization': 'Bearer $token',
+        },
+      );
+      print('Arrived here ${response.body}');
+      if (response.statusCode == 200) {
+        final extractedData = json.decode(response.body);
+
+        final data = extractedData;
+        print(
+            "Data after Parsing +++++>>>>> ${Broker.fromJson(data).toJson()}");
+        return Broker.fromJson(data);
+
+        // return (data.map((customer) => Customer.fromJson(customer)).toList());
+      } else {
+        print(response.body);
+        throw Exception('Failed to get broker by email');
+      }
+    } catch (e) {
+      print("Exception throuwn $e");
+    }
+    return null;
+  }
+
+  Future<Broker?> getBrokerById(int id) async {
     String? token = await this.userPreferences.getUserToken();
-     Broker? broker_return=null;
+    Broker? broker_return = null;
     print("This is the Broker Id:${id}");
     try {
-      final url = Uri.parse('http://192.168.211.201:5000/api/brokers/${id}');
+      final url = Uri.parse('${Ip.ip}/api/brokers/${id}');
 
       final response = await http.get(
         url,
@@ -73,7 +110,7 @@ Future<Broker?> getBrokerById(int id) async {
 
         print("Data:${data}");
 
-        return  Broker.fromJson(data);
+        return Broker.fromJson(data);
       } else {
         print(response.body);
         throw Exception('Failed to load courses');
@@ -83,20 +120,21 @@ Future<Broker?> getBrokerById(int id) async {
     }
     return broker_return;
   }
+
   Future<bool> createBroker(Broker? broker) async {
     String? token = await this.userPreferences.getUserToken();
     // late List<Data> products_return = [];
     print(
-        "+++++++++++++++++++++++______++++++Create broker  method invocked+++++++++++________");
+        "+++++++++++++++++++++++______++++++Create broker  method invocked+++++++++++________with Data ${broker!.toJson()}");
     try {
       // final url = Uri.parse('http://csv.jithvar.com/api/v1/orders');
-      final url = Uri.parse('http://192.168.211.201:5000/api/brokers/');
-      var request = http.MultipartRequest('POST',
-          Uri.parse('http://192.168.211.201:5000/api/users/uploadfileg'));
+      final url = Uri.parse('${Ip.ip}/api/brokers/');
+      var request = http.MultipartRequest(
+          'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
       print("request");
 
       request.files.add(await http.MultipartFile.fromPath(
-          'file', broker!.user!.picture as String));
+          'file', broker.user!.picture as String));
       print("added to multipart");
 
       var res = await http.Response.fromStream(await request.send());
@@ -115,20 +153,23 @@ Future<Broker?> getBrokerById(int id) async {
               "deals": [],
               "reviews": [],
               "skills": {
-                "communicationSkill": broker!.skills!.communicationSkill,
+                "communicationSkill": broker.skills!.communicationSkill,
                 "brokingSkill": broker.skills!.brokingSkill,
                 "workDone": broker.skills!.workDone,
-                "workInProgress": broker.skills!.workInProgress
+                "workInProgress": broker.skills!.workInProgress,
               },
-              "category": {
-                "categoryId": broker.category!.categoryId,
-                "catigoryName": broker.category!.catigoryName
-              },
+              "categoryId": broker.category!.categoryId,
+              // "category": {
+              //   // "categoryId"
+              //   // "catigoryName": broker.category!.catigory
+              //   // "categoryId": 2,
+              //   "catigoryName": "Bussiness1  Broker"
+              // },
               "user": {
                 "fullName": broker.user!.fullName,
                 "email": broker.user!.email,
                 "password": broker.user!.password,
-                "phone": broker.user!.phone,
+                "phone": '123456789',
                 "address": "Ethiopia/Dessie",
                 "picture": res.body.toString(),
                 "sex": broker.user!.sex,

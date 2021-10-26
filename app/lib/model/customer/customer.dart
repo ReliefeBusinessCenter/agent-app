@@ -1,17 +1,18 @@
 import 'package:app/model/broker/user.dart';
+import 'package:app/model/deals.dart';
+import 'package:app/model/review.dart';
 
-import '../deals.dart';
 import '../delivery.dart';
-import '../review.dart';
-
+import '../user.dart';
 
 class Customer {
   int? customerId;
   List<Reviews>? reviews;
   List<Deals>? deals;
   List<Delivery>? delivery;
-  // List<Null>? sales;
+  // List<Sales>? sales;
   User? user;
+bool? isFavorite;
 
   Customer(
       {this.customerId,
@@ -19,6 +20,7 @@ class Customer {
       this.deals,
       this.delivery,
       // this.sales,
+      this.isFavorite,
       this.user});
 
   Customer.fromJson(Map<String, dynamic> json) {
@@ -42,7 +44,7 @@ class Customer {
       });
     }
     // if (json['sales'] != null) {
-    //   sales = <Null>[];
+    //   sales = <Sales>[];
     //   json['sales'].forEach((v) {
     //     sales!.add(new Null.fromJson(v));
     //   });
@@ -63,11 +65,17 @@ class Customer {
       data['delivery'] = this.delivery!.map((v) => v.toJson()).toList();
     }
     // if (this.sales != null) {
-    //   data['sales'] = this.sales.map((v) => v.toJson()).toList();
-    // }
+    //   data['sales'] = this.sales!.map((v) => v.toJson()).toList();
+    // }d
     if (this.user != null) {
       data['user'] = this.user!.toJson();
     }
     return data;
   }
 }
+
+
+
+
+
+

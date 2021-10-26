@@ -45,7 +45,7 @@ class _BrokerMainState extends State<BrokerMain> {
             icon: Icon(
               Icons.request_page,
             ),
-            label: 'Orders',
+            label: 'Delivery',
             backgroundColor: Colors.white,
           ),
           BottomNavigationBarItem(
@@ -87,7 +87,7 @@ class _BrokerMainState extends State<BrokerMain> {
   _getDrawerItemWidget(int index) {
     switch (index) {
       case 0:
-        return new WorkOrder(scaffoldKey: _scaffoldKey);
+        return new BrokerDeliveryHistoryScreen(scaffoldKey: _scaffoldKey);
       case 1:
         return new WorkDeals(scaffoldKey: _scaffoldKey);
       case 2:
@@ -95,7 +95,7 @@ class _BrokerMainState extends State<BrokerMain> {
       case 3:
         return new BrokerChat(scaffoldKey: _scaffoldKey);
       default:
-        return new WorkOrder(scaffoldKey: _scaffoldKey);
+        return new BrokerDeliveryHistoryScreen(scaffoldKey: _scaffoldKey);
     }
   }
 }

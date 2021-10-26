@@ -17,43 +17,47 @@ class _RoleDropDownState extends State<RoleDropDown> {
   @override
   Widget build(BuildContext context) {
     registerBloc = BlocProvider.of<RegisterBloc>(context);
-    return CustomeDropDownButton(
-      dropDownItems: [
-        DropdownMenuItem(
-          child: Container(
-            width: MediaQuery.of(context).size.width * 0.8,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 11.0),
-              child: Text(
-                "Customer",
-                textAlign: TextAlign.start,
+    return BlocBuilder<RegisterBloc, RegisterState>(
+      builder: (context, state) {
+        return CustomeDropDownButton(
+          dropDownItems: [
+            DropdownMenuItem(
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 11.0),
+                  child: Text(
+                    "Customer",
+                    textAlign: TextAlign.start,
+                  ),
+                ),
               ),
+              value: "Customer",
             ),
-          ),
-          value: "Customer",
-        ),
-        DropdownMenuItem(
-          child: Container(
-            width: MediaQuery.of(context).size.width * 0.8,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 11.0),
-              child: Text(
-                "Broker",
-                textAlign: TextAlign.start,
+            DropdownMenuItem(
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 11.0),
+                  child: Text(
+                    "Broker",
+                    textAlign: TextAlign.start,
+                  ),
+                ),
               ),
+              value: "Broker",
             ),
-          ),
-          value: "Broker",
-        ),
-      ],
-      onChanged: (value) {
-        print("Value: ${value}");
-        registerBloc.add(AddTypeUser(userType: value));
-      },
-      value: "Customer",
-      // onChanged: this.onChanged,
+          ],
+          onChanged: (value) {
+            print("Value: ${value}");
+            registerBloc.add(AddTypeUser(userType: value));
+          },
+          value: state.user!.role as String,
+          // onChanged: this.onChanged,
 
-      // value:state.request.paymentWhen as String,
+          // value:state.request.paymentWhen as String,
+        );
+      },
     );
   }
 

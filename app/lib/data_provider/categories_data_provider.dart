@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:app/model/category.dart';
+import 'package:app/ip/ip.dart';
+import 'package:app/model/broker/category.dart';
+//import 'package:app/model/category.dart';
 import 'package:app/preferences/user_preference_data.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -19,9 +21,9 @@ class CategoriesDataProvider {
 
   Future<List<Category>> getCategories() async {
     // String? token = await this.userPreferences.getUserToken();
-    late List<Category> categories_return = [];
+    late List<Category> categoriesReturn = [];
     try {
-      final url = Uri.parse('http://192.168.211.201:5000/api/categories/');
+      final url = Uri.parse('${Ip.ip}/api/categories/');
 
       final response = await http.get(
         url,
@@ -31,12 +33,14 @@ class CategoriesDataProvider {
           // 'Authorization': 'Bearer $token',
         },
       );
+
       print('Arrived here ${response.body}');
+
       if (response.statusCode == 200) {
         final extractedData = json.decode(response.body) as List;
 
         final data = extractedData;
-
+        print("Extracted data: $data");
         return (data.map((category) => Category.fromJson(category)).toList());
       } else {
         print(response.body);
@@ -45,6 +49,6 @@ class CategoriesDataProvider {
     } catch (e) {
       print("Exception throuwn $e");
     }
-    return categories_return;
+    return categoriesReturn;
   }
 }

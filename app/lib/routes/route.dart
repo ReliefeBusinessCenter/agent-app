@@ -39,6 +39,8 @@ class AppRoutes {
       return MaterialPageRoute(builder: (context) => BrokerDetailScreen());
     } else if (settings.name == CustomerDetailScreen.routeName) {
       return MaterialPageRoute(builder: (context) => CustomerDetailScreen());
+    } else if (settings.name == CustomerDetailScreen.routeName) {
+      return MaterialPageRoute(builder: (context) => CustomerDetailScreen());
     } else if (settings.name == PasswordReset.routeName)
       return MaterialPageRoute(builder: (context) => PasswordReset());
 

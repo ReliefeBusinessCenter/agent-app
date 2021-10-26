@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:app/ip/ip.dart';
 import 'package:app/model/customer/customer.dart';
 import 'package:app/preferences/user_preference_data.dart';
 
@@ -13,13 +14,45 @@ class CustomerDataProvider {
       {required this.httpClient, required this.userPreferences})
       : assert(httpClient != null);
 
+  Future<List<Customer>?> getCustomers() async {
+    String? token = await this.userPreferences.getUserToken();
+    late List<Customer> customers_return = [];
+    
+    try {
+      final url = Uri.parse('${Ip.ip}/api/customers');
 
+      final response = await http.get(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        final extractedData = json.decode(response.body) as List;
+
+        final data = extractedData;
+
+        print("Data:$data");
+
+        return (data.map((customer) => Customer.fromJson(customer)).toList());
+      } else {
+        print(response.body);
+        throw Exception('Failed to load courses');
+      }
+    } catch (e) {
+      print("Exception throuwn $e");
+    }
+    return customers_return;
+  }
 Future<Customer?> getCustomerByEmail(String email) async {
     // String? token = await this.userPreferences.getUserToken();
     // late List<Category> categories_return = [];
     late Customer customer;
     try {
-      final url = Uri.parse('http://192.168.211.201:5000/api/customers/$email');
+      final url = Uri.parse('${Ip.ip}/api/customers/$email');
 
       final response = await http.get(
         url,
@@ -55,12 +88,12 @@ Future<Customer?> getCustomerByEmail(String email) async {
     print("Customer Data:${customer!.toJson()}");
     try {
       // final url = Uri.parse('http://csv.jithvar.com/api/v1/orders');
-      final url = Uri.parse('http://192.168.211.201:5000/api/customers/');
+      final url = Uri.parse('${Ip.ip}/api/customers/');
 
       // image upload
 
       var request = http.MultipartRequest('POST',
-          Uri.parse('http://192.168.211.201:5000/api/users/uploadfileg'));
+          Uri.parse('${Ip.ip}/api/users/uploadfileg'));
       print("request");
 
       request.files.add(await http.MultipartFile.fromPath(

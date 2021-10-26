@@ -67,11 +67,11 @@ class HomeFragment extends StatelessWidget {
                         // print(category);
                         categories.add(CustomCategory(
                           backgroundColor: state.selectedCategoryId ==
-                                  state.category[i].catigoryId
+                                  state.category[i].categoryId
                               ? Theme.of(context).primaryColor
                               : Color(0xFF015777).withOpacity(0.05),
                           fontColor: state.selectedCategoryId ==
-                                  state.category[i].catigoryId
+                                  state.category[i].categoryId
                               ? Colors.white
                               : Colors.black.withOpacity(0.8),
                           text: state.category[i].catigoryName!,
@@ -79,11 +79,11 @@ class HomeFragment extends StatelessWidget {
                             // print(
                             // "This is teh name of the category:${DUMMY_CATEGORIES[i].name}");
                             brokerBloc.add(SelectEvent(
-                                categoryId: state.category[i].catigoryId!,
+                                categoryId: state.category[i].categoryId!,
                                 search: ''));
 
                             categoryBloc.add(SelectCategory(
-                                categoryId: state.category[i].catigoryId!));
+                                categoryId: state.category[i].categoryId!));
                           },
                         ));
                       }
