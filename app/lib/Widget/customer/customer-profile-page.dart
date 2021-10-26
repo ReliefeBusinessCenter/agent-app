@@ -16,6 +16,7 @@ import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 import 'customer-background-image.dart';
+import 'deals-button.dart';
 
 // ignore: must_be_immutable
 class CustomerProfilePage extends StatelessWidget {
@@ -102,6 +103,7 @@ class CustomerProfilePage extends StatelessWidget {
         // HireButton(
         //   broker: broker,
         // ),
+        DealsButton(customer: customer,),
       ],
     );
   }

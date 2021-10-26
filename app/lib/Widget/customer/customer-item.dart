@@ -17,6 +17,8 @@ class CustomerItem extends StatefulWidget {
   _CustomerItemState createState() => _CustomerItemState();
 }
 
+
+
 class _CustomerItemState extends State<CustomerItem> {
   late FavoriteBloc favoriteBloc;
   bool isFav = false;
@@ -100,11 +102,7 @@ class _CustomerItemState extends State<CustomerItem> {
                         SizedBox(
                           width: 6,
                         ),
-                        // Text(
-                        //   "${this.widget.customer.reviews == null ? "10" : this.widget.customer.reviews![0].rate} M views",
-                        //   style:
-                        //       TextStyle(color: Colors.black.withOpacity(0.5)),
-                        // )
+                       
                       ],
                     ),
                     SizedBox(
