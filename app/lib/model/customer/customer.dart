@@ -13,6 +13,7 @@ class Customer {
   // List<Sales>? sales;
   User? user;
 bool? isFavorite;
+
   Customer(
       {this.customerId,
       this.reviews,
