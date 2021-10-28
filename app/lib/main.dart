@@ -116,6 +116,7 @@ BlocProvider<customerBloc.CustomerBloc>(
                 deliveryRepository: deliveryRepo)
               ..add(WorkInitialFetch()),
           ),
+          
           BlocProvider<RegisterBloc>(
             create: (_) => RegisterBloc(
                 brokersRepository: brokersRepository,
@@ -127,7 +128,7 @@ BlocProvider<customerBloc.CustomerBloc>(
           title: 'DeliMeals',
           theme: ThemeData(
               primarySwatch: Colors.blue,
-              primaryColor: Color(0xFF263238),
+              primaryColor: Color(  0xFF263238),
               // primaryColor: Color.fromRGBO(146, 40, 105, 1),
               accentColor: Color(0xFFf2f6f9),
               canvasColor: Color.fromRGBO(225, 254, 229, 1),
