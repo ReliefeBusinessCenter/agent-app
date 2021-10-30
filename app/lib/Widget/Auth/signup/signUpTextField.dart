@@ -11,6 +11,7 @@ class CustomTextField extends StatelessWidget {
   final String initialValue;
   final int minLength;
   final Function onChanged;
+  final bool enabled;
 
   CustomTextField({
     required this.textFieldName,
@@ -21,6 +22,7 @@ class CustomTextField extends StatelessWidget {
     required this.initialValue,
     required this.minLength,
     required this.onChanged,
+    required this.enabled,
   });
 
   @override
@@ -40,6 +42,7 @@ class CustomTextField extends StatelessWidget {
         Container(
             width: loginSize.getTextFieldWidth,
             child: TextFormField(
+                enabled: this.enabled,
                 controller: this.controller,
                 obscureText: this.obsecureText,
                 // initialValue: this.initialValue,
@@ -54,7 +57,7 @@ class CustomTextField extends StatelessWidget {
                 },
                 onEditingComplete: () => FocusScope.of(context).unfocus(),
                 style: TextStyle(fontSize: 18, color: Colors.grey),
-                 onChanged: (value) => this.onChanged(value.toString()),
+                onChanged: (value) => this.onChanged(value.toString()),
                 decoration: InputDecoration(
                     labelText: this.textFieldName,
                     fillColor: Colors.white,

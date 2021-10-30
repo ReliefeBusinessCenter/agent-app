@@ -171,6 +171,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                           CustomTextField(
                                             minLength: 0,
                                             textFieldName: 'Password',
+                                             enabled:true,
                                             controller: passwordController,
                                             initialValue: '',
                                             validator: null,
@@ -191,6 +192,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                           CustomTextField(
                                               minLength: 0,
                                               textFieldName: 'Confirm Password',
+                                               enabled:true,
                                               controller:
                                                   confirmPasswordController,
                                               initialValue: '',

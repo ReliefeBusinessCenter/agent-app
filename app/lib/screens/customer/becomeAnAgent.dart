@@ -86,6 +86,7 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                           ),
                           CustomTextField(
                             minLength: 0,
+                             enabled:true,
                             textFieldName: 'Communication Skills',
                             controller: communicationController,
                             initialValue: '',
@@ -102,6 +103,7 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                           ),
                           CustomTextField(
                               minLength: 0,
+                               enabled:true,
                               textFieldName: 'Brooking Skills',
                               controller: brookingSkillsController,
                               initialValue: '',
@@ -118,6 +120,7 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                           ),
                           CustomTextField(
                               minLength: 0,
+                               enabled:true,
                               textFieldName: 'Work Done',
                               controller: workDoneController,
                               initialValue: '',
@@ -140,6 +143,7 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                               textFieldName: 'Work In Progress',
                               controller: workInProgressController,
                               initialValue: '',
+                               enabled:true,
                               validator: null,
                               obsecureText: false,
                               isRequired: false,

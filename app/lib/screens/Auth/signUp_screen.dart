@@ -102,6 +102,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                               CustomTextField(
                                 minLength: 0,
                                 textFieldName: 'Full Name',
+                                 enabled:true,
                                 controller: nameController,
                                 initialValue: '',
                                 validator: null,
@@ -120,6 +121,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                   minLength: 0,
                                   textFieldName: 'Email',
                                   controller: emailController,
+                                   enabled:true,
                                   initialValue: '',
                                   validator: null,
                                   obsecureText: false,
@@ -137,6 +139,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                   textFieldName: 'City',
                                   controller: cityController,
                                   initialValue: '',
+                                   enabled:true,
                                   validator: null,
                                   obsecureText: false,
                                   isRequired: false,
@@ -152,6 +155,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                   minLength: 0,
                                   textFieldName: 'Sub City',
                                   controller: subCityController,
+                                   enabled:true,
                                   initialValue: '',
                                   validator: null,
                                   obsecureText: false,
@@ -163,9 +167,10 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                               SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height * 0.02,
-                              ),
+                               ),
                               CustomTextField(
                                   minLength: 0,
+                                   enabled:true,
                                   textFieldName: 'Kebele',
                                   controller: kebeleController,
                                   initialValue: '',

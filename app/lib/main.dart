@@ -4,11 +4,13 @@ import 'package:app/bloc/favorit/bloc/favorite_bloc.dart';
 import 'package:app/bloc/work/bloc/work_bloc.dart';
 import 'package:app/data_provider/broker-data-provider.dart';
 import 'package:app/data_provider/customer-data-provider.dart';
+import 'package:app/data_provider/deals_data_provider.dart';
 import 'package:app/data_provider/delivery-data-provider.dart';
 import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/repository/brokersRepository.dart';
 import 'package:app/repository/category_repository.dart';
 import 'package:app/repository/customer_repository.dart';
+import 'package:app/repository/deals_repository.dart';
 import 'package:app/repository/delivery_repository.dart';
 import 'package:app/repository/user_repository.dart';
 import 'package:app/routes/route.dart';
@@ -20,6 +22,7 @@ import 'bloc/auth/bloc/auth_bloc.dart';
 import 'bloc/category/bloc/category_bloc.dart';
 
 import 'bloc/customer/customer_bloc.dart' as customerBloc;
+import 'bloc/deals/bloc/deals_bloc.dart';
 import 'bloc/register/bloc/register_bloc.dart';
 import 'data_provider/categories_data_provider.dart';
 import 'data_provider/user_data_provider.dart';
@@ -72,6 +75,11 @@ class MyApp extends StatelessWidget {
     userPreferences: UserPreferences(),
   ));
 
+DealsRepository dealsRepo = new DealsRepository(
+      dealsDataProvider: DealsDataProvider(
+    httpClient: http.Client(),
+    userPreferences: UserPreferences(),
+  ));
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -94,8 +102,16 @@ BlocProvider<customerBloc.CustomerBloc>(
           BlocProvider<DeliveryBloc>(
             create: (_) => DeliveryBloc(
                 deliveryRepository: this.deliveryRepo,
-                customerRepository: this.customerRepository)
+                // customerRepository: this.customerRepository
+                )
               ..add(DeliveryInitializationEvent()),
+          ),
+           BlocProvider<DealsBloc>(
+            create: (_) => DealsBloc(
+                dealsRepository: this.dealsRepo,
+                // customerRepository: this.customerRepository
+                )
+              ..add(DealsInitializationEvent()),
           ),
 
           //
@@ -112,11 +128,11 @@ BlocProvider<customerBloc.CustomerBloc>(
           BlocProvider<WorkBloc>(
             create: (_) => WorkBloc(
                 customerRepository: customerRepository,
-                brokerRepository: brokersRepository,
+                brokerRepository: brokersRepository, 
                 deliveryRepository: deliveryRepo)
               ..add(WorkInitialFetch()),
           ),
-          
+    
           BlocProvider<RegisterBloc>(
             create: (_) => RegisterBloc(
                 brokersRepository: brokersRepository,

@@ -16,9 +16,9 @@ part 'delivery_state.dart';
 
 class DeliveryBloc extends Bloc<DeliveryEvent, DeliveryState> {
   final DeliveryRepository deliveryRepository;
-  final CustomerRepository customerRepository;
+  // final CustomerRepository customerRepository;
   DeliveryBloc(
-      {required this.deliveryRepository, required this.customerRepository})
+      {required this.deliveryRepository})
       : super(DeliveryInitial(delivery: Delivery()));
 
   @override
@@ -33,14 +33,7 @@ class DeliveryBloc extends Bloc<DeliveryEvent, DeliveryState> {
       Customer? customer =
           await userPreference.getCustomerInformation();
 // define user here
-      // User user = loggedUserInfo!.user as User;
-      // call the get customer by email method
-      // Customer customer = await this
-      //     .customerRepository
-      //     .getCustomerByEmail(user.email as String) as Customer;
-
-      // print("User Email address: ${user.email}");
-      // update the state of the delivery with customer data
+     
       Delivery delivery = state.delivery as Delivery;
       delivery.customer = customer;
       // delivery.location=customer.u
