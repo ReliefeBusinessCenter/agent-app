@@ -1,20 +1,22 @@
 // import 'package:app/bloc/work/bloc/work_bloc.dart';
-import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
+import 'package:app/bloc/work-deals/bloc/workdeals_bloc.dart';
+// import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
+import 'package:app/model/deals.dart';
 import 'package:app/model/delivery.dart';
 // import 'package:app/model/work.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class WorkItem extends StatelessWidget {
-  late WorkBloc workBloc;
-  final Delivery work;
-  WorkItem({required this.work});
+class CustomerDealsItem extends StatelessWidget {
+  late DealsListBloc dealsBloc;
+  final Deals deals;
+  CustomerDealsItem({required this.deals});
   @override
   Widget build(BuildContext context) {
-    workBloc = BlocProvider.of<WorkBloc>(context);
+    dealsBloc = BlocProvider.of<DealsListBloc>(context);
 
-    return BlocBuilder<WorkBloc, WorkState>(
+    return BlocBuilder<DealsListBloc, DealsState>(
       builder: (context, state) {
         return Card(
           color: Theme.of(context).accentColor,
@@ -32,7 +34,7 @@ class WorkItem extends StatelessWidget {
               child: Icon(Icons.work, color: Theme.of(context).primaryColor),
             ),
             title: Text(
-              work.broker!.user!.fullName as String,
+              deals.broker!.user!.fullName as String,
               // "broker test",
               style: TextStyle(
                   color: Theme.of(context).primaryColor,
@@ -44,7 +46,7 @@ class WorkItem extends StatelessWidget {
               children: <Widget>[
                 Icon(Icons.pending,
                     color: Theme.of(context).primaryColor.withOpacity(0.4)),
-                Text(work.deliveryStatus as String,
+                Text(deals.dealsStatus as String,
                     style: TextStyle(color: Theme.of(context).primaryColor))
               ],
             ),
@@ -54,21 +56,10 @@ class WorkItem extends StatelessWidget {
                   color: Theme.of(context).primaryColor,
                 ),
                 onSelected: (value) async {
-                  if (value == 1 && work.deliveryStatus != "Accepted") {
+                  if (value == 1) {
                     // make it done
-                    AwesomeDialog(
-                      context: context,
-                      dialogType: DialogType.INFO,
-                      animType: AnimType.BOTTOMSLIDE,
-                      title: 'Action Not Allowed',
-                      desc:
-                          'To change the done status of this work, the broker should respond first',
-                      btnCancelOnPress: () {},
-                      btnOkOnPress: () {},
-                    )..show();
-                  } else if ((value == 1 &&
-                      work.deliveryStatus == "Accepted")) {
-                    workBloc.add(MarkAsDoneWork(work: work));
+                    //  update delivery
+                    dealsBloc.add(MarkAsAccepted(deals: deals));
                   } else {
                     // delete the work history.
                     AwesomeDialog(
@@ -76,22 +67,23 @@ class WorkItem extends StatelessWidget {
                       dialogType: DialogType.WARNING,
                       animType: AnimType.BOTTOMSLIDE,
                       title: 'Confirm Us',
-                      desc: 'Are you sure you want to delete this work?',
+                      desc: 'Are you sure you want to Reject  this work?',
                       btnCancelOnPress: () {},
                       btnOkOnPress: () {
-                        workBloc.add(DeleteWork(work: work));
-                        // Navigator.pop(context);
+                        dealsBloc.add(MarkAsRejected(work: deals));
                       },
                     )..show();
                   }
                 },
                 itemBuilder: (context) => [
                       PopupMenuItem(
-                        child: Icon(Icons.done, color: Colors.green),
+                        child: Text("Accept",
+                            style: TextStyle(color: Colors.green)),
                         value: 1,
                       ),
                       PopupMenuItem(
-                        child: Icon(Icons.delete, color: Colors.red),
+                        child:
+                            Text("Reject", style: TextStyle(color: Colors.red)),
                         value: 2,
                       ),
                     ]),

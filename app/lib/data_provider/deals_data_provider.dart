@@ -35,17 +35,15 @@ class DealsDataProvider {
           'Authorization': 'Bearer $token',
         },
         body: jsonEncode({
-          
-            "quantity": deals.quantity,
-            "color": deals.color,
-            "deliveryOption": deals.deliveryOption,
-            "productModel": deals.productModel,
-            "productName": deals.productName,
-            "paymentOption": deals.paymentOption,
-            "dealsStatus": deals.dealsStatus,
-            "customerId": deals.customer!.customerId,
-            "brokerId": deals.broker!.brokerId
-          
+          "quantity": deals.quantity,
+          "color": deals.color,
+          "deliveryOption": deals.deliveryOption,
+          "productModel": deals.productModel,
+          "productName": deals.productName,
+          "paymentOption": deals.paymentOption,
+          "dealsStatus": deals.dealsStatus,
+          "customerId": deals.customer!.customerId,
+          "brokerId": deals.broker!.brokerId
         }),
       );
 
@@ -101,7 +99,7 @@ class DealsDataProvider {
     try {
       // final url = Uri.parse('http://csv.jithvar.com/api/v1/orders');
 
-      final url = Uri.parse('${Ip.ip}/api/delivery/${deals.dealsId}');
+      final url = Uri.parse('${Ip.ip}/api/deals/${deals.dealsId}');
 
       // send other customer data here
       final response = await http.put(url,
@@ -111,18 +109,16 @@ class DealsDataProvider {
             'Authorization': 'Bearer $token',
           },
           body: jsonEncode({
-            "dealsId": 0,
-            "quantity": 21,
-            "productName": "Shoes",
-            "productModel": "Shoes",
-            "color": "Green",
-            "paymentOption": "Cash",
-            "deliveryOption": "yes",
-            "dealsStatus": "Pending",
-            "brokerId": 1,
-            "broker": null,
-            "customerId": 1,
-            "customer": null
+            "dealsId": deals.dealsId,
+            "quantity": deals.quantity,
+            "color": deals.color,
+            "deliveryOption": deals.deliveryOption,
+            "productModel": deals.productModel,
+            "productName": deals.productName,
+            "paymentOption": deals.paymentOption,
+            "dealsStatus": deals.dealsStatus,
+            "customerId": deals.customer!.customerId,
+            "brokerId": deals.broker!.brokerId
           }));
       print(
           "Http response ${response.statusCode} and response body ${response.body}");

@@ -54,8 +54,7 @@ class DealsListBloc extends Bloc<DealsEvent, DealsState> {
             .customerRepository
             .getCustomerByEmail(user.email as String) as Customer;
         List<Deals> deals = customer.deals as List<Deals>;
-        yield UpdateDealsSuccessState(
-            deals_history: deals, message: "Updated");
+        yield UpdateDealsSuccessState(deals_history: deals, message: "Updated");
         print("Customer Data: ${customer.toJson()}");
         print("User Email address: ${user.email}");
         works = customer.deals as List<Deals>;
@@ -69,8 +68,7 @@ class DealsListBloc extends Bloc<DealsEvent, DealsState> {
             .brokerRepository
             .getBrokerByEmail(user.email as String) as Broker;
         List<Deals> deals = broker.deals as List<Deals>;
-        yield UpdateDealsSuccessState(
-            deals_history: deals, message: "Updated");
+        yield UpdateDealsSuccessState(deals_history: deals, message: "Updated");
         print("Broker Data: ${broker.toJson()}");
         print("User Email address: ${user.email}");
         works = broker.deals as List<Deals>;
@@ -81,18 +79,16 @@ class DealsListBloc extends Bloc<DealsEvent, DealsState> {
       yield FetchDealsSuccess(deals_history: works);
     } else if (event is DeleteDeals) {
       yield DealsLoading();
-      bool isDeleted = await this
-          .dealsRepository
-          .deleteDeals(event.deals.dealsId as int);
+      bool isDeleted =
+          await this.dealsRepository.deleteDeals(event.deals.dealsId as int);
 
       //
 
       if (isDeleted == true) {
-        yield DeleteDealsSuccessState(deals_history:state.deals_history);
+        yield DeleteDealsSuccessState(deals_history: state.deals_history);
       } else {
         yield DeleteDealsFailedState(
-            deals_history: state.deals_history,
-            message: "Failed to Delete");
+            deals_history: state.deals_history, message: "Failed to Delete");
       }
     } else if (event is MarkAsDoneDeals) {
       yield DealsLoading();
@@ -108,34 +104,32 @@ class DealsListBloc extends Bloc<DealsEvent, DealsState> {
       } else {
 // failed to updated
         yield UpdateDealsFailedState(
-            deals_history: state.deals_history,
-            message: "Failed to Update");
+            deals_history: state.deals_history, message: "Failed to Update");
       }
     } else if (event is MarkAsAccepted) {
       yield DealsLoading();
       //
       Deals deals = event.deals;
       deals.dealsStatus = "Accepted";
-      bool isUpdated = await this.dealsRepository.updateDeals(event.deals);
+      bool isUpdated = await this.dealsRepository.updateDeals(deals);
 
       if (isUpdated == true) {
 // updated successfully
 
         yield UpdateDealsSuccessState(
-            deals_history:state.deals_history, message: "Updated");
+            deals_history: state.deals_history, message: "Updated");
       } else {
         print("Failed to update delivery");
 // failed to updated
         yield UpdateDealsFailedState(
-            deals_history: state.deals_history,
-            message: "Failed to Update");
+            deals_history: state.deals_history, message: "Failed to Update");
       }
     } else if (event is MarkAsRejected) {
       yield DealsLoading();
       //
       Deals deals = event.work;
       deals.dealsStatus = "Rejected";
-      bool isUpdated = await this.dealsRepository.updateDeals(event.work);
+      bool isUpdated = await this.dealsRepository.updateDeals(deals);
 
       if (isUpdated == true) {
 // updated successfully
@@ -145,8 +139,7 @@ class DealsListBloc extends Bloc<DealsEvent, DealsState> {
       } else {
 // failed to updated
         yield UpdateDealsFailedState(
-            deals_history: state.deals_history,
-            message: "Failed to Update");
+            deals_history: state.deals_history, message: "Failed to Update");
       }
     } else {
       // // Initial

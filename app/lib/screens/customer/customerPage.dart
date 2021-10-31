@@ -9,7 +9,7 @@ import 'drawer.dart';
 import 'favorite_screen.dart';
 import 'history_screen.dart';
 import 'home_fragment_screen.dart';
-import 'map_screen.dart';
+import 'customer_deals_page.dart';
 import 'profile_screen.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -66,17 +66,17 @@ class _CustomerPageState extends State<CustomerPage> {
             icon: Icon(
               Icons.history,
             ),
-            label: 'History',
+            label: 'Delivery',
             backgroundColor: Colors.white,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.location_on),
-            label: 'Map',
+            icon: Icon(Icons.work),
+            label: 'Deals',
             backgroundColor: Colors.white,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.star),
-            label: 'Favorit',
+            icon: Icon(Icons.chat_bubble),
+            label: 'Chat',
             backgroundColor: Colors.white,
           ),
         ],
@@ -101,7 +101,7 @@ class _CustomerPageState extends State<CustomerPage> {
       case 1:
         return new HistoryScreen();
       case 2:
-        return new MapScreen();
+        return new CustomerDealsPage();
       case 3:
         return new FavoritScreen();
 
