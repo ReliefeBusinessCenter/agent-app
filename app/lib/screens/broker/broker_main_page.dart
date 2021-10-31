@@ -89,7 +89,7 @@ class _BrokerMainState extends State<BrokerMain> {
       case 0:
         return new BrokerDeliveryHistoryScreen(scaffoldKey: _scaffoldKey);
       case 1:
-        return new WorkDeals(scaffoldKey: _scaffoldKey);
+        return new BrokerDealsHistoryScreen(scaffoldKey: _scaffoldKey);
       case 2:
         return new BrokerCustomerList(scaffoldKey: _scaffoldKey);
       case 3:

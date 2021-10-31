@@ -1,6 +1,7 @@
-import 'package:app/bloc/work/bloc/work_bloc.dart';
+// import 'package:app/bloc/work/bloc/work_bloc.dart';
+import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
 import 'package:app/model/delivery.dart';
-import 'package:app/model/work.dart';
+// import 'package:app/model/work.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

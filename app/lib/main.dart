@@ -1,7 +1,8 @@
 import 'package:app/bloc/broker/bloc/broker_bloc.dart';
 import 'package:app/bloc/delivery/bloc/delivery_bloc.dart';
 import 'package:app/bloc/favorit/bloc/favorite_bloc.dart';
-import 'package:app/bloc/work/bloc/work_bloc.dart';
+import 'package:app/bloc/work-deals/bloc/workdeals_bloc.dart';
+// import 'package:app/bloc/work/bloc/work_bloc.dart';
 import 'package:app/data_provider/broker-data-provider.dart';
 import 'package:app/data_provider/customer-data-provider.dart';
 import 'package:app/data_provider/deals_data_provider.dart';
@@ -24,6 +25,7 @@ import 'bloc/category/bloc/category_bloc.dart';
 import 'bloc/customer/customer_bloc.dart' as customerBloc;
 import 'bloc/deals/bloc/deals_bloc.dart';
 import 'bloc/register/bloc/register_bloc.dart';
+import 'bloc/work-delivery/bloc/work_bloc.dart';
 import 'data_provider/categories_data_provider.dart';
 import 'data_provider/user_data_provider.dart';
 
@@ -75,7 +77,7 @@ class MyApp extends StatelessWidget {
     userPreferences: UserPreferences(),
   ));
 
-DealsRepository dealsRepo = new DealsRepository(
+  DealsRepository dealsRepo = new DealsRepository(
       dealsDataProvider: DealsDataProvider(
     httpClient: http.Client(),
     userPreferences: UserPreferences(),
@@ -87,7 +89,7 @@ DealsRepository dealsRepo = new DealsRepository(
           BlocProvider<BrokerBloc>(
               create: (_) => BrokerBloc(brokersRepository: brokersRepository)
                 ..add(FetchEvent())),
-                
+
           BlocProvider<AuthBloc>(
             create: (_) => AuthBloc(
               userRepository: this.userRepository,
@@ -95,23 +97,27 @@ DealsRepository dealsRepo = new DealsRepository(
             )..add(AutoLoginEvent()),
           ),
 
-BlocProvider<customerBloc.CustomerBloc>(
-              create: (_) =>
-                  customerBloc.CustomerBloc(customerRepository: customerRepository)
-                    ..add(customerBloc.FetchEvent())),
+          BlocProvider<customerBloc.CustomerBloc>(
+              create: (_) => customerBloc.CustomerBloc(
+                  customerRepository: customerRepository)
+                ..add(customerBloc.FetchEvent())),
           BlocProvider<DeliveryBloc>(
             create: (_) => DeliveryBloc(
-                deliveryRepository: this.deliveryRepo,
-                // customerRepository: this.customerRepository
-                )
-              ..add(DeliveryInitializationEvent()),
+              deliveryRepository: this.deliveryRepo,
+              // customerRepository: this.customerRepository
+            )..add(DeliveryInitializationEvent()),
           ),
-           BlocProvider<DealsBloc>(
+          // BlocProvider<DeliveryBloc>(
+          //   create: (_) => DeliveryBloc(
+          //     deliveryRepository: this.deliveryRepo,
+          //     // customerRepository: this.customerRepository
+          //   )..add(DeliveryInitializationEvent()),
+          // ),
+          BlocProvider<DealsBloc>(
             create: (_) => DealsBloc(
-                dealsRepository: this.dealsRepo,
-                // customerRepository: this.customerRepository
-                )
-              ..add(DealsInitializationEvent()),
+              dealsRepository: this.dealsRepo,
+              // customerRepository: this.customerRepository
+            )..add(DealsInitializationEvent()),
           ),
 
           //
@@ -128,11 +134,18 @@ BlocProvider<customerBloc.CustomerBloc>(
           BlocProvider<WorkBloc>(
             create: (_) => WorkBloc(
                 customerRepository: customerRepository,
-                brokerRepository: brokersRepository, 
+                brokerRepository: brokersRepository,
                 deliveryRepository: deliveryRepo)
               ..add(WorkInitialFetch()),
           ),
-    
+          BlocProvider<DealsListBloc>(
+            create: (_) => DealsListBloc(
+                customerRepository: customerRepository,
+                brokerRepository: brokersRepository,
+                dealsRepository: dealsRepo)
+              ..add(DealsInitialFetch()),
+          ),
+
           BlocProvider<RegisterBloc>(
             create: (_) => RegisterBloc(
                 brokersRepository: brokersRepository,
@@ -144,7 +157,7 @@ BlocProvider<customerBloc.CustomerBloc>(
           title: 'DeliMeals',
           theme: ThemeData(
               primarySwatch: Colors.blue,
-              primaryColor: Color(  0xFF263238),
+              primaryColor: Color(0xFF263238),
               // primaryColor: Color.fromRGBO(146, 40, 105, 1),
               accentColor: Color(0xFFf2f6f9),
               canvasColor: Color.fromRGBO(225, 254, 229, 1),

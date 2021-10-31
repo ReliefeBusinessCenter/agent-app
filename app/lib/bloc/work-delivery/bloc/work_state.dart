@@ -9,7 +9,7 @@ class WorkState {
 }
 
 class WorkInitial extends WorkState {
-  final List<Work> work_history;
+  final List<Delivery> work_history;
 
   WorkInitial({required this.work_history}) : super(delivery_history: []);
   @override

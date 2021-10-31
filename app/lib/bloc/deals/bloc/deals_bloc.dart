@@ -1,5 +1,7 @@
 import 'package:app/model/broker/broker.dart';
 import 'package:app/model/deals.dart';
+import 'package:app/model/deals.dart';
+import 'package:app/model/deals.dart';
 import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/repository/deals_repository.dart';
 import 'package:bloc/bloc.dart';
@@ -17,17 +19,6 @@ class DealsBloc extends Bloc<DealsEvent, DealsState> {
   Stream<DealsState> mapEventToState(DealsEvent event) async* {
     // TODO: implement mapEventToState
     if (event is DealsInitializationEvent) {
-// // delivery initialization
-//       UserPreferences userPreference = new UserPreferences();
-// // define logged in user
-//       Customer? customer =
-//           await userPreference.getCustomerInformation();
-// // define user here
-
-//       Delivery delivery = state.delivery as Delivery;
-//       delivery.customer = customer;
-//       // delivery.location=customer.u
-//       yield DeliveryInitial(delivery: delivery);
     } else if (event is DealsCreateEvent) {
       // get logged in broker information
       UserPreferences userPreference = new UserPreferences();
@@ -48,6 +39,7 @@ class DealsBloc extends Bloc<DealsEvent, DealsState> {
         // delivervy created failed
         yield DealsCreateFailed(deals: state.deals as Deals);
       }
+
     }
   }
 }
