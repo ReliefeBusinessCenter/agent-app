@@ -1,5 +1,8 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 
+import '../../constants.dart';
 import 'drawer.dart';
 
 class AccountScreen extends StatelessWidget {
@@ -8,7 +11,9 @@ class AccountScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).accentColor,
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: primaryColor,
+      ),
       drawer: AppDrawer(),
       body: Container(
         child: Center(child: Text("Account Screen")),

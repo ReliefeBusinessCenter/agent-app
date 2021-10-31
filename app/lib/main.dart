@@ -159,6 +159,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.blue,
               primaryColor: Color(0xFF263238),
               // primaryColor: Color.fromRGBO(146, 40, 105, 1),
+              // ignore: deprecated_member_use
               accentColor: Color(0xFFf2f6f9),
               canvasColor: Color.fromRGBO(225, 254, 229, 1),
               errorColor: Colors.redAccent,

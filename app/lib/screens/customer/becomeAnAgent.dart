@@ -6,6 +6,7 @@ import 'package:app/screens/Auth/customer-detail-registeration-screen.dart';
 import 'package:flutter/material.dart';
 import 'package:app/Widget/Auth/signup/signUpTextField.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../constants.dart';
 import 'drawer.dart';
 
 class BecomeAnAgent extends StatefulWidget {
@@ -39,7 +40,9 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
     String type = 'Broker';
     return Scaffold(
       backgroundColor: Theme.of(context).accentColor,
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: primaryColor,
+      ),
       drawer: AppDrawer(),
       body: Container(
           alignment: Alignment.topCenter,
@@ -86,7 +89,7 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                           ),
                           CustomTextField(
                             minLength: 0,
-                             enabled:true,
+                            enabled: true,
                             textFieldName: 'Communication Skills',
                             controller: communicationController,
                             initialValue: '',
@@ -103,7 +106,7 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                           ),
                           CustomTextField(
                               minLength: 0,
-                               enabled:true,
+                              enabled: true,
                               textFieldName: 'Brooking Skills',
                               controller: brookingSkillsController,
                               initialValue: '',
@@ -120,7 +123,7 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                           ),
                           CustomTextField(
                               minLength: 0,
-                               enabled:true,
+                              enabled: true,
                               textFieldName: 'Work Done',
                               controller: workDoneController,
                               initialValue: '',
@@ -143,7 +146,7 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                               textFieldName: 'Work In Progress',
                               controller: workInProgressController,
                               initialValue: '',
-                               enabled:true,
+                              enabled: true,
                               validator: null,
                               obsecureText: false,
                               isRequired: false,
