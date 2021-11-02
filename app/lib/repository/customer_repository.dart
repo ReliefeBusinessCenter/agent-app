@@ -26,4 +26,9 @@ class CustomerRepository {
     print("Data arrived at the data provider ${data.map((e) => e.toJson())}");
     return data;
   }
+  Future<bool> deleteCustomer(int id) async {
+    bool deleted = await customerDataProvider.deleteCustomer(id);
+    return deleted;
+  }
+  
 }

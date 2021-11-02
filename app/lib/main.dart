@@ -126,7 +126,7 @@ class MyApp extends StatelessWidget {
             create: (_) => CategoryBloc(
               categoryRepository: this.categoryRepository,
             )..add(FetchCategories()),
-          ),
+          ), 
           //
           BlocProvider<FavoriteBloc>(
             create: (_) => FavoriteBloc()..add(FavoriteInitialFetch()),
@@ -163,7 +163,7 @@ class MyApp extends StatelessWidget {
               accentColor: Color(0xFFf2f6f9),
               canvasColor: Color.fromRGBO(225, 254, 229, 1),
               errorColor: Colors.redAccent,
-              fontFamily: 'Raleway',
+              fontFamily: 'Raleway', 
               textTheme: ThemeData.light().textTheme.copyWith(
                   bodyText1: TextStyle(
                     color: Color.fromRGBO(255, 231, 255, 1),

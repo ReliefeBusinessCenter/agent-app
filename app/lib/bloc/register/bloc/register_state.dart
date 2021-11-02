@@ -18,7 +18,7 @@ class RegisterUpdateSuccess extends RegisterState {
   // RegisterUpdateSuccess();
   RegisterUpdateSuccess({this.user, this.broker})
       : super(user: user, broker: broker);
-} 
+}
 
 class RegisterUpdateLoading extends RegisterState {}
 
@@ -27,3 +27,7 @@ class RegisterCreateLoading extends RegisterState {}
 class RegisterCreateSuccess extends RegisterState {}
 
 class RegisterCreateFailed extends RegisterState {}
+
+class BeingAnAgentSucess extends RegisterState {}
+
+class BeingAnAgentFailed extends RegisterState {}

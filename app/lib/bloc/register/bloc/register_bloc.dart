@@ -7,6 +7,7 @@ import 'package:app/model/broker/user.dart';
 // import 'package:app/model/broker/user.dart';
 import 'package:app/model/customer/customer.dart';
 import 'package:app/model/user.dart';
+import 'package:app/preferences/user_preference_data.dart';
 
 import 'package:app/repository/brokersRepository.dart';
 import 'package:app/repository/customer_repository.dart';
@@ -176,6 +177,31 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           yield RegisterCreateFailed();
         }
       }
+    } else if (event is BecomeAgent) {
+      Broker broker = event.broker;
+      // retrive user information from the logged in customer.
+      UserPreferences userPreference = new UserPreferences();
+// define logged in user
+      Customer? customer = await userPreference.getCustomerInformation();
+      broker.user = customer!.user;
+      // delete customer first.
+      bool isDeleted =
+          await this.customerRepositoy.deleteCustomer(customer.customerId as int);
+
+          if(isDeleted !=false){
+            // register new broker here
+            bool isCreated = await this.brokersRepository.createBroker(broker);
+        if (isCreated == true) {
+          // created success
+          yield BeingAnAgentSucess();
+        } else {
+          // created failed
+          yield BeingAnAgentFailed();
+        }
+            
+          }else{
+            yield BeingAnAgentFailed();
+          }
     }
   }
 }

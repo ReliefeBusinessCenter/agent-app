@@ -2,6 +2,7 @@
 import 'package:app/Widget/Auth/signup/broker/categories-dropdown-button.dart';
 import 'package:app/Widget/Auth/signup/register-button.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';
+import 'package:app/model/broker/broker.dart';
 import 'package:app/screens/Auth/customer-detail-registeration-screen.dart';
 import 'package:flutter/material.dart';
 import 'package:app/Widget/Auth/signup/signUpTextField.dart';
@@ -152,8 +153,7 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                               isRequired: false,
                               onChanged: (String value) {
                                 print("Write: $value");
-                                registerBloc.add(AddWorkInProgress(
-                                    skill: double.parse(value)));
+                                // workInProgressController.text=value;
                               }),
                           // ProfileFileInput(
                           //   controller: fileController,
@@ -170,8 +170,11 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                               if (_formKey.currentState!.validate()) {
                                 print(
                                     "Register method called from the broker page");
-                                Navigator.pushNamed(
-                                    context, CustomerDetailScreen.routeName);
+                                // Navigator.pushNamed(
+                                //     context, CustomerDetailScreen.routeName);
+                                Broker broker= new Broker(
+                                  
+                                );
                               }
                             },
                           )
