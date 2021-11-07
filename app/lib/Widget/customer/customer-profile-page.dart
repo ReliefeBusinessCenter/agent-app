@@ -32,19 +32,17 @@ class CustomerProfilePage extends StatelessWidget {
     print("Broker name ${customer.user!.fullName}");
     return Scaffold(
         backgroundColor: Color(0xFFf2f6f9),
-        appBar: AppBar(),
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          title: Text("Customer Information"),
+        ),
         body: ProgressHUD(
           child: BlocConsumer<DeliveryBloc, DeliveryState>(
             listener: (context, state) {
               if (state is DeliveryCreating) {
                 // delivery createing
                 final progress = ProgressHUD.of(context);
-                // if (!isShowing) {
-                //   if (progress != null) {
-                //     setState(() {
-                //       isShowing = true;
-                //     });
-                 // }
+
                 progress!.showWithText("Hiring");
                 print("delivery creating  method called");
               } else if (state is DeliveryCreateSuccess) {
@@ -83,41 +81,71 @@ class CustomerProfilePage extends StatelessWidget {
     );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       mainAxisSize: MainAxisSize.max,
       children: [
         CustomerBackgroundImage(
           customer: this.customer,
         ),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-        SelectOption(),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.045),
-        // AboutSection(broker: customer),
-        divider,
-        // WorkSection(broker: customer),
-        divider,
-        _buildPortifolioSection(context),
-        Expanded(
-          child: Container(),
+        // SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text("Email: ${customer.user!.email as String}",
+              style: TextStyle(
+                fontSize: 15,
+                color: Theme.of(context).primaryColor.withOpacity(0.5),
+                fontWeight: FontWeight.bold,
+              )),
         ),
-        // HireButton(
-        //   broker: broker,
-        // ),
-        DealsButton(customer: customer,),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text("Phone: ${customer.user!.phone as String}",
+              style: TextStyle(
+                fontSize: 15,
+                color: Theme.of(context).primaryColor.withOpacity(0.5),
+                fontWeight: FontWeight.bold,
+              )),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text("Sex: ${customer.user!.sex as String}",
+              style: TextStyle(
+                fontSize: 15,
+                color: Theme.of(context).primaryColor.withOpacity(0.5),
+                fontWeight: FontWeight.bold,
+              )),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text("City: Addis Ababa",
+              style: TextStyle(
+                fontSize: 15,
+                color: Theme.of(context).primaryColor.withOpacity(0.5),
+                fontWeight: FontWeight.bold,
+              )),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text("Sub City:  4 kilo",
+              style: TextStyle(
+                fontSize: 15,
+                color: Theme.of(context).primaryColor.withOpacity(0.5),
+                fontWeight: FontWeight.bold,
+              )),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text("Kebele: 10",
+              style: TextStyle(
+                fontSize: 15,
+                color: Theme.of(context).primaryColor.withOpacity(0.5),
+                fontWeight: FontWeight.bold,
+              )),
+        ),
+        DealsButton(
+          customer: customer,
+        ),
       ],
     );
   }
-}
-
-Widget _buildPortifolioSection(BuildContext context) {
-  return Container(
-    margin: EdgeInsets.all(10),
-    child: Column(
-      children: [
-        Text(
-          'Portifolio',
-        ),
-      ],
-    ),
-  );
 }

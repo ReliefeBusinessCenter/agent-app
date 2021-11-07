@@ -34,6 +34,16 @@ class CustomerBackgroundImage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Padding(
+                //   padding: const EdgeInsets.all(8.0),
+                //   child: Text("Customer Information",
+                //       style: TextStyle(
+                //         fontSize: 20,
+                //         color: Theme.of(context).primaryColor.withOpacity(0.95),
+                //         fontWeight: FontWeight.bold,
+                //       )),
+                // ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 CircleAvatar(
                   maxRadius: MediaQuery.of(context).size.width * 0.15,
                   // minRadius: MediaQuery.of(context).size.width * 0.4,
@@ -49,20 +59,6 @@ class CustomerBackgroundImage extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       )),
                 ),
-                // Row(
-                //   children: [
-                //     Padding(
-                //       padding: const EdgeInsets.all(8.0),
-                //       child: Text("${customer.category!.catigoryName} broker",
-                //           style: TextStyle(
-                //             fontSize: 15,
-                //             color:
-                //                 Theme.of(context).primaryColor.withOpacity(0.5),
-                //             fontWeight: FontWeight.bold,
-                //           )),
-                //     )
-                //   ],
-                // ),
               ],
             ),
           ),
