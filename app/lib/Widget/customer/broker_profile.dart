@@ -13,7 +13,7 @@ class BrokerImage extends StatelessWidget {
     // Category category =
     //     [].firstWhere((element) => element.id == broker.category!.categoryId);
     return Container(
-      height: MediaQuery.of(context).size.height * 0.37,
+      height: MediaQuery.of(context).size.height * 0.53,
       child: Stack(
         children: [
           // Text("Broker Information",
@@ -23,11 +23,11 @@ class BrokerImage extends StatelessWidget {
           //       fontWeight: FontWeight.bold,
           //     )),
           Positioned(
-            top: 0, 
+            top: 0,
             child: Card(
               elevation: 1,
               child: Container(
-                  height: MediaQuery.of(context).size.height * 0.57,
+                  height: MediaQuery.of(context).size.height * 0.87,
                   width: MediaQuery.of(context).size.width,
                   color: Colors.white),
             ),
@@ -39,6 +39,16 @@ class BrokerImage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("           Broker Information",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Theme.of(context).primaryColor.withOpacity(0.95),
+                        fontWeight: FontWeight.bold,
+                      )),
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                 CircleAvatar(
                   maxRadius: MediaQuery.of(context).size.width * 0.15,
                   // minRadius: MediaQuery.of(context).size.width * 0.4,
@@ -58,6 +68,16 @@ class BrokerImage extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("Broker Category: ",
+                          style: TextStyle(
+                            fontSize: 15,
+                            color:
+                                Theme.of(context).primaryColor.withOpacity(0.5),
+                            fontWeight: FontWeight.bold,
+                          )),
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text("Communication Skill: ",

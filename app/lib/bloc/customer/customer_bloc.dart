@@ -13,7 +13,7 @@ class CustomerBloc extends Bloc<CustomerEvent, CustomerState> {
   List<Customer> customerList = [];
   List<Customer> searcheCustomers = [];
   
-  String? searchBrokerName = '';
+  String? searchCustomerName = '';
   int page = 0;
 
   @override
@@ -34,6 +34,26 @@ class CustomerBloc extends Bloc<CustomerEvent, CustomerState> {
           yield CustomersLoadFailed(message: "Unable to load brokers");
         }
       } catch (e) {}
+    }else if (event is SearchEvent) {
+      // search event
+      //
+      this.searcheCustomers = [];
+      print("Search event is scalled");
+      this.searchCustomerName = event.name;
+      this.page = 1;
+
+      //  filter from the cache
+      for (int i = 0; i < customerList.length; i++) {
+        if (customerList[i]
+            .user!
+            .fullName!
+            .toLowerCase()
+            .contains(this.searchCustomerName.toString().toLowerCase())) {
+          this.searcheCustomers.add(customerList[i]);
+        }
+      }
+     
+      yield CustomersLoadSuccess(customers: searcheCustomers);
     }
   }
 }

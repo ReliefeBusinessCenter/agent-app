@@ -1,5 +1,6 @@
 import 'package:app/Widget/Dashboard/broker.dart';
 import 'package:app/Widget/Dashboard/customSearchBar.dart';
+import 'package:app/Widget/broker-widget/customer_search_bar.dart';
 import 'package:app/Widget/customer/customer-item.dart';
 import 'package:app/bloc/broker/bloc/broker_bloc.dart';
 import 'package:app/bloc/customer/customer_bloc.dart';
@@ -14,13 +15,13 @@ class BrokerCustomerList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Container( 
+      child: Container(
         color: Color(0xFFf2f6f9),
         child: Column(
           children: [
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: SearchTextField(),
+              child: CustomerSearchTextField(),
             ),
             Expanded(
               child: BlocBuilder<CustomerBloc, CustomerState>(
