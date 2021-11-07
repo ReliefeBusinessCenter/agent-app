@@ -75,6 +75,7 @@ class _DealsPageScreenState extends State<DealsPageScreen> {
         backgroundColor: Theme.of(context).accentColor,
         appBar: AppBar(
           title: Text("Deals Form"),
+          backgroundColor: Theme.of(context).primaryColor,
         ),
         body: SafeArea(
             child: ProgressHUD(
