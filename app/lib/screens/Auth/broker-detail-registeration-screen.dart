@@ -125,7 +125,7 @@ class BrokerDetailScreen extends StatelessWidget {
                                             child: Column(children: [
                                           CustomTextField(
                                             minLength: 0,
- enabled:true,
+                                            enabled: true,
                                             textFieldName:
                                                 'Communication Skills',
                                             controller: communicationController,
@@ -148,7 +148,7 @@ class BrokerDetailScreen extends StatelessWidget {
                                           ),
                                           CustomTextField(
                                               minLength: 0,
-                                               enabled:true,
+                                              enabled: true,
                                               textFieldName: 'Brooking Skills',
                                               controller:
                                                   brookingSkillsController,
@@ -174,7 +174,7 @@ class BrokerDetailScreen extends StatelessWidget {
                                               textFieldName: 'Work Done',
                                               controller: workDoneController,
                                               initialValue: '',
-                                               enabled:true,
+                                              enabled: true,
                                               validator: null,
                                               obsecureText: false,
                                               isRequired: false,
@@ -198,7 +198,7 @@ class BrokerDetailScreen extends StatelessWidget {
                                           ),
                                           CustomTextField(
                                               minLength: 0,
-                                               enabled:true,
+                                              enabled: true,
                                               textFieldName: 'Work In Progress',
                                               controller:
                                                   workInProgressController,
@@ -240,9 +240,7 @@ class BrokerDetailScreen extends StatelessWidget {
                                             },
                                           )
                                         ])))
-                                  ])))
-                                  
-                                  )));
+                                  ]))))));
             },
           ),
         ));

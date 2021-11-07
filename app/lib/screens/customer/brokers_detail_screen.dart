@@ -27,7 +27,9 @@ class BrokersProfilePage extends StatelessWidget {
     print("Broker name ${broker.user!.fullName}");
     return Scaffold(
         backgroundColor: Color(0xFFf2f6f9),
-        appBar: AppBar(),
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).primaryColor,
+        ),
         body: ProgressHUD(
           child: BlocConsumer<DeliveryBloc, DeliveryState>(
             listener: (context, state) {

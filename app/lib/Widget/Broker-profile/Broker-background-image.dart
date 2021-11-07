@@ -36,7 +36,7 @@ class BrokerBackgroundImage extends StatelessWidget {
                 CircleAvatar(
                   maxRadius: MediaQuery.of(context).size.width * 0.15,
                   // minRadius: MediaQuery.of(context).size.width * 0.4,
-                  backgroundImage: NetworkImage(
+                  backgroundImage:  NetworkImage(
                       "${Ip.ip}/api/users/get/?fileName=${this.broker.user!.picture as String}"),
                 ),
                 Padding(

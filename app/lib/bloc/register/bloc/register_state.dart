@@ -31,3 +31,5 @@ class RegisterCreateFailed extends RegisterState {}
 class BeingAnAgentSucess extends RegisterState {}
 
 class BeingAnAgentFailed extends RegisterState {}
+
+class BeingAnAgentCreating extends RegisterState {}

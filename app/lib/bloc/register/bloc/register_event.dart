@@ -55,15 +55,18 @@ class AddCommunicationSkills extends RegisterEvent {
   AddCommunicationSkills({required this.skill});
 }
 
+
 class AddBrokerType extends RegisterEvent {
   final Category? category;
   AddBrokerType({this.category});
 }
 
+
 class AddBrookingSkills extends RegisterEvent {
   final double skill;
   AddBrookingSkills({required this.skill});
 }
+
 
 class AddWorkDone extends RegisterEvent {
   final double skill;
@@ -76,8 +79,8 @@ class AddWorkInProgress extends RegisterEvent {
 }
 
 class BecomeAgent extends RegisterEvent {
-  final Broker broker;
-  BecomeAgent({required this.broker});
+  // final Broker broker;
+  // BecomeAgent({required this.broker});
 }
 
 class RegisterUser extends RegisterEvent {}

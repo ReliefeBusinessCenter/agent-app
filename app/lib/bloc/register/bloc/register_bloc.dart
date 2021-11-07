@@ -178,19 +178,23 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         }
       }
     } else if (event is BecomeAgent) {
-      Broker broker = event.broker;
+      print("Arrived here on change role event");
+      yield BeingAnAgentCreating();
+
+      // Broker broker = state.broker;
       // retrive user information from the logged in customer.
       UserPreferences userPreference = new UserPreferences();
 // define logged in user
       Customer? customer = await userPreference.getCustomerInformation();
       broker.user = customer!.user;
       // delete customer first.
-      bool isDeleted =
-          await this.customerRepositoy.deleteCustomer(customer.customerId as int);
+      bool isDeleted = await this
+          .customerRepositoy
+          .deleteCustomer(customer.customerId as int);
 
-          if(isDeleted !=false){
-            // register new broker here
-            bool isCreated = await this.brokersRepository.createBroker(broker);
+      if (isDeleted != false) {
+        // register new broker here
+        bool isCreated = await this.brokersRepository.createBroker(broker);
         if (isCreated == true) {
           // created success
           yield BeingAnAgentSucess();
@@ -198,10 +202,9 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           // created failed
           yield BeingAnAgentFailed();
         }
-            
-          }else{
-            yield BeingAnAgentFailed();
-          }
+      } else {
+        yield BeingAnAgentFailed();
+      }
     }
   }
 }

@@ -9,23 +9,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../categpry_custome_dropdown.dart';
 
 class CategoryDropDownButton extends StatefulWidget {
-  // final TextEditingController payingTimeController;
-  // PaymentTimeDropDown({required this.payingTimeController});
+  // final TextEditingController brokerCategoryController;
+  // CategoryDropDownButton({required this.brokerCategoryController});
   @override
   _CategoryDropDownButtonState createState() => _CategoryDropDownButtonState();
 }
 
 class _CategoryDropDownButtonState extends State<CategoryDropDownButton> {
   late CategoryBloc categoryBloc;
-  late RegisterBloc registerBloc;
+  // late RegisterBloc registerBloc;
   Category? value = null;
   // late OrdersBloc ordersBloc;
   @override
   Widget build(BuildContext context) {
-    registerBloc = BlocProvider.of<RegisterBloc>(context);
+    // registerBloc = BlocProvider.of<RegisterBloc>(context);
     // ordersBloc = BlocProvider.of<OrdersBloc>(context);
     categoryBloc = BlocProvider.of<CategoryBloc>(context);
-   
+
     return BlocBuilder<CategoryBloc, CategoryState>(
       builder: (context, state) {
         // if()
@@ -34,7 +34,6 @@ class _CategoryDropDownButtonState extends State<CategoryDropDownButton> {
         for (int i = 0; i < state.category.length; i++) {
           Category category = state.category[i];
           print("Category: ${category.categoryId}");
-
           dropDownItems.add(DropdownMenuItem(
             child: Container(
               width: MediaQuery.of(context).size.width * 0.8,
@@ -48,7 +47,6 @@ class _CategoryDropDownButtonState extends State<CategoryDropDownButton> {
             ),
             value: category,
           ));
-
           // onChanged: this.onChanged,
 
           // value:state.request.paymentWhen as String,
@@ -57,7 +55,9 @@ class _CategoryDropDownButtonState extends State<CategoryDropDownButton> {
         if (state is CategoryLoadSuccess) {
           return CategoryCustomeDropDownButton(
               dropDownItems: dropDownItems,
-              onChanged: () {},
+              onChanged: (String value) {
+                print("Selected value: ${value}");
+              },
               value: state.category[0]
               // onChanged: this.onChanged,
 
@@ -71,14 +71,5 @@ class _CategoryDropDownButtonState extends State<CategoryDropDownButton> {
     );
   }
 
-  void onChanged(Category value) {
-    print(
-        "+++++++++++++++++++++++++++++++++++++_______Broker Category Seelction");
-    setState(() {
-      value = value as Category;
-      // print(widget.dropDownItems[_value].chil);
-    });
 
-    registerBloc.add(AddBrokerType(category: value));
-  }
 }

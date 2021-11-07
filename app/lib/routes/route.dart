@@ -1,4 +1,6 @@
 import 'package:app/model/customer/customer.dart';
+import 'package:app/model/deals.dart';
+import 'package:app/model/delivery.dart';
 import 'package:app/screens/Auth/auth_exports.dart';
 import 'package:app/screens/Auth/broker-detail-registeration-screen.dart';
 import 'package:app/screens/Auth/customer-detail-registeration-screen.dart';
@@ -10,6 +12,8 @@ import 'package:app/screens/broker/broker_main_page.dart';
 import 'package:app/screens/broker/saving_and_loans.dart';
 import 'package:app/screens/customer/becomeAnAgent.dart';
 import 'package:app/screens/customer/customerPage.dart';
+import 'package:app/screens/customer/customer_deals_detail.dart';
+import 'package:app/screens/customer/customer_delivery_detail.dart';
 import 'package:flutter/material.dart';
 
 bool isAuthenticated = false;
@@ -43,11 +47,27 @@ class AppRoutes {
       return MaterialPageRoute(builder: (context) => CustomerDetailScreen());
     } else if (settings.name == CustomerDetailScreen.routeName) {
       return MaterialPageRoute(builder: (context) => CustomerDetailScreen());
+    } else if (settings.name == CustomerDeliveryDetails.routeName) {
+      Delivery delivery = settings.arguments as Delivery;
+      // Customer customer = settings.arguments as Customer;
+      return MaterialPageRoute(
+          builder: (context) => CustomerDeliveryDetails(
+                delivery: delivery,
+              ));
+    } else if (settings.name == CustomerDealsDetail.routeName) {
+      Deals deals = settings.arguments as Deals;
+      // Customer customer = settings.arguments as Customer;
+      return MaterialPageRoute(
+          builder: (context) => CustomerDealsDetail(
+                deals: deals,
+              ));
     } else if (settings.name == DealsPageScreen.routeName) {
       Customer customer = settings.arguments as Customer;
       // Customer customer = settings.arguments as Customer;
-      return MaterialPageRoute(builder: (context) => DealsPageScreen(customer: customer,));
-
+      return MaterialPageRoute(
+          builder: (context) => DealsPageScreen(
+                customer: customer,
+              ));
     } else if (settings.name == PasswordReset.routeName)
       return MaterialPageRoute(builder: (context) => PasswordReset());
 
