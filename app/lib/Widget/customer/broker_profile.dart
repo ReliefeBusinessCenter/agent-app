@@ -58,7 +58,7 @@ class BrokerImage extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("Broker yared solomon",
+                  child: Text("${broker.user!.fullName}",
                       style: TextStyle(
                         fontSize: 20,
                         color: Theme.of(context).primaryColor.withOpacity(0.95),
@@ -70,7 +70,7 @@ class BrokerImage extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text("Broker Category: ",
+                      child: Text("Broker Category:  ",
                           style: TextStyle(
                             fontSize: 15,
                             color:
@@ -80,7 +80,8 @@ class BrokerImage extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text("Communication Skill: ",
+                      child: Text(
+                          "Communication Skill:  ${broker.skills!.communicationSkill}",
                           style: TextStyle(
                             fontSize: 15,
                             color:
@@ -90,7 +91,8 @@ class BrokerImage extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text("Broking Skill: ",
+                      child: Text(
+                          "Broking Skill:  ${broker.skills!.brokingSkill!}",
                           style: TextStyle(
                             fontSize: 15,
                             color:
@@ -100,7 +102,8 @@ class BrokerImage extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text("Work In Progress: ",
+                      child: Text(
+                          "Work In Progress:  ${broker.skills!.workInProgress!}",
                           style: TextStyle(
                             fontSize: 15,
                             color:
@@ -110,13 +113,15 @@ class BrokerImage extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text("Completed Works: ",
-                          style: TextStyle(
-                            fontSize: 15,
-                            color:
-                                Theme.of(context).primaryColor.withOpacity(0.5),
-                            fontWeight: FontWeight.bold,
-                          )),
+                      child:
+                          Text("Completed Works: ${broker.skills!.workDone!}",
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Theme.of(context)
+                                    .primaryColor
+                                    .withOpacity(0.5),
+                                fontWeight: FontWeight.bold,
+                              )),
                     ),
                   ],
                 ),

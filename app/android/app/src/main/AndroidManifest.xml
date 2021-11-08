@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.app">
+    <uses-permission android:name="android.permission.INTERNET"/> <!-- Add this -->
    <application
         android:label="Trust Broker"
         android:icon="@mipmap/launcher_icon">
@@ -42,4 +43,5 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    
 </manifest>

@@ -119,6 +119,7 @@ class MyApp extends StatelessWidget {
           //     // customerRepository: this.customerRepository
           //   )..add(DeliveryInitializationEvent()),
           // ),
+
           BlocProvider<DealsBloc>(
             create: (_) => DealsBloc(
               dealsRepository: this.dealsRepo,
