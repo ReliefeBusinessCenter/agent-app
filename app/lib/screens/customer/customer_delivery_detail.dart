@@ -54,7 +54,7 @@ class CustomerDeliveryDetails extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("Delivery Status : ",
+                  child: Text("Delivery Status : ${delivery.deliveryStatus}",
                       style: TextStyle(
                         fontSize: 25,
                         color: Colors.green,
