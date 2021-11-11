@@ -9,6 +9,7 @@ import 'package:app/bloc/auth/bloc/auth_bloc.dart';
 import 'package:app/model/login_info.dart';
 import 'package:app/model/user.dart';
 import 'package:app/preferences/user_preference_data.dart';
+import 'package:app/screens/admin/admin_main_page.dart';
 import 'package:app/screens/broker/broker_main_page.dart';
 import 'package:app/screens/customer/customerPage.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final formKey = GlobalKey<FormState>();
+  bool _isObscured = true;
 
   TextEditingController emailController = TextEditingController();
 
@@ -91,13 +93,15 @@ class _LoginState extends State<Login> {
         child: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is LoginSuccessState) {
-              if (state.user.user!.role == "Broker") {
-                Navigator.of(context)
-                    .pushReplacementNamed(BrokerMain.routeName);
-              } else {
-                Navigator.of(context)
-                    .pushReplacementNamed(CustomerPage.routeName);
-              }
+              // if (state.user.user!.role == "Broker") {
+              //   Navigator.of(context)
+              //       .pushReplacementNamed(BrokerMain.routeName);
+              // } else {
+              //   Navigator.of(context)
+              //       .pushReplacementNamed(CustomerPage.routeName);
+              // }
+               Navigator.of(context)
+                  .pushReplacementNamed(AdminMainPage.routeName);
               // callFetchEvents();
 
             }
@@ -166,6 +170,7 @@ class _LoginState extends State<Login> {
                       ),
                       SizedBox(height: height * 0.01),
                       CustomLoginTextField(
+                       
                         textFieldName: 'Password',
                         controller: passwordController,
                         icon: Icons.lock,
@@ -176,7 +181,8 @@ class _LoginState extends State<Login> {
                             return null;
                           }
                         },
-                        obsecureText: true,
+                        
+                        obsecureText: _isObscured,
                       ),
                       SizedBox(
                         height: height * 0.06,

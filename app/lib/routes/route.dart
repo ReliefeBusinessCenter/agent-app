@@ -5,7 +5,9 @@ import 'package:app/screens/Auth/auth_exports.dart';
 import 'package:app/screens/Auth/broker-detail-registeration-screen.dart';
 import 'package:app/screens/Auth/customer-detail-registeration-screen.dart';
 import 'package:app/screens/Auth/password-register-screen.dart';
+import 'package:app/screens/Auth/password_reset_screen.dart';
 import 'package:app/screens/Auth/signUp_screen.dart';
+import 'package:app/screens/admin/admin_main_page.dart';
 import 'package:app/screens/broker/broker_account_screen.dart';
 import 'package:app/screens/broker/broker_deals_form_page.dart';
 import 'package:app/screens/broker/broker_delivery_detail.dart';
@@ -69,8 +71,7 @@ class AppRoutes {
           builder: (context) => BrokerDeliveryDetails(
                 delivery: delivery,
               ));
-    } 
-    else if (settings.name == DealsPageScreen.routeName) {
+    } else if (settings.name == DealsPageScreen.routeName) {
       Customer customer = settings.arguments as Customer;
       // Customer customer = settings.arguments as Customer;
       return MaterialPageRoute(
@@ -79,6 +80,11 @@ class AppRoutes {
               ));
     } else if (settings.name == PasswordReset.routeName)
       return MaterialPageRoute(builder: (context) => PasswordReset());
+
+    // admin
+    else if (settings.name == AdminMainPage.routeName) {
+      return MaterialPageRoute(builder: (context) => AdminMainPage());
+    }
 
     return MaterialPageRoute(builder: (context) => Login());
   }

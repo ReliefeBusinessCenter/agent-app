@@ -56,7 +56,7 @@ class _CategoryDropDownButtonState extends State<CategoryDropDownButton> {
           return CategoryCustomeDropDownButton(
               dropDownItems: dropDownItems,
               onChanged: (String value) {
-                print("Selected value: ${value}");
+                print("Selected value: $value");
               },
               value: state.category[0]
               // onChanged: this.onChanged,
