@@ -7,8 +7,6 @@ import 'package:app/screens/Auth/login.dart';
 import 'package:app/screens/admin/admin_deals_page.dart';
 import 'package:app/screens/admin/admin_delivery_page.dart';
 import 'package:app/screens/customer/account_screen.dart';
-import 'package:app/screens/customer/becomeAnAgent.dart';
-import 'package:app/screens/customer/customerPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

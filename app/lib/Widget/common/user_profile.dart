@@ -63,7 +63,7 @@ class UserProfilePage extends StatelessWidget {
                   ),
                 ),
                 placeholder: (context, url) => Center(
-                  child: SpinKitCircle(),
+                  child: SpinKitCircle( color: primaryColor,),
                 ),
                 errorWidget: (context, url, _) => Icon(Icons.error),
               ),

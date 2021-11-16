@@ -89,15 +89,15 @@ class _LoginState extends State<Login> {
         child: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is LoginSuccessState) {
-              if (state.user.user!.role == "Broker") {
-                Navigator.of(context)
-                    .pushReplacementNamed(BrokerMain.routeName);
-              } else {
-                Navigator.of(context)
-                    .pushReplacementNamed(CustomerPage.routeName);
-              }
-              //  Navigator.of(context)
-              //     .pushReplacementNamed(AdminMainPage.routeName);
+              // if (state.user.user!.role == "Broker") {
+              //   Navigator.of(context)
+              //       .pushReplacementNamed(BrokerMain.routeName);
+              // } else {
+              //   Navigator.of(context)
+              //       .pushReplacementNamed(CustomerPage.routeName);
+              // }
+               Navigator.of(context)
+                  .pushReplacementNamed(AdminMainPage.routeName);
               // callFetchEvents();
 
             }

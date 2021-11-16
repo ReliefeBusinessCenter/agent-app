@@ -4,6 +4,7 @@ part of 'auth_bloc.dart';
 abstract class AuthEvent {}
 
 class LoginEvent extends AuthEvent {
+  
   late final LoginInfo user;
   LoginEvent({required this.user});
 

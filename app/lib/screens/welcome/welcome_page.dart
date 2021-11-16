@@ -11,6 +11,7 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: lightColor,
       appBar: AppBar(
         backgroundColor: primaryColor,
       ),
@@ -22,7 +23,7 @@ class WelcomePage extends StatelessWidget {
         child: HomeFragment(),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(                  
+        padding: const EdgeInsets.symmetric(
           horizontal: 20.0,
         ),
         child: CustomOutlineButton(
@@ -33,4 +34,4 @@ class WelcomePage extends StatelessWidget {
       ),
     );
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+}
