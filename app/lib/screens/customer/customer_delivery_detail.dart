@@ -3,6 +3,7 @@ import 'package:app/Widget/customer/broker_profile.dart';
 import 'package:app/Widget/customer/delivery/mark_as_done_button.dart';
 import 'package:app/model/broker/broker.dart';
 import 'package:app/model/delivery.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 
 class CustomerDeliveryDetails extends StatelessWidget {
@@ -11,6 +12,7 @@ class CustomerDeliveryDetails extends StatelessWidget {
   static const routeName = "/customer-delivery-details";
   @override
   Widget build(BuildContext context) {
+    // workBloc = BlocProvider.of<WorkBloc>(context);
     return Scaffold(
         // ignore: deprecated_member_use
         backgroundColor: Theme.of(context).accentColor,
@@ -28,6 +30,18 @@ class CustomerDeliveryDetails extends StatelessWidget {
               ),
               onPressed: () {
                 // do something
+                AwesomeDialog(
+                        context: context,
+                        dialogType: DialogType.WARNING,
+                        animType: AnimType.BOTTOMSLIDE,
+                        title: 'Confirm Us',
+                        desc: 'Are you sure you want to delete this work?',
+                        btnCancelOnPress: () {},
+                        btnOkOnPress: () {
+                          // workBloc.add(DeleteWork(work: work));
+                          // Navigator.pop(context);
+                        },
+                      )..show();
               },
             )
           ],
