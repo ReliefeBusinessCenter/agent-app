@@ -36,33 +36,33 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
 
   late RegisterBloc registerBloc;
 
-  void uploadPhotoHandler() async {
-    // FilePickerResult? result = await FilePicker.platform.pickFiles();
-    // if (result != null) {
-    //   File file = File(result.files.single.path!);
-    //   setState(() {
-    //     photoController.text = file.path;
-    //   });
-    // } else {
-    //   // User canceled the picker
-    // }
+    void uploadPhotoHandler() async {
+      // FilePickerResult? result = await FilePicker.platform.pickFiles();
+      // if (result != null) {
+      //   File file = File(result.files.single.path!);
+      //   setState(() {
+      //     photoController.text = file.path;
+      //   });
+      // } else {
+      //   // User canceled the picker
+      // }
 
-    // print("Uploaded File Image: ${photoController.text}");
-    // registerBloc.add(AddImage(image: photoController.text));
-    // PickedFile _imageFile;
+      // print("Uploaded File Image: ${photoController.text}");
+      // registerBloc.add(AddImage(image: photoController.text));
+      // PickedFile _imageFile;
 
-    try {
-      final pickedFile = await _picker.getImage(source: ImageSource.gallery);
-      setState(() {
-        _imageFile = pickedFile!;
-        photoController.text = _imageFile.path;
-      });
-      print("Uploaded File Image: ${photoController.text}");
-      registerBloc.add(AddImage(image: photoController.text));
-    } catch (e) {
-      print("Image picker error " + e.toString());
+      try {
+        final pickedFile = await _picker.getImage(source: ImageSource.gallery);
+        setState(() {
+          _imageFile = pickedFile!;
+          photoController.text = _imageFile.path;
+        });
+        print("Uploaded File Image: ${photoController.text}");
+        registerBloc.add(AddImage(image: photoController.text));
+      } catch (e) {
+        print("Image picker error " + e.toString());
+      }
     }
-  }
 
   @override
   Widget build(BuildContext context) {

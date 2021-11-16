@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
 class BrokerDeliveryHistoryScreen extends StatelessWidget {
+  
   final GlobalKey<ScaffoldState> scaffoldKey;
   BrokerDeliveryHistoryScreen({required this.scaffoldKey});
   late WorkBloc workBloc;
