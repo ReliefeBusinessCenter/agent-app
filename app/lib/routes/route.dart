@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:app/Widget/common/user_profile.dart';
 import 'package:app/Widget/common/user_profile_edit_page.dart';
 import 'package:app/model/broker/user.dart';

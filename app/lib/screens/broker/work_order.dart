@@ -1,5 +1,4 @@
 import 'package:app/Widget/agent/order_item.dart';
-import 'package:app/Widget/work/workItem.dart';
 import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
 // import 'package:app/bloc/work/bloc/work_bloc.dart';
 import 'package:flutter/material.dart';
@@ -16,24 +15,24 @@ class BrokerDeliveryHistoryScreen extends StatelessWidget {
     workBloc = BlocProvider.of<WorkBloc>(context);
     workBloc.add(FetchWork());
     return Scaffold(
-        backgroundColor: Theme.of(context).accentColor,
-        appBar: AppBar(
-          title: Text('Trust Brokers'),
-          backgroundColor: Theme.of(context).primaryColor,
-          leading: GestureDetector(
-            onTap: () => scaffoldKey.currentState!.openDrawer(),
-            child: Container(
-              height: 5.0,
-              width: 5.0,
-              child: ImageIcon(
-                AssetImage('assets/images/left-align.png'),
-              ),
+      backgroundColor: Theme.of(context).accentColor,
+      appBar: AppBar(
+        title: Text('Trust Brokers'),
+        backgroundColor: Theme.of(context).primaryColor,
+        leading: GestureDetector(
+          onTap: () => scaffoldKey.currentState!.openDrawer(),
+          child: Container(
+            height: 5.0,
+            width: 5.0,
+            child: ImageIcon(
+              AssetImage('assets/images/left-align.png'),
             ),
           ),
         ),
-        body: Container(
-            // decoration: BoxDecoration(color: Colors.white),
-            child: ProgressHUD(
+      ),
+      body: Container(
+        // decoration: BoxDecoration(color: Colors.white),
+        child: ProgressHUD(
           child: BlocBuilder<WorkBloc, WorkState>(
             builder: (context, state) {
               if (state is DeleteSuccessState) {
@@ -63,6 +62,8 @@ class BrokerDeliveryHistoryScreen extends StatelessWidget {
               return Container();
             },
           ),
-        )));
+        ),
+      ),
+    );
   }
 }
