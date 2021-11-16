@@ -1,14 +1,10 @@
 import 'package:app/Widget/Auth/Common/CustomeLoginTextField.dart';
-import 'package:app/Widget/Auth/Common/custom_textfield.dart';
 import 'package:app/Widget/Auth/Common/welcome.dart';
-import 'package:app/Widget/Auth/login/forgot_password.dart';
 import 'package:app/Widget/Auth/login/login_button.dart';
 import 'package:app/Widget/Auth/login/login_text.dart';
 import 'package:app/Widget/Auth/signup/signup.dart';
 import 'package:app/bloc/auth/bloc/auth_bloc.dart';
 import 'package:app/model/login_info.dart';
-import 'package:app/model/user.dart';
-import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/screens/admin/admin_main_page.dart';
 import 'package:app/screens/broker/broker_main_page.dart';
 import 'package:app/screens/customer/customerPage.dart';
@@ -93,15 +89,15 @@ class _LoginState extends State<Login> {
         child: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is LoginSuccessState) {
-              // if (state.user.user!.role == "Broker") {
-              //   Navigator.of(context)
-              //       .pushReplacementNamed(BrokerMain.routeName);
-              // } else {
-              //   Navigator.of(context)
-              //       .pushReplacementNamed(CustomerPage.routeName);
-              // }
-               Navigator.of(context)
-                  .pushReplacementNamed(AdminMainPage.routeName);
+              if (state.user.user!.role == "Broker") {
+                Navigator.of(context)
+                    .pushReplacementNamed(BrokerMain.routeName);
+              } else {
+                Navigator.of(context)
+                    .pushReplacementNamed(CustomerPage.routeName);
+              }
+              //  Navigator.of(context)
+              //     .pushReplacementNamed(AdminMainPage.routeName);
               // callFetchEvents();
 
             }

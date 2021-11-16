@@ -1,7 +1,9 @@
 import 'package:app/Widget/broker-widget/accept_button.dart';
 import 'package:app/Widget/broker-widget/reject_button.dart';
 import 'package:app/Widget/customer/deals_broker_profile.dart';
+import 'package:app/Widget/customer/delivery/mark_as_done_button.dart';
 import 'package:app/bloc/work-deals/bloc/workdeals_bloc.dart';
+import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
 import 'package:app/constants/constants.dart';
 import 'package:app/model/deals.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -9,16 +11,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
-class CustomerDealsDetail extends StatelessWidget {
+class BrokerBrokerDealsDetail extends StatelessWidget {
   final Deals deals;
-  CustomerDealsDetail({required this.deals});
-  static const routeName = "/customer-deals-details";
-  // late WorkBloc workBloc;
+  static const routeName = "/brokerBrokerDealsDetails";
+  BrokerBrokerDealsDetail({required this.deals, Key? key}) : super(key: key);
+
   late DealsListBloc dealsBloc;
   @override
   Widget build(BuildContext context) {
     // deliveryBloc=BlocProvider()
-    print("++++++++++++++++++++++++++++++++++++ deals null causing is ${deals.brokerId}");
     dealsBloc = BlocProvider.of<DealsListBloc>(context);
     // workBloc = BlocProvider.of<WorkBloc>(context);
     final size = MediaQuery.of(context).size;
@@ -31,42 +32,42 @@ class CustomerDealsDetail extends StatelessWidget {
             'Deals Detail',
             style: TextStyle(fontSize: 18),
           ),
-          // actions: <Widget>[
-          //   PopupMenuButton(
-          //     onSelected: (index){
-          //       if(index == 1){
-          //         AwesomeDialog(
-          //               context: context,
-          //               dialogType: DialogType.WARNING,
-          //               animType: AnimType.BOTTOMSLIDE,
-          //               title: 'Confirm Us',
-          //               desc: 'Are you sure you want to delete this work?',
-          //               btnCancelOnPress: () {},
-          //               btnOkOnPress: () {
-          //                 dealsBloc.add((work: delivery));
-          //                 // Navigator.pop(context);
-          //               },
-          //             )..show();
-          //       }
-          //     },
-          //     itemBuilder: (context) => [
-          //       PopupMenuItem(
-          //         child: Text("Delete"),
-          //         value: 1,
-          //       ),
-          //     ],
-          //   ),
-          //   // IconButton(
-          //   //   icon: Icon(
-          //   //     Icons.delete,
-          //   //     color: Colors.red,
-          //   //   ),
-          //   //   onPressed: () {
-          //   //     // do something
-          //   //     workBloc.add(DeleteWork(work: delivery));
-          //   //   },
-          //   // )
-          // ],
+          actions: <Widget>[
+            PopupMenuButton(
+              onSelected: (index) {
+                if (index == 1) {
+                  AwesomeDialog(
+                    context: context,
+                    dialogType: DialogType.WARNING,
+                    animType: AnimType.BOTTOMSLIDE,
+                    title: 'Confirm Us',
+                    desc: 'Are you sure you want to delete this work?',
+                    btnCancelOnPress: () {},
+                    btnOkOnPress: () {
+                      dealsBloc.add(DeleteDeals(deals: deals));
+                      // Navigator.pop(context);
+                    },
+                  )..show();
+                }
+              },
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  child: Text("Delete"),
+                  value: 1,
+                ),
+              ],
+            ),
+            // IconButton(
+            //   icon: Icon(
+            //     Icons.delete,
+            //     color: Colors.red,
+            //   ),
+            //   onPressed: () {
+            //     // do something
+            //     workBloc.add(DeleteWork(work: delivery));
+            //   },
+            // )
+          ],
         ),
         body: Container(
             child: ProgressHUD(
@@ -157,30 +158,35 @@ class CustomerDealsDetail extends StatelessWidget {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.03,
                     ),
-                    AcceptButton(
-                      title: 'Accept Deals Offer',
-                      onPressed: () {
-                        dealsBloc.add(MarkAsAccepted(deals: deals));
-                      },
-                    ),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    RejectButton(
-                        title: "Reject Deal Offer",
-                        onPressed: () {
-                          AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.WARNING,
-                            animType: AnimType.BOTTOMSLIDE,
-                            title: 'Confirm Us',
-                            desc: 'Are you sure you want to Reject  this work?',
-                            btnCancelOnPress: () {},
-                            btnOkOnPress: () {
-                              dealsBloc.add(MarkAsRejected(work: deals));
-                            },
-                          )..show();
-                        }),
+                    MarkAsDone(onPressed: () {
+                      if (deals.dealsStatus == "Pending") {
+                        // make it done
+                        AwesomeDialog(
+                          context: context,
+                          dialogType: DialogType.INFO,
+                          animType: AnimType.BOTTOMSLIDE,
+                          title: 'Action Not Allowed',
+                          desc:
+                              'To change the done status of this work, the broker should respond first',
+                          btnCancelOnPress: () {},
+                          btnOkOnPress: () {},
+                        )..show();
+                      } else if (deals.dealsStatus == "Done") {
+                        // make it done
+                        AwesomeDialog(
+                          context: context,
+                          dialogType: DialogType.INFO,
+                          animType: AnimType.BOTTOMSLIDE,
+                          title: 'Action Not Allowed',
+                          desc: 'This Delivery have been already set to Done!',
+                          btnCancelOnPress: () {},
+                          btnOkOnPress: () {},
+                        )..show();
+                      } else {
+                        print("mark as done button have been clicked");
+                        dealsBloc.add(MarkAsDoneDeals(deals: this.deals));
+                      }
+                    }),
 
                     SizedBox(
                       height: 20.0,

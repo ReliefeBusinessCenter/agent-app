@@ -93,7 +93,7 @@ class WorkBloc extends Bloc<WorkEvent, WorkState> {
             message: "Failed to Delete");
       }
     } else if (event is MarkAsDoneWork) {
-      yield WorkLoading();
+      // yield WorkLoading();
       //
       Delivery delivery = event.work;
       delivery.deliveryStatus = "Done";

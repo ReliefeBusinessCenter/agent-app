@@ -1,7 +1,5 @@
 import 'package:app/Widget/customer/deals_item.dart';
-import 'package:app/Widget/work/workItem.dart';
 import 'package:app/bloc/work-deals/bloc/workdeals_bloc.dart';
-import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
 // import 'package:app/bloc/work/bloc/work_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

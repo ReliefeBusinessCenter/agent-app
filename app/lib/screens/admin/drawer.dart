@@ -4,6 +4,8 @@ import 'package:app/bloc/auth/bloc/auth_bloc.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/screens/Auth/login.dart';
+import 'package:app/screens/admin/admin_deals_page.dart';
+import 'package:app/screens/admin/admin_delivery_page.dart';
 import 'package:app/screens/customer/account_screen.dart';
 import 'package:app/screens/customer/becomeAnAgent.dart';
 import 'package:app/screens/customer/customerPage.dart';
@@ -139,18 +141,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
                             Divider(
                                 height: 20,
                                 color: Colors.white.withOpacity(0.6)),
-                            CustomeList(
-                              title: "Broker List",
-                              subTitle: "See List of brokers",
-                              icon: Icon(
-                                Icons.dashboard,
-                                color: Colors.white,
-                              ),
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                    context, CustomerPage.routeName);
-                              },
-                            ),
+                            
                             CustomeList(
                               title: "Category",
                               subTitle: "see categories",
@@ -176,7 +167,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
                               onPressed: () {
                                 print("Setting apge");
                                 Navigator.pushNamed(
-                                    context, BecomeAnAgent.routeName);
+                                    context, AdminDealPage.routeName);
                               },
                             ),
                              CustomeList(
@@ -189,23 +180,9 @@ class _AdminDrawerState extends State<AdminDrawer> {
                               onPressed: () {
                                 print("Setting apge");
                                 Navigator.pushNamed(
-                                    context, BecomeAnAgent.routeName);
+                                    context, AdminDeliveryPage.routeName);
                               },
-                            ),
-                             CustomeList(
-                              title: "Customer",
-                              subTitle: "see Customers",
-                              icon: Icon(
-                                Icons.support_agent,
-                                color: Colors.white,
-                              ),
-                              onPressed: () {
-                                print("Setting apge");
-                                Navigator.pushNamed(
-                                    context, BecomeAnAgent.routeName);
-                              },
-                            ),
-                            
+                            ),  
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height * 0.23),

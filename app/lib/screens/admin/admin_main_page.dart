@@ -46,29 +46,38 @@ class _AdminMainPageState extends State<AdminMainPage> {
         ),
         child: AdminDrawer(),
       ),
-      drawerEnableOpenDragGesture: true,
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-            ),
-            label: 'Home',
-            backgroundColor: Colors.white,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.history,
-            ),
-            label: 'Brokers',
-            backgroundColor: Colors.white,
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Theme.of(context).primaryColor,
-        unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
+      body: Container(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        
+        child: Icon(Icons.home),
+        onPressed: () {},
       ),
+      drawerEnableOpenDragGesture: true,
+      bottomNavigationBar: BottomAppBar(
+          color: Theme.of(context).primaryColor,
+          shape: CircularNotchedRectangle(),
+          child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                IconButton(
+                  
+                  icon: Icon(Icons.dashboard_customize),
+                  color: Colors.white,
+                  onPressed: () {
+                    print("search icon button have been clicked");
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.details),
+                  color: Colors.white,
+                  onPressed: () {
+                    print("the note icon button have been clicked");
+                  },
+                )
+              ]),
+        )
     );
   }
 }

@@ -3,8 +3,9 @@ import 'package:app/constants/login/size.dart';
 import 'package:flutter/material.dart';
 
 class AcceptButton extends StatelessWidget {
+  final String title;
   final VoidCallback onPressed;
-  AcceptButton({required this.onPressed});
+  AcceptButton({required this.title, required this.onPressed});
   @override
   Widget build(BuildContext context) {
     LoginSize loginSize = new LoginSize();
@@ -19,7 +20,7 @@ class AcceptButton extends StatelessWidget {
           // onTap: () => _pushPage(context, Register()),
           child: Material(
             // color: Theme.of(context).primaryColor,
-            color:Colors.green,
+            color: Colors.green,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
             elevation: 1.0,
@@ -30,7 +31,7 @@ class AcceptButton extends StatelessWidget {
 
               child: Center(
                   child: Text(
-                'Accept Delivery Offer',
+                title,
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,

@@ -1,12 +1,13 @@
-
 import 'package:app/Widget/Drawer/custom_list.dart';
 import 'package:app/bloc/auth/bloc/auth_bloc.dart';
+import 'package:app/constants.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/screens/Auth/login.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'account_screen.dart';
 import 'becomeAnAgent.dart';
@@ -15,8 +16,6 @@ import 'customerPage.dart';
 UserPreferences pref = UserPreferences();
 
 class AppDrawer extends StatefulWidget {
-  
-
   @override
   _AppDrawerState createState() => _AppDrawerState();
 }
@@ -61,24 +60,36 @@ class _AppDrawerState extends State<AppDrawer> {
                                 backgroundColor: Colors.white,
                                 child: Container(
                                   clipBehavior: Clip.hardEdge,
-                                  child: Image(
-                                    image: NetworkImage(
-                                      "${Ip.ip}/api/users/get/?fileName=${state.user.user!.picture as String}",
-
-                                      // fit: BoxFit.fill,
-                                      // placeholder: (context, url) => Container(
-                                      //   color: Colors.white,
-                                      // ),
-                                      // errorWidget: (context, url, error) =>
-                                      //     Container(
-                                      //   color: Colors.black,
-                                      //   child: Icon(Icons.error),
-                                      // ),
+                                  child: CachedNetworkImage(
+                                    imageUrl:
+                                        "${Ip.ip}/api/users/get/?fileName=${state.user.user!.picture as String}",
+                                    placeholder: (context, url) => Center(
+                                      child: SpinKitCircle(
+                                        color: primaryColor,
+                                      ),
                                     ),
-                                    height: MediaQuery.of(context).size.height *
-                                        0.18,
-                                    width: double.infinity,
+                                    errorWidget: (context, url, err) => Center(
+                                      child: Icon(Icons.error),
+                                    ),
                                   ),
+                                  //  Image(
+                                  //   image: NetworkImage(
+                                  //     "${Ip.ip}/api/users/get/?fileName=${state.user.user!.picture as String}",
+
+                                  //     // fit: BoxFit.fill,
+                                  //     // placeholder: (context, url) => Container(
+                                  //     //   color: Colors.white,
+                                  //     // ),
+                                  //     // errorWidget: (context, url, error) =>
+                                  //     //     Container(
+                                  //     //   color: Colors.black,
+                                  //     //   child: Icon(Icons.error),
+                                  //     // ),
+                                  //   ),
+                                  //   height: MediaQuery.of(context).size.height *
+                                  //       0.18,
+                                  //   width: double.infinity,
+                                  // ),
                                   // child: Image.network('${baseUrl}/${client.photoPath}'),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(40),
@@ -123,9 +134,8 @@ class _AppDrawerState extends State<AppDrawer> {
                             ),
                           );
                         }
-                        return Column(
+                        return ListView(
                           children: [
-
                             UserAccountsDrawerHeader(
                               accountName: Text(
                                   "${state.user.user!.fullName as String}"),
@@ -249,8 +259,6 @@ class _AppDrawerState extends State<AppDrawer> {
                         );
                       }
                       return Container();
-                    })))
-                    
-                    );
+                    }))));
   }
 }

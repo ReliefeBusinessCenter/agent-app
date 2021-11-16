@@ -1,6 +1,8 @@
-import 'package:app/constants/customer-page/categories.dart';
+import 'dart:ui';
+
 import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/broker.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 // import 'package:app/model/category.dart';
 import 'package:flutter/material.dart';
@@ -10,59 +12,76 @@ class BrokerBackgroundImage extends StatelessWidget {
   BrokerBackgroundImage({required this.broker});
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     // Category category =
     //     [].firstWhere((element) => element.id == broker.category!.categoryId);
     return Container(
-      height: MediaQuery.of(context).size.height * 0.27,
+      height: size.height * 0.3,
       child: Stack(
         children: [
-          Positioned(
-            top: 0,
-            child: Card(
-              elevation: 1,
-              child: Container(
-                  height: MediaQuery.of(context).size.height * 0.27,
-                  width: MediaQuery.of(context).size.width,
-                  color: Colors.white),
+          Container(
+            width: size.width,
+            child: CachedNetworkImage(
+              fit: BoxFit.fill,
+              imageUrl:
+                  "${Ip.ip}/api/users/get/?fileName=${this.broker.user!.picture as String}",
+              placeholder: (context, url) => CircularProgressIndicator(),
+              errorWidget: (context, url, error) => Icon(Icons.error),
             ),
           ),
-          Positioned(
-            left: 20,
-            top: MediaQuery.of(context).size.height * 0.03,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CircleAvatar(
-                  maxRadius: MediaQuery.of(context).size.width * 0.15,
-                  // minRadius: MediaQuery.of(context).size.width * 0.4,
-                  backgroundImage:  NetworkImage(
-                      "${Ip.ip}/api/users/get/?fileName=${this.broker.user!.picture as String}"),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(broker.user!.fullName as String,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Theme.of(context).primaryColor.withOpacity(0.95),
-                        fontWeight: FontWeight.bold,
-                      )),
-                ),
-                Row(
+          ClipRRect(
+            // Clip it cleanly.
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaY: 3, sigmaX: 3),
+              child: Container(
+                color: Colors.grey.withOpacity(0.1),
+                alignment: Alignment.center,
+                child: Column(
                   children: [
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    CachedNetworkImage(
+                      fit: BoxFit.contain,
+                      imageUrl:
+                          "${Ip.ip}/api/users/get/?fileName=${this.broker.user!.picture as String}",
+                      imageBuilder: (context, imageProvider) => Container(
+                        height: size.height * 0.2,
+                        width: size.width * 0.3,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.horizontal(
+                              left: Radius.circular(40),
+                              right: Radius.circular(40)),
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      placeholder: (context, url) =>
+                          CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                    ),
+                    // CircleAvatar(
+                    //   maxRadius: MediaQuery.of(context).size.width * 0.15,
+                    //   // minRadius: MediaQuery.of(context).size.width * 0.4,
+                    //   backgroundImage: NetworkImage(
+                    //       "${Ip.ip}/api/users/get/?fileName=${this.broker.user!.picture as String}"),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text("${broker.category!.catigoryName} broker",
-                          style: TextStyle(
-                            fontSize: 15,
-                            color:
-                                Theme.of(context).primaryColor.withOpacity(0.5),
-                            fontWeight: FontWeight.bold,
-                          )),
-                    )
+                      child: Text(
+                        broker.user!.fullName as String,
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
-              ],
+              ),
             ),
           ),
         ],
@@ -70,3 +89,4 @@ class BrokerBackgroundImage extends StatelessWidget {
     );
   }
 }
+

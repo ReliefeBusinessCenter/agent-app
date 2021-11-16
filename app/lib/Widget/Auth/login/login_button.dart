@@ -15,7 +15,6 @@ class LoginButton extends StatelessWidget {
         child: InkWell(
           splashColor: Colors.white,
           onTap: this.onPressed,
-
           // onTap: () => _pushPage(context, Register()),
           child: Material(
             color: Theme.of(context).primaryColor,

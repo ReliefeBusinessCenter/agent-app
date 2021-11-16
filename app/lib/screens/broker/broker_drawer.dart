@@ -1,4 +1,5 @@
 import 'package:app/Widget/Drawer/custom_list.dart';
+import 'package:app/Widget/common/user_profile.dart';
 import 'package:app/bloc/auth/bloc/auth_bloc.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/screens/Auth/auth_exports.dart';
@@ -103,7 +104,7 @@ class _BrokerDrawerState extends State<BrokerDrawer> {
                         ),
                       );
                     }
-                    return Column(
+                    return ListView(
                       children: [
                         UserAccountsDrawerHeader(
                           accountName:
@@ -139,7 +140,7 @@ class _BrokerDrawerState extends State<BrokerDrawer> {
                           ),
                           onPressed: () {
                             Navigator.pushNamed(
-                                context, BrokerAccountScreen.routeName);
+                                context, UserProfilePage.routeName, arguments: state.user.user);
                           },
                         ),
                         CustomeList(
