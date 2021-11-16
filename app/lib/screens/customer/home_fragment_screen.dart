@@ -3,9 +3,7 @@ import 'package:app/Widget/Dashboard/customCategory.dart';
 import 'package:app/Widget/Dashboard/customSearchBar.dart';
 import 'package:app/bloc/broker/bloc/broker_bloc.dart';
 import 'package:app/bloc/category/bloc/category_bloc.dart';
-import 'package:app/constants/customer-page/categories.dart';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
@@ -65,27 +63,29 @@ class HomeFragment extends StatelessWidget {
                       for (int i = 0; i < state.category.length; i++) {
                         // Category category = state.category[i] as Category;
                         // print(category);
-                        categories.add(CustomCategory(
-                          backgroundColor: state.selectedCategoryId ==
-                                  state.category[i].categoryId
-                              ? Theme.of(context).primaryColor
-                              : Color(0xFF015777).withOpacity(0.05),
-                          fontColor: state.selectedCategoryId ==
-                                  state.category[i].categoryId
-                              ? Colors.white
-                              : Colors.black.withOpacity(0.8),
-                          text: state.category[i].catigoryName!,
-                          onPressed: () {
-                            // print(
-                            // "This is teh name of the category:${DUMMY_CATEGORIES[i].name}");
-                            brokerBloc.add(SelectEvent(
-                                categoryId: state.category[i].categoryId!,
-                                search: ''));
-
-                            categoryBloc.add(SelectCategory(
-                                categoryId: state.category[i].categoryId!));
-                          },
-                        ));
+                        categories.add(
+                          CustomCategory(
+                            backgroundColor: state.selectedCategoryId ==
+                                    state.category[i].categoryId
+                                ? Theme.of(context).primaryColor
+                                : Color(0xFF015777).withOpacity(0.05),
+                            fontColor: state.selectedCategoryId ==
+                                    state.category[i].categoryId
+                                ? Colors.white
+                                : Colors.black.withOpacity(0.8),
+                            text: state.category[i].catigoryName!,
+                            onPressed: () {
+                              brokerBloc.add(
+                                SelectEvent(
+                                  categoryId: state.category[i].categoryId!,
+                                  search: '',
+                                ),
+                              );
+                              categoryBloc.add(SelectCategory(
+                                  categoryId: state.category[i].categoryId!));
+                            },
+                          ),
+                        );
                       }
                       return Row(children: categories);
                     }
@@ -98,24 +98,25 @@ class HomeFragment extends StatelessWidget {
             child: BlocBuilder<BrokerBloc, BrokerState>(
               builder: (context, state) {
                 if (state is BrokersLoadSuccess) {
-                  print("Successfully loadded to the screen: ${state.brokers}");
                   return LazyLoadScrollView(
-                      onEndOfPage: () {},
-                      child: GridView.builder(
-                          gridDelegate:
-                              SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent:
-                                MediaQuery.of(context).size.width * 0.6,
-                            mainAxisExtent:
-                                MediaQuery.of(context).size.height * 0.35,
+                    onEndOfPage: () {},
+                    child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                        maxCrossAxisExtent:
+                            MediaQuery.of(context).size.width * 0.6,
+                        mainAxisExtent:
+                            MediaQuery.of(context).size.height * 0.35,
+                      ),
+                      itemCount: state.brokers.length,
+                      itemBuilder: (BuildContext ctx, index) {
+                        return Container(
+                          child: BrokerItem(
+                            broker: state.brokers[index],
                           ),
-                          itemCount: state.brokers.length,
-                          itemBuilder: (BuildContext ctx, index) {
-                            return Container(
-                                child: BrokerItem(
-                              broker: state.brokers[index],
-                            ));
-                          }));
+                        );
+                      },
+                    ),
+                  );
                 } else if (state is BrokersLoading) {
                   return Center(
                     child: CircularProgressIndicator(),

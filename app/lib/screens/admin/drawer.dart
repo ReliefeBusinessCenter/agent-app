@@ -1,26 +1,29 @@
+
 import 'package:app/Widget/Drawer/custom_list.dart';
 import 'package:app/bloc/auth/bloc/auth_bloc.dart';
-import 'package:app/constants.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/screens/Auth/login.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:app/screens/admin/admin_deals_page.dart';
+import 'package:app/screens/admin/admin_delivery_page.dart';
+import 'package:app/screens/customer/account_screen.dart';
+import 'package:app/screens/customer/becomeAnAgent.dart';
+import 'package:app/screens/customer/customerPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import 'account_screen.dart';
-import 'becomeAnAgent.dart';
-import 'customerPage.dart';
+
 
 UserPreferences pref = UserPreferences();
 
-class AppDrawer extends StatefulWidget {
+class AdminDrawer extends StatefulWidget {
+  
+
   @override
-  _AppDrawerState createState() => _AppDrawerState();
+  _AdminDrawerState createState() => _AdminDrawerState();
 }
 
-class _AppDrawerState extends State<AppDrawer> {
+class _AdminDrawerState extends State<AdminDrawer> {
   // late CartBloc cartBloc;
   @override
   void initState() {
@@ -60,36 +63,24 @@ class _AppDrawerState extends State<AppDrawer> {
                                 backgroundColor: Colors.white,
                                 child: Container(
                                   clipBehavior: Clip.hardEdge,
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                        "${Ip.ip}/api/users/get/?fileName=${state.user.user!.picture as String}",
-                                    placeholder: (context, url) => Center(
-                                      child: SpinKitCircle(
-                                        color: primaryColor,
-                                      ),
-                                    ),
-                                    errorWidget: (context, url, err) => Center(
-                                      child: Icon(Icons.error),
-                                    ),
-                                  ),
-                                  //  Image(
-                                  //   image: NetworkImage(
-                                  //     "${Ip.ip}/api/users/get/?fileName=${state.user.user!.picture as String}",
+                                  child: Image(
+                                    image: NetworkImage(
+                                      "${Ip.ip}/api/users/get/?fileName=${state.user.user!.picture as String}",
 
-                                  //     // fit: BoxFit.fill,
-                                  //     // placeholder: (context, url) => Container(
-                                  //     //   color: Colors.white,
-                                  //     // ),
-                                  //     // errorWidget: (context, url, error) =>
-                                  //     //     Container(
-                                  //     //   color: Colors.black,
-                                  //     //   child: Icon(Icons.error),
-                                  //     // ),
-                                  //   ),
-                                  //   height: MediaQuery.of(context).size.height *
-                                  //       0.18,
-                                  //   width: double.infinity,
-                                  // ),
+                                      // fit: BoxFit.fill,
+                                      // placeholder: (context, url) => Container(
+                                      //   color: Colors.white,
+                                      // ),
+                                      // errorWidget: (context, url, error) =>
+                                      //     Container(
+                                      //   color: Colors.black,
+                                      //   child: Icon(Icons.error),
+                                      // ),
+                                    ),
+                                    height: MediaQuery.of(context).size.height *
+                                        0.18,
+                                    width: double.infinity,
+                                  ),
                                   // child: Image.network('${baseUrl}/${client.photoPath}'),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(40),
@@ -136,6 +127,7 @@ class _AppDrawerState extends State<AppDrawer> {
                         }
                         return ListView(
                           children: [
+
                             UserAccountsDrawerHeader(
                               accountName: Text(
                                   "${state.user.user!.fullName as String}"),
@@ -149,21 +141,10 @@ class _AppDrawerState extends State<AppDrawer> {
                             Divider(
                                 height: 20,
                                 color: Colors.white.withOpacity(0.6)),
+                            
                             CustomeList(
-                              title: "Dashboard",
-                              subTitle: "See List of brokers",
-                              icon: Icon(
-                                Icons.dashboard,
-                                color: Colors.white,
-                              ),
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                    context, CustomerPage.routeName);
-                              },
-                            ),
-                            CustomeList(
-                              title: "Account",
-                              subTitle: "Update Profile",
+                              title: "Category",
+                              subTitle: "see categories",
                               icon: Icon(
                                 Icons.contact_page,
                                 color: Colors.white,
@@ -177,8 +158,8 @@ class _AppDrawerState extends State<AppDrawer> {
                               },
                             ),
                             CustomeList(
-                              title: "Agent",
-                              subTitle: "Become an agent",
+                              title: "Deals",
+                              subTitle: "see deals",
                               icon: Icon(
                                 Icons.support_agent,
                                 color: Colors.white,
@@ -186,31 +167,22 @@ class _AppDrawerState extends State<AppDrawer> {
                               onPressed: () {
                                 print("Setting apge");
                                 Navigator.pushNamed(
-                                    context, BecomeAnAgent.routeName);
+                                    context, AdminDealPage.routeName);
                               },
                             ),
-                            ListTile(
-                              title: Text("Settings",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15)),
-                              leading: Icon(
-                                Icons.settings,
-                                color: Colors.white,
-                              ),
-                            ),
-                            CustomeList(
-                              title: "Share",
-                              subTitle: "Share this app",
+                             CustomeList(
+                              title: "Delivery",
+                              subTitle: "see delivery",
                               icon: Icon(
-                                Icons.share,
+                                Icons.support_agent,
                                 color: Colors.white,
                               ),
                               onPressed: () {
-                                print("share");
+                                print("Setting apge");
+                                Navigator.pushNamed(
+                                    context, AdminDeliveryPage.routeName);
                               },
-                            ),
+                            ),  
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height * 0.23),
@@ -237,28 +209,13 @@ class _AppDrawerState extends State<AppDrawer> {
                                         context, Login.routeName);
                                   }),
                             ),
-                            // Divider(
-                            //   height: 20,
-                            // ),
-                            // ListTile(
-                            //   trailing: Icon(Icons.close,
-                            //       color: Colors.white.withOpacity(0.7)),
-                            //   title: Text(
-                            //     'Close',
-                            //     style: TextStyle(
-                            //       fontSize: 15,
-                            //       color: Colors.white.withOpacity(0.7),
-                            //       fontWeight: FontWeight.w300,
-                            //     ),
-                            //   ),
-                            //   onTap: () {
-                            //     Navigator.of(context).pop();
-                            //   },
-                            // )
+                            
                           ],
                         );
                       }
                       return Container();
-                    }))));
+                    })))
+                    
+                    );
   }
 }

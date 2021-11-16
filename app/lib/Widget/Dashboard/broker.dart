@@ -1,11 +1,14 @@
 import 'package:app/bloc/favorit/bloc/favorite_bloc.dart';
+import 'package:app/constants.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/broker.dart';
 
 import 'package:app/screens/customer/brokers_detail_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class BrokerItem extends StatefulWidget {
   final Broker broker;
@@ -20,8 +23,9 @@ class _BrokerItemState extends State<BrokerItem> {
   bool isFav = false;
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     favoriteBloc = BlocProvider.of<FavoriteBloc>(context);
-   
+
     return InkWell(
       onTap: () {
         print("This is the broker name ${widget.broker.user!.fullName}");
@@ -46,19 +50,21 @@ class _BrokerItemState extends State<BrokerItem> {
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  topRight: Radius.circular(
-                    (15),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(
+                      (15),
+                    ),
                   ),
-                ),
-                child: Image.network(
-                  "${Ip.ip}/api/users/get/?fileName=${widget.broker.user!.picture as String}",
-                  height: MediaQuery.of(context).size.height * 0.20,
-                  width: double.infinity,
-                  fit: BoxFit.fill,
-                ),
-              ),
+                  child: CachedNetworkImage(
+                    fit: BoxFit.fill,
+                    height: size.height / 6,
+                    width: size.width,
+                    imageUrl:
+                        "${Ip.ip}/api/users/get/?fileName=${widget.broker.user!.picture as String}",
+                    placeholder: (context, url) => Center(child: SpinKitCircle( color: primaryColor,)),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  )),
               Container(
                 width: 300,
                 color: Theme.of(context).primaryColor.withOpacity(0.1),

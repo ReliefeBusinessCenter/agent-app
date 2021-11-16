@@ -1,6 +1,3 @@
-import 'package:app/Widget/Dashboard/broker.dart';
-import 'package:app/Widget/Dashboard/customCategory.dart';
-import 'package:app/Widget/Dashboard/customSearchBar.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -10,9 +7,7 @@ import 'favorite_screen.dart';
 import 'history_screen.dart';
 import 'home_fragment_screen.dart';
 import 'customer_deals_page.dart';
-import 'profile_screen.dart';
 
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 final _scaffoldKey = GlobalKey<ScaffoldState>();
 

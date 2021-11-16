@@ -1,6 +1,5 @@
 import 'package:app/Widget/Broker-profile/Broker-background-image.dart';
 import 'package:app/Widget/Broker-profile/about-section.dart';
-import 'package:app/Widget/Broker-profile/custome_button.dart';
 import 'package:app/Widget/Broker-profile/hire_button.dart';
 import 'package:app/Widget/Broker-profile/select_option.dart';
 import 'package:app/Widget/Broker-profile/work_section.dart';
@@ -11,8 +10,6 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
-
-import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class BrokersProfilePage extends StatelessWidget {
   static const routeName = '/user/category/services/technicians/detail';
@@ -41,7 +38,7 @@ class BrokersProfilePage extends StatelessWidget {
                 //     setState(() {
                 //       isShowing = true;
                 //     });
-                 // }
+                // }
                 progress!.showWithText("Hiring");
                 print("delivery creating  method called");
               } else if (state is DeliveryCreateSuccess) {
@@ -78,30 +75,25 @@ class BrokersProfilePage extends StatelessWidget {
       color: Colors.grey[300],
       margin: EdgeInsets.symmetric(horizontal: 10),
     );
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        BrokerBackgroundImage(
-          broker: this.broker,
-        ),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-        SelectOption(),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.045),
-        AboutSection(broker: broker),
-        divider,
-        WorkSection(broker: broker),
-        divider,
-        _buildPortifolioSection(context),
-        Expanded(
-          child: Container(),
-        ),
-        HireButton(
-          broker: broker,
-        ),
-      ],
-    );
+    return ListView(children: [
+      BrokerBackgroundImage(
+        broker: this.broker,
+      ),
+      SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+      SelectOption(),
+      SizedBox(height: MediaQuery.of(context).size.height * 0.045),
+      AboutSection(broker: broker),
+      divider,
+      WorkSection(broker: broker),
+      divider,
+      _buildPortifolioSection(context),
+      Expanded(
+        child: Container(),
+      ),
+      HireButton(
+        broker: broker,
+      ),
+    ]);
   }
 }
 

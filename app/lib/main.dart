@@ -16,6 +16,7 @@ import 'package:app/repository/delivery_repository.dart';
 import 'package:app/repository/user_repository.dart';
 import 'package:app/routes/route.dart';
 import 'package:app/screens/Auth/login.dart';
+import 'package:app/screens/welcome/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
@@ -159,6 +160,7 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'DeliMeals',
           theme: ThemeData(
               primarySwatch: Colors.blue,
@@ -181,9 +183,9 @@ class MyApp extends StatelessWidget {
                   headline6:
                       TextStyle(fontSize: 24, fontFamily: 'RobotoCondensed'))),
           // home: Login(),
-          initialRoute: Login.routeName,
+          initialRoute: WelcomePage.routeName,
           onGenerateRoute: AppRoutes.generateRoute,
-
+          
           onUnknownRoute: (settings) {
             return MaterialPageRoute(builder: (ctx) => Login());
           },
