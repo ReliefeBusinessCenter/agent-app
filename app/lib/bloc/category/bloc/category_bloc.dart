@@ -1,6 +1,5 @@
 import 'dart:async';
 
-
 import 'package:app/model/broker/category.dart';
 import 'package:app/repository/category_repository.dart';
 import 'package:bloc/bloc.dart';
@@ -43,6 +42,39 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
         }
       } catch (e) {
         print(e.toString());
+      }
+    } else if (event is AddCategory) {
+      yield CategoryLoading();
+      try {
+        Category _category =
+            await categoryRepository.addCategory(event.category);
+             List<Category> categories =
+            await this.categoryRepository.getCategories();
+            
+        if (_category is Category) {
+          yield CategoryLoadSuccess(category: categories, selectedCategoryId: null);
+        } else {
+          yield CategoryLoadFailed(message: "Failed to fetch");
+        }
+      } catch (e) {
+        print("The errrorrrrrrrrrrrrrrrcreate is ${e.toString()}");
+        yield CategoryLoadFailed(message: "Failed to fetch");
+      }
+    } else if (event is UpdateCategory) {
+      yield CategoryLoading();
+      try {
+        Category _category =
+            await categoryRepository.updateCategory(event.category);
+             List<Category> categories =
+            await this.categoryRepository.getCategories();
+        if (_category is Category) {
+          yield CategoryLoadSuccess(category: categories, selectedCategoryId: null);
+        } else {
+          yield CategoryLoadFailed(message: "Failed to fetch");
+        }
+      } catch (e) {
+          print("The errrorrrrrrrrrrrrrrrcreate is ${e.toString()}");
+        yield CategoryLoadFailed(message: "Failed to fetch");
       }
     } else if (event is SelectCategory) {
       print("---select category event");

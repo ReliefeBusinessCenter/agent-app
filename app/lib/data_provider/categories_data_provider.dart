@@ -33,7 +33,7 @@ class CategoriesDataProvider {
           // 'Authorization': 'Bearer $token',
         },
       );
-
+                                                                                                                                                                        
       print('Arrived here ${response.body}');
 
       if (response.statusCode == 200) {
@@ -50,5 +50,57 @@ class CategoriesDataProvider {
       print("Exception throuwn $e");
     }
     return categoriesReturn;
+  }
+
+  // add categories
+  Future<Category> addCategory(Category category) async {
+    // late Category _resultCategory;
+    try {
+      final url = Uri.parse('${Ip.ip}/api/categories/');
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(
+          <String, dynamic>{"catigoryName": category.catigoryName},
+        ),
+      );
+      
+      if (response.statusCode == 200) {
+        return Category.fromJson(jsonDecode(response.body));
+      } else {
+        throw Exception(response.body);
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  // Update categories
+  Future<Category> updateCategory(Category category) async {
+    try {
+      debugPrint("Update categooooooooooooooooooooooooooooooory");
+      final url = Uri.parse('${Ip.ip}/api/categories/${category.categoryId}');
+      final response = await http.put(url,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: jsonEncode(
+              <String, dynamic>{
+                "categoryId": category.categoryId,
+                "catigoryName": category.catigoryName}));
+
+      debugPrint(
+          "Update categooooooooooooooooooooooooooooooory ${response.statusCode}");
+
+      if (response.statusCode == 200) {
+        return Category.fromJson(jsonDecode(response.body));
+      } else {
+        throw Exception(response.body);
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 }

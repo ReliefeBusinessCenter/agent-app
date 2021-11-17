@@ -2,10 +2,7 @@ part of 'customer_bloc.dart';
 
 abstract class CustomerEvent {
   const CustomerEvent();
-
- 
 }
-
 
 class SearchEvent extends CustomerEvent {
   final String name;
@@ -13,3 +10,9 @@ class SearchEvent extends CustomerEvent {
 }
 
 class FetchEvent extends CustomerEvent {}
+
+class DeleteCustomerEvent extends CustomerEvent {
+  final int id;
+
+  DeleteCustomerEvent(this.id);
+}

@@ -11,6 +11,7 @@ import 'package:app/screens/Auth/password-register-screen.dart';
 import 'package:app/screens/Auth/password_reset_screen.dart';
 import 'package:app/screens/Auth/signUp_screen.dart';
 import 'package:app/screens/admin/admin_category.dart';
+import 'package:app/screens/admin/admin_customers_page.dart';
 import 'package:app/screens/admin/admin_deals_customer.dart';
 import 'package:app/screens/admin/admin_deals_page.dart';
 import 'package:app/screens/admin/admin_delivery_customer.dart';
@@ -62,12 +63,14 @@ class AppRoutes {
       return MaterialPageRoute(builder: (context) => CustomerDetailScreen());
     }
     // user profile
-    else if (settings.name == UserProfilePage.routeName) {
-      User user = settings.arguments as User;
-      return MaterialPageRoute(
-        builder: (context) => UserProfilePage(user: user),
-      );
-    } else if (settings.name == UserProfileEditPage.routeName) {
+    // else if (settings.name == UserProfilePage.routeName) {
+    //   User user = settings.arguments as User;
+      
+    //   return MaterialPageRoute(
+    //     builder: (context) => UserProfilePage(user: user,),
+    //   );
+    // } 
+    else if (settings.name == UserProfileEditPage.routeName) {
       User user = settings.arguments as User;
       return MaterialPageRoute(
         builder: (context) => UserProfileEditPage(user: user),
@@ -127,6 +130,8 @@ class AppRoutes {
     } else if (settings.name == AdminDeliveryPage.routeName) {
       return MaterialPageRoute(builder: (context) => AdminDeliveryPage());
     }
+    else if (settings.name == AdminCustomersPage.routeName)
+      return MaterialPageRoute(builder: (context) => AdminCustomersPage());
 
     // welcomepage
     else if (settings.name == "/") {

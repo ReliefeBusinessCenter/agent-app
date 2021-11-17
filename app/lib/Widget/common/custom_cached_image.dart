@@ -27,7 +27,7 @@ class CustomCachedNetworkImage extends StatelessWidget {
         )),
       ),
       progressIndicatorBuilder: (context, url, downloadProgress) => Center(
-        child: SpinKitCircle(
+        child: SpinKitCircle(                                                                                                         
           color: Theme.of(context).primaryColor,
           duration: Duration(
               seconds: downloadProgress.progress == null
@@ -36,7 +36,7 @@ class CustomCachedNetworkImage extends StatelessWidget {
         ),
       ),
       // CircularProgressIndicator(
-      //     value: downloadProgress.progress),
+      //     value: downloadProgress.progress),                                                                                                                                                                                                                                                                                                                                                                                                                                               
       imageBuilder: (context, imageProvider) => Container(
         decoration: BoxDecoration(
           borderRadius: isTopBorderd

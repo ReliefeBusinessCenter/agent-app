@@ -174,7 +174,7 @@ Future<Customer?> getCustomerByEmail(String email) async {
         return true;
       } else {
         print(response.body);
-        throw Exception('Failed to Delete Customer');
+        throw Exception(' ');
       }
     } catch (e) {
       print("Exception throuwn $e");

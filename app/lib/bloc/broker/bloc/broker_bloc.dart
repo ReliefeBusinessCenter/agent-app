@@ -42,6 +42,22 @@ class BrokerBloc extends Bloc<BrokerEvent, BrokerState> {
         }
       } catch (e) {}
     }
+    if (event is DeleteBrokerEvent) {
+      try {
+        bool _deleteResponse = await brokersRepository.deleteBroker(event.id);
+        List<Broker> brokers = (await this.brokersRepository.getBrokers());
+        print("Data arrived at the data provider: ${brokers}");
+
+        if (brokers != [] && _deleteResponse) {
+          brokerList = brokers;
+          yield BrokersLoadSuccess(selectedCategoryId: 0, brokers: brokerList);
+        } else {
+          yield BrokersLoadFailed(message: "Unable to load brokers");
+        }
+      } catch (e) {
+        yield BrokersLoadFailed(message: "Unable to load brokers");
+      }
+    }
     if (event is SelectEvent) {
       print("select event from product bloc");
       //

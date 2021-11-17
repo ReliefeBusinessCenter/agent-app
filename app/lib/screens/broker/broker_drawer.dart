@@ -88,8 +88,15 @@ class _BrokerDrawerState extends State<BrokerDrawer> {
                             color: Colors.white,
                           ),
                           onPressed: () {
-                            Navigator.pushNamed(
-                                context, UserProfilePage.routeName, arguments: state.user.user);
+                           Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => UserProfilePage(
+                              user: state.user.user!,
+                              fromAdmin: false,
+                              isCustomer: false,
+                            ),
+                          ),
+                        );
                           },
                         ),
                         CustomeList(

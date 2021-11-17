@@ -1,4 +1,6 @@
 import 'package:app/constants/constants.dart';
+import 'package:app/screens/admin/Admin_brokers_page.dart';
+import 'package:app/screens/admin/admin_customers_page.dart';
 import 'package:app/screens/admin/drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -20,41 +22,45 @@ class _AdminMainPageState extends State<AdminMainPage> {
     });
   }
 
+  List<Widget> _bodyWidgets = [
+    AdminCustomersPage(),
+    AdminBrokersPage(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-        title: Text('Trust Brokers'),
-        backgroundColor: primaryColor,
-        leading: GestureDetector(
-          onTap: () => _scaffoldKey.currentState!.openDrawer(),
-          child: Container(
-            height: 5.0,
-            width: 5.0,
-            child: ImageIcon(
-              AssetImage('assets/images/left-align.png'),
+        key: _scaffoldKey,
+        appBar: AppBar(
+          title: Text('Trust Brokers'),
+          backgroundColor: primaryColor,
+          leading: GestureDetector(
+            onTap: () => _scaffoldKey.currentState!.openDrawer(),
+            child: Container(
+              height: 5.0,
+              width: 5.0,
+              child: ImageIcon(
+                AssetImage('assets/images/left-align.png'),
+              ),
             ),
           ),
         ),
-      ),
-      drawer: Theme(
-        data: Theme.of(context).copyWith(
-          canvasColor:
-              primaryColor, //This will change the drawer background to blue.
-          //other styles
+        drawer: Theme(
+          data: Theme.of(context).copyWith(
+            canvasColor:
+                primaryColor, //This will change the drawer background to blue.
+            //other styles
+          ),
+          child: AdminDrawer(),
         ),
-        child: AdminDrawer(),
-      ),
-      body: Container(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        
-        child: Icon(Icons.home),
-        onPressed: () {},
-      ),
-      drawerEnableOpenDragGesture: true,
-      bottomNavigationBar: BottomAppBar(
+        body: _bodyWidgets[_selectedIndex],
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.home),
+          onPressed: () {},
+        ),
+        drawerEnableOpenDragGesture: true,
+        bottomNavigationBar: BottomAppBar(
           color: Theme.of(context).primaryColor,
           shape: CircularNotchedRectangle(),
           child: Row(
@@ -65,6 +71,9 @@ class _AdminMainPageState extends State<AdminMainPage> {
                   icon: Icon(Icons.dashboard_customize),
                   color: Colors.white,
                   onPressed: () {
+                    setState(() {
+                      _selectedIndex = 0;
+                    });
                     print("search icon button have been clicked");
                   },
                 ),
@@ -72,11 +81,13 @@ class _AdminMainPageState extends State<AdminMainPage> {
                   icon: Icon(Icons.details),
                   color: Colors.white,
                   onPressed: () {
+                    setState(() {
+                      _selectedIndex = 1;
+                    });
                     print("the note icon button have been clicked");
                   },
                 )
               ]),
-        )
-    );
+        ));
   }
 }

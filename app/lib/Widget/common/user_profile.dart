@@ -1,15 +1,29 @@
 import 'package:app/Widget/common/user_profile_edit_page.dart';
+import 'package:app/bloc/broker/bloc/broker_bloc.dart';
+import 'package:app/bloc/customer/customer_bloc.dart';
 import 'package:app/constants.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/user.dart';
+import 'package:app/model/customer/customer.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class UserProfilePage extends StatelessWidget {
   final User user;
+  final bool fromAdmin;
+  final bool isCustomer;
+  int? id;
   static const routeName = "/userProfile";
-  const UserProfilePage({required this.user, Key? key}) : super(key: key);
+  UserProfilePage(
+      {required this.user,
+      required this.fromAdmin,
+      required this.isCustomer,
+      this.id,
+      Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,19 +43,67 @@ class UserProfilePage extends StatelessWidget {
           },
         ),
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 30.0),
-            child: CircleAvatar(
-              backgroundColor: primaryColor,
-              child: IconButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(UserProfileEditPage.routeName,
-                      arguments: user);
-                },
-                icon: Icon(Icons.edit),
-              ),
-            ),
-          ),
+          fromAdmin
+              ? PopupMenuButton(
+                  child: Icon(
+                    Icons.more_vert,
+                    color: primaryColor,
+                  ),
+                  onSelected: (index) {
+                    if (index == 1) {
+                      if (isCustomer) {
+                        AwesomeDialog(
+                          context: context,
+                          dialogType: DialogType.WARNING,
+                          animType: AnimType.BOTTOMSLIDE,
+                          title: 'Confirm Us',
+                          desc:
+                              'Are you sure you want to delete this customer?',
+                          btnCancelOnPress: () {},
+                          btnOkOnPress: () {
+                            BlocProvider.of<CustomerBloc>(context)
+                                .add(DeleteCustomerEvent(id!));
+                            Navigator.pop(context);
+                          },
+                        )..show();
+                      } else {
+                        AwesomeDialog(
+                          context: context,
+                          dialogType: DialogType.WARNING,
+                          animType: AnimType.BOTTOMSLIDE,
+                          title: 'Confirm Us',
+                          desc: 'Are you sure you want to delete this broker?',
+                          btnCancelOnPress: () {},
+                          btnOkOnPress: () {
+                            BlocProvider.of<BrokerBloc>(context)
+                                .add(DeleteBrokerEvent(id!));
+                            Navigator.pop(context);
+                          },
+                        )..show();
+                      }
+                    }
+                  },
+                  itemBuilder: (context) => [
+                    PopupMenuItem(
+                      child: Text("Delete"),
+                      value: 1,
+                    )
+                  ],
+                )
+              : Padding(
+                  padding: const EdgeInsets.only(right: 30.0),
+                  child: CircleAvatar(
+                    backgroundColor: primaryColor,
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(
+                            UserProfileEditPage.routeName,
+                            arguments: user);
+                      },
+                      icon: Icon(Icons.edit),
+                    ),
+                  ),
+                ),
         ],
       ),
       body: SingleChildScrollView(
@@ -63,7 +125,9 @@ class UserProfilePage extends StatelessWidget {
                   ),
                 ),
                 placeholder: (context, url) => Center(
-                  child: SpinKitCircle( color: primaryColor,),
+                  child: SpinKitCircle(
+                    color: primaryColor,
+                  ),
                 ),
                 errorWidget: (context, url, _) => Icon(Icons.error),
               ),

@@ -12,7 +12,7 @@ class CustomerBloc extends Bloc<CustomerEvent, CustomerState> {
   CustomerBloc({required this.customerRepository}) : super(CustomersInitial());
   List<Customer> customerList = [];
   List<Customer> searcheCustomers = [];
-  
+
   String? searchCustomerName = '';
   int page = 0;
 
@@ -34,7 +34,26 @@ class CustomerBloc extends Bloc<CustomerEvent, CustomerState> {
           yield CustomersLoadFailed(message: "Unable to load brokers");
         }
       } catch (e) {}
-    }else if (event is SearchEvent) {
+    } else if (event is DeleteCustomerEvent) {
+      yield CustomersLoading();
+      try {
+        bool _deleteResponse =
+            await customerRepository.deleteCustomer(event.id);
+        List<Customer> customers =
+            (await this.customerRepository.getCustomers());
+        print("Data arrived at the data provider: $customers");
+
+        if (customers != [] && _deleteResponse) {
+          customerList = customers;
+          yield CustomersLoadSuccess(customers: customerList);
+        } else {
+          yield CustomersLoadFailed(message: "Unable to load brokers");
+        }
+      } catch (e) {
+        debugPrint('ddddddddddddddddddddddddddddddddddeeeeeee${e.toString()}');
+        yield CustomersLoadFailed(message: "Unable to load brokers");
+      }
+    } else if (event is SearchEvent) {
       // search event
       //
       this.searcheCustomers = [];
@@ -52,7 +71,7 @@ class CustomerBloc extends Bloc<CustomerEvent, CustomerState> {
           this.searcheCustomers.add(customerList[i]);
         }
       }
-     
+
       yield CustomersLoadSuccess(customers: searcheCustomers);
     }
   }

@@ -191,4 +191,35 @@ class BrokerDataProvider {
     }
     return false;
   }
+
+    // delete delivery
+  Future<bool> DeleteBrokerEvent(int id) async {
+    String? token = await this.userPreferences.getUserToken();
+    // late List<Data> products_return = [];
+    print("++++++++++++++++++++++++++++Customer Delete method Invocked");
+    print("Customer Id:$id");
+    try {
+      // final url = Uri.parse('http://csv.jithvar.com/api/v1/orders');
+      final url = Uri.parse('${Ip.ip}/api/brokers/${id}');
+      // final url = Uri.parse('http://192.168.211.201:5000/api/delivery/${id}');
+
+      // send other customer data here
+      final response = await http.delete(
+        url,
+      );
+      print(
+          "Http response ${response.statusCode} and response body ${response.body}");
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        print(response.body);
+        throw Exception('Failed to Delete Customer');
+      }
+    } catch (e) {
+      print("Exception throuwn $e");
+    }
+    return false;
+  }
+
+
 }

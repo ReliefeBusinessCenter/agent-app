@@ -31,4 +31,8 @@ class BrokersRepository {
     print("Broker arrived at the repository: ${data!.toJson()}");
     return data;
   }
+
+  Future<bool> deleteBroker(int id) async {
+    return await brokerDataProvider.DeleteBrokerEvent(id);
+  }
 }

@@ -15,3 +15,8 @@ class SearchEvent extends BrokerEvent {
 }
 
 class FetchEvent extends BrokerEvent {}
+
+class DeleteBrokerEvent extends BrokerEvent {
+  final int id;
+  DeleteBrokerEvent(this.id);
+}
