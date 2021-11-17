@@ -10,7 +10,10 @@ import 'package:app/screens/Auth/customer-detail-registeration-screen.dart';
 import 'package:app/screens/Auth/password-register-screen.dart';
 import 'package:app/screens/Auth/password_reset_screen.dart';
 import 'package:app/screens/Auth/signUp_screen.dart';
+import 'package:app/screens/admin/admin_category.dart';
+import 'package:app/screens/admin/admin_deals_customer.dart';
 import 'package:app/screens/admin/admin_deals_page.dart';
+import 'package:app/screens/admin/admin_delivery_customer.dart';
 import 'package:app/screens/admin/admin_delivery_page.dart';
 import 'package:app/screens/admin/admin_main_page.dart';
 import 'package:app/screens/broker/broker_account_screen.dart';
@@ -101,7 +104,20 @@ class AppRoutes {
           builder: (context) => DealsPageScreen(
                 customer: customer,
               ));
-    } else if (settings.name == PasswordReset.routeName)
+    } else if (settings.name == AdminCustomerDealsDetail.routeName) {
+      Deals deals = settings.arguments as Deals;
+      return MaterialPageRoute(
+        builder: (context) => AdminCustomerDealsDetail(deals: deals),
+      );
+    } else if (settings.name == AdminCustomerDeliveryDetails.routeName) {
+      Delivery delivery = settings.arguments as Delivery;
+      return MaterialPageRoute(
+        builder: (context) => AdminCustomerDeliveryDetails(delivery: delivery,),
+      );
+    }else if (settings.name == AdminCategory.routeName)
+      return MaterialPageRoute(builder: (context) => AdminCategory());
+
+     else if (settings.name == PasswordReset.routeName)
       return MaterialPageRoute(builder: (context) => PasswordReset());
     // admin
     else if (settings.name == AdminMainPage.routeName) {

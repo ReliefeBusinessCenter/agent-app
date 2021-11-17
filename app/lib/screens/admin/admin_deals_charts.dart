@@ -1,33 +1,34 @@
+
 import 'package:app/model/chart_task.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
-class AdminDeliveryCharts extends StatefulWidget {
-  const AdminDeliveryCharts({Key? key}) : super(key: key);
+
+class AdminDealsCharts extends StatefulWidget {
+  const AdminDealsCharts({ Key? key }) : super(key: key);
 
   @override
-  AdminDeliveryChartsState createState() => AdminDeliveryChartsState();
+  State<AdminDealsCharts> createState() => _AdminDealsChartsState();
 }
 
-class AdminDeliveryChartsState extends State<AdminDeliveryCharts> {
-  
+class _AdminDealsChartsState extends State<AdminDealsCharts> {
    List<charts.Series<ChartTask, String>>? _seriesPieData =[
      charts.Series(
           data: [
-      ChartTask('Cat-1', 35.6, Colors.red),
-      ChartTask("Cat-2", 8.3, Colors.blue),
-      ChartTask("Cat-3", 10.8, Colors.yellow),
-      ChartTask("Cat-4", 15.6, Colors.green),
-      ChartTask('Cat-5', 19.2, Colors.purple),
-      ChartTask("Cat-6", 10.3, Colors.orange)
+      ChartTask('Car', 26.6, Colors.red),
+      ChartTask("Cloths", 15.3, Colors.blue),
+      ChartTask("Furniture", 10.8, Colors.yellow),
+      ChartTask("Farm", 15.6, Colors.green),
+      ChartTask('Electronics', 19.2, Colors.purple),
+      ChartTask("Construction", 10.3, Colors.orange)
     ],
           domainFn: (task, _) => task.task,
           measureFn: (task, _) => task.taskValue,
           colorFn: (task, _) => charts.ColorUtil.fromDartColor(task.colorval),
-          id: "Delivery Task",
+          id: "Deals Task",
           labelAccessorFn: (task, _) => '${task.taskValue}'),
-    
    ];
+
   @override
   void initState() {
     super.initState();
@@ -39,7 +40,7 @@ class AdminDeliveryChartsState extends State<AdminDeliveryCharts> {
     return Container(
       child: Column(children: [
         Text(
-          "Requested Deliveries",
+          "Requested Deals",
           style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
         ),
         SizedBox(

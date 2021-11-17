@@ -62,7 +62,6 @@ class _AdminMainPageState extends State<AdminMainPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 IconButton(
-                  
                   icon: Icon(Icons.dashboard_customize),
                   color: Colors.white,
                   onPressed: () {

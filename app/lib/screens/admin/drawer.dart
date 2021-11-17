@@ -1,22 +1,18 @@
-
 import 'package:app/Widget/Drawer/custom_list.dart';
 import 'package:app/bloc/auth/bloc/auth_bloc.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/screens/Auth/login.dart';
+import 'package:app/screens/admin/admin_category.dart';
 import 'package:app/screens/admin/admin_deals_page.dart';
 import 'package:app/screens/admin/admin_delivery_page.dart';
 import 'package:app/screens/customer/account_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
-
 UserPreferences pref = UserPreferences();
 
 class AdminDrawer extends StatefulWidget {
-  
-
   @override
   _AdminDrawerState createState() => _AdminDrawerState();
 }
@@ -125,7 +121,6 @@ class _AdminDrawerState extends State<AdminDrawer> {
                         }
                         return ListView(
                           children: [
-
                             UserAccountsDrawerHeader(
                               accountName: Text(
                                   "${state.user.user!.fullName as String}"),
@@ -139,7 +134,6 @@ class _AdminDrawerState extends State<AdminDrawer> {
                             Divider(
                                 height: 20,
                                 color: Colors.white.withOpacity(0.6)),
-                            
                             CustomeList(
                               title: "Category",
                               subTitle: "see categories",
@@ -148,11 +142,8 @@ class _AdminDrawerState extends State<AdminDrawer> {
                                 color: Colors.white,
                               ),
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => AccountScreen()),
-                                );
+                                Navigator.of(context)
+                                    .pushNamed(AdminCategory.routeName);
                               },
                             ),
                             CustomeList(
@@ -168,7 +159,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
                                     context, AdminDealPage.routeName);
                               },
                             ),
-                             CustomeList(
+                            CustomeList(
                               title: "Delivery",
                               subTitle: "see delivery",
                               icon: Icon(
@@ -180,7 +171,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
                                 Navigator.pushNamed(
                                     context, AdminDeliveryPage.routeName);
                               },
-                            ),  
+                            ),
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height * 0.23),
@@ -207,13 +198,10 @@ class _AdminDrawerState extends State<AdminDrawer> {
                                         context, Login.routeName);
                                   }),
                             ),
-                            
                           ],
                         );
                       }
                       return Container();
-                    })))
-                    
-                    );
+                    }))));
   }
 }
