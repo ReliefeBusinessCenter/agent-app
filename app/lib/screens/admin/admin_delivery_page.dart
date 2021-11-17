@@ -26,7 +26,7 @@ class AdminDeliveryPage extends StatelessWidget {
               PopupMenuButton(
                 child: Icon(
                   Icons.more_vert,
-                  color: Theme.of(context).primaryColor,
+                  color: lightColor,
                 ),
                 onSelected: (value) async {
                   if (value == 1) {
@@ -74,8 +74,8 @@ class AdminDeliveryPage extends StatelessWidget {
               ),
             ],
             bottom: TabBar(
-              indicatorColor: Colors.lime,
-              indicatorWeight: 5.0,
+              indicatorColor: Colors.purple,
+              indicatorWeight: 2.0,
               labelColor: Colors.white,
               labelPadding: EdgeInsets.only(top: 10.0),
               unselectedLabelColor: Colors.grey,

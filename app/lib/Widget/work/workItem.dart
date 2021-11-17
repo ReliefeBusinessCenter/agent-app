@@ -1,6 +1,7 @@
 // import 'package:app/bloc/work/bloc/work_bloc.dart';
 import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
 import 'package:app/model/delivery.dart';
+import 'package:app/screens/admin/admin_delivery_customer.dart';
 import 'package:app/screens/customer/customer_delivery_detail.dart';
 // import 'package:app/model/work.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -20,7 +21,7 @@ class WorkItem extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             print("Customer delivery method have been invocked");
-            Navigator.pushNamed(context, CustomerDeliveryDetails.routeName, arguments: work);
+            Navigator.pushNamed(context, AdminCustomerDeliveryDetails.routeName, arguments: work);
           },
           child: Card(
             // ignore: deprecated_member_use

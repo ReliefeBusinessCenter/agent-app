@@ -1,15 +1,14 @@
 import 'package:app/Widget/customer/admin_deals_item.dart';
 import 'package:app/bloc/work-deals/bloc/workdeals_bloc.dart';
 import 'package:app/constants.dart';
+import 'package:app/screens/admin/admin_deals_charts.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 // import 'package:app/bloc/work/bloc/work_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
-
 class AdminDealPage extends StatelessWidget {
-
   static const routeName = 'adminDealsPage';
   late DealsListBloc dealsBloc;
   bool isShowing = false;
@@ -17,14 +16,17 @@ class AdminDealPage extends StatelessWidget {
   Widget build(BuildContext context) {
     dealsBloc = BlocProvider.of<DealsListBloc>(context);
     dealsBloc.add(FetchDeals());
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: primaryColor,
-        actions: [
-          PopupMenuButton(
+    return DefaultTabController(
+      initialIndex: 0,
+      length: 2,
+      child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: primaryColor,
+            actions: [
+              PopupMenuButton(
                   child: Icon(
                     Icons.more_vert,
-                    color: Theme.of(context).primaryColor,
+                    color: lightColor,
                   ),
                   onSelected: (value) async {
                     if (value == 1) {
@@ -73,36 +75,58 @@ class AdminDealPage extends StatelessWidget {
                           value: 2,
                         ),
                       ]),
-        ],
-      ),
-        backgroundColor: Theme.of(context).accentColor,
-        body: Container(
-            // decoration: BoxDecoration(color: Colors.white),
-            child: ProgressHUD(
-          child: BlocBuilder<DealsListBloc, DealsState>(
-            builder: (context, state) {
-              if (state is DeleteDealsSuccessState) {
-                // deleting success
-                dealsBloc.add(FetchDeals());
-              } else if (state is DeleteDealsFailedState) {
-                // delete failed
-              } else if (state is UpdateDealsSuccessState) {
-                // update success state
-                dealsBloc.add(FetchDeals());
-              } else if (state is UpdateDealsFailedState) {
-                // update failed state
-              } else if (state is DealsLoading) {
-                return Center(child: CircularProgressIndicator());
-              } else if (state is FetchDealsSuccess) {
-                return ListView.builder(
-                    itemCount: state.deals_history.length,
-                    itemBuilder: (context, index) => CustomerAdminDealsItem(
-                          deals: state.deals_history[index],
-                        ));
-              }
-              return Container();
-            },
+            ],
+            bottom: TabBar(
+              indicatorColor: Colors.purple,
+              indicatorWeight: 2.0,
+              labelColor: Colors.white,
+              labelPadding: EdgeInsets.only(top: 10.0),
+              unselectedLabelColor: Colors.grey,
+              tabs: [
+                Tab(
+                  text: "Statistics",
+                ),
+                Tab(
+                  text: "Deals",
+                ),
+              ],
+            ),
           ),
-        )));
+          backgroundColor: Theme.of(context).accentColor,
+          body: TabBarView(
+            children: [
+              AdminDealsCharts(),
+              Container(
+                // decoration: BoxDecoration(color: Colors.white),
+                child: ProgressHUD(
+              child: BlocBuilder<DealsListBloc, DealsState>(
+                builder: (context, state) {
+                  if (state is DeleteDealsSuccessState) {
+                    // deleting success
+                    dealsBloc.add(FetchDeals());
+                  } else if (state is DeleteDealsFailedState) {
+                    // delete failed
+                  } else if (state is UpdateDealsSuccessState) {
+                    // update success state
+                    dealsBloc.add(FetchDeals());
+                  } else if (state is UpdateDealsFailedState) {
+                    // update failed state
+                  } else if (state is DealsLoading) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (state is FetchDealsSuccess) {
+                    return ListView.builder(
+                      itemCount: state.deals_history.length,
+                      itemBuilder: (context, index) => CustomerAdminDealsItem(
+                        deals: state.deals_history[index],
+                      ),
+                    );
+                  }
+                  return Container();
+                },
+              ),
+            )),
+            ]
+          )),
+    );
   }
 }
