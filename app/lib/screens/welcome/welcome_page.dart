@@ -12,15 +12,17 @@ class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: lightColor,
-      appBar: AppBar(
-        backgroundColor: primaryColor,
-      ),
-      body: Container(
-        padding: EdgeInsets.symmetric(
-          vertical: 20,
-          horizontal: 20,
+      // appBar: AppBar(
+      //   backgroundColor: primaryColor,
+      // ),
+      body: SafeArea(
+        child: Container(
+          padding: EdgeInsets.symmetric(
+            vertical: 20,
+            horizontal: 20,
+          ),
+          child: HomeFragment(),
         ),
-        child: HomeFragment(),
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(
@@ -30,7 +32,7 @@ class WelcomePage extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pushNamed(Login.routeName);
             },
-            title: "login"),
+            title: "Go In"),
       ),
     );
   }

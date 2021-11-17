@@ -25,6 +25,13 @@ class HomeFragment extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(10.0),
+            child: Text("Welcome To Trust Broker",
+                style: TextStyle(
+                    color: Colors.pinkAccent,
+                    fontSize: MediaQuery.of(context).size.height * 0.02)),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
             child: SearchTextField(),
           ),
           Padding(

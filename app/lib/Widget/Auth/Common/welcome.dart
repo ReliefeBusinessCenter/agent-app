@@ -12,15 +12,15 @@ class Welcome extends StatelessWidget {
         // color: Theme.of(context).primaryColor,
         color: Colors.white,
         child: Column(children: [
-          Text(
-            'Welcome To Trust Brokers',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: FontWeight.w300,
-              fontSize: loginSize.getFontSize1,
-              color: Theme.of(context).primaryColor,
-            ),
-          ),
+          // Text(
+          //   'Welcome To Trust Brokers',
+          //   textAlign: TextAlign.center,
+          //   style: TextStyle(
+          //     fontWeight: FontWeight.w300,
+          //     fontSize: loginSize.getFontSize1,
+          //     color: Theme.of(context).primaryColor,
+          //   ),
+          // ),
           SizedBox(
             height: loginSize.getHeight * 0.02,
           ),
