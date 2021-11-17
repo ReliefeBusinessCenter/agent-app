@@ -113,6 +113,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                   print("Write: ${value}");
                                   registerBloc.add(AddName(name: value));
                                 },
+                                keyboardType: TextInputType.text,
                               ),
                               SizedBox(
                                 height:
@@ -120,8 +121,9 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                               ),
                               CustomTextField(
                                   minLength: 0,
-                                  textFieldName: 'Email',
-                                  controller: emailController,
+                                  keyboardType: TextInputType.number,
+                                  textFieldName: 'Phone',
+                                  controller: phoneController,
                                   enabled: true,
                                   initialValue: '',
                                   validator: null,
@@ -129,7 +131,8 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                   isRequired: false,
                                   onChanged: (String value) {
                                     print("Write: ${value}");
-                                    registerBloc.add(AddEmail(email: value));
+                                    registerBloc
+                                        .add(AddPhone(phoneNumber: value));
                                   }),
                               SizedBox(
                                 height:
@@ -137,6 +140,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                               ),
                               CustomTextField(
                                   minLength: 0,
+                                  keyboardType: TextInputType.text,
                                   textFieldName: 'City',
                                   controller: cityController,
                                   initialValue: '',
@@ -155,6 +159,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                               CustomTextField(
                                   minLength: 0,
                                   textFieldName: 'Sub City',
+                                  keyboardType: TextInputType.text,
                                   controller: subCityController,
                                   enabled: true,
                                   initialValue: '',
@@ -173,6 +178,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                   minLength: 0,
                                   enabled: true,
                                   textFieldName: 'Kebele',
+                                  keyboardType: TextInputType.text,
                                   controller: kebeleController,
                                   initialValue: '',
                                   validator: null,

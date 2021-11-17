@@ -172,6 +172,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                           CustomTextField(
                                             minLength: 0,
                                             textFieldName: 'Password',
+                                            keyboardType: TextInputType.text,
                                             enabled: true,
                                             controller: passwordController,
                                             initialValue: '',
@@ -193,6 +194,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                           CustomTextField(
                                               minLength: 0,
                                               textFieldName: 'Confirm Password',
+                                              keyboardType: TextInputType.text,
                                               enabled: true,
                                               controller:
                                                   confirmPasswordController,

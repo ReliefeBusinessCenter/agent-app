@@ -154,6 +154,7 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                                         CustomTextField(
                                           minLength: 0,
                                           enabled: true,
+                                           keyboardType: TextInputType.text,
                                           textFieldName: 'Communication Skills',
                                           controller: communicationController,
                                           initialValue: '',
@@ -175,6 +176,7 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                                         ),
                                         CustomTextField(
                                             minLength: 0,
+                                             keyboardType: TextInputType.text,
                                             enabled: true,
                                             textFieldName: 'Brooking Skills',
                                             controller:
@@ -198,6 +200,7 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                                         ),
                                         CustomTextField(
                                             minLength: 0,
+                                             keyboardType: TextInputType.text,
                                             enabled: true,
                                             textFieldName: 'Work Done',
                                             controller: workDoneController,
@@ -222,6 +225,7 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                                         CustomTextField(
                                             minLength: 0,
                                             textFieldName: 'Work In Progress',
+                                             keyboardType: TextInputType.text,
                                             controller:
                                                 workInProgressController,
                                             initialValue: '',

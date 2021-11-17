@@ -41,33 +41,33 @@ class SearchTextField extends StatelessWidget {
                       ),
                       onSelected: (value) async {
                         if (value == 1) {
-                          // make it done
-                          //  update delivery
-                          // dealsBloc.add(MarkAsAccepted(deals: deals));
+                          // Search by name
+                          brokerBloc.add(ChangeSearchMode(isName: true));
                         } else {
-                          // delete the work history.
-                          AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.WARNING,
-                            animType: AnimType.BOTTOMSLIDE,
-                            title: 'Confirm Us',
-                            desc: 'Are you sure you want to Reject  this work?',
-                            btnCancelOnPress: () {},
-                            btnOkOnPress: () {
-                              // dealsBloc.add(MarkAsRejected(work: deals));
-                            },
-                          )..show();
+                          // search by city
+                          brokerBloc.add(ChangeSearchMode(isName: false));
                         }
                       },
                       itemBuilder: (context) => [
                             PopupMenuItem(
+                              // enabled: false,
                               child: Text("By City",
-                                  style: TextStyle(color: Colors.green)),
+                                  style: TextStyle(
+                                      color: state.isName == true
+                                          ? Theme.of(context).primaryColor
+                                          : Theme.of(context)
+                                              .primaryColor
+                                              .withOpacity(0.3))),
                               value: 1,
                             ),
                             PopupMenuItem(
                               child: Text("By Name",
-                                  style: TextStyle(color: Colors.red)),
+                                  style: TextStyle(
+                                      color: state.isName == false
+                                          ? Theme.of(context).primaryColor
+                                          : Theme.of(context)
+                                              .primaryColor
+                                              .withOpacity(0.3))),
                               value: 2,
                             ),
                           ]),

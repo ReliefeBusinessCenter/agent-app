@@ -23,7 +23,7 @@ class _LoginState extends State<Login> {
   final formKey = GlobalKey<FormState>();
   bool _isObscured = true;
 
-  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
 
   TextEditingController passwordController = TextEditingController();
   void forgotPasswordHandler(BuildContext context) {
@@ -39,7 +39,7 @@ class _LoginState extends State<Login> {
     print("-----");
     print(isValid);
     late LoginInfo info = new LoginInfo(
-      emailController.text.toString(),
+      phoneController.text.toString(),
       passwordController.text.toString(),
     );
 
@@ -72,7 +72,7 @@ class _LoginState extends State<Login> {
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
-    emailController.dispose();
+    phoneController.dispose();
     passwordController.dispose();
     super.dispose();
   }
@@ -154,22 +154,22 @@ class _LoginState extends State<Login> {
                       ),
                       CustomLoginTextField(
                         // isObsecure: false,
-                        textFieldName: 'Email',
-                        controller: emailController,
+                        textFieldName: 'Phone',
+                        controller: phoneController,
                         icon: Icons.email,
                         validator: (value) {
-                          if (value.isEmpty ||
-                              !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                                  .hasMatch(value)) {
-                            return "Enter Correct Email Address";
+                          if (value.isEmpty || value.toString().length < 10) {
+                            return "Phone number must be 10";
                           } else {
                             return null;
                           }
                         },
                         obsecureText: false,
+                        keyboardType: TextInputType.number,
                       ),
                       SizedBox(height: height * 0.01),
                       CustomLoginTextField(
+                        keyboardType: TextInputType.text,
                         textFieldName: 'Password',
                         controller: passwordController,
                         icon: Icons.lock,

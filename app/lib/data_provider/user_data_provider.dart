@@ -27,7 +27,7 @@ class UserDataProvider {
 
   Future<LoggedUserInfo> login(LoginInfo loginInfo) async {
     print(
-        "login clicked: email:${loginInfo.email} and password:${loginInfo.password}");
+        "login clicked: email:${loginInfo.phoneNumber} and password:${loginInfo.password}");
     LoggedUserInfo loggedUserInfo;
     final urlLogin = Uri.parse('${Ip.ip}/api/users/authenticate');
     try {
@@ -38,7 +38,7 @@ class UserDataProvider {
             // 'Authorization': 'Bearer $token',
           },
           body: jsonEncode({
-            "email": loginInfo.email.toString(),
+            "email": loginInfo.phoneNumber.toString(),
             "password": loginInfo.password.toString()
           }));
 
@@ -60,7 +60,7 @@ class UserDataProvider {
             .userPreferences
             .storeTokenAndExpiration(loggedUserInfo.token!, expiry);
         print("----58");
-        await this.userPreferences.storeEmail(loginInfo.email);
+        await this.userPreferences.storeEmail(loginInfo.phoneNumber);
         print("----59");
         await this.userPreferences.storePassword(loginInfo.password);
 

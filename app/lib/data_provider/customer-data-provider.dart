@@ -124,9 +124,9 @@ Future<Customer?> getCustomerByEmail(String email) async {
             "sales": [],
             "user": {
               "fullName": customer.user!.fullName,
-              "email": customer.user!.email,
+              "email":"someone@gmail.com",
               "password": customer.user!.password,
-              "phone": "0916897173",
+              "phone":customer.user!.phone,
               "address": "Ethiopia/Dessie",
               "picture": res.body.toString(),
               "sex": customer.user!.sex,

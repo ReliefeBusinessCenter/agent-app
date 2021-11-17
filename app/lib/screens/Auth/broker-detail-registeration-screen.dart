@@ -139,6 +139,7 @@ class BrokerDetailScreen extends StatelessWidget {
                                                       skill:
                                                           double.parse(value)));
                                             },
+                                            keyboardType: TextInputType.text,
                                           ),
                                           SizedBox(
                                             height: MediaQuery.of(context)
@@ -148,6 +149,7 @@ class BrokerDetailScreen extends StatelessWidget {
                                           ),
                                           CustomTextField(
                                               minLength: 0,
+                                              keyboardType: TextInputType.text,
                                               enabled: true,
                                               textFieldName: 'Brooking Skills',
                                               controller:
@@ -172,6 +174,7 @@ class BrokerDetailScreen extends StatelessWidget {
                                           CustomTextField(
                                               minLength: 0,
                                               textFieldName: 'Work Done',
+                                              keyboardType: TextInputType.text,
                                               controller: workDoneController,
                                               initialValue: '',
                                               enabled: true,
@@ -200,6 +203,7 @@ class BrokerDetailScreen extends StatelessWidget {
                                               minLength: 0,
                                               enabled: true,
                                               textFieldName: 'Work In Progress',
+                                              keyboardType: TextInputType.text,
                                               controller:
                                                   workInProgressController,
                                               initialValue: '',

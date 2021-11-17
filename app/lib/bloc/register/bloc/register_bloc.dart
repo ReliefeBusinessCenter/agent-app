@@ -50,10 +50,10 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       user.fullName = event.name;
       print("Users: ${user.toJson()}");
       yield RegisterUpdateSuccess(user: user);
-    } else if (event is AddEmail) {
+    } else if (event is AddPhone) {
       // add email
       // user = state.user as User;
-      user.email = event.email;
+      user.phone = event.phoneNumber;
       print("Users: ${user.toJson()}");
       yield RegisterUpdateSuccess(user: user);
     } else if (event is AddCity) {

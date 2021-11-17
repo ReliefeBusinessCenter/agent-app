@@ -15,3 +15,8 @@ class SearchEvent extends BrokerEvent {
 }
 
 class FetchEvent extends BrokerEvent {}
+
+class ChangeSearchMode extends BrokerEvent {
+  final bool isName;
+  ChangeSearchMode({required this.isName});
+}
