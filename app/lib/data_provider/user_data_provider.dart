@@ -38,7 +38,7 @@ class UserDataProvider {
             // 'Authorization': 'Bearer $token',
           },
           body: jsonEncode({
-            "email": loginInfo.phoneNumber.toString(),
+            "phone": loginInfo.phoneNumber.toString(),
             "password": loginInfo.password.toString()
           }));
 
