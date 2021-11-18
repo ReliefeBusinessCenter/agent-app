@@ -152,7 +152,7 @@ Future<Customer?> getCustomerByEmail(String email) async {
     }
     return false;
   }
-
+  
    // delete delivery
   Future<bool> deleteCustomer(int id) async {
     String? token = await this.userPreferences.getUserToken();
@@ -181,6 +181,4 @@ Future<Customer?> getCustomerByEmail(String email) async {
     }
     return false;
   }
-
-
 }
