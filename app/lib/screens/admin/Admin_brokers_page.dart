@@ -2,6 +2,7 @@ import 'package:app/Widget/common/user_profile.dart';
 import 'package:app/bloc/broker/bloc/broker_bloc.dart';
 import 'package:app/constants.dart';
 import 'package:app/ip/ip.dart';
+import 'package:app/screens/admin/admin_broker_profile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,11 +57,9 @@ class _AdminBrokersPageState extends State<AdminBrokersPage> {
                 .map((broker) => GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => UserProfilePage(
-                                  user: broker.user!,
-                                  fromAdmin: true,
-                                  isCustomer: false,
-                                  id: broker.brokerId,
+                            builder: (context) => AdminBrokerProfilePage(
+                              broker: broker,
+                                
                                 )));
                       },
                       child: Container(

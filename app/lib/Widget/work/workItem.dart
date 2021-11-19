@@ -86,7 +86,7 @@ class WorkItem extends StatelessWidget {
                         animType: AnimType.BOTTOMSLIDE,
                         title: 'Confirm Us',
                         desc: 'Are you sure you want to delete this work?',
-                        btnCancelOnPress: () {},
+                        btnCancelOnPress: () {}, 
                         btnOkOnPress: () {
                           workBloc.add(DeleteWork(work: work));
                           // Navigator.pop(context);

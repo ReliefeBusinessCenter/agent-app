@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/broker.dart';
+import 'package:app/model/broker/user.dart';
 import 'package:app/preferences/user_preference_data.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -192,7 +193,7 @@ class BrokerDataProvider {
     return false;
   }
 
-    // delete delivery
+  // delete delivery
   Future<bool> DeleteBrokerEvent(int id) async {
     String? token = await this.userPreferences.getUserToken();
     // late List<Data> products_return = [];
@@ -221,5 +222,50 @@ class BrokerDataProvider {
     return false;
   }
 
+  Future<Broker> updateBroker(Broker broker, bool status) async {
+    print("++++++++++++++++++++++++++++ updating Broker");
+    String? token = await this.userPreferences.getUserToken();
+    try {
+      final url = Uri.parse('${Ip.ip}/api/brokers/${broker.brokerId}');
+      final _response = await http.put(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: jsonEncode(
+          {
+            "brokerId": broker.brokerId,
+            "portfolio": broker.portfolios,
+            "delivery": broker.delivery,
+            "deals": broker.deals,
+            "review": broker.reviews,
+            "sales": [],
+            "skills": broker.skills,
+            "categoryId": broker.category!.categoryId,
+            "category": {
+              "categoryId": broker.category!.categoryId,
+              "catigoryName": broker.category!.catigoryName,
+            },
+            "approved": status,
+            "about": null,
+            "user": broker.user!.toJson()
+          },
+        ),
+      );
 
+      print(
+          "!!!!!!!!!!!!!!!!!!!!!!!!!! Status code is ${_response.statusCode}");
+      print('!!!!!!!!!!!!!!!!!!!!! status Body is ${_response.body}');
+
+      if (_response.statusCode == 200) {
+        return Broker.fromJson(jsonDecode(_response.body));
+      } else {
+        throw Exception(_response.body);
+      }
+    } catch (e) {
+      throw Exception("Something went wrong");
+    }
+  }
 }

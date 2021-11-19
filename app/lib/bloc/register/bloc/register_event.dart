@@ -9,9 +9,9 @@ class AddName extends RegisterEvent {
   AddName({required this.name});
 }
 
-class AddEmail extends RegisterEvent {
-  final String email;
-  AddEmail({required this.email});
+class AddPhone extends RegisterEvent {
+  final String phoneNumber;
+  AddPhone({required this.phoneNumber});
 }
 
 class AddCity extends RegisterEvent {
@@ -55,18 +55,15 @@ class AddCommunicationSkills extends RegisterEvent {
   AddCommunicationSkills({required this.skill});
 }
 
-
 class AddBrokerType extends RegisterEvent {
   final Category? category;
   AddBrokerType({this.category});
 }
 
-
 class AddBrookingSkills extends RegisterEvent {
   final double skill;
   AddBrookingSkills({required this.skill});
 }
-
 
 class AddWorkDone extends RegisterEvent {
   final double skill;

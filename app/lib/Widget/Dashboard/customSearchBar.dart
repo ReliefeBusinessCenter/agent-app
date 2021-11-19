@@ -1,5 +1,6 @@
 import 'package:app/bloc/broker/bloc/broker_bloc.dart';
 import 'package:app/constants/login/size.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,16 +34,43 @@ class SearchTextField extends StatelessWidget {
                   contentPadding: EdgeInsets.only(top: 14),
                   prefixIcon: Icon(Icons.search, color: Colors.grey),
                   border: InputBorder.none,
-                  // suffixIcon: IconButton(
-                  //   icon: Icon(ispassshow
-                  //       ? Icons.visibility
-                  //       : Icons.visibility_off),
-                  //   onPressed: () {
-                  //     setState(() {
-                  //       ispassshow = !ispassshow;
-                  //     });
-                  //   },
-                  // ),
+                  suffixIcon: PopupMenuButton(
+                      child: Icon(
+                        Icons.more_vert,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      onSelected: (value) async {
+                        if (value == 1) {
+                          // Search by name
+                          brokerBloc.add(ChangeSearchMode(isName: true));
+                        } else {
+                          // search by city
+                          brokerBloc.add(ChangeSearchMode(isName: false));
+                        }
+                      },
+                      itemBuilder: (context) => [
+                            PopupMenuItem(
+                              // enabled: false,
+                              child: Text("By City",
+                                  style: TextStyle(
+                                      color: state.isName == true
+                                          ? Theme.of(context).primaryColor
+                                          : Theme.of(context)
+                                              .primaryColor
+                                              .withOpacity(0.3))),
+                              value: 1,
+                            ),
+                            PopupMenuItem(
+                              child: Text("By Name",
+                                  style: TextStyle(
+                                      color: state.isName == false
+                                          ? Theme.of(context).primaryColor
+                                          : Theme.of(context)
+                                              .primaryColor
+                                              .withOpacity(0.3))),
+                              value: 2,
+                            ),
+                          ]),
                   hintText: " Search Brokers",
                   hintStyle: TextStyle(color: Colors.black.withOpacity(0.3)),
                 ),

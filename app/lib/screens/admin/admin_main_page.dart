@@ -30,64 +30,57 @@ class _AdminMainPageState extends State<AdminMainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          title: Text('Trust Brokers'),
-          backgroundColor: primaryColor,
-          leading: GestureDetector(
-            onTap: () => _scaffoldKey.currentState!.openDrawer(),
-            child: Container(
-              height: 5.0,
-              width: 5.0,
-              child: ImageIcon(
-                AssetImage('assets/images/left-align.png'),
-              ),
+      key: _scaffoldKey,
+      appBar: AppBar(
+        title: Text('Trust Brokers'),
+        backgroundColor: primaryColor,
+        leading: GestureDetector(
+          onTap: () => _scaffoldKey.currentState!.openDrawer(),
+          child: Container(
+            height: 5.0,
+            width: 5.0,
+            child: ImageIcon(
+              AssetImage('assets/images/left-align.png'),
             ),
           ),
         ),
-        drawer: Theme(
-          data: Theme.of(context).copyWith(
-            canvasColor:
-                primaryColor, //This will change the drawer background to blue.
-            //other styles
+      ),
+      drawer: Theme(
+        data: Theme.of(context).copyWith(
+          canvasColor:
+              primaryColor, //This will change the drawer background to blue.
+          //other styles
+        ),
+        child: AdminDrawer(),
+      ),
+      body: _bodyWidgets[_selectedIndex],
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.home),
+        onPressed: () {},
+      ),
+      drawerEnableOpenDragGesture: true,
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.home,
+            ),
+            label: 'Cusotomers',
+            backgroundColor: Colors.white,
           ),
-          child: AdminDrawer(),
-        ),
-        body: _bodyWidgets[_selectedIndex],
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.home),
-          onPressed: () {},
-        ),
-        drawerEnableOpenDragGesture: true,
-        bottomNavigationBar: BottomAppBar(
-          color: Theme.of(context).primaryColor,
-          shape: CircularNotchedRectangle(),
-          child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.dashboard_customize),
-                  color: Colors.white,
-                  onPressed: () {
-                    setState(() {
-                      _selectedIndex = 0;
-                    });
-                    print("search icon button have been clicked");
-                  },
-                ),
-                IconButton(
-                  icon: Icon(Icons.details),
-                  color: Colors.white,
-                  onPressed: () {
-                    setState(() {
-                      _selectedIndex = 1;
-                    });
-                    print("the note icon button have been clicked");
-                  },
-                )
-              ]),
-        ));
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat_bubble),
+            label: 'Brokers',
+            backgroundColor: Colors.white,
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        backgroundColor: primaryColor,
+        selectedItemColor: lightColor,
+        unselectedItemColor: Colors.grey,
+        onTap: _onItemTapped,
+      ),
+    );
   }
 }

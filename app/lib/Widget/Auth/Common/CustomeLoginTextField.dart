@@ -7,8 +7,10 @@ class CustomLoginTextField extends StatelessWidget {
   final IconData icon;
   final Function validator;
   final bool obsecureText;
+  final TextInputType keyboardType;
 
   CustomLoginTextField({
+    required this.keyboardType,
     required this.textFieldName,
     required this.controller,
     required this.icon,
@@ -29,7 +31,7 @@ class CustomLoginTextField extends StatelessWidget {
         child: TextFormField(
           controller: this.controller,
           obscureText: this.obsecureText,
-          keyboardType: TextInputType.text,
+          keyboardType: keyboardType,
           textInputAction: TextInputAction.done,
           onEditingComplete: () => FocusScope.of(context).unfocus(),
           style: TextStyle(fontSize: 18, color: Colors.grey),
@@ -42,10 +44,8 @@ class CustomLoginTextField extends StatelessWidget {
               color: Colors.red,
               fontWeight: FontWeight.bold,
               textBaseline: TextBaseline.alphabetic,
-               
             ),
             errorMaxLines: 1,
-
           ),
           validator: (value) => validator(value),
         ),

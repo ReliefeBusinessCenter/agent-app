@@ -2,9 +2,13 @@ part of 'broker_bloc.dart';
 
 @immutable
 class BrokerState extends Equatable {
+  final bool isName;
   final int selectedCategoryId;
   final List<Broker> brokers;
-  BrokerState({required this.selectedCategoryId, required this.brokers});
+  BrokerState(
+      {required this.selectedCategoryId,
+      required this.brokers,
+      required this.isName});
 
   @override
   // TODO: implement props
@@ -12,7 +16,7 @@ class BrokerState extends Equatable {
 }
 
 class BrokerInitial extends BrokerState {
-  BrokerInitial() : super(selectedCategoryId: 0, brokers: []);
+  BrokerInitial() : super(isName: true, selectedCategoryId: 0, brokers: []);
 
   @override
   // TODO: implement props
@@ -20,7 +24,9 @@ class BrokerInitial extends BrokerState {
 }
 
 class BrokersLoading extends BrokerState {
-  BrokersLoading() : super(selectedCategoryId: 0, brokers: []);
+  final bool isName;
+  BrokersLoading({required this.isName})
+      : super(isName: true, selectedCategoryId: 0, brokers: []);
 
   @override
   // TODO: implement props
@@ -30,9 +36,16 @@ class BrokersLoading extends BrokerState {
 class BrokersLoadSuccess extends BrokerState {
   final List<Broker> brokers;
   final int selectedCategoryId;
+  final bool isName;
 
-  BrokersLoadSuccess({required this.selectedCategoryId, required this.brokers})
-      : super(selectedCategoryId: selectedCategoryId, brokers: brokers);
+  BrokersLoadSuccess(
+      {required this.isName,
+      required this.selectedCategoryId,
+      required this.brokers})
+      : super(
+            isName: isName,
+            selectedCategoryId: selectedCategoryId,
+            brokers: brokers);
 
   @override
   // TODO: implement props
@@ -43,9 +56,23 @@ class BrokersLoadFailed extends BrokerState {
   final String message;
 
   BrokersLoadFailed({required this.message})
-      : super(selectedCategoryId: 0, brokers: []);
+      : super(isName: true, selectedCategoryId: 0, brokers: []);
 
   @override
   // TODO: implement props
   List<Object?> get props => [];
+}
+
+class SearchModeChanged extends BrokerState {
+  final bool isName;
+  final int selectedCategoryId;
+  final List<Broker> brokers;
+  SearchModeChanged(
+      {required this.isName,
+      required this.selectedCategoryId,
+      required this.brokers})
+      : super(
+            isName: isName,
+            selectedCategoryId: selectedCategoryId,
+            brokers: []);
 }

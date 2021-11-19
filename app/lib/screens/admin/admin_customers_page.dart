@@ -3,6 +3,7 @@ import 'package:app/Widget/common/user_profile_edit_page.dart';
 import 'package:app/bloc/customer/customer_bloc.dart';
 import 'package:app/constants.dart';
 import 'package:app/ip/ip.dart';
+import 'package:app/screens/admin/admin_customer_profile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -57,11 +58,9 @@ class _AdminCustomersPageState extends State<AdminCustomersPage> {
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => UserProfilePage(
-                              user: customer.user!,
-                              fromAdmin: true,
-                              isCustomer: true,
-                              id: customer.customerId,
+                            builder: (context) => AdminCustomerProfile(
+                              customer: customer,
+
                             ),
                           ),
                         );

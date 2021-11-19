@@ -1,15 +1,15 @@
 import 'package:app/model/broker/user.dart';
 
 class LoginInfo {
-  late String email;
+  late String phoneNumber;
   late String password;
-  LoginInfo(String email, password) {
-    this.email = email;
+  LoginInfo(String number, password) {
+    this.phoneNumber = number;
     this.password = password;
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['email'] = this.email;
+    data['email'] = this.phoneNumber;
     data['password'] = this.password;
 
     return data;

@@ -175,6 +175,7 @@ class _DealsPageScreenState extends State<DealsPageScreen> {
                                               0.02),
                                   CustomTextField(
                                     minLength: 0,
+                                    keyboardType: TextInputType.text,
                                     textFieldName: 'Client Name',
                                     controller: clientNameController,
                                     initialValue: "",
@@ -193,6 +194,7 @@ class _DealsPageScreenState extends State<DealsPageScreen> {
                                   ),
                                   CustomTextField(
                                       minLength: 0,
+                                      keyboardType: TextInputType.number,
                                       textFieldName: 'Client Phone Number',
                                       controller: clientPhoneController,
                                       enabled: false,
@@ -209,26 +211,27 @@ class _DealsPageScreenState extends State<DealsPageScreen> {
                                     height: MediaQuery.of(context).size.height *
                                         0.02,
                                   ),
+                                  // CustomTextField(
+                                  //     minLength: 0,
+                                  //     textFieldName: 'Email',
+                                  //     enabled: false,
+                                  //     controller: clientEmailController,
+                                  //     initialValue:
+                                  //         widget.customer.user!.email as String,
+                                  //     validator: null,
+                                  //     obsecureText: false,
+                                  //     isRequired: false,
+                                  //     onChanged: (String value) {
+                                  //       // print("Write: ${value}");
+                                  //       // registerBloc.add(AddCity(city: value));
+                                  //     }),
+                                  // SizedBox(
+                                  //   height: MediaQuery.of(context).size.height *
+                                  //       0.02,
+                                  // ),
                                   CustomTextField(
                                       minLength: 0,
-                                      textFieldName: 'Email',
-                                      enabled: false,
-                                      controller: clientEmailController,
-                                      initialValue:
-                                          widget.customer.user!.email as String,
-                                      validator: null,
-                                      obsecureText: false,
-                                      isRequired: false,
-                                      onChanged: (String value) {
-                                        // print("Write: ${value}");
-                                        // registerBloc.add(AddCity(city: value));
-                                      }),
-                                  SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.02,
-                                  ),
-                                  CustomTextField(
-                                      minLength: 0,
+                                      keyboardType: TextInputType.text,
                                       textFieldName: 'Address',
                                       enabled: false,
                                       controller: clientAdressController,
@@ -247,6 +250,7 @@ class _DealsPageScreenState extends State<DealsPageScreen> {
                                   ),
                                   CustomTextField(
                                       minLength: 0,
+                                      keyboardType: TextInputType.text,
                                       enabled: true,
                                       textFieldName: 'Product Name',
                                       controller: productNameController,
@@ -265,6 +269,7 @@ class _DealsPageScreenState extends State<DealsPageScreen> {
                                   CustomTextField(
                                       minLength: 0,
                                       enabled: true,
+                                      keyboardType: TextInputType.text,
                                       textFieldName: 'Product Model',
                                       controller: productModelController,
                                       initialValue: '',
@@ -282,6 +287,7 @@ class _DealsPageScreenState extends State<DealsPageScreen> {
                                   CustomTextField(
                                       minLength: 0,
                                       enabled: true,
+                                      keyboardType: TextInputType.number,
                                       textFieldName: 'Quantity',
                                       controller: productQuantityController,
                                       initialValue: '',
@@ -298,6 +304,7 @@ class _DealsPageScreenState extends State<DealsPageScreen> {
                                   ),
                                   CustomTextField(
                                       minLength: 0,
+                                      keyboardType: TextInputType.text,
                                       textFieldName: 'Color',
                                       enabled: true,
                                       controller: productColorController,

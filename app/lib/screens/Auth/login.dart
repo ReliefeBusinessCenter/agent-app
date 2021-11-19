@@ -1,5 +1,6 @@
 import 'package:app/Widget/Auth/Common/CustomeLoginTextField.dart';
 import 'package:app/Widget/Auth/Common/welcome.dart';
+import 'package:app/Widget/Auth/OTP-Verification/forgot_password.dart';
 import 'package:app/Widget/Auth/login/login_button.dart';
 import 'package:app/Widget/Auth/login/login_text.dart';
 import 'package:app/Widget/Auth/signup/signup.dart';
@@ -22,7 +23,7 @@ class _LoginState extends State<Login> {
   final formKey = GlobalKey<FormState>();
   bool _isObscured = true;
 
-  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
 
   TextEditingController passwordController = TextEditingController();
   void forgotPasswordHandler(BuildContext context) {
@@ -38,7 +39,7 @@ class _LoginState extends State<Login> {
     print("-----");
     print(isValid);
     late LoginInfo info = new LoginInfo(
-      emailController.text.toString(),
+      phoneController.text.toString(),
       passwordController.text.toString(),
     );
 
@@ -71,7 +72,7 @@ class _LoginState extends State<Login> {
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
-    emailController.dispose();
+    phoneController.dispose();
     passwordController.dispose();
     super.dispose();
   }
@@ -83,21 +84,26 @@ class _LoginState extends State<Login> {
     double width = screenSize.width;
     double fontSize1 = height * 0.04;
 
-    return Material(
-      child: Container(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
+      ),
+      body: Container(
         color: Theme.of(context).accentColor,
         child: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is LoginSuccessState) {
-              // if (state.user.user!.role == "Broker") {
-              //   Navigator.of(context)
-              //       .pushReplacementNamed(BrokerMain.routeName);
-              // } else {
-              //   Navigator.of(context)
-              //       .pushReplacementNamed(CustomerPage.routeName);
-              // }
-               Navigator.of(context)
-                  .pushReplacementNamed(AdminMainPage.routeName);
+              if (state.user.user!.role == "Broker") {
+                Navigator.of(context)
+                    .pushReplacementNamed(BrokerMain.routeName);
+              } else if(state.user.user!.role == "Admin"){
+                    Navigator.of(context)
+                              .pushReplacementNamed(AdminMainPage.routeName);
+                }else {
+                Navigator.of(context)
+                    .pushReplacementNamed(CustomerPage.routeName);
+              }
+             
               // callFetchEvents();
 
             }
@@ -140,9 +146,9 @@ class _LoginState extends State<Login> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Welcome(),
-                      SizedBox(
-                        height: height * 0.04,
-                      ),
+                      // SizedBox(
+                      //   height: height * 0.04,
+                      // ),
                       LoginText(),
                       label,
                       SizedBox(
@@ -150,23 +156,22 @@ class _LoginState extends State<Login> {
                       ),
                       CustomLoginTextField(
                         // isObsecure: false,
-                        textFieldName: 'Email',
-                        controller: emailController,
+                        textFieldName: 'Phone',
+                        controller: phoneController,
                         icon: Icons.email,
                         validator: (value) {
-                          if (value.isEmpty ||
-                              !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                                  .hasMatch(value)) {
-                            return "Enter Correct Email Address";
+                          if (value.isEmpty || value.toString().length < 10) {
+                            return "Phone number must be 10";
                           } else {
                             return null;
                           }
                         },
                         obsecureText: false,
+                        keyboardType: TextInputType.number,
                       ),
                       SizedBox(height: height * 0.01),
                       CustomLoginTextField(
-                       
+                        keyboardType: TextInputType.text,
                         textFieldName: 'Password',
                         controller: passwordController,
                         icon: Icons.lock,
@@ -177,7 +182,6 @@ class _LoginState extends State<Login> {
                             return null;
                           }
                         },
-                        
                         obsecureText: _isObscured,
                       ),
                       SizedBox(
@@ -189,9 +193,9 @@ class _LoginState extends State<Login> {
                       SizedBox(
                         height: height * 0.03,
                       ),
-                      // ResetPasswordOption(
-                      //     // onPressed: () => forgotPasswordHandler(context),
-                      //     ),
+                      ResetPasswordOption(
+                          // onPressed: () => forgotPasswordHandler(context),
+                          ),
                       SizedBox(
                         height: height * 0.03,
                       ),

@@ -66,15 +66,11 @@ class MyApp extends StatelessWidget {
     ),
   );
 
-
   CustomerRepository customerRepository = new CustomerRepository(
       customerDataProvider: CustomerDataProvider(
     httpClient: http.Client(),
-
     userPreferences: UserPreferences(),
   ));
-
-
 
   DeliveryRepository deliveryRepo = new DeliveryRepository(
       deliveryDataProvider: DeliveryDataProvider(
@@ -82,13 +78,12 @@ class MyApp extends StatelessWidget {
     userPreferences: UserPreferences(),
   ));
 
-
   DealsRepository dealsRepo = new DealsRepository(
       dealsDataProvider: DealsDataProvider(
     httpClient: http.Client(),
     userPreferences: UserPreferences(),
   ));
-  
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -152,7 +147,8 @@ class MyApp extends StatelessWidget {
                 brokerRepository: brokersRepository,
                 dealsRepository: dealsRepo)
               ..add(DealsInitialFetch()),
-          ),BlocProvider<RegisterBloc>(
+          ),
+          BlocProvider<RegisterBloc>(
             create: (_) => RegisterBloc(
                 brokersRepository: brokersRepository,
                 customerRepositoy: customerRepository)
@@ -175,17 +171,15 @@ class MyApp extends StatelessWidget {
                   bodyText1: TextStyle(
                     color: Color.fromRGBO(255, 231, 255, 1),
                   ),
-
                   bodyText2: TextStyle(
                     color: Color.fromRGBO(20, 31, 51, 1),
                   ),
-                  
                   headline6:
                       TextStyle(fontSize: 24, fontFamily: 'RobotoCondensed'))),
           // home: Login(),
           initialRoute: WelcomePage.routeName,
           onGenerateRoute: AppRoutes.generateRoute,
-          
+
           onUnknownRoute: (settings) {
             return MaterialPageRoute(builder: (ctx) => Login());
           },

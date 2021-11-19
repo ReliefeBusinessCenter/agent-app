@@ -4,9 +4,9 @@ import 'package:app/ip/ip.dart';
 import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/screens/Auth/login.dart';
 import 'package:app/screens/admin/admin_category.dart';
+import 'package:app/screens/admin/admin_city.dart';
 import 'package:app/screens/admin/admin_deals_page.dart';
 import 'package:app/screens/admin/admin_delivery_page.dart';
-import 'package:app/screens/customer/account_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -144,6 +144,21 @@ class _AdminDrawerState extends State<AdminDrawer> {
                               onPressed: () {
                                 Navigator.of(context)
                                     .pushNamed(AdminCategory.routeName);
+                              },
+                            ),
+                            CustomeList(
+                              title: "City",
+                              subTitle: "see cities",
+                              icon: Icon(
+                                Icons.location_city,
+                                color: Colors.white,
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => AdminCity(),
+                                  ),
+                                );
                               },
                             ),
                             CustomeList(

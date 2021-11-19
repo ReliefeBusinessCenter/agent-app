@@ -50,7 +50,8 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
     return Scaffold(
         backgroundColor: Theme.of(context).accentColor,
         appBar: AppBar(
-          title: Text("Register"),
+          backgroundColor: Theme.of(context).primaryColor,
+          title: Text("Be a potential user!"),
         ),
         body: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -102,7 +103,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                               CustomTextField(
                                 minLength: 0,
                                 textFieldName: 'Full Name',
-                                 enabled:true,
+                                enabled: true,
                                 controller: nameController,
                                 initialValue: '',
                                 validator: null,
@@ -112,6 +113,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                   print("Write: ${value}");
                                   registerBloc.add(AddName(name: value));
                                 },
+                                keyboardType: TextInputType.text,
                               ),
                               SizedBox(
                                 height:
@@ -119,16 +121,18 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                               ),
                               CustomTextField(
                                   minLength: 0,
-                                  textFieldName: 'Email',
-                                  controller: emailController,
-                                   enabled:true,
+                                  keyboardType: TextInputType.number,
+                                  textFieldName: 'Phone',
+                                  controller: phoneController,
+                                  enabled: true,
                                   initialValue: '',
                                   validator: null,
                                   obsecureText: false,
                                   isRequired: false,
                                   onChanged: (String value) {
                                     print("Write: ${value}");
-                                    registerBloc.add(AddEmail(email: value));
+                                    registerBloc
+                                        .add(AddPhone(phoneNumber: value));
                                   }),
                               SizedBox(
                                 height:
@@ -136,10 +140,11 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                               ),
                               CustomTextField(
                                   minLength: 0,
+                                  keyboardType: TextInputType.text,
                                   textFieldName: 'City',
                                   controller: cityController,
                                   initialValue: '',
-                                   enabled:true,
+                                  enabled: true,
                                   validator: null,
                                   obsecureText: false,
                                   isRequired: false,
@@ -154,8 +159,9 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                               CustomTextField(
                                   minLength: 0,
                                   textFieldName: 'Sub City',
+                                  keyboardType: TextInputType.text,
                                   controller: subCityController,
-                                   enabled:true,
+                                  enabled: true,
                                   initialValue: '',
                                   validator: null,
                                   obsecureText: false,
@@ -167,11 +173,12 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                               SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height * 0.02,
-                               ),
+                              ),
                               CustomTextField(
                                   minLength: 0,
-                                   enabled:true,
+                                  enabled: true,
                                   textFieldName: 'Kebele',
+                                  keyboardType: TextInputType.text,
                                   controller: kebeleController,
                                   initialValue: '',
                                   validator: null,
@@ -215,7 +222,6 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                           ? true
                                           : false,
                                       child: CategoryDropDownButton());
-                                      
                                 },
                               )
                             ]),

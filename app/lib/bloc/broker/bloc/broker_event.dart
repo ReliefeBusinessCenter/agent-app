@@ -20,3 +20,15 @@ class DeleteBrokerEvent extends BrokerEvent {
   final int id;
   DeleteBrokerEvent(this.id);
 }
+
+class ChangeSearchMode extends BrokerEvent {
+  final bool isName;
+  ChangeSearchMode({required this.isName});
+}
+
+class UpdateBrokerEvent extends BrokerEvent {
+  final bool status;
+  final Broker broker;
+
+  UpdateBrokerEvent(this.broker, this.status);
+}
