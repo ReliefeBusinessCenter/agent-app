@@ -1,9 +1,6 @@
-import 'package:app/Widget/broker-widget/accept_button.dart';
-import 'package:app/Widget/broker-widget/reject_button.dart';
 import 'package:app/Widget/customer/deals_broker_profile.dart';
 import 'package:app/Widget/customer/delivery/mark_as_done_button.dart';
 import 'package:app/bloc/work-deals/bloc/workdeals_bloc.dart';
-import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
 import 'package:app/constants/constants.dart';
 import 'package:app/model/deals.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';

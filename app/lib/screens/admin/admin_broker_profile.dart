@@ -1,11 +1,16 @@
+import 'package:app/Widget/Broker-profile/broker_skill_page.dart';
 import 'package:app/Widget/broker-widget/accept_button.dart';
 import 'package:app/Widget/broker-widget/reject_button.dart';
 import 'package:app/Widget/common/loading_indicator.dart';
+import 'package:app/Widget/common/user_identy_card.dart';
 import 'package:app/Widget/common/user_profile_contact.dart';
+import 'package:app/Widget/common/user_skill_page.dart';
+import 'package:app/Widget/common/verified.dart';
 import 'package:app/bloc/broker/bloc/broker_bloc.dart';
 import 'package:app/constants.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/broker.dart';
+import 'package:app/model/broker/user.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -129,64 +134,60 @@ class _AdminBrokerProfilePageState extends State<AdminBrokerProfilePage> {
                   SizedBox(
                     height: 20.0,
                   ),
-                  Text(
-                    widget.broker!.user!.fullName.toString(),
-                    style:
-                        TextStyle(fontSize: 30.0, fontWeight: FontWeight.w600),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        widget.broker!.user!.fullName.toString(),
+                        style: TextStyle(
+                            fontSize: 30.0, fontWeight: FontWeight.w600),
+                      ),
+                      SizedBox(
+                        width: 5.0,
+                      ),
+                      if (widget.broker!.approved!) VerifiedWidget()
+                    ],
                   ),
                   SizedBox(
                     height: 16.0,
                   ),
-                  Container(
-                    width: size.width,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                          child: Text(
-                            'Contact Details',
-                            style: TextStyle(
-                                color: Colors.grey.shade900, fontSize: 18.0),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5.0,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Colors.grey.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(12.0)),
-                          child: Column(
-                            children: [
-                              Divider(
-                                color: Colors.black,
-                                thickness: 0.4,
+                  DefaultTabController(
+                    length: 2,
+                    initialIndex: 0,
+                    child: Container(
+                      height: size.height * 0.4,
+                      child: Scaffold(
+                        appBar: AppBar(
+                          backgroundColor: lightColor,
+                          toolbarHeight: 0.0,
+                          elevation: 0.0,
+                          bottom: TabBar(
+                            labelColor: primaryColor,
+                            labelStyle: TextStyle(fontSize: 18.0),
+                            indicatorColor: Colors.purple,
+                            indicatorSize: TabBarIndicatorSize.tab,
+                            tabs: [
+                              Tab(
+                                child: Text("Contact Detail"),
                               ),
-                              UserPrefileContactDetail(
-                                info: widget.broker!.user!.email!,
-                                iconData: Icons.email_outlined,
-                              ),
-                              Divider(
-                                color: Colors.black,
-                                thickness: 0.4,
-                              ),
-                              UserPrefileContactDetail(
-                                info: widget.broker!.user!.phone!,
-                                iconData: Icons.phone_outlined,
-                              ),
-                              Divider(
-                                color: Colors.black,
-                                thickness: 0.4,
-                              ),
-                              UserPrefileContactDetail(
-                                  info: ' Addis Ababa',
-                                  iconData: Icons.location_city),
-                              Divider(color: Colors.black),
+                              Tab(
+                                child: Text("ID"),
+                              )
                             ],
                           ),
-                        )
-                      ],
+                        ),
+                        body: Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: TabBarView(
+                            children: [
+                              ContactDetailPage(
+                                broker: widget.broker!.user!,
+                              ),
+                              UserIdentityCard(user: widget.broker!.user!),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -234,6 +235,7 @@ class _AdminBrokerProfilePageState extends State<AdminBrokerProfilePage> {
                               SizedBox(
                                 height: 30,
                               ),
+                              BrokerSkillsPage(),
                               SizedBox(
                                 width: size.width * 0.6,
                                 child: AcceptButton(
@@ -254,9 +256,11 @@ class _AdminBrokerProfilePageState extends State<AdminBrokerProfilePage> {
                                   title: 'Reject Broker',
                                   onPressed: () {
                                     debugPrint("Rejecting Broker");
-                                    BlocProvider.of<BrokerBloc>(context).add(
-                                        UpdateBrokerEvent(
-                                            widget.broker!, false));
+                                    BlocProvider.of<BrokerBloc>(context)
+                                        .add(UpdateBrokerEvent(
+                                      widget.broker!,
+                                      false,
+                                    ));
                                     debugPrint("Rejected Broker");
                                   },
                                 ),
@@ -266,7 +270,7 @@ class _AdminBrokerProfilePageState extends State<AdminBrokerProfilePage> {
                               )
                             ],
                           ),
-                        )
+                        ),
                       ],
                     ),
                   )
@@ -279,3 +283,4 @@ class _AdminBrokerProfilePageState extends State<AdminBrokerProfilePage> {
     );
   }
 }
+

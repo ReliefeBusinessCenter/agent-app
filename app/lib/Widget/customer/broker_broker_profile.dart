@@ -1,7 +1,3 @@
-import 'package:app/Widget/Broker-profile/custome_circular_step_progress.dart';
-import 'package:app/Widget/Broker-profile/work-detail.dart';
-import 'package:app/constants.dart';
-import 'package:app/model/broker/broker.dart';
 import 'package:app/model/customer/customer.dart';
 import 'package:flutter/material.dart';
 

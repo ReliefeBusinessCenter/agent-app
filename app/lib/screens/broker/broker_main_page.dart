@@ -1,15 +1,10 @@
-import 'package:app/Widget/Dashboard/broker.dart';
-import 'package:app/Widget/Dashboard/customCategory.dart';
-import 'package:app/Widget/Dashboard/customSearchBar.dart';
 import 'package:app/screens/broker/broker_chat.dart';
 import 'package:app/screens/broker/broker_customer_list.dart';
 import 'package:app/screens/broker/work_order.dart';
 import 'package:app/screens/broker/work_deals.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'broker_drawer.dart';
 

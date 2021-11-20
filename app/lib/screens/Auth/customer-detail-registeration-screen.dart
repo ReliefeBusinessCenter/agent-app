@@ -3,7 +3,11 @@ import 'dart:io';
 import 'package:app/Widget/Auth/signup/add_profile_picture.dart';
 import 'package:app/Widget/Auth/signup/signUpTextField.dart';
 import 'package:app/Widget/Auth/signup/register-button.dart';
+import 'package:app/Widget/Auth/signup/signup_password_field.dart';
+import 'package:app/Widget/Auth/signup/upload_profile_image.dart';
+import 'package:app/Widget/common/constants.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';
+import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
 import 'package:app/screens/Auth/signUp_screen.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 // import 'package:file/file.dart';
@@ -64,6 +68,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
     }
   }
 
+  bool _choose = false;
   @override
   Widget build(BuildContext context) {
     registerBloc = BlocProvider.of<RegisterBloc>(context);
@@ -169,67 +174,107 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                             left: 0.5, right: 0.5, top: 25),
                                         child: SingleChildScrollView(
                                             child: Column(children: [
-                                          CustomTextField(
-                                            minLength: 0,
-                                            textFieldName: 'Password',
-                                            keyboardType: TextInputType.text,
-                                            enabled: true,
-                                            controller: passwordController,
-                                            initialValue: '',
-                                            validator: null,
-                                            obsecureText: true,
-                                            isRequired: false,
-                                            onChanged: (String value) {
-                                              print("Write: $value");
-                                              registerBloc.add(
-                                                  AddPassword(password: value));
+                                          SizedBox(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.02,
+                                          ),
+
+                                          TextFormField(
+                                            obscureText: true,
+                                            decoration:
+                                                inputDecoration.copyWith(
+                                              labelText: "Password",
+                                            ),
+                                            onChanged: (value) {
+                                              setState(() {
+                                                passwordController.text = value;
+                                              });
+                                            },
+                                            validator: (value) {
+                                              if (value!.isEmpty) {
+                                                return "Field Required";
+                                              }
                                             },
                                           ),
                                           SizedBox(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.02,
+                                            height: 20.0,
                                           ),
-                                          CustomTextField(
-                                              minLength: 0,
-                                              textFieldName: 'Confirm Password',
-                                              keyboardType: TextInputType.text,
-                                              enabled: true,
-                                              controller:
-                                                  confirmPasswordController,
-                                              initialValue: '',
-                                              validator: null,
-                                              obsecureText: true,
-                                              isRequired: false,
-                                              onChanged: (String value) {}),
-                                          SizedBox(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.02,
-                                          ),
-                                          ProfileFileInput(
-                                            controller: photoController,
-                                            isRequired: true,
-                                            onPressed: uploadPhotoHandler,
-                                            textFieldName: '',
+                                          TextFormField(
+                                            obscureText: true,
+                                            onChanged: (value) {
+                                              registerBloc.add(
+                                                  AddPassword(password: value));
+                                            },
+                                            validator: (value) {
+                                              if (value !=
+                                                  passwordController.text) {
+                                                return "Password don't match";
+                                              }
+                                            },
+                                            decoration:
+                                                inputDecoration.copyWith(
+                                                    labelText:
+                                                        "Confirm password"),
                                           ),
                                           SizedBox(
                                             height: MediaQuery.of(context)
                                                     .size
                                                     .height *
                                                 0.02,
+                                          ),
+                                          // ProfileFileInput(
+                                          //   controller: photoController,
+                                          //   isRequired: true,
+                                          //   onPressed: uploadPhotoHandler,
+                                          //   textFieldName: '',
+                                          // ),
+                                          SizedBox(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.02,
+                                          ),
+                                          UploadProfileImage(
+                                              pickImage: (image) {
+                                            setState(() {
+                                              photoController.text = image.path;
+                                              registerBloc.add(AddImage(
+                                                  image: photoController.text));
+                                            });
+
+                                            registerBloc.add(AddImage(
+                                                image: photoController.text));
+                                          }),
+                                          SizedBox(
+                                            height: 10.0,
+                                          ),
+                                          if (photoController.text.isEmpty &&
+                                              _choose)
+                                            Text(
+                                              "Please choose image",
+                                              style: TextStyle(
+                                                color: Colors.red,
+                                              ),
+                                            ),
+                                          SizedBox(
+                                            height: 30.0,
                                           ),
                                           RegisterButton(
                                             name: "Register",
                                             onTapped: () {
+                                              setState(() {
+                                                _choose = true;
+                                              });
                                               if (_formKey.currentState!
-                                                  .validate()) {
+                                                      .validate() &&
+                                                  photoController
+                                                      .text.isNotEmpty) {
                                                 print(
                                                     "Register method called from the customer apage");
-                                                registerBloc
-                                                    .add(RegisterUser());
+                                                // registerBloc
+                                                //     .add(RegisterUser());
                                               }
                                             },
                                           )

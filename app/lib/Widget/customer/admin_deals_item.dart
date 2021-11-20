@@ -3,7 +3,6 @@ import 'package:app/bloc/work-deals/bloc/workdeals_bloc.dart';
 // import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
 import 'package:app/model/deals.dart';
 import 'package:app/screens/admin/admin_deals_customer.dart';
-import 'package:app/screens/customer/customer_deals_detail.dart';
 // import 'package:app/model/work.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

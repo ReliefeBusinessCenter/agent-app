@@ -17,6 +17,9 @@ import 'package:app/repository/user_repository.dart';
 import 'package:app/routes/route.dart';
 import 'package:app/screens/Auth/login.dart';
 import 'package:app/screens/welcome/welcome_page.dart';
+import 'package:app/translations/codegen_loader.g.dart';
+import 'package:app/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
@@ -30,8 +33,20 @@ import 'bloc/work-delivery/bloc/work_bloc.dart';
 import 'data_provider/categories_data_provider.dart';
 import 'data_provider/user_data_provider.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+  runApp(EasyLocalization(
+    supportedLocales: [
+      Locale('en'),
+      Locale('am'),
+    ],
+    assetLoader: CodegenLoader(),
+    fallbackLocale: Locale('en'),
+    path: 'assets/translations',
+    startLocale: Locale('am'),
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -157,7 +172,10 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'DeliMeals',
+          title: LocaleKeys.app_name.tr(),
+          supportedLocales: context.supportedLocales,
+          localizationsDelegates: context.localizationDelegates,
+          locale: context.locale,
           theme: ThemeData(
               primarySwatch: Colors.blue,
               primaryColor: Color(0xFF263238),

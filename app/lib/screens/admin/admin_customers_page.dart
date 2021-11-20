@@ -52,7 +52,8 @@ class _AdminCustomersPageState extends State<AdminCustomersPage> {
         child: Container(
           color: lightColor,
           padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-          child: Column(
+          child: state.customers.isEmpty? Center(child: Text("No Customers yet",),):
+           Column(
             children: state.customers
                 .map((customer) => GestureDetector(
                       onTap: () {

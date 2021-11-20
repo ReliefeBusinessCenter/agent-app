@@ -1,4 +1,6 @@
+import 'package:app/Widget/common/user_identy_card.dart';
 import 'package:app/Widget/common/user_profile_contact.dart';
+import 'package:app/Widget/common/user_skill_page.dart';
 import 'package:app/bloc/customer/customer_bloc.dart';
 import 'package:app/constants.dart';
 import 'package:app/ip/ip.dart';
@@ -104,59 +106,46 @@ class _AdminCustomerProfileState extends State<AdminCustomerProfile> {
                 SizedBox(
                   height: 16.0,
                 ),
-                Container(
-                  width: size.width,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        child: Text(
-                          'Contact Details',
-                          style: TextStyle(
-                              color: Colors.grey.shade900, fontSize: 18.0),
+                 DefaultTabController(
+                    length: 2,
+                    initialIndex: 0,
+                    child: Container(
+                      height: size.height * 0.4,
+                      child: Scaffold(
+                        appBar: AppBar(
+                          backgroundColor: lightColor,
+                          toolbarHeight: 0.0,
+                          elevation: 0.0,
+                          bottom: TabBar(
+                            labelColor: primaryColor,
+                            labelStyle: TextStyle(fontSize: 18.0),
+                            indicatorColor: Colors.purple,
+                            indicatorSize: TabBarIndicatorSize.tab,
+                            tabs: [
+                              Tab(
+                                child: Text("Contact Detail"),
+                              ),
+                              Tab(
+                                child: Text("ID"),
+                              )
+                            ],
+                          ),
+                        ),
+                        body: Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: TabBarView(
+                            children: [
+                              ContactDetailPage(
+                                broker: widget.customer.user!,
+                              ),
+                              UserIdentityCard(user: widget.customer.user!),
+                            ],
+                          ),
                         ),
                       ),
-                      SizedBox(
-                        height: 5.0,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Colors.grey.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(12.0)),
-                        child: Column(
-                          children: [
-                            Divider(
-                              color: Colors.black,
-                              thickness: 0.4,
-                            ),
-                            UserPrefileContactDetail(
-                              info: widget.customer.user!.email!,
-                              iconData: Icons.email_outlined,
-                            ),
-                            Divider(
-                              color: Colors.black,
-                              thickness: 0.4,
-                            ),
-                            UserPrefileContactDetail(
-                              info: widget.customer.user!.phone!,
-                              iconData: Icons.phone_outlined,
-                            ),
-                            Divider(
-                              color: Colors.black,
-                              thickness: 0.4,
-                            ),
-                            UserPrefileContactDetail(
-                                info: ' Addis Ababa',
-                                iconData: Icons.location_city),
-                            Divider(color: Colors.black),
-                          ],
-                        ),
-                      )
-                    ],
+                    ),
                   ),
-                ),
-                SizedBox(
+               SizedBox(
                   height: 20.0,
                 ),
                 Container(

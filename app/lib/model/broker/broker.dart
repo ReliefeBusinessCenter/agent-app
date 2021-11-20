@@ -16,6 +16,7 @@ class Broker {
   Skills? skills;
   Category? category;
   User? user;
+  bool? approved;
   bool? isFavorite;
 
   Broker(
@@ -27,7 +28,8 @@ class Broker {
       this.skills,
       this.category,
       this.isFavorite,
-      this.user});
+      this.user,
+      this.approved});
 
   Broker.fromJson(Map<String, dynamic> json) {
     brokerId = json['brokerId'];
@@ -61,6 +63,8 @@ class Broker {
         ? new Category.fromJson(json['category'])
         : null;
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
+
+    approved = json['approved'];
   }
 
   Map<String, dynamic> toJson() {
@@ -86,6 +90,9 @@ class Broker {
     }
     if (this.user != null) {
       data['user'] = this.user!.toJson();
+    }
+    if (this.approved != null) {
+      data['approved'] = this.approved;
     }
     return data;
   }

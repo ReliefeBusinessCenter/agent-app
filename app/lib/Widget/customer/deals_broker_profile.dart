@@ -1,5 +1,3 @@
-import 'package:app/Widget/customer/broker_skill_widget.dart';
-import 'package:app/constants/constants.dart';
 import 'package:app/model/deals.dart';
 import 'package:flutter/material.dart';
 

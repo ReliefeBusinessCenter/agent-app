@@ -31,6 +31,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
+      backgroundColor: lightColor,
       appBar: AppBar(
         title: Text('Trust Brokers'),
         backgroundColor: primaryColor,

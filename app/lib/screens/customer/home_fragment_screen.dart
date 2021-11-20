@@ -3,14 +3,23 @@ import 'package:app/Widget/Dashboard/customCategory.dart';
 import 'package:app/Widget/Dashboard/customSearchBar.dart';
 import 'package:app/bloc/broker/bloc/broker_bloc.dart';
 import 'package:app/bloc/category/bloc/category_bloc.dart';
+import 'package:app/constants.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
+import 'package:easy_localization/easy_localization.dart';
 
-class HomeFragment extends StatelessWidget {
+class HomeFragment extends StatefulWidget {
+  @override
+  State<HomeFragment> createState() => _HomeFragmentState();
+}
+
+class _HomeFragmentState extends State<HomeFragment> {
   late BrokerBloc brokerBloc;
+
   late CategoryBloc categoryBloc;
+  String _initialValue = "en";
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +32,44 @@ class HomeFragment extends StatelessWidget {
       color: Color(0xFFf2f6f9),
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Text("Welcome To Trust Broker",
-                style: TextStyle(
-                    color: Colors.pinkAccent,
-                    fontSize: MediaQuery.of(context).size.height * 0.02)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text("Welcome To Trust Broker",
+                    style: TextStyle(
+                        color: Colors.pinkAccent,
+                        fontSize: MediaQuery.of(context).size.height * 0.02)),
+              ),
+              Container(
+                width: 50,
+                child: DropdownButtonFormField<String>(
+                    value: _initialValue,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                    ),
+                    onChanged: (value) async {
+                      setState(() {
+                        _initialValue = value!;
+                      });
+                      await context.setLocale(Locale(value.toString()));
+                    },
+                    items: [
+                      DropdownMenuItem(
+                        child: Text(
+                          'EN',
+                          style: TextStyle(color: primaryColor),
+                        ),
+                        value: 'en',
+                      ),
+                      DropdownMenuItem(
+                        child: Text('አማ'),
+                        value: 'am',
+                      )
+                    ]),
+              )
+            ],
           ),
           Padding(
             padding: const EdgeInsets.all(10.0),

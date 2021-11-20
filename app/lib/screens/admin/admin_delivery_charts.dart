@@ -19,7 +19,7 @@ class AdminDeliveryChartsState extends State<AdminDeliveryCharts> {
       ChartTask("Cat-3", 10.8, Colors.yellow),
       ChartTask("Cat-4", 15.6, Colors.green),
       ChartTask('Cat-5', 19.2, Colors.purple),
-      ChartTask("Cat-6", 10.3, Colors.orange)
+      ChartTask("Cat-6", 10.3, Colors.orange),
     ],
           domainFn: (task, _) => task.task,
           measureFn: (task, _) => task.taskValue,

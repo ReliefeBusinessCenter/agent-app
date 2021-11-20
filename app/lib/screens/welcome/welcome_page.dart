@@ -2,7 +2,9 @@ import 'package:app/Widget/Auth/login/login_button_outline.dart';
 import 'package:app/constants.dart';
 import 'package:app/screens/Auth/auth_exports.dart';
 import 'package:app/screens/customer/home_fragment_screen.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class WelcomePage extends StatelessWidget {
   static const routeName = 'welcomePage';
@@ -10,6 +12,8 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Language is ");
+    print(context.locale);
     return Scaffold(
       backgroundColor: lightColor,
       // appBar: AppBar(
@@ -32,7 +36,7 @@ class WelcomePage extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pushNamed(Login.routeName);
             },
-            title: "Go In"),
+            title: LocaleKeys.go_in_button_text.tr()),
       ),
     );
   }

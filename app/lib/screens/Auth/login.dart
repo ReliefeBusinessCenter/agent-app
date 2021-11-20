@@ -5,10 +5,13 @@ import 'package:app/Widget/Auth/login/login_button.dart';
 import 'package:app/Widget/Auth/login/login_text.dart';
 import 'package:app/Widget/Auth/signup/signup.dart';
 import 'package:app/bloc/auth/bloc/auth_bloc.dart';
+import 'package:app/model/broker/broker.dart';
 import 'package:app/model/login_info.dart';
+import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/screens/admin/admin_main_page.dart';
 import 'package:app/screens/broker/broker_main_page.dart';
 import 'package:app/screens/customer/customerPage.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -94,16 +97,38 @@ class _LoginState extends State<Login> {
           listener: (context, state) {
             if (state is LoginSuccessState) {
               if (state.user.user!.role == "Broker") {
-                Navigator.of(context)
-                    .pushReplacementNamed(BrokerMain.routeName);
-              } else if(state.user.user!.role == "Admin"){
+                UserPreferences _userPreferences = UserPreferences();
+                _userPreferences.getBrokerInformation().then((value) => {
+                  if(value!.approved!){
                     Navigator.of(context)
-                              .pushReplacementNamed(AdminMainPage.routeName);
-                }else {
+                    .pushReplacementNamed(BrokerMain.routeName)
+                  }else {
+                    AwesomeDialog(
+                  context: context,
+                  dialogType: DialogType.ERROR,
+                  animType: AnimType.BOTTOMSLIDE,
+                  title: 'Login failed',
+                  desc: 'You are not verified yet!',
+                  // btnCancelOnPress: () {
+                  //   Navigator.popAndPushNamed(context, Login.routeName);
+                  // },
+                  btnOkOnPress: () {
+                    // Navigator.pop(context);
+                    // Navigator.pop()
+                    Navigator.popAndPushNamed(context, Login.routeName);
+                  },
+                )..show()
+                  }
+                });
+                
+              } else if (state.user.user!.role == "Admin") {
+                Navigator.of(context)
+                    .pushReplacementNamed(AdminMainPage.routeName);
+              } else {
                 Navigator.of(context)
                     .pushReplacementNamed(CustomerPage.routeName);
               }
-             
+
               // callFetchEvents();
 
             }

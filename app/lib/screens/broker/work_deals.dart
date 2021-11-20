@@ -1,6 +1,4 @@
 import 'package:app/Widget/agent/deals_item.dart';
-import 'package:app/Widget/agent/order_item.dart';
-import 'package:app/Widget/work/workItem.dart';
 import 'package:app/bloc/work-deals/bloc/workdeals_bloc.dart';
 // import 'package:app/bloc/deals/bloc/deals_bloc.dart';
 // import 'package:app/bloc/work/bloc/work_bloc.dart';
