@@ -2,12 +2,14 @@ import 'package:app/Widget/customer/admin_deals_item.dart';
 import 'package:app/bloc/work-deals/bloc/workdeals_bloc.dart';
 import 'package:app/constants.dart';
 import 'package:app/screens/admin/admin_deals_charts.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
-// import 'package:app/bloc/work/bloc/work_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
+import 'package:easy_localization/easy_localization.dart';
 
+// ignore: must_be_immutable
 class AdminDealPage extends StatelessWidget {
   static const routeName = 'adminDealsPage';
   late DealsListBloc dealsBloc;
@@ -50,28 +52,36 @@ class AdminDealPage extends StatelessWidget {
                   },
                   itemBuilder: (context) => [
                         PopupMenuItem(
-                          child: Text("All",
+                          child: Text(LocaleKeys.all_status_text.tr(),
                               style: TextStyle(color: Colors.green)),
                           value: 1,
                         ),
                         PopupMenuItem(
-                          child: Text("Pending",
+                          child: Text(LocaleKeys.pending_status_text.tr(),
                               style: TextStyle(color: Colors.green)),
                           value: 1,
                         ),
                         PopupMenuItem(
-                          child: Text("Accepted",
-                              style: TextStyle(color: Colors.purple)),
+                          child: Text(
+                            LocaleKeys.accepted_status_text.tr(),
+                            style: TextStyle(
+                              color: Colors.purple,
+                            ),
+                          ),
                           value: 1,
                         ),
                         PopupMenuItem(
-                          child: Text("Rejected",
+                          child: Text(LocaleKeys.rejected_status_text.tr(),
                               style: TextStyle(color: Colors.red)),
                           value: 1,
                         ),
                         PopupMenuItem(
-                          child: Text("Done",
-                              style: TextStyle(color: Colors.green)),
+                          child: Text(
+                            LocaleKeys.done_status_text.tr(),
+                            style: TextStyle(
+                              color: Colors.green,
+                            ),
+                          ),
                           value: 2,
                         ),
                       ]),
@@ -84,19 +94,16 @@ class AdminDealPage extends StatelessWidget {
               unselectedLabelColor: Colors.grey,
               tabs: [
                 Tab(
-                  text: "Statistics",
+                  text: LocaleKeys.statistics_label_text.tr(),
                 ),
-                Tab(
-                  text: "Deals",
-                ),
+                Tab(text: LocaleKeys.deals_label_text.tr()),
               ],
             ),
           ),
           backgroundColor: Theme.of(context).accentColor,
-          body: TabBarView(
-            children: [
-              AdminDealsCharts(),
-              Container(
+          body: TabBarView(children: [
+            AdminDealsCharts(),
+            Container(
                 // decoration: BoxDecoration(color: Colors.white),
                 child: ProgressHUD(
               child: BlocBuilder<DealsListBloc, DealsState>(
@@ -125,8 +132,7 @@ class AdminDealPage extends StatelessWidget {
                 },
               ),
             )),
-            ]
-          )),
+          ])),
     );
   }
 }

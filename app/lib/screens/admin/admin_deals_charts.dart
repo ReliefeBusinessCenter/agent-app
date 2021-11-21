@@ -1,7 +1,9 @@
 
 import 'package:app/model/chart_task.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:easy_localization/easy_localization.dart';
 
 
 class AdminDealsCharts extends StatefulWidget {
@@ -40,7 +42,7 @@ class _AdminDealsChartsState extends State<AdminDealsCharts> {
     return Container(
       child: Column(children: [
         Text(
-          "Requested Deals",
+          LocaleKeys.requested_deals_label_text.tr(),
           style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
         ),
         SizedBox(

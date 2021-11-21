@@ -4,6 +4,7 @@ import 'package:app/Widget/Dashboard/customSearchBar.dart';
 import 'package:app/bloc/broker/bloc/broker_bloc.dart';
 import 'package:app/bloc/category/bloc/category_bloc.dart';
 import 'package:app/constants.dart';
+import 'package:app/translations/locale_keys.g.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,6 +25,7 @@ class _HomeFragmentState extends State<HomeFragment> {
   @override
   Widget build(BuildContext context) {
     // Category category= new Category();
+    _initialValue = context.locale.languageCode;
     brokerBloc = BlocProvider.of<BrokerBloc>(context);
     categoryBloc = BlocProvider.of<CategoryBloc>(context);
     brokerBloc.add(FetchEvent());
@@ -37,7 +39,7 @@ class _HomeFragmentState extends State<HomeFragment> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Text("Welcome To Trust Broker",
+                child: Text(LocaleKeys.welcome_text.tr(),
                     style: TextStyle(
                         color: Colors.pinkAccent,
                         fontSize: MediaQuery.of(context).size.height * 0.02)),
@@ -89,8 +91,6 @@ class _HomeFragmentState extends State<HomeFragment> {
 
                     List<Widget> categories = [];
                     if (state is CategoryLoadSuccess) {
-                      print(
-                          "the home screen is rebuilding because of the bloc call and this is the category id ${state.selectedCategoryId}");
                       categories.add(CustomCategory(
                         backgroundColor: state.selectedCategoryId == null
                             ? Theme.of(context).primaryColor
@@ -98,7 +98,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                         fontColor: state.selectedCategoryId == null
                             ? Colors.white
                             : Colors.black.withOpacity(0.8),
-                        text: "All",
+                        text: LocaleKeys.all_broker_tab_text.tr(),
                         onPressed: () {
                           // print(
                           // "This is the name of the category:${DUMMY_CATEGORIES[i].name}");

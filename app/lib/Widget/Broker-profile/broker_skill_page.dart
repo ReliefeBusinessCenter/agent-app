@@ -1,12 +1,13 @@
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 class BrokerSkillsPage extends StatelessWidget {
   // final Skills skill;
   const BrokerSkillsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    // final size = MediaQuery.of(context).size;
 
     return Container(
       child: Column(
@@ -15,26 +16,26 @@ class BrokerSkillsPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Text(
-              'Skills',
+              LocaleKeys.skiils_label_text.tr(),
               style: TextStyle(color: Colors.grey.shade900, fontSize: 18.0),
             ),
           ),
           SizedBox(height: 20.0),
           BrokersSkillList(
             iconData: Icons.commute_rounded,
-            name: "Communication Skills",
+            name: LocaleKeys.communicative_skills_label_text.tr(),
           ),
           BrokersSkillList(
-            name: "Broking Skills",
+            name: LocaleKeys.broking_skills_label_text.tr(),
             iconData: Icons.broken_image_rounded,
           ),
           BrokersSkillList(
             iconData: Icons.work,
-            name: "Works Done",
+            name: LocaleKeys.work_done_label_text.tr()
           ),
           BrokersSkillList(
             iconData: Icons.confirmation_num,
-            name: "Works in Progrss",
+            name: LocaleKeys.Work_in_progress_label_text.tr(),
           ),
           Divider(
             thickness: 1.5,

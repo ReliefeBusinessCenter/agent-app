@@ -5,15 +5,16 @@ import 'package:app/Widget/Auth/login/login_button.dart';
 import 'package:app/Widget/Auth/login/login_text.dart';
 import 'package:app/Widget/Auth/signup/signup.dart';
 import 'package:app/bloc/auth/bloc/auth_bloc.dart';
-import 'package:app/model/broker/broker.dart';
 import 'package:app/model/login_info.dart';
 import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/screens/admin/admin_main_page.dart';
 import 'package:app/screens/broker/broker_main_page.dart';
 import 'package:app/screens/customer/customerPage.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import "package:easy_localization/easy_localization.dart";
 
 class Login extends StatefulWidget {
   static String routeName = "/login";
@@ -107,8 +108,8 @@ class _LoginState extends State<Login> {
                   context: context,
                   dialogType: DialogType.ERROR,
                   animType: AnimType.BOTTOMSLIDE,
-                  title: 'Login failed',
-                  desc: 'You are not verified yet!',
+                  title: LocaleKeys.login_failed_label_text.tr(),
+                  desc: LocaleKeys.you_are_not_verified_yet_label_text.tr(),
                   // btnCancelOnPress: () {
                   //   Navigator.popAndPushNamed(context, Login.routeName);
                   // },
@@ -140,7 +141,7 @@ class _LoginState extends State<Login> {
                 padding: EdgeInsets.all(8.0),
                 child: Center(
                   child: Text(
-                    'Failed to Authenticate',
+                    LocaleKeys.failed_to_authenticate_label_text.tr(),
                     style: TextStyle(
                       color: Colors.red,
                       fontWeight: FontWeight.bold,
@@ -171,9 +172,6 @@ class _LoginState extends State<Login> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Welcome(),
-                      // SizedBox(
-                      //   height: height * 0.04,
-                      // ),
                       LoginText(),
                       label,
                       SizedBox(
@@ -181,12 +179,12 @@ class _LoginState extends State<Login> {
                       ),
                       CustomLoginTextField(
                         // isObsecure: false,
-                        textFieldName: 'Phone',
+                        textFieldName: LocaleKeys.enter_phone_label_text.tr(),
                         controller: phoneController,
                         icon: Icons.email,
                         validator: (value) {
                           if (value.isEmpty || value.toString().length < 10) {
-                            return "Phone number must be 10";
+                            return LocaleKeys.phone_number_validation_label_text.tr();
                           } else {
                             return null;
                           }
@@ -197,12 +195,12 @@ class _LoginState extends State<Login> {
                       SizedBox(height: height * 0.01),
                       CustomLoginTextField(
                         keyboardType: TextInputType.text,
-                        textFieldName: 'Password',
+                        textFieldName: LocaleKeys.enter_password_label_text.tr(),
                         controller: passwordController,
                         icon: Icons.lock,
                         validator: (value) {
                           if (value.isEmpty || value.toString().length < 5) {
-                            return "Password Too Short";
+                            return LocaleKeys.password_validation_label_text.tr();
                           } else {
                             return null;
                           }
@@ -242,6 +240,4 @@ class _LoginState extends State<Login> {
   }
 }
 
-void Navigate(BuildContext context) {
-  print('pressed');
-}
+

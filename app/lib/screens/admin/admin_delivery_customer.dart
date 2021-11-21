@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
+// ignore: must_be_immutable
 class AdminCustomerDeliveryDetails extends StatelessWidget {
   final Delivery delivery;
   AdminCustomerDeliveryDetails({required this.delivery});

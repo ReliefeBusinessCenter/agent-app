@@ -10,12 +10,13 @@ import 'package:app/bloc/broker/bloc/broker_bloc.dart';
 import 'package:app/constants.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/broker.dart';
-import 'package:app/model/broker/user.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class AdminBrokerProfilePage extends StatefulWidget {
   final Broker? broker;
@@ -168,10 +169,10 @@ class _AdminBrokerProfilePageState extends State<AdminBrokerProfilePage> {
                             indicatorSize: TabBarIndicatorSize.tab,
                             tabs: [
                               Tab(
-                                child: Text("Contact Detail"),
+                                child: Text(LocaleKeys.contact_detail_label_text.tr()),
                               ),
                               Tab(
-                                child: Text("ID"),
+                                child: Text(LocaleKeys.id_label_text.tr()),
                               )
                             ],
                           ),
@@ -201,7 +202,7 @@ class _AdminBrokerProfilePageState extends State<AdminBrokerProfilePage> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20.0),
                           child: Text(
-                            'Status',
+                            LocaleKeys.status_label_text.tr(),
                             style: TextStyle(
                                 color: Colors.grey.shade900, fontSize: 18.0),
                           ),
@@ -239,7 +240,7 @@ class _AdminBrokerProfilePageState extends State<AdminBrokerProfilePage> {
                               SizedBox(
                                 width: size.width * 0.6,
                                 child: AcceptButton(
-                                  title: "Approve Broker",
+                                  title: LocaleKeys.approve_button_label_text.tr(),
                                   onPressed: () {
                                     BlocProvider.of<BrokerBloc>(context).add(
                                         UpdateBrokerEvent(
@@ -253,7 +254,7 @@ class _AdminBrokerProfilePageState extends State<AdminBrokerProfilePage> {
                               SizedBox(
                                 width: size.width * 0.6,
                                 child: RejectButton(
-                                  title: 'Reject Broker',
+                                  title: LocaleKeys.reject_button_label_text.tr(),
                                   onPressed: () {
                                     debugPrint("Rejecting Broker");
                                     BlocProvider.of<BrokerBloc>(context)

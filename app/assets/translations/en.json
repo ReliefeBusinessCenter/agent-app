@@ -1,6 +1,84 @@
 {
     "app_name": "Broker app",
 
+    "//comment//__": "Error Display",
+    "something_went_wrong_label_text": "Something went wrong",
+
+    "//comment//__1": "Status Display",
+    "all_status_text": "All",
+    "pending_status_text": "Pending",
+    "accepted_status_text": "Accepted",
+    "rejected_status_text": "Rejected",
+    "done_status_text": "Done",
+
     "//comment//": "Welcomepage",
-    "go_in_button_text": "Go In"
+
+    "welcome_text": "Welcome To Trust Broker",
+    "search_brokers_text": "Search Brokers",
+    "all_broker_tab_text": "All",
+    "busin_broker_text": "Business Broker",
+    "cars_broker_text": "Cars Broker",
+    "go_in_button_text": "Go In",
+    "views_lable_text": "views",
+    "million_lable_text": "M",
+    "by_city_label_text": "By City",
+    "bY_name_label_text": "By Name",
+
+    "//comment//1": "Login page",
+    "enter_label_text": "Enter ",
+    "login_label_text": "Login",
+    "enter_phone_label_text" : "Enter Phone",
+    "enter_password_label_text": "Enter Password",
+    "forgot_label_text": "Forgot Password",
+    "dont_you_have_account_label_text": "Don't you have an account?",
+    
+
+    "//comment//2": "Validation",
+    "phone_number_validation_label_text": "Phone number must be 10 digits",
+    "password_validation_label_text": "Password too short",
+    "failed_to_authenticate_label_text": "Failed to authenticate",
+    "login_failed_label_text": "Login failed",
+    "you_are_not_verified_yet_label_text": "You are not verified yet!",
+    "ok_button_label_text": "Ok",
+    
+    "//comment//3": "Admin main page",
+    "trust_broker_label_text": "Trust Brokers",
+    "category_label_text": "Categories",
+    "see_category_label_text": "see categories",
+    "city_label_text": "Cities",
+    "see_cities_label_text": "see cities",
+    "deals_label_text": "Deals",
+    "see_deals_label_text": "see deals",
+    "delivery_label_text": "Deliveries",
+    "see_deliveries_label_text": "see delivieres",
+    "customers_label_text": "Customers",
+    "brokers_label_text": "Brokers",
+    "logout_label_text": "Logout",
+
+    "//comment//4": "admin category page",
+    "category_name_label_text": "Category Name",
+    "add_button_label_text": "Add",
+    "update_button_label_text": "Update",
+    "category_name_empty_validation_label_text": "Category name required!",
+    "category_name_short_validation_label_text": "Category name too short!",
+
+    "//comment//5": "admin deals page",
+    "statistics_label_text": "Statistics",
+    "requested_deals_label_text": "Requested Deals",
+    "requested_deliveries_label_text": "Requested Deliveries",
+
+
+    "//comment//6": "profile page",
+    "contact_detail_label_text": "Contact Detail",
+    "id_label_text": "ID",
+    "status_label_text": "Status",
+    "skiils_label_text": "Skills",
+    "communicative_skills_label_text": "Communicative Skills",
+    "broking_skills_label_text": "Broking Skills",
+    "work_done_label_text": "Work Done",
+    "Work_in_progress_label_text": "Work in progress",
+    "approve_button_label_text": "Approve Broker",
+    "reject_button_label_text":"Reject Broker"
+    
+
 }

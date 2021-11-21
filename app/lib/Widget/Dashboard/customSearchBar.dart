@@ -1,8 +1,9 @@
 import 'package:app/bloc/broker/bloc/broker_bloc.dart';
 import 'package:app/constants/login/size.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SearchTextField extends StatelessWidget {
   late BrokerBloc brokerBloc;
@@ -21,7 +22,6 @@ class SearchTextField extends StatelessWidget {
             builder: (context, state) {
               return TextField(
                 onChanged: (text) {
-                  print("This is the text that have been written $text");
                   brokerBloc.add(SearchEvent(name: text));
                 },
                 controller: null,
@@ -51,7 +51,7 @@ class SearchTextField extends StatelessWidget {
                       itemBuilder: (context) => [
                             PopupMenuItem(
                               // enabled: false,
-                              child: Text("By City",
+                              child: Text(LocaleKeys.by_city_label_text.tr(),
                                   style: TextStyle(
                                       color: state.isName == true
                                           ? Theme.of(context).primaryColor
@@ -61,7 +61,7 @@ class SearchTextField extends StatelessWidget {
                               value: 1,
                             ),
                             PopupMenuItem(
-                              child: Text("By Name",
+                              child: Text(LocaleKeys.bY_name_label_text.tr(),
                                   style: TextStyle(
                                       color: state.isName == false
                                           ? Theme.of(context).primaryColor
@@ -71,7 +71,7 @@ class SearchTextField extends StatelessWidget {
                               value: 2,
                             ),
                           ]),
-                  hintText: " Search Brokers",
+                  hintText: LocaleKeys.search_brokers_text.tr(),
                   hintStyle: TextStyle(color: Colors.black.withOpacity(0.3)),
                 ),
               );
