@@ -4,8 +4,9 @@ import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/broker.dart';
 
 import 'package:app/screens/customer/brokers_detail_screen.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -62,7 +63,10 @@ class _BrokerItemState extends State<BrokerItem> {
                     width: size.width,
                     imageUrl:
                         "${Ip.ip}/api/users/get/?fileName=${widget.broker.user!.picture as String}",
-                    placeholder: (context, url) => Center(child: SpinKitCircle( color: primaryColor,)),
+                    placeholder: (context, url) => Center(
+                        child: SpinKitCircle(
+                      color: primaryColor,
+                    )),
                     errorWidget: (context, url, error) => Icon(Icons.error),
                   )),
               Container(
@@ -92,7 +96,7 @@ class _BrokerItemState extends State<BrokerItem> {
                       children: [
                         Row(
                           children: [
-                            Text("8.1M",
+                            Text("8.1${LocaleKeys.million_lable_text.tr()}",
                                 style: TextStyle(
                                     color: Colors.black.withOpacity(0.5))),
                             Icon(Icons.star,
@@ -104,7 +108,7 @@ class _BrokerItemState extends State<BrokerItem> {
                           width: 6,
                         ),
                         Text(
-                          "${this.widget.broker.reviews == null ? "10" : this.widget.broker.reviews![0].rate} M views",
+                          "${this.widget.broker.reviews == null ? "10" : this.widget.broker.reviews![0].rate} ${LocaleKeys.million_lable_text.tr()} ${LocaleKeys.views_lable_text.tr()}",
                           style:
                               TextStyle(color: Colors.black.withOpacity(0.5)),
                         )

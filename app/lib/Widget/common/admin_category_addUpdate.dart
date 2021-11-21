@@ -1,9 +1,12 @@
 import 'package:app/bloc/category/bloc/category_bloc.dart';
 import 'package:app/constants.dart';
 import 'package:app/model/broker/category.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 
+// ignore: must_be_immutable
 class AdminCategoryAddUpdate extends StatefulWidget {
   Category? category;
   bool isEdit;
@@ -43,13 +46,13 @@ class _AdminCategoryAddUpdateState extends State<AdminCategoryAddUpdate> {
             },
             validator: (value) {
               if (value!.isEmpty) {
-                return "Category name required!";
+                return LocaleKeys.category_name_empty_validation_label_text.tr();
               } else if (value.length <= 3) {
-                return "Category name too short!";
+                return LocaleKeys.category_name_short_validation_label_text.tr();
               }
             },
             decoration: InputDecoration(
-              label: Text("Category Name"),
+              label: Text(LocaleKeys.category_name_label_text.tr()),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
@@ -82,7 +85,7 @@ class _AdminCategoryAddUpdateState extends State<AdminCategoryAddUpdate> {
                 }
               }
             },
-            child: widget.isEdit ? Text("Update") : Text("Add"),
+            child: widget.isEdit ? Text(LocaleKeys.update_button_label_text.tr()) : Text(LocaleKeys.add_button_label_text.tr()),
           )
         ],
       ),

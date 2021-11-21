@@ -1,7 +1,82 @@
 {
     "app_name": "የደላላ አፕ",
 
+    "//comment//__": "Error Display",
+    "something_went_wrong_label_text": "የሆነ ስህተት ተከስቷል",
+
+    "//comment//__1": "Status Display",
+    "all_status_text": "ሁሉም",
+    "pending_status_text": "በመጠባበቅ ላይ",
+    "accepted_status_text": "ተቀባይነት ያለው",
+    "rejected_status_text": "ተቀባይነት ያላገኝ",
+    "done_status_text": "ያለቀ",
+
     "//comment//": "Welcomepage",
 
-    "go_in_button_text": "ግባ"
+    "go_in_button_text": "ግባ",
+    "welcome_text": "እንኳን ወደ ትረስት ድለላ በደህና መጡ",
+    "search_brokers_text": "ደላላዎችን ይፈልጉ",
+    "all_broker_tab_text": "ሁሉም",
+    "business_broker_text": "ቢዝነስ ደላላ",
+    "cars_broker_text": "የመኪና ደላላ",
+    "views_lable_text": "እይታ",
+    "million_lable_text": "ሚ",
+    "by_city_label_text": "በከተማ",
+    "bY_name_label_text": "በስም",
+
+    "//comment//1": "Login page",
+    "enter_label_text": "አስገባ ",
+    "login_label_text": "ግባ",
+    "enter_phone_label_text" : "ስልክ አስገባ",
+    "enter_password_label_text": "የይለፍ ቃል አስገባ",
+    "forgot_label_text": "የይለፍ ቃል ረስተዋል?",
+    "dont_you_have_account_label_text": "መለያ የለህም?",
+
+    "//comment//2": "Validation",
+    "phone_number_validation_label_text": "ስልክ ቁጥሩ 10 አሃዝ መሆን አለበት",
+    "password_validation_label_text": "የይለፍ ቃል በጣም አጭር ነው",
+    "failed_to_authenticate_label_text": "ማረጋገጥ አልተቻለም",
+    "login_failed_label_text": "መግባት አልተቻለም",
+    "you_are_not_verified_yet_label_text": "ማረጋገጫ አልተደረገልህም!",
+    "ok_button_label_text": "እሽ",
+
+    "//comment//3": "Admin main page",
+    "trust_broker_label_text": "ትረስት ድለላ",
+    "category_label_text": "ምድብ",
+    "see_category_label_text": "ምድቦችን ተመልከት",
+    "city_label_text": "ከተሞች",
+    "see_cities_label_text": "ከተሞችን ተመልከት",
+    "deals_label_text": "ስምምነቶች",
+    "see_deals_label_text": "ስምምነቶች ተመልከት",
+    "delivery_label_text": "ግዥዎች",
+    "see_deliveries_label_text": "ግዥዎች ተመልከት ",
+    "customers_label_text": "ደንበኞች",
+    "brokers_label_text": "ደላሎች",
+    "logout_label_text": "ውጣ",
+    
+    "//comment//4": "admin category page",
+    "category_name_label_text": "የምድብ ስም",
+    "add_button_label_text": "ጨምር",
+    "update_button_label_text": "አዘምን",
+    "category_name_empty_validation_label_text": "የምድብ ስም ያስፈልጋል!",
+    "category_name_short_validation_label_text": "የምድብ ስም በጣም አጭር ነው!",
+
+    "//comment//5": "admin deals page",
+    "statistics_label_text": "ዝርዝር ሂሳብ",
+    "requested_deals_label_text": "የተጠየቁ ስምምነቶች",
+    "requested_deliveries_label_text": "የተጠየቁ ግዥዎች",
+
+    "//comment//6": "profile page",
+    "contact_detail_label_text": "የማንነት ዝርዝር",
+    "id_label_text": "መታወቂያ",
+    "status_label_text": "ሁኔታ",
+    "skiils_label_text": "ችሎታዎች",
+    "communicative_skills_label_text": "የመግባባት ችሎታ",
+    "broking_skills_label_text": "የድለላ ችሎታ",
+    "work_done_label_text": "የተሰራ ስራ",
+    "Work_in_progress_label_text": "በሂደት ላይ ያለ ስራ",
+    "approve_button_label_text": "ደላላ እፅድቅ",
+    "reject_button_label_text":"ደላላ ውድቅ አድርግ"
+
+
 }

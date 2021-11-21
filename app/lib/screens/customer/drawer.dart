@@ -233,8 +233,10 @@ class _AppDrawerState extends State<AppDrawer> {
                                   ),
                                   onTap: () {
                                     // Navigator.pop(context);
-                                    Navigator.popAndPushNamed(
-                                        context, Login.routeName);
+                                    // Navigator.popAndPushNamed(
+                                    //     context, Login.routeName);
+                                         Navigator.of(context).pushNamedAndRemoveUntil(
+                                  Login.routeName, (route) => false,);
                                   }),
                             ),
                             // Divider(

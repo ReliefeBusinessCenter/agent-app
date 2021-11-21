@@ -1,5 +1,7 @@
 import 'package:app/constants/login/size.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CustomLoginTextField extends StatelessWidget {
   final String textFieldName;
@@ -39,7 +41,7 @@ class CustomLoginTextField extends StatelessWidget {
             contentPadding: EdgeInsets.only(top: 14),
             prefixIcon: Icon(this.icon),
             border: InputBorder.none,
-            hintText: 'Enter ${this.textFieldName}',
+            hintText: '${this.textFieldName}',
             errorStyle: TextStyle(
               color: Colors.red,
               fontWeight: FontWeight.bold,

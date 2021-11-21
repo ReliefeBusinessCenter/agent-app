@@ -7,8 +7,10 @@ import 'package:app/screens/admin/admin_category.dart';
 import 'package:app/screens/admin/admin_city.dart';
 import 'package:app/screens/admin/admin_deals_page.dart';
 import 'package:app/screens/admin/admin_delivery_page.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 UserPreferences pref = UserPreferences();
 
@@ -129,14 +131,14 @@ class _AdminDrawerState extends State<AdminDrawer> {
                               currentAccountPicture: photo,
                               arrowColor: Theme.of(context).accentColor,
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor),
+                                  color: Theme.of(context).primaryColor,),
                             ),
                             Divider(
                                 height: 20,
                                 color: Colors.white.withOpacity(0.6)),
                             CustomeList(
-                              title: "Category",
-                              subTitle: "see categories",
+                              title: LocaleKeys.category_label_text.tr(),
+                              subTitle: LocaleKeys.see_category_label_text.tr(),
                               icon: Icon(
                                 Icons.contact_page,
                                 color: Colors.white,
@@ -147,8 +149,8 @@ class _AdminDrawerState extends State<AdminDrawer> {
                               },
                             ),
                             CustomeList(
-                              title: "City",
-                              subTitle: "see cities",
+                              title: LocaleKeys.city_label_text.tr(),
+                              subTitle: LocaleKeys.see_cities_label_text.tr(),
                               icon: Icon(
                                 Icons.location_city,
                                 color: Colors.white,
@@ -162,8 +164,8 @@ class _AdminDrawerState extends State<AdminDrawer> {
                               },
                             ),
                             CustomeList(
-                              title: "Deals",
-                              subTitle: "see deals",
+                              title: LocaleKeys.deals_label_text.tr(),
+                              subTitle: LocaleKeys.see_deals_label_text.tr(),
                               icon: Icon(
                                 Icons.support_agent,
                                 color: Colors.white,
@@ -175,8 +177,8 @@ class _AdminDrawerState extends State<AdminDrawer> {
                               },
                             ),
                             CustomeList(
-                              title: "Delivery",
-                              subTitle: "see delivery",
+                              title: LocaleKeys.delivery_label_text.tr(),
+                              subTitle: LocaleKeys.see_deliveries_label_text.tr(),
                               icon: Icon(
                                 Icons.support_agent,
                                 color: Colors.white,
@@ -201,7 +203,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
                                     color: Theme.of(context).errorColor,
                                   ),
                                   title: Text(
-                                    'Log Out',
+                                    LocaleKeys.logout_label_text.tr(),
                                     style: TextStyle(
                                         color: Theme.of(context).errorColor,
                                         fontSize: 15,
@@ -209,8 +211,10 @@ class _AdminDrawerState extends State<AdminDrawer> {
                                   ),
                                   onTap: () {
                                     // Navigator.pop(context);
-                                    Navigator.popAndPushNamed(
-                                        context, Login.routeName);
+                                    // Navigator.popAndPushNamed(
+                                    //     context, Login.routeName);
+                                     Navigator.of(context).pushNamedAndRemoveUntil(
+                                  Login.routeName, (route) => false,);
                                   }),
                             ),
                           ],

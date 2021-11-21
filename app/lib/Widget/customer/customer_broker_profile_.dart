@@ -3,6 +3,7 @@ import 'package:app/Widget/Broker-profile/work-detail.dart';
 import 'package:app/constants.dart';
 import 'package:app/model/broker/broker.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class BrokerProfile extends StatelessWidget {
   final Broker broker;

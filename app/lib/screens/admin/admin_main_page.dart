@@ -2,7 +2,9 @@ import 'package:app/constants/constants.dart';
 import 'package:app/screens/admin/Admin_brokers_page.dart';
 import 'package:app/screens/admin/admin_customers_page.dart';
 import 'package:app/screens/admin/drawer.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class AdminMainPage extends StatefulWidget {
   static const routeName = "adminHomePage";
@@ -33,7 +35,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
       key: _scaffoldKey,
       backgroundColor: lightColor,
       appBar: AppBar(
-        title: Text('Trust Brokers'),
+        title: Text(LocaleKeys.trust_broker_label_text.tr()),
         backgroundColor: primaryColor,
         leading: GestureDetector(
           onTap: () => _scaffoldKey.currentState!.openDrawer(),
@@ -62,17 +64,17 @@ class _AdminMainPageState extends State<AdminMainPage> {
       ),
       drawerEnableOpenDragGesture: true,
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items:  <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
             ),
-            label: 'Cusotomers',
+            label: LocaleKeys.customers_label_text.tr(),
             backgroundColor: Colors.white,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.chat_bubble),
-            label: 'Brokers',
+            label: LocaleKeys.brokers_label_text.tr(),
             backgroundColor: Colors.white,
           ),
         ],
