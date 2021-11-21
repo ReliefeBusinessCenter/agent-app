@@ -32,11 +32,14 @@ class CustomerDealsPage extends StatelessWidget {
               } else if (state is DealsLoading) {
                 return Center(child: CircularProgressIndicator());
               } else if (state is FetchDealsSuccess) {
-                return ListView.builder(
-                    itemCount: state.deals_history.length,
-                    itemBuilder: (context, index) => CustomerDealsItem(
-                          deals: state.deals_history[index],
-                        ));
+                print("Deals history: ${state.deals_history}");
+                return state.deals_history.length == 0
+                    ? Center(child: Text("There is not any deals yet"))
+                    : ListView.builder(
+                        itemCount: state.deals_history.length,
+                        itemBuilder: (context, index) => CustomerDealsItem(
+                              deals: state.deals_history[index],
+                            ));
               }
               return Container();
             },

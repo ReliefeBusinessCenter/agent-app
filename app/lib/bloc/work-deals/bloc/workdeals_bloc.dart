@@ -52,7 +52,7 @@ class DealsListBloc extends Bloc<DealsEvent, DealsState> {
 
         Customer customer = await this
             .customerRepository
-            .getCustomerByEmail(user.email as String) as Customer;
+            .getCustomerByEmail(user.phone as String) as Customer;
         List<Deals> deals = customer.deals as List<Deals>;
         yield UpdateDealsSuccessState(deals_history: deals, message: "Updated");
         print("Customer Data: ${customer.toJson()}");
@@ -66,7 +66,7 @@ class DealsListBloc extends Bloc<DealsEvent, DealsState> {
 
         Broker broker = await this
             .brokerRepository
-            .getBrokerByEmail(user.email as String) as Broker;
+            .getBrokerByEmail(user.phone as String) as Broker;
         List<Deals> deals = broker.deals as List<Deals>;
         yield UpdateDealsSuccessState(deals_history: deals, message: "Updated");
         print("Broker Data: ${broker.toJson()}");
