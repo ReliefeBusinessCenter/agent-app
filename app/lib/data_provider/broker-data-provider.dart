@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/broker.dart';
-import 'package:app/model/broker/user.dart';
 import 'package:app/preferences/user_preference_data.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -171,7 +170,7 @@ class BrokerDataProvider {
                 "email": broker.user!.email,
                 "password": broker.user!.password,
                 "phone": '123456789',
-                "address": "Ethiopia/Dessie",
+                // "address": "Ethiopia/Dessie",
                 "picture": res.body.toString(),
                 "sex": broker.user!.sex,
                 "role": broker.user!.role,
@@ -193,7 +192,6 @@ class BrokerDataProvider {
     return false;
   }
 
-  // delete delivery
   Future<bool> DeleteBrokerEvent(int id) async {
     String? token = await this.userPreferences.getUserToken();
     // late List<Data> products_return = [];

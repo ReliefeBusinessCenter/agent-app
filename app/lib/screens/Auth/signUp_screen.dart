@@ -178,7 +178,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                   minLength: 0,
                                   enabled: true,
                                   textFieldName: 'Kebele',
-                                  keyboardType: TextInputType.text,
+                                  keyboardType: TextInputType.number,
                                   controller: kebeleController,
                                   initialValue: '',
                                   validator: null,
