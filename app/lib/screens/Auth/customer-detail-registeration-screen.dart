@@ -273,8 +273,8 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                                       .text.isNotEmpty) {
                                                 print(
                                                     "Register method called from the customer apage");
-                                                // registerBloc
-                                                //     .add(RegisterUser());
+                                                registerBloc
+                                                    .add(RegisterUser());
                                               }
                                             },
                                           )
