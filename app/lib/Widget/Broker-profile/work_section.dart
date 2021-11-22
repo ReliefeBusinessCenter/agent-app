@@ -18,26 +18,26 @@ class WorkSection extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            // WorkDetail(
-            //   circularStepProgressIndicator: CustomeCircularStepProgress(
-            //       currentStep: broker.skills!.workDone!.toInt()),
-            //   label: 'Completed \nworks',
-            // ),
-            // WorkDetail(
-            //   circularStepProgressIndicator: CustomeCircularStepProgress(
-            //       currentStep: broker.skills!.workInProgress!.toInt()),
-            //   label: 'Work In \n Progress',
-            // ),
-            // WorkDetail(
-            //   circularStepProgressIndicator: CustomeCircularStepProgress(
-            //       currentStep: broker.skills!.communicationSkill!.toInt()),
-            //   label: 'Communication \Skill',
-            // ),
-            // WorkDetail(
-            //   circularStepProgressIndicator: CustomeCircularStepProgress(
-            //       currentStep: broker.skills!.brokingSkill!.toInt()),
-            //   label: 'Broking\n Skill',
-            // ),
+            WorkDetail(
+              circularStepProgressIndicator: CustomeCircularStepProgress(
+                  currentStep: broker.skills!.workDone!.toInt()),
+              label: 'Completed \nworks',
+            ),
+            WorkDetail(
+              circularStepProgressIndicator: CustomeCircularStepProgress(
+                  currentStep: broker.skills!.workInProgress!.toInt()),
+              label: 'Work In \n Progress',
+            ),
+            WorkDetail(
+              circularStepProgressIndicator: CustomeCircularStepProgress(
+                  currentStep: broker.skills!.communicationSkill!.toInt()),
+              label: 'Communication \Skill',
+            ),
+            WorkDetail(
+              circularStepProgressIndicator: CustomeCircularStepProgress(
+                  currentStep: broker.skills!.brokingSkill!.toInt()),
+              label: 'Broking\n Skill',
+            ),
           ],
         ),
       ),

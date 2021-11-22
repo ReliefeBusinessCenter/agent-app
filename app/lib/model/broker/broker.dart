@@ -73,6 +73,8 @@ class Broker {
     if (this.portfolios != null) {
       data['portfolios'] = this.portfolios!.map((v) => v.toJson()).toList();
     }
+
+    
     if (this.delivery != null) {
       data['delivery'] = this.delivery!.map((v) => v.toJson()).toList();
     }

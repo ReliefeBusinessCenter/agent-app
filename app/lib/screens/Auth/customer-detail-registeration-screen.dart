@@ -237,7 +237,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                     "ID Photo",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
-                                  ),
+                                  ), 
                                   SizedBox(
                                     height: 20.0,
                                   ),
