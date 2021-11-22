@@ -1,6 +1,5 @@
 import 'package:app/Widget/Drawer/custom_list.dart';
 import 'package:app/Widget/common/broker_profile.dart';
-import 'package:app/Widget/common/user_profile.dart';
 import 'package:app/bloc/auth/bloc/auth_bloc.dart';
 import 'package:app/constants/constants.dart';
 import 'package:app/ip/ip.dart';
@@ -8,12 +7,13 @@ import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/screens/Auth/auth_exports.dart';
 
 import 'package:app/screens/broker/broker_main_page.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'saving_and_loans.dart';
 
 class BrokerDrawer extends StatefulWidget {
@@ -72,7 +72,7 @@ class _BrokerDrawerState extends State<BrokerDrawer> {
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.03),
                         CustomeList(
-                          title: "Dashboard",
+                          title: LocaleKeys.dashboard_label_text.tr(),
                           
                           icon: Icon(
                             Icons.dashboard,
@@ -81,11 +81,11 @@ class _BrokerDrawerState extends State<BrokerDrawer> {
                           onPressed: () {
                             Navigator.pushNamed(context, BrokerMain.routeName);
                           },
-                          subTitle: 'view trends',
+                          subTitle: LocaleKeys.dashboard_subtitle_label_text.tr(),
                         ),
                         CustomeList(
-                          title: "Account",
-                          subTitle: "Update Profile",
+                          title: LocaleKeys.account_label_text.tr(),
+                          subTitle: LocaleKeys.account_subtitle_label_text.tr(),
                           icon: Icon(
                             Icons.contact_page,
                             color: Colors.white,
@@ -107,8 +107,8 @@ class _BrokerDrawerState extends State<BrokerDrawer> {
                           },
                         ),
                         CustomeList(
-                          title: "Saving and Loans",
-                          subTitle: "Wallet",
+                          title: LocaleKeys.saving_and_loans_label_text.tr(),
+                          subTitle:LocaleKeys.saving_and_loans_subtitle_label_text.tr(),
                           icon: Icon(
                             Icons.attach_money,
                             color: Colors.white,
@@ -119,20 +119,20 @@ class _BrokerDrawerState extends State<BrokerDrawer> {
                           },
                         ),
                         ListTile(
-                          title: Text("Settings",
+                          title: Text(LocaleKeys.settings_label_text.tr(),
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15)),
-                          subtitle: Text('settings'),
+                          subtitle: Text(LocaleKeys.settings_label_subtitle_text.tr()),
                           leading: Icon(
                             Icons.settings,
                             color: Colors.white,
                           ),
                         ),
                         CustomeList(
-                          title: "Share",
-                          subTitle: "Share this app",
+                          title: LocaleKeys.share_label_text.tr(),
+                          subTitle: LocaleKeys.share_subtitle_label_text.tr(),
                           icon: Icon(
                             Icons.share,
                             color: Colors.white,
@@ -151,7 +151,7 @@ class _BrokerDrawerState extends State<BrokerDrawer> {
                               color: Theme.of(context).errorColor,
                             ),
                             title: Text(
-                              'Log Out',
+                              LocaleKeys.logout_label_text.tr(),
                               style: TextStyle(
                                   color: Theme.of(context).errorColor,
                                   fontSize: 15,

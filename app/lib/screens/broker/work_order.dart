@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
 class BrokerDeliveryHistoryScreen extends StatelessWidget {
-  
   final GlobalKey<ScaffoldState> scaffoldKey;
   BrokerDeliveryHistoryScreen({required this.scaffoldKey});
   late WorkBloc workBloc;
@@ -17,20 +16,6 @@ class BrokerDeliveryHistoryScreen extends StatelessWidget {
     workBloc.add(FetchWork());
     return Scaffold(
       backgroundColor: Theme.of(context).accentColor,
-      appBar: AppBar(
-        title: Text('Trust Brokers'),
-        backgroundColor: Theme.of(context).primaryColor,
-        leading: GestureDetector(
-          onTap: () => scaffoldKey.currentState!.openDrawer(),
-          child: Container(
-            height: 5.0,
-            width: 5.0,
-            child: ImageIcon(
-              AssetImage('assets/images/left-align.png'),
-            ),
-          ),
-        ),
-      ),
       body: Container(
         // decoration: BoxDecoration(color: Colors.white),
         child: ProgressHUD(

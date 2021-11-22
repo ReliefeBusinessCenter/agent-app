@@ -61,5 +61,17 @@ abstract class  LocaleKeys {
   static const approve_button_label_text = 'approve_button_label_text';
   static const reject_button_label_text = 'reject_button_label_text';
   static const delete_popup_label_text = 'delete_popup_label_text';
+  static const dashboard_label_text = 'dashboard_label_text';
+  static const dashboard_subtitle_label_text = 'dashboard_subtitle_label_text';
+  static const account_label_text = 'account_label_text';
+  static const account_subtitle_label_text = 'account_subtitle_label_text';
+  static const saving_and_loans_label_text = 'saving_and_loans_label_text';
+  static const saving_and_loans_subtitle_label_text = 'saving_and_loans_subtitle_label_text';
+  static const settings_label_text = 'settings_label_text';
+  static const settings_label_subtitle_text = 'settings_label_subtitle_text';
+  static const share_label_text = 'share_label_text';
+  static const share_subtitle_label_text = 'share_subtitle_label_text';
+  static const chat_label_text = 'chat_label_text';
+  static const broker_chat_room_label_text = 'broker_chat_room_label_text';
 
 }

@@ -2,10 +2,11 @@ import 'package:app/Widget/customer/customer-profile-page.dart';
 import 'package:app/bloc/favorit/bloc/favorite_bloc.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/model/customer/customer.dart';
-
+import 'package:app/translations/locale_keys.g.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CustomerItem extends StatefulWidget {
   final Customer customer;
@@ -15,15 +16,13 @@ class CustomerItem extends StatefulWidget {
   _CustomerItemState createState() => _CustomerItemState();
 }
 
-
-
 class _CustomerItemState extends State<CustomerItem> {
   late FavoriteBloc favoriteBloc;
   bool isFav = false;
   @override
   Widget build(BuildContext context) {
     favoriteBloc = BlocProvider.of<FavoriteBloc>(context);
-   
+
     return InkWell(
       onTap: () {
         print("This is the broker name ${widget.customer.user!.fullName}");
@@ -35,7 +34,6 @@ class _CustomerItemState extends State<CustomerItem> {
                   )),
         );
       },
-
       child: SizedBox(
         width: MediaQuery.of(context).size.width * 0.5,
         height: MediaQuery.of(context).size.width * 0.7,
@@ -89,7 +87,7 @@ class _CustomerItemState extends State<CustomerItem> {
                       children: [
                         Row(
                           children: [
-                            Text("8.1M",
+                            Text("8.1 ${LocaleKeys.million_lable_text.tr()}",
                                 style: TextStyle(
                                     color: Colors.black.withOpacity(0.5))),
                             Icon(Icons.star,
@@ -100,7 +98,6 @@ class _CustomerItemState extends State<CustomerItem> {
                         SizedBox(
                           width: 6,
                         ),
-                       
                       ],
                     ),
                     SizedBox(

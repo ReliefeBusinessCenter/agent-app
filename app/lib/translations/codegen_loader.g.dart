@@ -83,7 +83,20 @@ class CodegenLoader extends AssetLoader{
   "Work_in_progress_label_text": "በሂደት ላይ ያለ ስራ",
   "approve_button_label_text": "ደላላ እፅድቅ",
   "reject_button_label_text": "ደላላ ውድቅ አድርግ",
-  "delete_popup_label_text": "ሰርዝ"
+  "delete_popup_label_text": "ሰርዝ",
+  "//comment//7": "broker drawer page",
+  "dashboard_label_text": "ዳሽቦርድ",
+  "dashboard_subtitle_label_text": "ዳሽቦርድ",
+  "account_label_text": "አካውንት",
+  "account_subtitle_label_text": "መገለጫ አዘምን",
+  "saving_and_loans_label_text": "መቆጠብ እና ብድር",
+  "saving_and_loans_subtitle_label_text": "ዋሌት",
+  "settings_label_text": "መቸቶች",
+  "settings_label_subtitle_text": "መቸቶች",
+  "share_label_text": "አጋራ",
+  "share_subtitle_label_text": "ይህን እፕ አጋራ",
+  "chat_label_text": "ውይይት",
+  "broker_chat_room_label_text": "ደላላ ውይይት በቅርቡ ይመጣል"
 };
 static const Map<String,dynamic> en = {
   "app_name": "Broker app",
@@ -154,7 +167,20 @@ static const Map<String,dynamic> en = {
   "Work_in_progress_label_text": "Work in progress",
   "approve_button_label_text": "Approve Broker",
   "reject_button_label_text": "Reject Broker",
-  "delete_popup_label_text": "Delete"
+  "delete_popup_label_text": "Delete",
+  "//comment//7": "broker drawer page",
+  "dashboard_label_text": "Dashboard",
+  "dashboard_subtitle_label_text": "Dashboard",
+  "account_label_text": "Account",
+  "account_subtitle_label_text": "Update profile",
+  "saving_and_loans_label_text": "Saving and Loans",
+  "saving_and_loans_subtitle_label_text": "Wallet",
+  "settings_label_text": "Settings",
+  "settings_label_subtitle_text": "Settings",
+  "share_label_text": "Share",
+  "share_subtitle_label_text": "Share this app",
+  "chat_label_text": "Chat",
+  "broker_chat_room_label_text": "Broker Chat room coming soon"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"am": am, "en": en};
 }

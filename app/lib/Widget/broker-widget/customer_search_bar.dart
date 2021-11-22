@@ -67,17 +67,17 @@ class CustomerSearchTextField extends StatelessWidget {
                 // dealsBloc.add(MarkAsAccepted(deals: deals));
               } else {
                 // delete the work history.
-                AwesomeDialog(
-                  context: context,
-                  dialogType: DialogType.WARNING,
-                  animType: AnimType.BOTTOMSLIDE,
-                  title: 'Confirm Us',
-                  desc: 'Are you sure you want to Reject  this work?',
-                  btnCancelOnPress: () {},
-                  btnOkOnPress: () {
-                    // dealsBloc.add(MarkAsRejected(work: deals));
-                  },
-                )..show();
+                // AwesomeDialog(
+                //   context: context,
+                //   dialogType: DialogType.WARNING,
+                //   animType: AnimType.BOTTOMSLIDE,
+                //   title: 'Confirm Us',
+                //   desc: 'Are you sure you want to Reject  this work?',
+                //   btnCancelOnPress: () {},
+                //   btnOkOnPress: () {
+                //     // dealsBloc.add(MarkAsRejected(work: deals));
+                //   },
+                // )..show();
               }
             },
             itemBuilder: (context) => [

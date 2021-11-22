@@ -84,10 +84,17 @@
 
     "//comment//7": "broker drawer page",
     "dashboard_label_text": "Dashboard",
-    "view_trends_label": "",
+    "dashboard_subtitle_label_text": "Dashboard",
     "account_label_text": "Account",
+    "account_subtitle_label_text": "Update profile",
     "saving_and_loans_label_text": "Saving and Loans",
+    "saving_and_loans_subtitle_label_text": "Wallet",
     "settings_label_text": "Settings",
-    "share_label_text": "Share"
+    "settings_label_subtitle_text": "Settings",
+    "share_label_text": "Share",
+    "share_subtitle_label_text": "Share this app",
+    "chat_label_text": "Chat",
+    "broker_chat_room_label_text": "Broker Chat room coming soon"
+    
     
 }
