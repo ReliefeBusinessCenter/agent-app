@@ -30,19 +30,19 @@ class HistoryScreen extends StatelessWidget {
               } else if (state is UpdateFailedState) {
                 // update failed state
               } else if (state is WorkLoading) {
-                
                 return Center(child: CircularProgressIndicator());
               } else if (state is AdddWorkSuccess) {
-                return ListView.builder(
-                    itemCount: state.delivery_history.length,
-                    itemBuilder: (context, index) => WorkItem(
-                          work: state.delivery_history[index],
-                        ));
+                print("Delivery size: ${state.delivery_history.length}");
+                return state.delivery_history.length == 0
+                    ? Center(child: Text("There is not Delivery yet!"))
+                    : ListView.builder(
+                        itemCount: state.delivery_history.length,
+                        itemBuilder: (context, index) => WorkItem(
+                              work: state.delivery_history[index],
+                            ));
               }
               return Container();
-              
             },
-           
           ),
         )));
   }

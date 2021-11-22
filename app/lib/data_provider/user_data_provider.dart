@@ -68,13 +68,13 @@ class UserDataProvider {
         if (loggedUserInfo.user!.role == "Customer") {
           Customer customer = await this
                   .customerRepository
-                  .getCustomerByEmail(loggedUserInfo.user!.email as String)
+                  .getCustomerByEmail(loggedUserInfo.user!.phone as String)
               as Customer;
           await this.userPreferences.storeCustomerInformation(customer);
         } else if ((loggedUserInfo.user!.role == "Broker")) {
           Broker broker = await this
               .brokerRepository
-              .getBrokerByEmail(loggedUserInfo.user!.email as String) as Broker;
+              .getBrokerByEmail(loggedUserInfo.user!.phone as String) as Broker;
           print("Broker To Be stored ${broker.toJson()}");
           await this.userPreferences.storeBrokerInformation(broker);
         }
