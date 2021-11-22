@@ -19,8 +19,9 @@ class DeleteCustomerEvent extends CustomerEvent {
 
 class UpdateCustomerEvent extends CustomerEvent {
   final Customer customer;
+  final bool imageChanged;
 
-  UpdateCustomerEvent(this.customer);
+  UpdateCustomerEvent(this.customer, this.imageChanged);
 }
 
 class FetchCustomerByEmail extends CustomerEvent {
@@ -28,3 +29,4 @@ class FetchCustomerByEmail extends CustomerEvent {
 
   FetchCustomerByEmail(this.phone);
 }
+

@@ -42,13 +42,43 @@ class _BrokerProfileState extends State<BrokerProfile> {
       builder: (context, state) {
         print('!!!!!!!!!!!!!!_____state is $state');
         if (state is BrokersLoading) {
-          return Scaffold( appBar: AppBar(), body: SafeArea(child: Container(child: Center(child: CircularProgressIndicator()))));
+          return Scaffold(
+              appBar: AppBar(
+                backgroundColor: lightColor,
+                elevation: 0.0,
+                leading: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ),
+              body: SafeArea(
+                  child: Container(
+                      child: Center(child: CircularProgressIndicator()))));
         } else if (state is BrokersLoadFailed) {
-          return Scaffold(appBar: AppBar(), body: SafeArea(child: Container(child: Center(child: Text("Something went wrong")))));
+          return Scaffold(
+              appBar: AppBar(
+                  backgroundColor: lightColor,
+                  elevation: 0.0,
+                  leading: IconButton(
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: Colors.black,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  )),
+              body: SafeArea(
+                  child: Container(
+                      child: Center(child: Text("Something went wrong")))));
         } else if (state is BrokersLoadSuccess) {
           Broker _broker = state.brokers[0];
           broker = _broker;
-
           return Scaffold(
               backgroundColor: lightColor,
               appBar: AppBar(
@@ -162,7 +192,7 @@ class _BrokerProfileState extends State<BrokerProfile> {
                                     thickness: 0.4,
                                   ),
                                   UserPrefileContactDetail(
-                                      info: ' Addis Ababa',
+                                      info: _broker.user!.city != null ? "${_broker.user!.city}, ${_broker.user!.subCity}" : "Addis Ababa",
                                       iconData: Icons.location_city),
                                   Divider(color: Colors.black),
                                 ],
@@ -229,7 +259,22 @@ class _BrokerProfileState extends State<BrokerProfile> {
                 ),
               ));
         } else {
-          return Scaffold(appBar: AppBar(), body: SafeArea(child: Container(child: Center(child: Text("Something went wrong")))));
+          return Scaffold(
+              appBar: AppBar(
+                  backgroundColor: lightColor,
+                  elevation: 0.0,
+                  leading: IconButton(
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: Colors.black,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  )),
+              body: SafeArea(
+                  child: Container(
+                      child: Center(child: Text("Something went wrong")))));
         }
       },
     );

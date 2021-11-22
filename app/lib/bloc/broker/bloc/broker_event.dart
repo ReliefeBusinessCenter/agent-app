@@ -37,3 +37,10 @@ class FetchBrokerByEmail extends BrokerEvent {
   final String phone;
   FetchBrokerByEmail(this.phone);
 }
+
+class UpdateBrokerProfileEvent extends BrokerEvent {
+  final Broker broker;
+  final bool imageChanged;
+
+  UpdateBrokerProfileEvent(this.broker, this.imageChanged);
+}

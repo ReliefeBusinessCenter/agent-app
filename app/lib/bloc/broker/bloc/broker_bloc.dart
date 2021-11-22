@@ -124,7 +124,24 @@ class BrokerBloc extends Bloc<BrokerEvent, BrokerState> {
       } catch (e) {
         yield BrokersLoadFailed(message: "Failed to update broker");
       }
-    } else if (event is SearchEvent) {
+    }
+    else if (event is UpdateBrokerProfileEvent) {
+      try {
+        Broker _brokerResponse =
+            await brokersRepository.updateBrokerProfile(event.broker, event.imageChanged);
+        if (_brokerResponse is Broker) {
+          yield BrokersLoadSuccess(
+              brokers: [_brokerResponse],
+              isName: state.isName,
+              selectedCategoryId: 0);
+        } else {
+          yield BrokersLoadFailed(message: "Failed to update broker");
+        }
+      } catch (e) {
+        yield BrokersLoadFailed(message: "Failed to update broker");
+      }
+    }
+     else if (event is SearchEvent) {
       // search event
       //
       this.searchedBrokers = [];

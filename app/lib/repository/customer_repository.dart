@@ -32,7 +32,7 @@ class CustomerRepository {
     return deleted;
   }
 
-  Future<Customer> updateCustomer(Customer customer) async {
-    return await customerDataProvider.updateCustomer(customer);
+  Future<Customer> updateCustomer(Customer customer, bool imageChanged) async {
+    return await customerDataProvider.updateCustomer(customer, imageChanged);
   }
 }

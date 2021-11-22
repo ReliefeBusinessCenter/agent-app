@@ -73,6 +73,7 @@ class _BrokerDrawerState extends State<BrokerDrawer> {
                             height: MediaQuery.of(context).size.height * 0.03),
                         CustomeList(
                           title: "Dashboard",
+                          
                           icon: Icon(
                             Icons.dashboard,
                             color: Colors.white,
@@ -80,7 +81,7 @@ class _BrokerDrawerState extends State<BrokerDrawer> {
                           onPressed: () {
                             Navigator.pushNamed(context, BrokerMain.routeName);
                           },
-                          subTitle: '',
+                          subTitle: 'view trends',
                         ),
                         CustomeList(
                           title: "Account",
@@ -123,6 +124,7 @@ class _BrokerDrawerState extends State<BrokerDrawer> {
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15)),
+                          subtitle: Text('settings'),
                           leading: Icon(
                             Icons.settings,
                             color: Colors.white,

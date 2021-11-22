@@ -1,20 +1,24 @@
 import 'dart:io';
 
 import 'package:app/Widget/common/profile_form_field.dart';
+import 'package:app/bloc/customer/customer_bloc.dart';
 import 'package:app/constants.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/user.dart';
+import 'package:app/model/customer/customer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 // import 'package:file/file.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UserProfileEditPage extends StatefulWidget {
-  final User user;
+  final Customer customer;
   static const routeName = '/userProfileEditPage';
 
-  const UserProfileEditPage({required this.user, Key? key}) : super(key: key);
+  const UserProfileEditPage({required this.customer, Key? key})
+      : super(key: key);
 
   @override
   _UserProfileEditPageState createState() => _UserProfileEditPageState();
@@ -39,6 +43,8 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
     }
   }
 
+  Map<String, dynamic> _userData = {};
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,11 +65,38 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
             child: TextButton(
-                onPressed: () {},
-                child: Text(
-                  "Done",
-                  style: TextStyle(color: primaryColor, fontSize: 18.0),
-                )),
+              onPressed: () {
+                _formKey.currentState!.save();
+                if (_formKey.currentState!.validate()) {
+                  Customer _customer = Customer(
+                      customerId: widget.customer.customerId,
+                      deals: widget.customer.deals,
+                      delivery: widget.customer.delivery,
+                      isFavorite: widget.customer.isFavorite,
+                      reviews: widget.customer.reviews,
+                      user: User(
+                          fullName: _userData['fullName'],
+                          email: _userData['email'],
+                          phone: _userData['phone'],
+                          city: _userData['city'],
+                          subCity: _userData['subCity'],
+                          kebele: _userData['kebele'],
+                          buys: widget.customer.user!.buys,
+                          password: widget.customer.user!.password,
+                          picture: _imageFile != null ? _imageFile!.path: widget.customer.user!.picture,
+                          role: widget.customer.user!.role,
+                          sex: widget.customer.user!.sex,
+                          userId: widget.customer.user!.userId));
+                  BlocProvider.of<CustomerBloc>(context)
+                      .add(UpdateCustomerEvent(_customer,_imageFile != null));
+                  Navigator.of(context).pop();
+                }
+              },
+              child: Text(
+                "Done",
+                style: TextStyle(color: primaryColor, fontSize: 18.0),
+              ),
+            ),
           )
         ],
       ),
@@ -79,7 +112,7 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
                         onTap: uploadPhotoHandler,
                         child: CachedNetworkImage(
                           imageUrl:
-                              "${Ip.ip}/api/users/get/?fileName=${widget.user.picture as String}",
+                              "${Ip.ip}/api/users/get/?fileName=${widget.customer.user!.picture as String}",
                           imageBuilder: (context, imageProvider) => Container(
                             width: 120,
                             height: 120.0,
@@ -112,50 +145,98 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
                   height: 20.0,
                 ),
                 ProfileFormField(
-                  initialValue: widget.user.fullName!,
+                  initialValue: widget.customer.user!.fullName!,
                   name: "Full Name",
-                  onSaved: (value) {},
-                  validator: (value) {},
+                  onSaved: (value) {
+                    setState(() {
+                      _userData['fullName'] = value;
+                    });
+                  },
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return "Field is Required!";
+                    }
+                  },
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("Contact Details"),
                     ProfileFormField(
-                      initialValue: widget.user.email!,
+                      initialValue: widget.customer.user!.email!,
                       name: "Email",
-                      onSaved: (value) {},
-                      validator: (value) {},
+                      onSaved: (value) {
+                        setState(() {
+                          _userData['email'] = value;
+                        });
+                      },
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "Field is Required!";
+                        }
+                      },
                     ),
                     ProfileFormField(
-                      initialValue: widget.user.phone!,
+                      initialValue: widget.customer.user!.phone!,
                       name: "Phone",
-                      onSaved: (value) {},
-                      validator: (value) {},
+                      onSaved: (value) {
+                        setState(() {
+                          _userData['phone'] = value;
+                        });
+                      },
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "Field is Required!";
+                        }
+                      },
                     ),
                     ProfileFormField(
-                      initialValue: widget.user.city == null
+                      initialValue: widget.customer.user!.city == null
                           ? "City Name"
-                          : widget.user.city!,
+                          : widget.customer.user!.city!,
                       name: "City",
-                      onSaved: (value) {},
-                      validator: (value) {},
+                      onSaved: (value) {
+                        setState(() {
+                          _userData['city'] = value;
+                        });
+                      },
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "Field is Required!";
+                        }
+                      },
                     ),
                     ProfileFormField(
-                      initialValue: widget.user.subCity == null
+                      initialValue: widget.customer.user!.subCity == null
                           ? "Sub city name"
-                          : widget.user.subCity!,
+                          : widget.customer.user!.subCity!,
                       name: "Sub city",
-                      onSaved: (value) {},
-                      validator: (value) {},
+                      onSaved: (value) {
+                        setState(() {
+                          _userData['subCity'] = value;
+                        });
+                      },
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "Field is Required!";
+                        }
+                      },
                     ),
                     ProfileFormField(
-                      initialValue: widget.user.kebele == null
+                      initialValue: widget.customer.user!.kebele == null
                           ? "Kebele"
-                          : widget.user.kebele!,
+                          : widget.customer.user!.kebele!,
                       name: "Kebele",
-                      onSaved: (value) {},
-                      validator: (value) {},
+                      onSaved: (value) {
+                        setState(() {
+                          _userData['kebele'] = value;
+                        });
+                      },
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "Field is Required!";
+                        }
+                      },
                     ),
                   ],
                 ),
@@ -167,4 +248,3 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
     );
   }
 }
-

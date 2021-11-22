@@ -59,9 +59,11 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   child: Container(
                       child: Center(child: CircularProgressIndicator()))));
         } else if (state is CustomersLoadFailed) {
+          print("The error is ${state.message}");
           return Scaffold(
               appBar: AppBar(
-                backgroundColor: primaryColor,
+                backgroundColor: lightColor,
+                elevation: 0.0,
                 leading: IconButton(
                   icon: Icon(
                     Icons.arrow_back,
@@ -79,9 +81,19 @@ class _UserProfilePageState extends State<UserProfilePage> {
           Customer customer = state.customers[0];
           _customer = customer;
 
-          return Scaffold(
+          return _customer == null? Center(child: Text("No User"),) : Scaffold(
             appBar: AppBar(
-              backgroundColor: primaryColor,
+              backgroundColor: lightColor,
+              elevation: 0.0,
+              leading: IconButton(
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
               actions: [
                 if (_customer != null)
                   Padding(
@@ -92,7 +104,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         onPressed: () {
                           Navigator.of(context).pushNamed(
                               UserProfileEditPage.routeName,
-                              arguments: _customer!.user);
+                              arguments: _customer);
                         },
                         icon: Icon(Icons.edit),
                       ),
@@ -249,7 +261,17 @@ class _UserProfilePageState extends State<UserProfilePage> {
         } else {
           return Scaffold(
               appBar: AppBar(
-                backgroundColor: primaryColor,
+                backgroundColor: lightColor,
+                elevation: 0.0,
+                leading: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
               ),
               body: SafeArea(
                   child: Container(

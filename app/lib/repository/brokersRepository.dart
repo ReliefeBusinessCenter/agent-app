@@ -40,4 +40,9 @@ class BrokersRepository {
   Future<Broker> updateBroker(Broker broker, bool status) async {
     return await brokerDataProvider.updateBroker(broker, status);
   }
+
+  // update broker profile
+  Future<Broker> updateBrokerProfile(Broker broker, bool imageChanged) async {
+    return await brokerDataProvider.updateBrokerProfile(broker, imageChanged);
+  }
 }

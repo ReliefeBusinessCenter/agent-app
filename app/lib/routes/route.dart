@@ -1,4 +1,3 @@
-import 'package:app/Widget/common/user_profile.dart';
 import 'package:app/Widget/common/user_profile_edit_page.dart';
 import 'package:app/model/broker/user.dart';
 import 'package:app/model/customer/customer.dart';
@@ -71,9 +70,9 @@ class AppRoutes {
     //   );
     // } 
     else if (settings.name == UserProfileEditPage.routeName) {
-      User user = settings.arguments as User;
+      Customer _customer = settings.arguments as Customer;
       return MaterialPageRoute(
-        builder: (context) => UserProfileEditPage(user: user),
+        builder: (context) => UserProfileEditPage(customer: _customer),
       );
     } else if (settings.name == CustomerDeliveryDetails.routeName) {
       Delivery delivery = settings.arguments as Delivery;
