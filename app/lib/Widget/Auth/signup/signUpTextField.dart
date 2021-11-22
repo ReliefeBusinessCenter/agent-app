@@ -53,6 +53,11 @@ class CustomTextField extends StatelessWidget {
                 validator: (val) {
                   if (val!.length == 0) {
                     return "This field is required";
+                  } else if (textFieldName == 'Phone') {
+                    if (val.length != 10) {
+                      return "The character length have to be 10";
+                    }
+                    return null;
                   } else {
                     return null;
                   }

@@ -1,8 +1,10 @@
 import 'package:app/Widget/Drawer/custom_list.dart';
+import 'package:app/Widget/common/broker_profile.dart';
 import 'package:app/Widget/common/user_profile.dart';
 import 'package:app/bloc/auth/bloc/auth_bloc.dart';
 import 'package:app/constants/constants.dart';
 import 'package:app/ip/ip.dart';
+import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/screens/Auth/auth_exports.dart';
 
 import 'package:app/screens/broker/broker_main_page.dart';
@@ -88,15 +90,19 @@ class _BrokerDrawerState extends State<BrokerDrawer> {
                             color: Colors.white,
                           ),
                           onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => UserProfilePage(
-                                  user: state.user.user!,
-                                  fromAdmin: false,
-                                  isCustomer: false,
-                                ),
-                              ),
-                            );
+                            UserPreferences _userPreferences =
+                                UserPreferences();
+                            _userPreferences
+                                .getBrokerInformation()
+                                .then((value) => {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) => BrokerProfile(
+                                            broker: value!,
+                                          ),
+                                        ),
+                                      )
+                                    });
                           },
                         ),
                         CustomeList(
@@ -154,7 +160,9 @@ class _BrokerDrawerState extends State<BrokerDrawer> {
                               // Navigator.popAndPushNamed(
                               //     context, Login.routeName);
                               Navigator.of(context).pushNamedAndRemoveUntil(
-                                  Login.routeName, (route) => false,);
+                                Login.routeName,
+                                (route) => false,
+                              );
                             }),
                         // SizedBox(
                         //   height: MediaQuery.of(context).size.height * 0.09,

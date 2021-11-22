@@ -44,7 +44,7 @@ class DealsBrokerProfile extends StatelessWidget {
                 width: 10.0,
               ),
               Text(
-                deals.customer!.user!.address!,
+                deals.customer!.user!.city!,
                 style: TextStyle(
                   fontSize: 15,
                   color: Theme.of(context).primaryColor.withOpacity(0.5),

@@ -169,7 +169,8 @@ class _AdminBrokerProfilePageState extends State<AdminBrokerProfilePage> {
                             indicatorSize: TabBarIndicatorSize.tab,
                             tabs: [
                               Tab(
-                                child: Text(LocaleKeys.contact_detail_label_text.tr()),
+                                child: Text(
+                                    LocaleKeys.contact_detail_label_text.tr()),
                               ),
                               Tab(
                                 child: Text(LocaleKeys.id_label_text.tr()),
@@ -184,7 +185,9 @@ class _AdminBrokerProfilePageState extends State<AdminBrokerProfilePage> {
                               ContactDetailPage(
                                 broker: widget.broker!.user!,
                               ),
-                              UserIdentityCard(user: widget.broker!.user!),
+                              UserIdentityCard(
+                                user: widget.broker!.user!,
+                              ),
                             ],
                           ),
                         ),
@@ -240,7 +243,8 @@ class _AdminBrokerProfilePageState extends State<AdminBrokerProfilePage> {
                               SizedBox(
                                 width: size.width * 0.6,
                                 child: AcceptButton(
-                                  title: LocaleKeys.approve_button_label_text.tr(),
+                                  title:
+                                      LocaleKeys.approve_button_label_text.tr(),
                                   onPressed: () {
                                     BlocProvider.of<BrokerBloc>(context).add(
                                         UpdateBrokerEvent(
@@ -254,7 +258,8 @@ class _AdminBrokerProfilePageState extends State<AdminBrokerProfilePage> {
                               SizedBox(
                                 width: size.width * 0.6,
                                 child: RejectButton(
-                                  title: LocaleKeys.reject_button_label_text.tr(),
+                                  title:
+                                      LocaleKeys.reject_button_label_text.tr(),
                                   onPressed: () {
                                     debugPrint("Rejecting Broker");
                                     BlocProvider.of<BrokerBloc>(context)
@@ -284,4 +289,3 @@ class _AdminBrokerProfilePageState extends State<AdminBrokerProfilePage> {
     );
   }
 }
-

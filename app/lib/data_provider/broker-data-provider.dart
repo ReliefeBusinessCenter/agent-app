@@ -65,6 +65,7 @@ class BrokerDataProvider {
         },
       );
       print('Arrived here ${response.body}');
+      print("Response status${response.statusCode}");
       if (response.statusCode == 200) {
         final extractedData = json.decode(response.body);
 
@@ -167,7 +168,7 @@ class BrokerDataProvider {
                 "email": broker.user!.email,
                 "password": broker.user!.password,
                 "phone": '123456789',
-                "address": "Ethiopia/Dessie",
+                // "address": "Ethiopia/Dessie",
                 "picture": res.body.toString(),
                 "sex": broker.user!.sex,
                 "role": broker.user!.role,
@@ -189,7 +190,6 @@ class BrokerDataProvider {
     return false;
   }
 
-  // delete delivery
   Future<bool> DeleteBrokerEvent(int id) async {
     String? token = await this.userPreferences.getUserToken();
     // late List<Data> products_return = [];

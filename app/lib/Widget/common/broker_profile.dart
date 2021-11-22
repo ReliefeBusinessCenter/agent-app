@@ -1,43 +1,30 @@
-import 'package:app/Widget/broker-widget/accept_button.dart';
-import 'package:app/Widget/broker-widget/reject_button.dart';
+import 'package:app/Widget/common/broker_profile_edit.dart';
 import 'package:app/Widget/common/loading_indicator.dart';
 import 'package:app/Widget/common/user_profile_contact.dart';
 import 'package:app/Widget/common/user_profile_edit_page.dart';
 import 'package:app/bloc/broker/bloc/broker_bloc.dart';
-import 'package:app/bloc/customer/customer_bloc.dart';
 import 'package:app/constants.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/broker.dart';
-import 'package:app/model/broker/user.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 // ignore: must_be_immutable
-class UserProfilePage extends StatefulWidget {
-  final User user;
-  final bool fromAdmin;
-  final bool isCustomer;
-  final Broker? broker;
-
-  int? id;
+class BrokerProfile extends StatefulWidget {
+  final Broker broker;
   static const routeName = "/userProfile";
-  UserProfilePage({
-    required this.user,
-    required this.fromAdmin,
-    required this.isCustomer,
-    this.broker,
-    this.id,
+  BrokerProfile({
+    required this.broker,
     Key? key,
   }) : super(key: key);
 
   @override
-  State<UserProfilePage> createState() => _UserProfilePageState();
+  State<BrokerProfile> createState() => _BrokerProfileState();
 }
 
-class _UserProfilePageState extends State<UserProfilePage> {
+class _BrokerProfileState extends State<BrokerProfile> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -62,8 +49,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
               backgroundColor: primaryColor,
               child: IconButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(UserProfileEditPage.routeName,
-                      arguments: widget.user);
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => BrokerProfileEditPage(broker: widget.broker))
+                  );
                 },
                 icon: Icon(Icons.edit),
               ),
@@ -74,7 +62,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
       body: BlocConsumer<BrokerBloc, BrokerState>(
         listener: (context, state) {
           if (state is BrokersLoading) {
-            if (widget.fromAdmin && !widget.isCustomer)
+            
               showDialog(
                 context: context,
                 builder: (context) => LoadingIndicator(
@@ -85,9 +73,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 ),
               );
           } else if (state is BrokersLoadFailed) {
-            if (widget.fromAdmin && !widget.isCustomer)
-              Navigator.of(context).pop();
-            if (widget.fromAdmin && !widget.isCustomer)
+           
               showDialog(
                 context: context,
                 builder: (context) => LoadingIndicator(
@@ -99,7 +85,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 ),
               );
           } else {
-            if (widget.fromAdmin && !widget.isCustomer)
               Navigator.of(context).pop();
           }
         },
@@ -112,7 +97,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 children: [
                   CachedNetworkImage(
                     imageUrl:
-                        "${Ip.ip}/api/users/get/?fileName=${widget.user.picture as String}",
+                        "${Ip.ip}/api/users/get/?fileName=${widget.broker.user!.picture as String}",
                     imageBuilder: (context, imageProvider) => Container(
                       width: 120,
                       height: 120.0,
@@ -133,7 +118,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     height: 20.0,
                   ),
                   Text(
-                    widget.user.fullName.toString(),
+                    widget.broker.user!.fullName.toString(),
                     style:
                         TextStyle(fontSize: 30.0, fontWeight: FontWeight.w600),
                   ),
@@ -167,7 +152,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                 thickness: 0.4,
                               ),
                               UserPrefileContactDetail(
-                                info: widget.user.email!,
+                                info: widget.broker.user!.email!,
                                 iconData: Icons.email_outlined,
                               ),
                               Divider(
@@ -175,7 +160,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                 thickness: 0.4,
                               ),
                               UserPrefileContactDetail(
-                                info: widget.user.phone!,
+                                info: widget.broker.user!.phone!,
                                 iconData: Icons.phone_outlined,
                               ),
                               Divider(
@@ -222,7 +207,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                 thickness: 0.4,
                               ),
                               UserPrefileContactDetail(
-                                info: widget.user.role!,
+                                info: widget.broker.user!.role!,
                                 iconData: Icons.category,
                               ),
                               Divider(
@@ -230,47 +215,14 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                 thickness: 0.4,
                               ),
                               UserPrefileContactDetail(
-                                info: widget.user.sex!,
+                                info: widget.broker.user!.sex!,
                                 iconData: Icons.person,
                               ),
                               Divider(color: Colors.black),
                               SizedBox(
                                 height: 30,
                               ),
-                              if (widget.fromAdmin && !widget.isCustomer)
-                                SizedBox(
-                                  width: size.width * 0.6,
-                                  child: AcceptButton(
-                                    title: "Approve Broker",
-                                    onPressed: () {
-                                      BlocProvider.of<BrokerBloc>(context).add(
-                                          UpdateBrokerEvent(
-                                              widget.broker!, true));
-                                    },
-                                  ),
-                                ),
-                              if (widget.fromAdmin && !widget.isCustomer)
-                                SizedBox(
-                                  height: 20.0,
-                                ),
-                              if (widget.fromAdmin && !widget.isCustomer)
-                                SizedBox(
-                                  width: size.width * 0.6,
-                                  child: RejectButton(
-                                    title: 'Reject Broker',
-                                    onPressed: () {
-                                      debugPrint("Rejecting Broker");
-                                      BlocProvider.of<BrokerBloc>(context).add(
-                                          UpdateBrokerEvent(
-                                              widget.broker!, false));
-                                      debugPrint("Rejected Broker");
-                                    },
-                                  ),
-                                ),
-                              if (widget.fromAdmin && !widget.isCustomer)
-                                SizedBox(
-                                  height: 20.0,
-                                )
+                             
                             ],
                           ),
                         )

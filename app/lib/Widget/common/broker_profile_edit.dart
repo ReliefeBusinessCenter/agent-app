@@ -1,26 +1,29 @@
 import 'dart:io';
-
 import 'package:app/Widget/common/profile_form_field.dart';
+import 'package:app/bloc/broker/bloc/broker_bloc.dart';
+import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
 import 'package:app/constants.dart';
 import 'package:app/ip/ip.dart';
+import 'package:app/model/broker/broker.dart';
 import 'package:app/model/broker/user.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 // import 'package:file/file.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_picker/image_picker.dart';
 
-class UserProfileEditPage extends StatefulWidget {
-  final User user;
-  static const routeName = '/userProfileEditPage';
+class BrokerProfileEditPage extends StatefulWidget {
+  final Broker broker;
 
-  const UserProfileEditPage({required this.user, Key? key}) : super(key: key);
+  const BrokerProfileEditPage({required this.broker, Key? key})
+      : super(key: key);
 
   @override
-  _UserProfileEditPageState createState() => _UserProfileEditPageState();
+  _BrokerProfileEditPageState createState() => _BrokerProfileEditPageState();
 }
 
-class _UserProfileEditPageState extends State<UserProfileEditPage> {
+class _BrokerProfileEditPageState extends State<BrokerProfileEditPage> {
   final _formKey = GlobalKey<FormState>();
   final ImagePicker _picker = ImagePicker();
   File? _imageFile;
@@ -59,7 +62,14 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
             child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  BlocProvider.of<BrokerBloc>(context).add(
+                    UpdateBrokerEvent(
+                      widget.broker,
+                      widget.broker.approved!,
+                    ),
+                  );
+                },
                 child: Text(
                   "Done",
                   style: TextStyle(color: primaryColor, fontSize: 18.0),
@@ -79,7 +89,7 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
                         onTap: uploadPhotoHandler,
                         child: CachedNetworkImage(
                           imageUrl:
-                              "${Ip.ip}/api/users/get/?fileName=${widget.user.picture as String}",
+                              "${Ip.ip}/api/users/get/?fileName=${widget.broker.user!.picture as String}",
                           imageBuilder: (context, imageProvider) => Container(
                             width: 120,
                             height: 120.0,
@@ -112,7 +122,7 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
                   height: 20.0,
                 ),
                 ProfileFormField(
-                  initialValue: widget.user.fullName!,
+                  initialValue: widget.broker.user!.fullName!,
                   name: "Full Name",
                   onSaved: (value) {},
                   validator: (value) {},
@@ -122,37 +132,37 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
                   children: [
                     Text("Contact Details"),
                     ProfileFormField(
-                      initialValue: widget.user.email!,
+                      initialValue: widget.broker.user!.email!,
                       name: "Email",
                       onSaved: (value) {},
                       validator: (value) {},
                     ),
                     ProfileFormField(
-                      initialValue: widget.user.phone!,
+                      initialValue: widget.broker.user!.phone!,
                       name: "Phone",
                       onSaved: (value) {},
                       validator: (value) {},
                     ),
                     ProfileFormField(
-                      initialValue: widget.user.city == null
+                      initialValue: widget.broker.user!.city == null
                           ? "City Name"
-                          : widget.user.city!,
+                          : widget.broker.user!.city!,
                       name: "City",
                       onSaved: (value) {},
                       validator: (value) {},
                     ),
                     ProfileFormField(
-                      initialValue: widget.user.subCity == null
+                      initialValue: widget.broker.user!.subCity == null
                           ? "Sub city name"
-                          : widget.user.subCity!,
+                          : widget.broker.user!.subCity!,
                       name: "Sub city",
                       onSaved: (value) {},
                       validator: (value) {},
                     ),
                     ProfileFormField(
-                      initialValue: widget.user.kebele == null
+                      initialValue: widget.broker.user!.kebele == null
                           ? "Kebele"
-                          : widget.user.kebele!,
+                          : widget.broker.user!.kebele!,
                       name: "Kebele",
                       onSaved: (value) {},
                       validator: (value) {},
@@ -167,4 +177,3 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
     );
   }
 }
-

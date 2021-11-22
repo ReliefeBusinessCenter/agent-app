@@ -145,7 +145,7 @@ class BrokerBloc extends Bloc<BrokerEvent, BrokerState> {
         } else {
           if (brokerList[i]
               .user!
-              .address!
+              .city!
               .toLowerCase()
               .contains(this.searchBrokerName.toString().toLowerCase())) {
             this.searchedBrokers.add(brokerList[i]);

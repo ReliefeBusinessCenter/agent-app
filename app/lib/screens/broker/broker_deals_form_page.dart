@@ -65,7 +65,7 @@ class _DealsPageScreenState extends State<DealsPageScreen> {
     clientNameController.text = widget.customer.user!.fullName as String;
     clientPhoneController.text = widget.customer.user!.phone as String;
     clientEmailController.text = widget.customer.user!.email as String;
-    clientAdressController.text = widget.customer.user!.address as String;
+    clientAdressController.text = widget.customer.user!.city as String;
     this.deliveryOptionController.text = "No";
     this.paymentOptionController.text = "On Hand";
     print("customer full name = : ${widget.customer.user!.fullName}");
@@ -235,8 +235,8 @@ class _DealsPageScreenState extends State<DealsPageScreen> {
                                       textFieldName: 'Address',
                                       enabled: false,
                                       controller: clientAdressController,
-                                      initialValue: widget
-                                          .customer.user!.address as String,
+                                      initialValue:
+                                          widget.customer.user!.city as String,
                                       validator: null,
                                       obsecureText: false,
                                       isRequired: false,
