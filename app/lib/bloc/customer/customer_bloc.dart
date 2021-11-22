@@ -34,7 +34,25 @@ class CustomerBloc extends Bloc<CustomerEvent, CustomerState> {
           yield CustomersLoadFailed(message: "Unable to load brokers");
         }
       } catch (e) {}
-    } else if (event is DeleteCustomerEvent) {
+    } else if (event is UpdateCustomerEvent) {
+      yield CustomersLoading();
+      try {
+        Customer _customer =
+            await customerRepository.updateCustomer(event.customer);
+        
+        if(_customer is Customer ){
+          yield CustomersLoadSuccess(customers: [_customer]);
+        }else{
+          yield CustomersLoadFailed(message: "Unable to update customer");
+        }
+        
+      } catch (e) {
+        yield CustomersLoadFailed(message: "Unable to update customer");
+      }
+    } else if(event is FetchCustomerByEmail){
+      yield CustomersLoading();
+    }
+     else if (event is DeleteCustomerEvent) {
       yield CustomersLoading();
       try {
         bool _deleteResponse =

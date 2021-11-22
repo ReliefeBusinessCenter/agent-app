@@ -16,3 +16,15 @@ class DeleteCustomerEvent extends CustomerEvent {
 
   DeleteCustomerEvent(this.id);
 }
+
+class UpdateCustomerEvent extends CustomerEvent {
+  final Customer customer;
+
+  UpdateCustomerEvent(this.customer);
+}
+
+class FetchCustomerByEmail extends CustomerEvent {
+  final String phone;
+
+  FetchCustomerByEmail(this.phone);
+}

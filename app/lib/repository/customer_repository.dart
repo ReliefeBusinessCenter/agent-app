@@ -21,13 +21,18 @@ class CustomerRepository {
   }
 
   Future<List<Customer>> getCustomers() async {
-    List<Customer> data = await customerDataProvider.getCustomers() as List<Customer>;
+    List<Customer> data =
+        await customerDataProvider.getCustomers() as List<Customer>;
     print("Data arrived at the data provider ${data.map((e) => e.toJson())}");
     return data;
   }
+
   Future<bool> deleteCustomer(int id) async {
     bool deleted = await customerDataProvider.deleteCustomer(id);
     return deleted;
   }
-  
+
+  Future<Customer> updateCustomer(Customer customer) async {
+    return await customerDataProvider.updateCustomer(customer);
+  }
 }

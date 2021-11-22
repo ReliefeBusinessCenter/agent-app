@@ -168,6 +168,20 @@ class BrokerBloc extends Bloc<BrokerEvent, BrokerState> {
       //     selectedCategoryId: state.selectedCategoryId,
       //     brokers: state.brokers,
       //     isName: event.isName);
+    } else if (event is FetchBrokerByEmail) {
+      try {
+        Broker? _broker = await brokersRepository.getBrokerByEmail(event.phone);
+        if (_broker is Broker) {
+          yield BrokersLoadSuccess(
+              isName: state.isName,
+              selectedCategoryId: state.selectedCategoryId,
+              brokers: [_broker]);
+        } else {
+          yield BrokersLoadFailed(message: "Unable to fetch");
+        }
+      } catch (e) {
+        yield BrokersLoadFailed(message: "Unable to fetch");
+      }
     }
   }
 }

@@ -32,3 +32,8 @@ class UpdateBrokerEvent extends BrokerEvent {
 
   UpdateBrokerEvent(this.broker, this.status);
 }
+
+class FetchBrokerByEmail extends BrokerEvent {
+  final String phone;
+  FetchBrokerByEmail(this.phone);
+}
