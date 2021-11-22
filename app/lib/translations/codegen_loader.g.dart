@@ -82,7 +82,8 @@ class CodegenLoader extends AssetLoader{
   "work_done_label_text": "የተሰራ ስራ",
   "Work_in_progress_label_text": "በሂደት ላይ ያለ ስራ",
   "approve_button_label_text": "ደላላ እፅድቅ",
-  "reject_button_label_text": "ደላላ ውድቅ አድርግ"
+  "reject_button_label_text": "ደላላ ውድቅ አድርግ",
+  "delete_popup_label_text": "ሰርዝ"
 };
 static const Map<String,dynamic> en = {
   "app_name": "Broker app",
@@ -152,7 +153,8 @@ static const Map<String,dynamic> en = {
   "work_done_label_text": "Work Done",
   "Work_in_progress_label_text": "Work in progress",
   "approve_button_label_text": "Approve Broker",
-  "reject_button_label_text": "Reject Broker"
+  "reject_button_label_text": "Reject Broker",
+  "delete_popup_label_text": "Delete"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"am": am, "en": en};
 }

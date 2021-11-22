@@ -28,6 +28,7 @@ class BrokerDetailScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text("Broker Detail Screen"),
+          backgroundColor: Theme.of(context).primaryColor,
         ),
         body: ProgressHUD(
           child: BlocConsumer<RegisterBloc, RegisterState>(
@@ -139,7 +140,7 @@ class BrokerDetailScreen extends StatelessWidget {
                                                       skill:
                                                           double.parse(value)));
                                             },
-                                            keyboardType: TextInputType.text,
+                                            keyboardType: TextInputType.number,
                                           ),
                                           SizedBox(
                                             height: MediaQuery.of(context)
@@ -149,7 +150,8 @@ class BrokerDetailScreen extends StatelessWidget {
                                           ),
                                           CustomTextField(
                                               minLength: 0,
-                                              keyboardType: TextInputType.text,
+                                              keyboardType:
+                                                  TextInputType.number,
                                               enabled: true,
                                               textFieldName: 'Brooking Skills',
                                               controller:
@@ -174,7 +176,8 @@ class BrokerDetailScreen extends StatelessWidget {
                                           CustomTextField(
                                               minLength: 0,
                                               textFieldName: 'Work Done',
-                                              keyboardType: TextInputType.text,
+                                              keyboardType:
+                                                  TextInputType.number,
                                               controller: workDoneController,
                                               initialValue: '',
                                               enabled: true,
@@ -203,7 +206,8 @@ class BrokerDetailScreen extends StatelessWidget {
                                               minLength: 0,
                                               enabled: true,
                                               textFieldName: 'Work In Progress',
-                                              keyboardType: TextInputType.text,
+                                              keyboardType:
+                                                  TextInputType.number,
                                               controller:
                                                   workInProgressController,
                                               initialValue: '',

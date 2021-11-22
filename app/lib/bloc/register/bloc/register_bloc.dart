@@ -168,6 +168,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         // broker registeration
 
         broker.user = user;
+        print("Broker to be registered: ${broker.toJson()}");
         bool isCreated = await this.brokersRepository.createBroker(broker);
         if (isCreated == true) {
           // created success

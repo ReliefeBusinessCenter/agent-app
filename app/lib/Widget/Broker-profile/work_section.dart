@@ -1,4 +1,3 @@
-
 import 'package:app/model/broker/broker.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +9,8 @@ class WorkSection extends StatelessWidget {
   WorkSection({required this.broker});
   @override
   Widget build(BuildContext context) {
+    print("Broker Skills: ${broker.skills}");
+    print("Broker Category: ${broker.category!.catigoryName}");
     return Container(
       margin: EdgeInsets.symmetric(vertical: 12),
       height: 120,
@@ -17,26 +18,26 @@ class WorkSection extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            WorkDetail(
-              circularStepProgressIndicator: CustomeCircularStepProgress(
-                  currentStep: broker.skills!.workDone!.toInt()),
-              label: 'Completed \nworks',
-            ),
-            WorkDetail(
-              circularStepProgressIndicator: CustomeCircularStepProgress(
-                  currentStep: broker.skills!.workInProgress!.toInt()),
-              label: 'Work In \n Progress',
-            ),
-            WorkDetail(
-              circularStepProgressIndicator: CustomeCircularStepProgress(
-                  currentStep: broker.skills!.communicationSkill!.toInt()),
-              label: 'Communication \Skill',
-            ),
-            WorkDetail(
-              circularStepProgressIndicator: CustomeCircularStepProgress(
-                  currentStep: broker.skills!.brokingSkill!.toInt()),
-              label: 'Broking\n Skill',
-            ),
+            // WorkDetail(
+            //   circularStepProgressIndicator: CustomeCircularStepProgress(
+            //       currentStep: broker.skills!.workDone!.toInt()),
+            //   label: 'Completed \nworks',
+            // ),
+            // WorkDetail(
+            //   circularStepProgressIndicator: CustomeCircularStepProgress(
+            //       currentStep: broker.skills!.workInProgress!.toInt()),
+            //   label: 'Work In \n Progress',
+            // ),
+            // WorkDetail(
+            //   circularStepProgressIndicator: CustomeCircularStepProgress(
+            //       currentStep: broker.skills!.communicationSkill!.toInt()),
+            //   label: 'Communication \Skill',
+            // ),
+            // WorkDetail(
+            //   circularStepProgressIndicator: CustomeCircularStepProgress(
+            //       currentStep: broker.skills!.brokingSkill!.toInt()),
+            //   label: 'Broking\n Skill',
+            // ),
           ],
         ),
       ),

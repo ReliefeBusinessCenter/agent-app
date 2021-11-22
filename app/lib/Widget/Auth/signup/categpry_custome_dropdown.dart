@@ -50,7 +50,7 @@ class CategoryCustomeDropDownButton extends StatelessWidget {
                           "+++++++++++++++++++++++++++++++++++++_______Broker Category Seelction with value ${category.toJson()}");
                       // this.onChanged(value);
                       registerBloc
-                          .add(AddBrokerType(category: value as Category));
+                          .add(AddBrokerType(category: value));
                     },
                     hint: Container(
                       width: MediaQuery.of(context).size.width * 0.3,
