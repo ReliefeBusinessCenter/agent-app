@@ -71,7 +71,7 @@ class _AdminBrokerProfilePageState extends State<AdminBrokerProfilePage> {
             },
             itemBuilder: (context) => [
               PopupMenuItem(
-                child: Text("Delete"),
+                child: Text(LocaleKeys.delete_popup_label_text.tr()),
                 value: 1,
               )
             ],

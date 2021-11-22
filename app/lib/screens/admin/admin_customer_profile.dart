@@ -66,7 +66,7 @@ class _AdminCustomerProfileState extends State<AdminCustomerProfile> {
               },
               itemBuilder: (context) => [
                 PopupMenuItem(
-                  child: Text("Delete"),
+                  child: Text(LocaleKeys.delete_popup_label_text.tr()),
                   value: 1,
                 )
               ],

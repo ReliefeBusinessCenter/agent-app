@@ -60,5 +60,6 @@ abstract class  LocaleKeys {
   static const Work_in_progress_label_text = 'Work_in_progress_label_text';
   static const approve_button_label_text = 'approve_button_label_text';
   static const reject_button_label_text = 'reject_button_label_text';
+  static const delete_popup_label_text = 'delete_popup_label_text';
 
 }
