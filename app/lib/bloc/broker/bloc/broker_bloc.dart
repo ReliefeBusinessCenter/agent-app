@@ -124,7 +124,24 @@ class BrokerBloc extends Bloc<BrokerEvent, BrokerState> {
       } catch (e) {
         yield BrokersLoadFailed(message: "Failed to update broker");
       }
-    } else if (event is SearchEvent) {
+    }
+    else if (event is UpdateBrokerProfileEvent) {
+      try {
+        Broker _brokerResponse =
+            await brokersRepository.updateBrokerProfile(event.broker, event.imageChanged);
+        if (_brokerResponse is Broker) {
+          yield BrokersLoadSuccess(
+              brokers: [_brokerResponse],
+              isName: state.isName,
+              selectedCategoryId: 0);
+        } else {
+          yield BrokersLoadFailed(message: "Failed to update broker");
+        }
+      } catch (e) {
+        yield BrokersLoadFailed(message: "Failed to update broker");
+      }
+    }
+     else if (event is SearchEvent) {
       // search event
       //
       this.searchedBrokers = [];
@@ -168,6 +185,20 @@ class BrokerBloc extends Bloc<BrokerEvent, BrokerState> {
       //     selectedCategoryId: state.selectedCategoryId,
       //     brokers: state.brokers,
       //     isName: event.isName);
+    } else if (event is FetchBrokerByEmail) {
+      try {
+        Broker? _broker = await brokersRepository.getBrokerByEmail(event.phone);
+        if (_broker is Broker) {
+          yield BrokersLoadSuccess(
+              isName: state.isName,
+              selectedCategoryId: state.selectedCategoryId,
+              brokers: [_broker]);
+        } else {
+          yield BrokersLoadFailed(message: "Unable to fetch");
+        }
+      } catch (e) {
+        yield BrokersLoadFailed(message: "Unable to fetch");
+      }
     }
   }
 }

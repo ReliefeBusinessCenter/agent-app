@@ -186,7 +186,8 @@ class _AdminDrawerState extends State<AdminDrawer> {
                               onPressed: () {
                                 print("Setting apge");
                                 Navigator.pushNamed(
-                                    context, AdminDeliveryPage.routeName);
+                                    context, AdminDeliveryPage.routeName,
+                                    );
                               },
                             ),
                             SizedBox(

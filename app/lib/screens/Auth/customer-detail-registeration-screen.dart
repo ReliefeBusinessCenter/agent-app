@@ -226,7 +226,6 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                         registerBloc.add(AddImage(
                                             image: photoController.text));
                                       });
-
                                       registerBloc.add(AddImage(
                                           image: photoController.text));
                                     }),

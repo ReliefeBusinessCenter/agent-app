@@ -1,4 +1,5 @@
 import 'package:app/Widget/Drawer/custom_list.dart';
+import 'package:app/Widget/common/user_profile.dart';
 import 'package:app/bloc/auth/bloc/auth_bloc.dart';
 import 'package:app/constants.dart';
 import 'package:app/ip/ip.dart';
@@ -169,11 +170,18 @@ class _AppDrawerState extends State<AppDrawer> {
                                 color: Colors.white,
                               ),
                               onPressed: () {
-                                Navigator.push(
+                                UserPreferences _userPreferences =
+                                UserPreferences();
+                                _userPreferences.getCustomerInformation().then((customer) {
+                                     Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => AccountScreen()),
+                                      builder: (context) => UserProfilePage(
+                                        customer: customer!,
+                                      )),
                                 );
+                                });
+                               
                               },
                             ),
                             CustomeList(

@@ -80,6 +80,14 @@
     "approve_button_label_text": "Approve Broker",
     "reject_button_label_text":"Reject Broker",
 
-    "delete_popup_label_text": "Delete"
+    "delete_popup_label_text": "Delete",
+
+    "//comment//7": "broker drawer page",
+    "dashboard_label_text": "Dashboard",
+    "view_trends_label": "",
+    "account_label_text": "Account",
+    "saving_and_loans_label_text": "Saving and Loans",
+    "settings_label_text": "Settings",
+    "share_label_text": "Share"
     
 }

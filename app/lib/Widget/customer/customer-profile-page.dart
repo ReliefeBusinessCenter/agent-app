@@ -1,11 +1,4 @@
-import 'package:app/Widget/Broker-profile/Broker-background-image.dart';
-import 'package:app/Widget/Broker-profile/about-section.dart';
-import 'package:app/Widget/Broker-profile/custome_button.dart';
-import 'package:app/Widget/Broker-profile/hire_button.dart';
-import 'package:app/Widget/Broker-profile/select_option.dart';
-import 'package:app/Widget/Broker-profile/work_section.dart';
 import 'package:app/bloc/delivery/bloc/delivery_bloc.dart';
-import 'package:app/model/broker/broker.dart';
 import 'package:app/model/customer/customer.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 
@@ -13,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
-import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 import 'customer-background-image.dart';
 import 'deals-button.dart';

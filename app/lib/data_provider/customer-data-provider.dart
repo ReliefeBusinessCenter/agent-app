@@ -17,7 +17,7 @@ class CustomerDataProvider {
   Future<List<Customer>?> getCustomers() async {
     String? token = await this.userPreferences.getUserToken();
     late List<Customer> customers_return = [];
-    
+
     try {
       final url = Uri.parse('${Ip.ip}/api/customers');
 
@@ -47,7 +47,8 @@ class CustomerDataProvider {
     }
     return customers_return;
   }
-Future<Customer?> getCustomerByEmail(String email) async {
+
+  Future<Customer?> getCustomerByEmail(String email) async {
     // String? token = await this.userPreferences.getUserToken();
     // late List<Category> categories_return = [];
     late Customer customer;
@@ -80,7 +81,7 @@ Future<Customer?> getCustomerByEmail(String email) async {
     }
     return null;
   }
-  
+
   Future<bool> createCustomer(Customer? customer) async {
     String? token = await this.userPreferences.getUserToken();
     // late List<Data> products_return = [];
@@ -92,8 +93,8 @@ Future<Customer?> getCustomerByEmail(String email) async {
 
       // image upload
 
-      var request = http.MultipartRequest('POST',
-          Uri.parse('${Ip.ip}/api/users/uploadfileg'));
+      var request = http.MultipartRequest(
+          'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
       print("request");
 
       request.files.add(await http.MultipartFile.fromPath(
@@ -124,9 +125,9 @@ Future<Customer?> getCustomerByEmail(String email) async {
             "sales": [],
             "user": {
               "fullName": customer.user!.fullName,
-              "email":"someone@gmail.com",
+              "email": "someone@gmail.com",
               "password": customer.user!.password,
-              "phone":customer.user!.phone,
+              "phone": customer.user!.phone,
               "address": "Ethiopia/Dessie",
               "picture": res.body.toString(),
               "sex": customer.user!.sex,
@@ -152,8 +153,8 @@ Future<Customer?> getCustomerByEmail(String email) async {
     }
     return false;
   }
-  
-   // delete delivery
+
+  // delete delivery
   Future<bool> deleteCustomer(int id) async {
     String? token = await this.userPreferences.getUserToken();
     // late List<Data> products_return = [];
@@ -180,5 +181,94 @@ Future<Customer?> getCustomerByEmail(String email) async {
       print("Exception throuwn $e");
     }
     return false;
+  }
+
+  Future<Customer> updateCustomer(Customer customer, bool imageChanged) async {
+    print("++++++++++++++++++++++++++++ updating Customer");
+    String? token = await this.userPreferences.getUserToken();
+    try {
+      if (!imageChanged) {
+        final url = Uri.parse('${Ip.ip}/api/customers/${customer.customerId}');
+        final _response = await http.put(url,
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Authorization': 'Bearer $token',
+            },
+            body: jsonEncode({
+              "customerId": 2,
+              "reviews": [],
+              "deals": [],
+              "delivery": [],
+              "sales": [],
+              "user": customer.user!.toJson()
+            }));
+
+        if (_response.statusCode == 200) {
+          return Customer.fromJson(jsonDecode(_response.body));
+        } else {
+          throw Exception(_response.body);
+        }
+        
+      }
+      else{
+        var request = http.MultipartRequest(
+          'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
+      print("request");
+
+      request.files.add(await http.MultipartFile.fromPath(
+          'file', customer.user!.picture as String));
+      print("added to multipart");
+
+      var res = await http.Response.fromStream(await request.send());
+      if (res.statusCode == 200) {
+        final url = Uri.parse('${Ip.ip}/api/customers/${customer.customerId}');
+        final _response = await http.put(
+          url,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer $token',
+          },
+          body: jsonEncode({
+            "customerId": 2,
+            "reviews": [],
+            "deals": [],
+            "delivery": [],
+            "sales": [],
+            "user": {
+              "userId": customer.user!.userId,
+              "fullName": customer.user!.fullName,
+              "email": customer.user!.password,
+              "password": customer.user!.password,
+              "phone": customer.user!.phone,
+              "city": customer.user!.city,
+              "subcity": customer.user!.subCity,
+              "kebele": customer.user!.kebele,
+              "picture": res.body.toString(),
+              "identificationCard": null,
+              "sex": customer.user!.sex,
+              "role": customer.user!.role,
+              "buys": null
+            }
+          }),
+        );
+
+        print("Customer update status code is ${_response.statusCode}");
+        print("customer update body${_response.body}");
+
+        if (_response.statusCode == 200) {
+          return Customer.fromJson(jsonDecode(_response.body));
+        } else {
+          throw Exception(_response.body);
+        }
+      } else {
+        throw Exception(res.body);
+      }
+      }
+    } catch (e) {
+      print("update error ${e.toString()}");
+      throw Exception("Something went wrong");
+    }
   }
 }

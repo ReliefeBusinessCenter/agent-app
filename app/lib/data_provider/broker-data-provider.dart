@@ -1,12 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/broker.dart';
 import 'package:app/preferences/user_preference_data.dart';
-import 'package:flutter/cupertino.dart';
 
-import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 
 class BrokerDataProvider {
@@ -68,6 +65,7 @@ class BrokerDataProvider {
         },
       );
       print('Arrived here ${response.body}');
+      print("Response status${response.statusCode}");
       if (response.statusCode == 200) {
         final extractedData = json.decode(response.body);
 
@@ -252,7 +250,6 @@ class BrokerDataProvider {
           },
         ),
       );
-
       print(
           "!!!!!!!!!!!!!!!!!!!!!!!!!! Status code is ${_response.statusCode}");
       print('!!!!!!!!!!!!!!!!!!!!! status Body is ${_response.body}');
@@ -261,6 +258,115 @@ class BrokerDataProvider {
         return Broker.fromJson(jsonDecode(_response.body));
       } else {
         throw Exception(_response.body);
+      }
+    } catch (e) {
+      throw Exception("Something went wrong");
+    }
+  }
+
+  Future<Broker> updateBrokerProfile(Broker broker, bool imageChanged) async {
+    print("++++++++++++++++++++++++++++ updating Broker");
+    String? token = await this.userPreferences.getUserToken();
+    try {
+      if (!imageChanged) {
+        final url = Uri.parse('${Ip.ip}/api/brokers/${broker.brokerId}');
+        final _response = await http.put(
+          url,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer $token',
+          },
+          body: jsonEncode(
+            {
+              "brokerId": broker.brokerId,
+              "portfolio": broker.portfolios,
+              "delivery": broker.delivery,
+              "deals": broker.deals,
+              "review": broker.reviews,
+              "sales": [],
+              "skills": broker.skills,
+              "categoryId": broker.category!.categoryId,
+              "category": {
+                "categoryId": broker.category!.categoryId,
+                "catigoryName": broker.category!.catigoryName,
+              },
+              "approved": broker.approved,
+              "about": null,
+              "user": broker.user!.toJson()
+            },
+          ),
+        );
+        if (_response.statusCode == 200) {
+          return Broker.fromJson(jsonDecode(_response.body));
+        } else {
+          throw Exception(_response.body);
+        }
+      } else {
+        var request = http.MultipartRequest(
+            'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
+
+        request.files.add(await http.MultipartFile.fromPath(
+            'file', broker.user!.picture as String));
+
+        var res = await http.Response.fromStream(await request.send());
+        if (res.statusCode == 200) {
+          final url = Uri.parse('${Ip.ip}/api/brokers/${broker.brokerId}');
+          final _response = await http.put(
+            url,
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Authorization': 'Bearer $token',
+            },
+            body: jsonEncode(
+              {
+                "brokerId": broker.brokerId,
+                "portfolio": broker.portfolios,
+                "delivery": broker.delivery,
+                "deals": broker.deals,
+                "review": broker.reviews,
+                "sales": [],
+                "skills": broker.skills,
+                "categoryId": broker.category!.categoryId,
+                "category": {
+                  "categoryId": broker.category!.categoryId,
+                  "catigoryName": broker.category!.catigoryName,
+                },
+                "approved": broker.approved,
+                "about": null,
+                "user": {
+                  "userId": broker.user!.userId,
+                  "fullName": broker.user!.fullName,
+                  "email": broker.user!.password,
+                  "password": broker.user!.password,
+                  "phone": broker.user!.phone,
+                  "city": broker.user!.city,
+                  "subcity": broker.user!.subCity,
+                  "kebele": broker.user!.kebele,
+                  "picture": res.body.toString(),
+                  "identificationCard": null,
+                  "sex": broker.user!.sex,
+                  "role": broker.user!.role,
+                  "buys": null
+                }
+              },
+            ),
+          );
+
+          print(
+              "!!!!!!!!!!!!!!!!!!!!!!!!!! Status code is ${_response.statusCode}");
+          print('!!!!!!!!!!!!!!!!!!!!! status Body is ${_response.body}');
+
+          if (_response.statusCode == 200) {
+            return Broker.fromJson(jsonDecode(_response.body));
+          } else {
+            throw Exception(_response.body);
+          }
+        } else {
+          throw Exception(res.body);
+        }
+        
       }
     } catch (e) {
       throw Exception("Something went wrong");

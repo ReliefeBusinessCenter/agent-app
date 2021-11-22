@@ -1,11 +1,12 @@
 import 'dart:io';
-
 import 'package:app/Widget/common/profile_form_field.dart';
-import 'package:app/bloc/customer/customer_bloc.dart';
+import 'package:app/bloc/broker/bloc/broker_bloc.dart';
+import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
 import 'package:app/constants.dart';
 import 'package:app/ip/ip.dart';
+import 'package:app/model/broker/broker.dart';
+import 'package:app/model/broker/category.dart';
 import 'package:app/model/broker/user.dart';
-import 'package:app/model/customer/customer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 // import 'package:file/file.dart';
 import 'package:flutter/material.dart';
@@ -13,18 +14,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_picker/image_picker.dart';
 
-class UserProfileEditPage extends StatefulWidget {
-  final Customer customer;
-  static const routeName = '/userProfileEditPage';
+class BrokerProfileEditPage extends StatefulWidget {
+  final Broker broker;
 
-  const UserProfileEditPage({required this.customer, Key? key})
+  const BrokerProfileEditPage({required this.broker, Key? key})
       : super(key: key);
 
   @override
-  _UserProfileEditPageState createState() => _UserProfileEditPageState();
+  _BrokerProfileEditPageState createState() => _BrokerProfileEditPageState();
 }
 
-class _UserProfileEditPageState extends State<UserProfileEditPage> {
+class _BrokerProfileEditPageState extends State<BrokerProfileEditPage> {
   final _formKey = GlobalKey<FormState>();
   final ImagePicker _picker = ImagePicker();
   File? _imageFile;
@@ -43,7 +43,7 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
     }
   }
 
-  Map<String, dynamic> _userData = {};
+  Map<String, dynamic> _userObject = {};
 
   @override
   Widget build(BuildContext context) {
@@ -65,38 +65,48 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
             child: TextButton(
-              onPressed: () {
-                _formKey.currentState!.save();
-                if (_formKey.currentState!.validate()) {
-                  Customer _customer = Customer(
-                      customerId: widget.customer.customerId,
-                      deals: widget.customer.deals,
-                      delivery: widget.customer.delivery,
-                      isFavorite: widget.customer.isFavorite,
-                      reviews: widget.customer.reviews,
-                      user: User(
-                          fullName: _userData['fullName'],
-                          email: _userData['email'],
-                          phone: _userData['phone'],
-                          city: _userData['city'],
-                          subCity: _userData['subCity'],
-                          kebele: _userData['kebele'],
-                          buys: widget.customer.user!.buys,
-                          password: widget.customer.user!.password,
-                          picture: _imageFile != null ? _imageFile!.path: widget.customer.user!.picture,
-                          role: widget.customer.user!.role,
-                          sex: widget.customer.user!.sex,
-                          userId: widget.customer.user!.userId));
-                  BlocProvider.of<CustomerBloc>(context)
-                      .add(UpdateCustomerEvent(_customer,_imageFile != null));
-                  Navigator.of(context).pop();
-                }
-              },
-              child: Text(
-                "Done",
-                style: TextStyle(color: primaryColor, fontSize: 18.0),
-              ),
-            ),
+                onPressed: () {
+                  _formKey.currentState!.save();
+                  if (_formKey.currentState!.validate()) {
+                    Broker _broker = Broker(
+                        approved: widget.broker.approved,
+                        brokerId: widget.broker.brokerId,
+                        category: Category(
+                            categoryId: widget.broker.category!.categoryId,
+                            catigoryName: widget.broker.category!.catigoryName),
+                        deals: widget.broker.deals,
+                        delivery: widget.broker.delivery,
+                        isFavorite: true,
+                        portfolios: widget.broker.portfolios,
+                        reviews: widget.broker.reviews,
+                        skills: widget.broker.skills,
+                        user: User(
+                          buys: widget.broker.user!.buys,
+                          fullName: _userObject['fullName'],
+                          city: _userObject['city'],
+                          subCity: _userObject['subCity'],
+                          kebele: _userObject['kebele'],
+                          email: _userObject['email'],
+                          password: widget.broker.user!.password,
+                          phone: _userObject['phone'],
+                          picture:_imageFile != null ? _imageFile!.path: widget.broker.user!.picture,
+                          role: widget.broker.user!.role,
+                          sex: widget.broker.user!.sex,
+                          userId: widget.broker.user!.userId,
+                        ));
+                    BlocProvider.of<BrokerBloc>(context).add(
+                      UpdateBrokerProfileEvent(
+                        _broker,
+                        _imageFile != null,
+                      ),
+                    );
+                    Navigator.of(context).pop();
+                  }
+                },
+                child: Text(
+                  "Done",
+                  style: TextStyle(color: primaryColor, fontSize: 18.0),
+                )),
           )
         ],
       ),
@@ -112,7 +122,7 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
                         onTap: uploadPhotoHandler,
                         child: CachedNetworkImage(
                           imageUrl:
-                              "${Ip.ip}/api/users/get/?fileName=${widget.customer.user!.picture as String}",
+                              "${Ip.ip}/api/users/get/?fileName=${widget.broker.user!.picture as String}",
                           imageBuilder: (context, imageProvider) => Container(
                             width: 120,
                             height: 120.0,
@@ -145,16 +155,16 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
                   height: 20.0,
                 ),
                 ProfileFormField(
-                  initialValue: widget.customer.user!.fullName!,
+                  initialValue: widget.broker.user!.fullName!,
                   name: "Full Name",
                   onSaved: (value) {
                     setState(() {
-                      _userData['fullName'] = value;
+                      _userObject['fullName'] = value;
                     });
                   },
                   validator: (value) {
                     if (value.isEmpty) {
-                      return "Field is Required!";
+                      return "Field required";
                     }
                   },
                 ),
@@ -163,78 +173,78 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
                   children: [
                     Text("Contact Details"),
                     ProfileFormField(
-                      initialValue: widget.customer.user!.email!,
+                      initialValue: widget.broker.user!.email!,
                       name: "Email",
                       onSaved: (value) {
                         setState(() {
-                          _userData['email'] = value;
+                          _userObject['email'] = value;
                         });
                       },
                       validator: (value) {
                         if (value.isEmpty) {
-                          return "Field is Required!";
+                          return "Field required";
                         }
                       },
                     ),
                     ProfileFormField(
-                      initialValue: widget.customer.user!.phone!,
+                      initialValue: widget.broker.user!.phone!,
                       name: "Phone",
                       onSaved: (value) {
                         setState(() {
-                          _userData['phone'] = value;
+                          _userObject['phone'] = value;
                         });
                       },
                       validator: (value) {
                         if (value.isEmpty) {
-                          return "Field is Required!";
+                          return "Field required";
                         }
                       },
                     ),
                     ProfileFormField(
-                      initialValue: widget.customer.user!.city == null
+                      initialValue: widget.broker.user!.city == null
                           ? "City Name"
-                          : widget.customer.user!.city!,
+                          : widget.broker.user!.city!,
                       name: "City",
                       onSaved: (value) {
                         setState(() {
-                          _userData['city'] = value;
+                          _userObject['city'] = value;
                         });
                       },
                       validator: (value) {
                         if (value.isEmpty) {
-                          return "Field is Required!";
+                          return "Field required";
                         }
                       },
                     ),
                     ProfileFormField(
-                      initialValue: widget.customer.user!.subCity == null
+                      initialValue: widget.broker.user!.subCity == null
                           ? "Sub city name"
-                          : widget.customer.user!.subCity!,
+                          : widget.broker.user!.subCity!,
                       name: "Sub city",
                       onSaved: (value) {
                         setState(() {
-                          _userData['subCity'] = value;
+                          _userObject['subCity'] = value;
                         });
                       },
                       validator: (value) {
                         if (value.isEmpty) {
-                          return "Field is Required!";
+                          return "Field required";
                         }
                       },
                     ),
                     ProfileFormField(
-                      initialValue: widget.customer.user!.kebele == null
+                      initialValue: widget.broker.user!.kebele == null
                           ? "Kebele"
-                          : widget.customer.user!.kebele!,
+                          : widget.broker.user!.kebele!,
                       name: "Kebele",
                       onSaved: (value) {
                         setState(() {
-                          _userData['kebele'] = value;
+                          _userObject['kebele'] = value;
                         });
                       },
                       validator: (value) {
                         if (value.isEmpty) {
-                          return "Field is Required!";
+                          return "Field required";
                         }
                       },
                     ),

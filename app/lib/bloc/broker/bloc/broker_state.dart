@@ -76,3 +76,4 @@ class SearchModeChanged extends BrokerState {
             selectedCategoryId: selectedCategoryId,
             brokers: []);
 }
+
