@@ -165,11 +165,14 @@ class BrokerDataProvider {
               // },
               "user": {
                 "fullName": broker.user!.fullName,
-                "email": broker.user!.email,
+                "email": "Someone@gmail.com",
                 "password": broker.user!.password,
                 "phone": '123456789',
                 // "address": "Ethiopia/Dessie",
                 "picture": res.body.toString(),
+                 "city": broker.user!.city,
+            "subcity": broker.user!.subCity,
+            "kebele": broker.user!.kebele,
                 "sex": broker.user!.sex,
                 "role": broker.user!.role,
                 "buys": null
