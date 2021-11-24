@@ -6,12 +6,14 @@ import 'package:app/constants.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/user.dart';
 import 'package:app/model/customer/customer.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 // import 'package:file/file.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class UserProfileEditPage extends StatefulWidget {
   final Customer customer;
@@ -93,7 +95,7 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
                 }
               },
               child: Text(
-                "Done",
+                LocaleKeys.done_btn_label_text.tr(),
                 style: TextStyle(color: primaryColor, fontSize: 18.0),
               ),
             ),
@@ -146,7 +148,7 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
                 ),
                 ProfileFormField(
                   initialValue: widget.customer.user!.fullName!,
-                  name: "Full Name",
+                  name: LocaleKeys.fullname_label_text.tr(),
                   onSaved: (value) {
                     setState(() {
                       _userData['fullName'] = value;
@@ -161,10 +163,10 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Contact Details"),
+                    Text(LocaleKeys.contact_detail_label_text.tr()),
                     ProfileFormField(
                       initialValue: widget.customer.user!.email!,
-                      name: "Email",
+                      name: LocaleKeys.email_label_text.tr(),
                       onSaved: (value) {
                         setState(() {
                           _userData['email'] = value;
@@ -178,7 +180,7 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
                     ),
                     ProfileFormField(
                       initialValue: widget.customer.user!.phone!,
-                      name: "Phone",
+                      name: LocaleKeys.phone_label_text.tr(),
                       onSaved: (value) {
                         setState(() {
                           _userData['phone'] = value;
@@ -194,7 +196,7 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
                       initialValue: widget.customer.user!.city == null
                           ? "City Name"
                           : widget.customer.user!.city!,
-                      name: "City",
+                      name: LocaleKeys.city_form_label_text.tr(),
                       onSaved: (value) {
                         setState(() {
                           _userData['city'] = value;
@@ -210,7 +212,7 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
                       initialValue: widget.customer.user!.subCity == null
                           ? "Sub city name"
                           : widget.customer.user!.subCity!,
-                      name: "Sub city",
+                      name: LocaleKeys.subcity_label_text.tr(),
                       onSaved: (value) {
                         setState(() {
                           _userData['subCity'] = value;
@@ -226,7 +228,7 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
                       initialValue: widget.customer.user!.kebele == null
                           ? "Kebele"
                           : widget.customer.user!.kebele!,
-                      name: "Kebele",
+                      name: LocaleKeys.kebele_label_text.tr(),
                       onSaved: (value) {
                         setState(() {
                           _userData['kebele'] = value;

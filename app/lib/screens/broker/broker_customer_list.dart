@@ -42,7 +42,7 @@ class BrokerCustomerList extends StatelessWidget {
                             itemBuilder: (BuildContext ctx, index) {
                               return Container(
                                   child: CustomerItem(
-                                customer: state.customers[index],
+                                customer: _customers[index],
                               ));
                             }));
                   } else if (state is CustomersLoading) {

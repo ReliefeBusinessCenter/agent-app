@@ -3,14 +3,16 @@ import 'package:app/Widget/broker-widget/reject_button.dart';
 import 'package:app/Widget/customer/broker_broker_profile.dart';
 import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
 import 'package:app/constants/constants.dart';
-import 'package:app/model/broker/broker.dart';
 import 'package:app/model/customer/customer.dart';
 import 'package:app/model/delivery.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
+import 'package:easy_localization/easy_localization.dart';
 
+// ignore: must_be_immutable
 class BrokerDeliveryDetails extends StatelessWidget {
   final Delivery delivery;
   BrokerDeliveryDetails({required this.delivery});
@@ -27,7 +29,7 @@ class BrokerDeliveryDetails extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
           title: Text(
-            'Delivery Detail',
+            LocaleKeys.delivery_details_label_text.tr(),
             style: TextStyle(fontSize: 18),
           ),
           // actions: <Widget>[
@@ -119,7 +121,7 @@ class BrokerDeliveryDetails extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Text(
-                                  "Delivery status",
+                                  LocaleKeys.delivery_status_label_text.tr(),
                                   style: TextStyle(
                                       color: primaryColor,
                                       fontWeight: FontWeight.bold,
@@ -127,7 +129,7 @@ class BrokerDeliveryDetails extends StatelessWidget {
                                 ),
                                 delivery.deliveryStatus == "Accepted"
                                     ? Text(
-                                        "Accepted",
+                                        LocaleKeys.accepted_status_text.tr(),
                                         style: TextStyle(
                                           fontSize: 18.0,
                                           fontWeight: FontWeight.bold,
@@ -136,7 +138,7 @@ class BrokerDeliveryDetails extends StatelessWidget {
                                       )
                                     : delivery.deliveryStatus == "Pending"
                                         ? Text(
-                                            "Pending",
+                                            LocaleKeys.pending_status_text.tr(),
                                             style: TextStyle(
                                               fontSize: 18.0,
                                               fontWeight: FontWeight.bold,
@@ -144,7 +146,7 @@ class BrokerDeliveryDetails extends StatelessWidget {
                                             ),
                                           )
                                         : Text(
-                                            "Done",
+                                           LocaleKeys.done_status_text.tr(),
                                             style: TextStyle(
                                               fontSize: 18.0,
                                               fontWeight: FontWeight.bold,
@@ -157,18 +159,18 @@ class BrokerDeliveryDetails extends StatelessWidget {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.03,
                       ),
-                      AcceptButton(title: "Accept Delivery Offer", onPressed: (){
+                      AcceptButton(title: LocaleKeys.accept_delivery_label_text.tr(), onPressed: (){
                         workBloc.add(MarkAsAccepted(work: delivery));
                       }),
 
                       SizedBox(height: 10.0,),
-                      RejectButton(title: "Reject Delivery Offer", onPressed: (){
+                      RejectButton(title: LocaleKeys.reject_delivery_label_text.tr(), onPressed: (){
                          AwesomeDialog(
                         context: context,
                         dialogType: DialogType.WARNING,
                         animType: AnimType.BOTTOMSLIDE,
-                        title: 'Confirm Us',
-                        desc: 'Are you sure you want to Reject  this work?',
+                        title: LocaleKeys.confirm_us_label_text.tr(),
+                        desc: LocaleKeys.are_you_sure_label_text.tr(),
                         btnCancelOnPress: () {},
                         btnOkOnPress: () {
                           workBloc.add(MarkAsRejected(work: delivery));

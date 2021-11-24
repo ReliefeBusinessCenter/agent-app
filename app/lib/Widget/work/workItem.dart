@@ -21,7 +21,7 @@ class WorkItem extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             print("Customer delivery method have been invocked");
-            Navigator.pushNamed(context, AdminCustomerDeliveryDetails.routeName, arguments: work);
+            Navigator.pushNamed(context, CustomerDeliveryDetails.routeName, arguments: work);
           },
           child: Card(
             // ignore: deprecated_member_use

@@ -1,9 +1,10 @@
 import 'package:app/Widget/Auth/signup/signp-customeDropDown.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';
+import 'package:app/translations/locale_keys.g.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 class SexDropDown extends StatefulWidget {
   // final TextEditingController payingTimeController;
   // PaymentTimeDropDown({required this.payingTimeController});
@@ -27,7 +28,7 @@ class _SexDropDownState extends State<SexDropDown> {
             child: Padding(
               padding: const EdgeInsets.only(left: 11.0),
               child: Text(
-                "Male",
+               LocaleKeys.male_label_text.tr(),
                 textAlign: TextAlign.start,
               ),
             ),
@@ -40,7 +41,7 @@ class _SexDropDownState extends State<SexDropDown> {
             child: Padding(
               padding: const EdgeInsets.only(left: 11.0),
               child: Text(
-                "Female",
+                LocaleKeys.female_label_text.tr(),
                 textAlign: TextAlign.start,
               ),
             ),

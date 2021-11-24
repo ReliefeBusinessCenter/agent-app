@@ -1,4 +1,5 @@
 import 'package:app/Widget/Auth/login/login_button_outline.dart';
+import 'package:app/Widget/welcome/home_fragment.dart';
 import 'package:app/constants.dart';
 import 'package:app/screens/Auth/auth_exports.dart';
 import 'package:app/screens/customer/home_fragment_screen.dart';
@@ -25,7 +26,7 @@ class WelcomePage extends StatelessWidget {
             vertical: 20,
             horizontal: 20,
           ),
-          child: HomeFragment(),
+          child: WelcomeHomeFragment(),
         ),
       ),
       bottomNavigationBar: Padding(

@@ -4,10 +4,12 @@ import 'package:app/bloc/customer/customer_bloc.dart';
 import 'package:app/constants.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/model/customer/customer.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 // ignore: must_be_immutable
 class UserProfilePage extends StatefulWidget {
@@ -157,7 +159,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 20.0),
                             child: Text(
-                              'Contact Details',
+                             LocaleKeys.contact_detail_label_text.tr(),
                               style: TextStyle(
                                   color: Colors.grey.shade900, fontSize: 18.0),
                             ),
@@ -213,7 +215,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 20.0),
                             child: Text(
-                              'Status',
+                              LocaleKeys.status_label_text.tr(),
                               style: TextStyle(
                                   color: Colors.grey.shade900, fontSize: 18.0),
                             ),

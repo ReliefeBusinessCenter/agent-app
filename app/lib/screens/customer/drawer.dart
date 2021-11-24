@@ -5,14 +5,15 @@ import 'package:app/constants.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/screens/Auth/login.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import 'account_screen.dart';
 import 'becomeAnAgent.dart';
 import 'customerPage.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 UserPreferences pref = UserPreferences();
 
@@ -151,8 +152,8 @@ class _AppDrawerState extends State<AppDrawer> {
                                 height: 20,
                                 color: Colors.white.withOpacity(0.6)),
                             CustomeList(
-                              title: "Dashboard",
-                              subTitle: "See List of brokers",
+                              title: LocaleKeys.dashboard_label_text.tr(),
+                              subTitle: LocaleKeys.see_list_sub_lebel_text.tr(),
                               icon: Icon(
                                 Icons.dashboard,
                                 color: Colors.white,
@@ -163,8 +164,8 @@ class _AppDrawerState extends State<AppDrawer> {
                               },
                             ),
                             CustomeList(
-                              title: "Account",
-                              subTitle: "Update Profile",
+                              title: LocaleKeys.account_label_text.tr(),
+                              subTitle: LocaleKeys.update_button_label_text.tr(),
                               icon: Icon(
                                 Icons.contact_page,
                                 color: Colors.white,
@@ -185,8 +186,8 @@ class _AppDrawerState extends State<AppDrawer> {
                               },
                             ),
                             CustomeList(
-                              title: "Agent",
-                              subTitle: "Become an agent",
+                              title: LocaleKeys.agent_label_text.tr(),
+                              subTitle: LocaleKeys.become_an_agent_label_text.tr(),
                               icon: Icon(
                                 Icons.support_agent,
                                 color: Colors.white,
@@ -198,7 +199,7 @@ class _AppDrawerState extends State<AppDrawer> {
                               },
                             ),
                             ListTile(
-                              title: Text("Settings",
+                              title: Text(LocaleKeys.settings_label_text.tr(),
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
@@ -209,8 +210,8 @@ class _AppDrawerState extends State<AppDrawer> {
                               ),
                             ),
                             CustomeList(
-                              title: "Share",
-                              subTitle: "Share this app",
+                              title: LocaleKeys.share_label_text.tr(),
+                              subTitle: LocaleKeys.share_subtitle_label_text.tr(),
                               icon: Icon(
                                 Icons.share,
                                 color: Colors.white,
@@ -233,7 +234,7 @@ class _AppDrawerState extends State<AppDrawer> {
                                     color: Theme.of(context).errorColor,
                                   ),
                                   title: Text(
-                                    'Log Out',
+                                    LocaleKeys.logout_label_text.tr(),
                                     style: TextStyle(
                                         color: Theme.of(context).errorColor,
                                         fontSize: 15,

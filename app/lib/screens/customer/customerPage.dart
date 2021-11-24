@@ -1,4 +1,5 @@
 
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import '../../constants.dart';
@@ -7,6 +8,7 @@ import 'favorite_screen.dart';
 import 'history_screen.dart';
 import 'home_fragment_screen.dart';
 import 'customer_deals_page.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 
 final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -25,7 +27,7 @@ class _CustomerPageState extends State<CustomerPage> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text('Trust Brokers'),
+        title: Text(LocaleKeys.trust_broker_label_text.tr()),
         backgroundColor: primaryColor,
         leading: GestureDetector(
           onTap: () => _scaffoldKey.currentState!.openDrawer(),
@@ -49,29 +51,29 @@ class _CustomerPageState extends State<CustomerPage> {
       drawerEnableOpenDragGesture: true,
       body: _getDrawerItemWidget(this._selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items:  <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
             ),
-            label: 'Home',
+            label: LocaleKeys.home_label_text.tr(),
             backgroundColor: Colors.white,
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.history,
             ),
-            label: 'Delivery',
+            label: LocaleKeys.delivery_label_text.tr(),
             backgroundColor: Colors.white,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.work),
-            label: 'Deals',
+            label: LocaleKeys.deals_label_text.tr(),
             backgroundColor: Colors.white,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.chat_bubble),
-            label: 'Chat',
+            label: LocaleKeys.chat_label_text.tr(),
             backgroundColor: Colors.white,
           ),
         ],

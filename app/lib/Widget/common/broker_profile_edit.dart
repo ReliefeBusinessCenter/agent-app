@@ -1,18 +1,19 @@
 import 'dart:io';
 import 'package:app/Widget/common/profile_form_field.dart';
 import 'package:app/bloc/broker/bloc/broker_bloc.dart';
-import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
 import 'package:app/constants.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/broker.dart';
 import 'package:app/model/broker/category.dart';
 import 'package:app/model/broker/user.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 // import 'package:file/file.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class BrokerProfileEditPage extends StatefulWidget {
   final Broker broker;
@@ -104,7 +105,7 @@ class _BrokerProfileEditPageState extends State<BrokerProfileEditPage> {
                   }
                 },
                 child: Text(
-                  "Done",
+                  LocaleKeys.done_btn_label_text.tr(),
                   style: TextStyle(color: primaryColor, fontSize: 18.0),
                 )),
           )
@@ -156,7 +157,7 @@ class _BrokerProfileEditPageState extends State<BrokerProfileEditPage> {
                 ),
                 ProfileFormField(
                   initialValue: widget.broker.user!.fullName!,
-                  name: "Full Name",
+                  name: LocaleKeys.fullname_label_text.tr(),
                   onSaved: (value) {
                     setState(() {
                       _userObject['fullName'] = value;
@@ -171,10 +172,10 @@ class _BrokerProfileEditPageState extends State<BrokerProfileEditPage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Contact Details"),
+                    Text(LocaleKeys.contact_detail_label_text.tr()),
                     ProfileFormField(
                       initialValue: widget.broker.user!.email!,
-                      name: "Email",
+                      name: LocaleKeys.email_label_text.tr(),
                       onSaved: (value) {
                         setState(() {
                           _userObject['email'] = value;
@@ -188,7 +189,7 @@ class _BrokerProfileEditPageState extends State<BrokerProfileEditPage> {
                     ),
                     ProfileFormField(
                       initialValue: widget.broker.user!.phone!,
-                      name: "Phone",
+                      name: LocaleKeys.phone_label_text.tr(),
                       onSaved: (value) {
                         setState(() {
                           _userObject['phone'] = value;
@@ -204,7 +205,7 @@ class _BrokerProfileEditPageState extends State<BrokerProfileEditPage> {
                       initialValue: widget.broker.user!.city == null
                           ? "City Name"
                           : widget.broker.user!.city!,
-                      name: "City",
+                      name: LocaleKeys.city_form_label_text.tr(),
                       onSaved: (value) {
                         setState(() {
                           _userObject['city'] = value;
@@ -220,7 +221,7 @@ class _BrokerProfileEditPageState extends State<BrokerProfileEditPage> {
                       initialValue: widget.broker.user!.subCity == null
                           ? "Sub city name"
                           : widget.broker.user!.subCity!,
-                      name: "Sub city",
+                      name: LocaleKeys.subcity_label_text.tr(),
                       onSaved: (value) {
                         setState(() {
                           _userObject['subCity'] = value;
@@ -236,7 +237,7 @@ class _BrokerProfileEditPageState extends State<BrokerProfileEditPage> {
                       initialValue: widget.broker.user!.kebele == null
                           ? "Kebele"
                           : widget.broker.user!.kebele!,
-                      name: "Kebele",
+                      name: LocaleKeys.kebele_label_text.tr(),
                       onSaved: (value) {
                         setState(() {
                           _userObject['kebele'] = value;
