@@ -131,7 +131,7 @@ class CodegenLoader extends AssetLoader{
   "reject_delivery_label_text": "የግዥ እቅርቦትን እትቀበል",
   "confirm_us_label_text": "አረጋግጥ",
   "are_you_sure_label_text": "እርግጠኛ ነዎት ይህን ስራ መሰረዝ ይፈልጋሉ?",
-  "delete_btn_label_text": "ሰርዝ",
+  "delete_btn_label_text": "ዝጋ",
   "action_not_allowed_label_text": "ተግባሩ አልተፈቀደም",
   "to_change_the_done_status": "የዚህን ሥራ ሁኔታ ለመለወጥ, ደላላው መጀመሪያ ምላሽ መስጠት አለበት",
   "this_delivery_label_status": "ይሄ ግዥ ወደ ተከናውኗል ተመዝግቧል!",
@@ -140,7 +140,13 @@ class CodegenLoader extends AssetLoader{
   "completed_label_text": "ተጠናቋል",
   "progress_label_text": "እድገት",
   "communication_label_text": "መግባባት",
-  "broking_label_text": "ድለላ"
+  "broking_label_text": "ድለላ",
+  "cancel_btn_label_text": "ሰርዝ",
+  "accept_btn_label_text": "ተቀበል",
+  "reject_btn_label_text": "ውድቅ አድርግ",
+  "are_you_sure_reject_label_text": "እርግጠኛ ነህ አለመቀበል ትፈልጋለህ",
+  "search_customers_label_text": "ደንበኞችን ፈልግ",
+  "favorite_label_text": "የተወደዱ"
 };
 static const Map<String,dynamic> en = {
   "app_name": "Broker app",
@@ -268,7 +274,13 @@ static const Map<String,dynamic> en = {
   "completed_label_text": "Completed",
   "progress_label_text": "Progress",
   "communication_label_text": "Communication",
-  "broking_label_text": "Broking"
+  "broking_label_text": "Broking",
+  "cancel_btn_label_text": "Cancel",
+  "accept_btn_label_text": "Accept",
+  "reject_btn_label_text": "Reject",
+  "are_you_sure_reject_label_text": "Are you sure you want to reject this work",
+  "search_customers_label_text": "Search Customers",
+  "favorite_label_text": "Favorite"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"am": am, "en": en};
 }

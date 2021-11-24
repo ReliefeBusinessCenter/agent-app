@@ -142,7 +142,13 @@
     "completed_label_text": "Completed",
     "progress_label_text": "Progress",
     "communication_label_text": "Communication",
-    "broking_label_text": "Broking"
+    "broking_label_text": "Broking",
+    "cancel_btn_label_text": "Cancel",
+    "accept_btn_label_text": "Accept",
+    "reject_btn_label_text": "Reject",
+    "are_you_sure_reject_label_text": "Are you sure you want to reject this work",
+    "search_customers_label_text": "Search Customers",
+    "favorite_label_text": "Favorite"
     
     
 }

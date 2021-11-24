@@ -114,5 +114,11 @@ abstract class  LocaleKeys {
   static const progress_label_text = 'progress_label_text';
   static const communication_label_text = 'communication_label_text';
   static const broking_label_text = 'broking_label_text';
+  static const cancel_btn_label_text = 'cancel_btn_label_text';
+  static const accept_btn_label_text = 'accept_btn_label_text';
+  static const reject_btn_label_text = 'reject_btn_label_text';
+  static const are_you_sure_reject_label_text = 'are_you_sure_reject_label_text';
+  static const search_customers_label_text = 'search_customers_label_text';
+  static const favorite_label_text = 'favorite_label_text';
 
 }

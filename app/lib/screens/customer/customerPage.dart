@@ -39,6 +39,28 @@ class _CustomerPageState extends State<CustomerPage> {
             ),
           ),
         ),
+        actions: [
+          if(_selectedIndex == 0)
+          PopupMenuButton(
+              onSelected: (index) {
+                if (index == 1) {
+                }else{
+                  
+                }
+              },
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  child: Text(LocaleKeys.all_status_text.tr()),
+                  value: 1,
+                ),
+                 PopupMenuItem(
+                  child: Text(LocaleKeys.favorite_label_text.tr()),
+                  value: 1,
+                ),
+                
+              ],
+            ),
+        ],
       ),
       drawer: Theme(
         data: Theme.of(context).copyWith(

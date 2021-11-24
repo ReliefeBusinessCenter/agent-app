@@ -16,12 +16,14 @@ class BrokerDealsHistoryScreen extends StatelessWidget {
     dealsBloc = BlocProvider.of<DealsListBloc>(context);
     dealsBloc.add(FetchDeals());
     return Scaffold(
+        // ignore: deprecated_member_use
         backgroundColor: Theme.of(context).accentColor,
         body: Container(
             // decoration: BoxDecoration(color: Colors.white),
             child: ProgressHUD(
           child: BlocBuilder<DealsListBloc, DealsState>(
             builder: (context, state) {
+              print("the state===============================$state");
               if (state is DeleteDealsSuccessState) {
                 // deleting success
                 dealsBloc.add(FetchDeals());
@@ -35,6 +37,11 @@ class BrokerDealsHistoryScreen extends StatelessWidget {
               } else if (state is DealsLoading) {
                 return Center(child: CircularProgressIndicator());
               } else if (state is FetchDealsSuccess) {
+                if (state.deals_history.isEmpty) {
+                  return Center(
+                    child: Text("No deals yet!"),
+                  );
+                }
                 return ListView.builder(
                     itemCount: state.deals_history.length,
                     itemBuilder: (context, index) => DealsItem(

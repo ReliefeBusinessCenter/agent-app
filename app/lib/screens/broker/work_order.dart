@@ -1,4 +1,5 @@
 import 'package:app/Widget/agent/order_item.dart';
+import 'package:app/Widget/common/error_widget.dart';
 import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
 // import 'package:app/bloc/work/bloc/work_bloc.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ class BrokerDeliveryHistoryScreen extends StatelessWidget {
                 // deleting success
                 workBloc.add(FetchWork());
               } else if (state is DeleteFailedState) {
+                return CustomeErrorWidget();
                 // delete failed
               } else if (state is UpdateSuccessState) {
                 // update success state

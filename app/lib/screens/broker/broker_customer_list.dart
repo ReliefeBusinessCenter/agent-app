@@ -25,9 +25,7 @@ class BrokerCustomerList extends StatelessWidget {
               child: BlocBuilder<CustomerBloc, CustomerState>(
                 builder: (context, state) {
                   if (state is CustomersLoadSuccess) {
-                    List<Customer> _customers = state.customers
-                        .where((customer) => customer.isFavorite!)
-                        .toList();
+                    List<Customer> _customers = state.customers;
                     return LazyLoadScrollView(
                         onEndOfPage: () {},
                         child: GridView.builder(
