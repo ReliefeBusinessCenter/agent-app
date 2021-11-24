@@ -1,4 +1,6 @@
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class BrokerChat extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -8,23 +10,9 @@ class BrokerChat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Trust Brokers'),
-        backgroundColor: Theme.of(context).primaryColor,
-        leading: GestureDetector(
-          onTap: () => scaffoldKey.currentState!.openDrawer(),
-          child: Container(
-            height: 5.0,
-            width: 5.0,
-            child: ImageIcon(
-              AssetImage('assets/images/left-align.png'),
-            ),
-          ),
-        ),
-      ),
       backgroundColor: Theme.of(context).accentColor,
       body: Center(
-        child: Text("Broker Chat Room Comming Soon ...."),
+        child: Text("${LocaleKeys.broker_chat_room_label_text.tr()} ...."),
       ),
     );
   }

@@ -1,9 +1,13 @@
 import 'package:app/Widget/Broker-profile/custome_circular_step_progress.dart';
 import 'package:app/Widget/Broker-profile/work-detail.dart';
 import 'package:app/constants.dart';
+import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/broker.dart';
+import 'package:app/translations/locale_keys.g.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class BrokerProfile extends StatelessWidget {
   final Broker broker;
@@ -19,13 +23,25 @@ class BrokerProfile extends StatelessWidget {
           SizedBox(
             height: 20.0,
           ),
-          CircleAvatar(
-            maxRadius: MediaQuery.of(context).size.width * 0.15,
-            // minRadius: MediaQuery.of(context).size.width * 0.4,
-            // backgroundImage:  NetworkImage(
-            //     "${Ip.ip}/api/users/get/?fileName=${this.broker.user!.picture as String}"),
-            backgroundImage: AssetImage("assets/images/16.jpg"),
-          ),
+          CachedNetworkImage(
+                    imageUrl:
+                        "${Ip.ip}/api/users/get/?fileName=${broker.user!.picture as String}",
+                    imageBuilder: (context, imageProvider) => Container(
+                      width: 120,
+                      height: 120.0,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                            image: imageProvider, fit: BoxFit.cover),
+                      ),
+                    ),
+                    placeholder: (context, url) => Center(
+                      child: SpinKitCircle(
+                        color: primaryColor,
+                      ),
+                    ),
+                    errorWidget: (context, url, _) => Icon(Icons.error),
+                  ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
@@ -82,9 +98,9 @@ class BrokerProfile extends StatelessWidget {
                     unselectedLabelColor: Colors.grey,
                     tabs: [
                       Tab(
-                        text: "Works",
+                        text: LocaleKeys.work_tab_label_text.tr(),
                       ),
-                      Tab(text: "Skills"),
+                      Tab(text: LocaleKeys.skiils_label_text.tr(),),
                     ],
                   ),
                 ),
@@ -105,7 +121,7 @@ class BrokerProfile extends StatelessWidget {
                                 style: TextStyle(
                                     fontSize: 50, fontWeight: FontWeight.w500),
                               ),
-                              Text("progress")
+                              Text(LocaleKeys.progress_label_text.tr())
                             ],
                           ),
                           Column(
@@ -115,7 +131,7 @@ class BrokerProfile extends StatelessWidget {
                                 style: TextStyle(
                                     fontSize: 50, fontWeight: FontWeight.w500),
                               ),
-                              Text("completed")
+                              Text(LocaleKeys.completed_label_text.tr())
                             ],
                           ),
                         ],
@@ -131,14 +147,14 @@ class BrokerProfile extends StatelessWidget {
                                       currentStep: broker
                                           .skills!.communicationSkill!
                                           .toInt()),
-                              label: 'Communication ',
+                              label: LocaleKeys.communication_label_text.tr(),
                             ),
                             WorkDetail(
                               circularStepProgressIndicator:
                                   CustomeCircularStepProgress(
                                       currentStep:
                                           broker.skills!.brokingSkill!.toInt()),
-                              label: 'Broking',
+                              label: LocaleKeys.broking_label_text.tr(),
                             ),
                           ],
                         ),

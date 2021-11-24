@@ -4,8 +4,10 @@ import 'package:app/Widget/Auth/signup/upload_profile_image.dart';
 import 'package:app/Widget/common/constants.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';
 import 'package:app/constants/constants.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 // import 'package:file/file.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
@@ -47,7 +49,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
       backgroundColor: lightColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
-        title: Text("Password registeration!"),
+        title: Text(LocaleKeys.password_registration_label_text.tr()),
       ),
       body: ProgressHUD(
         child: BlocConsumer<RegisterBloc, RegisterState>(
@@ -125,7 +127,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                   left:
                                       MediaQuery.of(context).size.width * 0.05),
                               child: Text(
-                                "Password and Profile Picture",
+                               LocaleKeys.password_and_profile_label_text.tr(),
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 15),
                                 textAlign: TextAlign.left,
@@ -147,7 +149,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                   TextFormField(
                                     obscureText: _passwordObscured,
                                     decoration: inputDecoration.copyWith(
-                                      labelText: "Password",
+                                      labelText: LocaleKeys.password_label_text.tr(),
                                       suffixIcon: IconButton(
                                         onPressed: () {
                                           setState(() {
@@ -189,7 +191,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                       }
                                     },
                                     decoration: inputDecoration.copyWith(
-                                      labelText: "Confirm password",
+                                      labelText: LocaleKeys.confirm_password_label_text.tr(),
                                       suffixIcon: IconButton(
                                         onPressed: () {
                                           setState(() {
@@ -214,7 +216,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                         0.02,
                                   ),
                                   Text(
-                                    "Profile Photo",
+                                    LocaleKeys.profile_photo_label_text.tr(),
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
@@ -234,7 +236,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                     height: 10.0,
                                   ),
                                   Text(
-                                    "ID Photo",
+                                    LocaleKeys.id_photo_label_text.tr(),
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ), 
@@ -263,7 +265,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                           ),
                           Center(
                             child: RegisterButton(
-                              name: "Register",
+                              name: LocaleKeys.register_btn_label_text.tr(),
                               onTapped: () {
                                 setState(() {
                                   _choose = true;

@@ -1,5 +1,6 @@
 import 'package:app/constants/login/size.dart';
-
+import 'package:app/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class MarkAsDone extends StatelessWidget {
@@ -30,7 +31,7 @@ class MarkAsDone extends StatelessWidget {
 
               child: Center(
                   child: Text(
-                'Mark As Done',
+                LocaleKeys.mark_as_done_label_text.tr(),
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,

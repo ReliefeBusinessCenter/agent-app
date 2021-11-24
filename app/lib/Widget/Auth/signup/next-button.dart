@@ -1,7 +1,6 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 class Next extends StatelessWidget {
   // late OrdersBloc ordersBloc;
   // List<Data> products;
@@ -20,7 +19,7 @@ class Next extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
           child: Center(
-            child: Text("Next",
+            child: Text(LocaleKeys.next_btn_label_text.tr(),
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

@@ -1,16 +1,15 @@
 import 'package:app/Widget/common/broker_profile_edit.dart';
-import 'package:app/Widget/common/loading_indicator.dart';
 import 'package:app/Widget/common/user_profile_contact.dart';
-import 'package:app/Widget/common/user_profile_edit_page.dart';
 import 'package:app/bloc/broker/bloc/broker_bloc.dart';
 import 'package:app/constants.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/broker.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 // ignore: must_be_immutable
 class BrokerProfile extends StatefulWidget {
   final Broker broker;
@@ -156,7 +155,7 @@ class _BrokerProfileState extends State<BrokerProfile> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20.0),
                               child: Text(
-                                'Contact Details',
+                                LocaleKeys.contact_detail_label_text.tr(),
                                 style: TextStyle(
                                     color: Colors.grey.shade900,
                                     fontSize: 18.0),
@@ -192,7 +191,7 @@ class _BrokerProfileState extends State<BrokerProfile> {
                                     thickness: 0.4,
                                   ),
                                   UserPrefileContactDetail(
-                                      info: _broker.user!.city != null ? "${_broker.user!.city}, ${_broker.user!.subCity}" : "Addis Ababa",
+                                      info: "Addis Ababa",
                                       iconData: Icons.location_city),
                                   Divider(color: Colors.black),
                                 ],
@@ -213,7 +212,7 @@ class _BrokerProfileState extends State<BrokerProfile> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20.0),
                               child: Text(
-                                'Status',
+                                LocaleKeys.status_label_text.tr(),
                                 style: TextStyle(
                                     color: Colors.grey.shade900,
                                     fontSize: 18.0),

@@ -1,40 +1,41 @@
-import 'package:app/Widget/customer/customer-profile-page.dart';
+import 'package:app/Widget/welcome/welcome_broker_profile.dart';
 import 'package:app/bloc/favorit/bloc/favorite_bloc.dart';
 import 'package:app/constants.dart';
 import 'package:app/ip/ip.dart';
-import 'package:app/model/customer/customer.dart';
+import 'package:app/model/broker/broker.dart';
+
+import 'package:app/screens/customer/brokers_detail_screen.dart';
 import 'package:app/translations/locale_keys.g.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class CustomerItem extends StatefulWidget {
-  final Customer customer;
-  CustomerItem({required this.customer});
+class WelcomeBrokerItem extends StatefulWidget {
+  final Broker broker;
+  WelcomeBrokerItem({required this.broker});
 
   @override
-  _CustomerItemState createState() => _CustomerItemState();
+  _WelcomeBrokerItemState createState() => _WelcomeBrokerItemState();
 }
 
-class _CustomerItemState extends State<CustomerItem> {
+class _WelcomeBrokerItemState extends State<WelcomeBrokerItem> {
   late FavoriteBloc favoriteBloc;
   bool isFav = false;
   @override
   Widget build(BuildContext context) {
-    favoriteBloc = BlocProvider.of<FavoriteBloc>(context);
     final size = MediaQuery.of(context).size;
+    favoriteBloc = BlocProvider.of<FavoriteBloc>(context);
 
     return InkWell(
       onTap: () {
-        print("This is the broker name ${widget.customer.user!.fullName}");
+        print("This is the broker name ${widget.broker.user!.fullName}");
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => CustomerProfilePage(
-                    customer: widget.customer,
+              builder: (context) => WelcomeBrokersProfilePage(
+                    broker: widget.broker,
                   )),
         );
       },
@@ -50,45 +51,25 @@ class _CustomerItemState extends State<CustomerItem> {
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // ClipRRect(
-              //   borderRadius: BorderRadius.only(
-              //     topLeft: Radius.circular(15),
-              //     topRight: Radius.circular(
-              //       (15),
-              //     ),
-              //   ),
-              //   child: Image.network(
-              //     "${Ip.ip}/api/users/get/?fileName=${widget.customer.user!.picture as String}",
-              //     height: MediaQuery.of(context).size.height * 0.20,
-              //     width: double.infinity,
-              //     fit: BoxFit.fill,
-              //   ),
-              // ),
-              CachedNetworkImage(
-                imageUrl:
-                    "${Ip.ip}/api/users/get/?fileName=${widget.customer.user!.picture as String}",
-                imageBuilder: (context, imageProvider) {
-                  return Container(
-                    // width: 120,
-                    height: size.height * 0.20,
-
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(12.0),
-                          topRight: Radius.circular(12.0)),
-                      image: DecorationImage(
-                          image: imageProvider, fit: BoxFit.cover),
+              ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(
+                      (15),
                     ),
-                  );
-                },
-                placeholder: (context, url) => Center(
-                  child: SpinKitCircle(
-                    color: primaryColor,
                   ),
-                ),
-                errorWidget: (context, url, _) =>
-                    Center(child: Icon(Icons.error)),
-              ),
+                  child: CachedNetworkImage(
+                    fit: BoxFit.fill,
+                    height: size.height / 6,
+                    width: size.width,
+                    imageUrl:
+                        "${Ip.ip}/api/users/get/?fileName=${widget.broker.user!.picture as String}",
+                    placeholder: (context, url) => Center(
+                        child: SpinKitCircle(
+                      color: primaryColor,
+                    )),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  )),
               Container(
                 width: 300,
                 color: Theme.of(context).primaryColor.withOpacity(0.1),
@@ -96,7 +77,7 @@ class _CustomerItemState extends State<CustomerItem> {
                   child: Padding(
                     padding: const EdgeInsets.all(11.0),
                     child: Text(
-                      this.widget.customer.user!.fullName as String,
+                      this.widget.broker.user!.fullName as String,
                       style: TextStyle(
                         fontSize: 15,
                         color: Theme.of(context).primaryColor.withOpacity(0.95),
@@ -116,7 +97,7 @@ class _CustomerItemState extends State<CustomerItem> {
                       children: [
                         Row(
                           children: [
-                            Text("8.1 ${LocaleKeys.million_lable_text.tr()}",
+                            Text("8.1${LocaleKeys.million_lable_text.tr()}",
                                 style: TextStyle(
                                     color: Colors.black.withOpacity(0.5))),
                             Icon(Icons.star,
@@ -127,6 +108,11 @@ class _CustomerItemState extends State<CustomerItem> {
                         SizedBox(
                           width: 6,
                         ),
+                        Text(
+                          "${this.widget.broker.reviews == null ? "10" : this.widget.broker.reviews![0].rate} ${LocaleKeys.million_lable_text.tr()} ${LocaleKeys.views_lable_text.tr()}",
+                          style:
+                              TextStyle(color: Colors.black.withOpacity(0.5)),
+                        )
                       ],
                     ),
                     SizedBox(
@@ -134,7 +120,7 @@ class _CustomerItemState extends State<CustomerItem> {
                     ),
                     BlocBuilder<FavoriteBloc, FavoriteState>(
                       builder: (context, state) {
-                        if (state.favorit_brokers.contains(widget.customer)) {
+                        if (state.favorit_brokers.contains(widget.broker)) {
                           this.isFav = true;
                         } else {
                           this.isFav = false;
@@ -149,13 +135,13 @@ class _CustomerItemState extends State<CustomerItem> {
                           ),
                           onPressed: () {
                             if (isFav == false) {
-                              Customer customer = widget.customer;
-                              customer.isFavorite = true;
-                              // favoriteBloc.add(Favorite(broker: broker));
+                              Broker broker = widget.broker;
+                              broker.isFavorite = true;
+                              favoriteBloc.add(Favorite(broker: broker));
                             } else {
-                              Customer customer = widget.customer;
-                              customer.isFavorite = false;
-                              // favoriteBloc.add(UnFavorite(broker: broker));
+                              Broker broker = widget.broker;
+                              broker.isFavorite = false;
+                              favoriteBloc.add(UnFavorite(broker: broker));
                             }
 
                             setState(() {

@@ -77,7 +77,80 @@
     "Work_in_progress_label_text": "በሂደት ላይ ያለ ስራ",
     "approve_button_label_text": "ደላላ እፅድቅ",
     "reject_button_label_text":"ደላላ ውድቅ አድርግ",
-    "delete_popup_label_text": "ሰርዝ"
+    "delete_popup_label_text": "ሰርዝ",
+
+    "//comment//7": "broker drawer page",
+    "dashboard_label_text": "ዳሽቦርድ",
+    "dashboard_subtitle_label_text": "ዳሽቦርድ",
+    "account_label_text": "አካውንት",
+    "account_subtitle_label_text": "መገለጫ አዘምን",
+    "saving_and_loans_label_text": "መቆጠብ እና ብድር",
+    "saving_and_loans_subtitle_label_text": "ዋሌት",
+    "settings_label_text": "መቸቶች",
+    "settings_label_subtitle_text": "መቸቶች",
+    "share_label_text": "አጋራ",
+    "share_subtitle_label_text": "ይህን እፕ አጋራ",
+    "chat_label_text": "ውይይት",
+    "broker_chat_room_label_text": "ደላላ ውይይት በቅርቡ ይመጣል",
+
+
+    "//comment//8": "Customer darawer page",
+
+    "see_list_sub_lebel_text": "የደላሎች ዝርዝር ይመልከቱ",
+    "agent_label_text": "ወኪል",
+    "become_an_agent_label_text": "ዎኪል ይሁኑ",
+    "home_label_text": "ዋና",
+
+
+    "//comment//9": "User credentials",
+    "fullname_label_text": "ሙሉ ስም",
+    "email_label_text": "ኢሜይል",
+    "phone_label_text": "ስልክ",
+    "city_form_label_text": "ከተማ",
+    "subcity_label_text": "ክፍለ ከተማ",
+    "kebele_label_text": "ቀበሌ",
+    "done_btn_label_text": "መዝግብ",
+    "be_a_potential_user_label_text": "እምቅ ሃይል ተጥቃሚ ይሁኑ!",
+    "register_to_continue_label_text": "ወደ ትረስት ድለላ ለመቀጠል ይመዝገቡ!",
+    "next_btn_label_text": "ቀጥል",
+    "password_registration_label_text": "የይለፍ ቃል ምዝገባ!",
+    "password_label_text": "የይለፍ ቃል",
+    "confirm_password_label_text": "የይለፍ ቃል አረጋግጥ",
+    "profile_photo_label_text": "የመገለጫ ፎቶ",
+    "id_photo_label_text": "የመታወቂያ ፎቶ",
+    "register_btn_label_text": "ይመዝገቡ",
+    "male_label_text": "ወንድ",
+    "female_label_text": "ሴት",
+    "customer_label_text": "ደንበኛ",
+    "broker_label_text": "ደላላ",
+    "password_and_profile_label_text": "የይለፍ ቃል እና የመገለጫ ፎቶ",
+
+    "//comment//10": "Delivery Detail",
+    "delivery_details_label_text": "የግዥ ዝርዝር",
+    "delivery_status_label_text": "የግዥ ሁኔታ",
+    "accept_delivery_label_text": "የግዥ እቅርቦትን ተቀበል",
+    "reject_delivery_label_text": "የግዥ እቅርቦትን እትቀበል",
+    "confirm_us_label_text": "አረጋግጥ",
+    "are_you_sure_label_text": "እርግጠኛ ነዎት ይህን ስራ መሰረዝ ይፈልጋሉ?",
+    "delete_btn_label_text": "ዝጋ",
+    "action_not_allowed_label_text": "ተግባሩ አልተፈቀደም",
+    "to_change_the_done_status": "የዚህን ሥራ ሁኔታ ለመለወጥ, ደላላው መጀመሪያ ምላሽ መስጠት አለበት",
+    "this_delivery_label_status": "ይሄ ግዥ ወደ ተከናውኗል ተመዝግቧል!",
+    "mark_as_done_label_text": "እንደተከናወነ ምልክት አድርግበት",
+    "work_tab_label_text": "ስራዎች",
+    "completed_label_text": "ተጠናቋል",
+    "progress_label_text": "እድገት",
+    "communication_label_text": "መግባባት",
+    "broking_label_text": "ድለላ",
+    "cancel_btn_label_text": "ሰርዝ",
+    "accept_btn_label_text": "ተቀበል",
+    "reject_btn_label_text": "ውድቅ አድርግ",
+    "are_you_sure_reject_label_text": "እርግጠኛ ነህ አለመቀበል ትፈልጋለህ",
+    "search_customers_label_text": "ደንበኞችን ፈልግ",
+    "favorite_label_text": "የተወደዱ"
+
+    
+    
 
 
 }

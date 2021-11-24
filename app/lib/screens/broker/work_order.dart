@@ -1,4 +1,5 @@
 import 'package:app/Widget/agent/order_item.dart';
+import 'package:app/Widget/common/error_widget.dart';
 import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
 // import 'package:app/bloc/work/bloc/work_bloc.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
 class BrokerDeliveryHistoryScreen extends StatelessWidget {
-  
   final GlobalKey<ScaffoldState> scaffoldKey;
   BrokerDeliveryHistoryScreen({required this.scaffoldKey});
   late WorkBloc workBloc;
@@ -17,20 +17,6 @@ class BrokerDeliveryHistoryScreen extends StatelessWidget {
     workBloc.add(FetchWork());
     return Scaffold(
       backgroundColor: Theme.of(context).accentColor,
-      appBar: AppBar(
-        title: Text('Trust Brokers'),
-        backgroundColor: Theme.of(context).primaryColor,
-        leading: GestureDetector(
-          onTap: () => scaffoldKey.currentState!.openDrawer(),
-          child: Container(
-            height: 5.0,
-            width: 5.0,
-            child: ImageIcon(
-              AssetImage('assets/images/left-align.png'),
-            ),
-          ),
-        ),
-      ),
       body: Container(
         // decoration: BoxDecoration(color: Colors.white),
         child: ProgressHUD(
@@ -40,6 +26,7 @@ class BrokerDeliveryHistoryScreen extends StatelessWidget {
                 // deleting success
                 workBloc.add(FetchWork());
               } else if (state is DeleteFailedState) {
+                return CustomeErrorWidget();
                 // delete failed
               } else if (state is UpdateSuccessState) {
                 // update success state

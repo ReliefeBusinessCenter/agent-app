@@ -2,7 +2,8 @@ import 'package:app/screens/broker/broker_chat.dart';
 import 'package:app/screens/broker/broker_customer_list.dart';
 import 'package:app/screens/broker/work_order.dart';
 import 'package:app/screens/broker/work_deals.dart';
-
+import 'package:app/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 
@@ -12,7 +13,6 @@ final _scaffoldKey = GlobalKey<ScaffoldState>();
 
 class BrokerMain extends StatefulWidget {
   static const routeName = 'broker';
-
   @override
   _BrokerMainState createState() => _BrokerMainState();
 }
@@ -22,6 +22,20 @@ class _BrokerMainState extends State<BrokerMain> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(LocaleKeys.trust_broker_label_text.tr()),
+        backgroundColor: Theme.of(context).primaryColor,
+        leading: GestureDetector(
+          onTap: () => _scaffoldKey.currentState!.openDrawer(),
+          child: Container(
+            height: 5.0,
+            width: 5.0,
+            child: ImageIcon(
+              AssetImage('assets/images/left-align.png'),
+            ),
+          ),
+        ),
+      ),
       key: _scaffoldKey,
       drawer: Theme(
         data: Theme.of(context).copyWith(
@@ -35,33 +49,33 @@ class _BrokerMainState extends State<BrokerMain> {
       body: _getDrawerItemWidget(this._selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Theme.of(context).accentColor,
-        items: const <BottomNavigationBarItem>[
+        items:  <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
               Icons.request_page,
             ),
-            label: 'Delivery',
+            label: LocaleKeys.delivery_label_text.tr(),
             backgroundColor: Colors.white,
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.history,
             ),
-            label: 'Deals',
+            label: LocaleKeys.deals_label_text.tr(),
             backgroundColor: Colors.white,
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.people,
             ),
-            label: 'Customers',
+            label: LocaleKeys.customers_label_text.tr(),
             backgroundColor: Colors.white,
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.chat,
             ),
-            label: 'Chat',
+            label: LocaleKeys.chat_label_text.tr(),
             backgroundColor: Colors.white,
           ),
         ],

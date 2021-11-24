@@ -2,11 +2,14 @@ import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
 // import 'package:app/bloc/work/bloc/work_bloc.dart';
 import 'package:app/model/delivery.dart';
 import 'package:app/screens/broker/broker_delivery_detail.dart';
+import 'package:app/translations/locale_keys.g.dart';
 // import 'package:app/model/work.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 
+// ignore: must_be_immutable
 class OrderItem extends StatelessWidget {
   late WorkBloc workBloc;
   final Delivery work;
@@ -70,8 +73,8 @@ class OrderItem extends StatelessWidget {
                         context: context,
                         dialogType: DialogType.WARNING,
                         animType: AnimType.BOTTOMSLIDE,
-                        title: 'Confirm Us',
-                        desc: 'Are you sure you want to Reject  this work?',
+                        title: LocaleKeys.confirm_us_label_text.tr(),
+                        desc: LocaleKeys.are_you_sure_reject_label_text.tr(),
                         btnCancelOnPress: () {},
                         btnOkOnPress: () {
                           workBloc.add(MarkAsRejected(work: work));
@@ -81,12 +84,12 @@ class OrderItem extends StatelessWidget {
                   },
                   itemBuilder: (context) => [
                         PopupMenuItem(
-                          child: Text("Accept",
+                          child: Text(LocaleKeys.accept_btn_label_text.tr(),
                               style: TextStyle(color: Colors.green)),
                           value: 1,
                         ),
                         PopupMenuItem(
-                          child: Text("Reject",
+                          child: Text(LocaleKeys.reject_btn_label_text.tr(),
                               style: TextStyle(color: Colors.red)),
                           value: 2,
                         ),

@@ -1,15 +1,17 @@
 import 'package:app/Widget/customer/customer_broker_profile_.dart';
 import 'package:app/Widget/customer/delivery/mark_as_done_button.dart';
-import 'package:app/bloc/delivery/bloc/delivery_bloc.dart';
 import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
 import 'package:app/constants.dart';
 import 'package:app/model/broker/broker.dart';
 import 'package:app/model/delivery.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
+import 'package:easy_localization/easy_localization.dart';
 
+// ignore: must_be_immutable
 class CustomerDeliveryDetails extends StatelessWidget {
   final Delivery delivery;
   CustomerDeliveryDetails({required this.delivery});
@@ -26,30 +28,30 @@ class CustomerDeliveryDetails extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
           title: Text(
-            'Delivery Detail',
+            LocaleKeys.delivery_details_label_text.tr(),
             style: TextStyle(fontSize: 18),
           ),
           actions: <Widget>[
             PopupMenuButton(
-              onSelected: (index){
-                if(index == 1){
+              onSelected: (index) {
+                if (index == 1) {
                   AwesomeDialog(
-                        context: context,
-                        dialogType: DialogType.WARNING,
-                        animType: AnimType.BOTTOMSLIDE,
-                        title: 'Confirm Us',
-                        desc: 'Are you sure you want to delete this work?',
-                        btnCancelOnPress: () {},
-                        btnOkOnPress: () {
-                          workBloc.add(DeleteWork(work: delivery));
-                          // Navigator.pop(context);
-                        },
-                      )..show();
+                    context: context,
+                    dialogType: DialogType.WARNING,
+                    animType: AnimType.BOTTOMSLIDE,
+                    title: LocaleKeys.confirm_us_label_text.tr(),
+                    desc: LocaleKeys.are_you_sure_label_text.tr(),
+                    btnCancelOnPress: () {},
+                    btnOkOnPress: () {
+                      workBloc.add(DeleteWork(work: delivery));
+                      // Navigator.pop(context);
+                    },
+                  )..show();
                 }
               },
               itemBuilder: (context) => [
                 PopupMenuItem(
-                  child: Text("Delete"),
+                  child: Text(LocaleKeys.delete_btn_label_text.tr()),
                   value: 1,
                 ),
               ],
@@ -72,7 +74,7 @@ class CustomerDeliveryDetails extends StatelessWidget {
             listener: (context, state) {
               if (state is WorkLoading) {
                 // delivery createing
-                print("+++++++++++++++++++++++++++++++++++++++work is loading");
+                
                 final progress = ProgressHUD.of(context);
                 // if (!isShowing) {
                 //   if (progress != null) {
@@ -107,50 +109,51 @@ class CustomerDeliveryDetails extends StatelessWidget {
                     BrokerProfile(broker: this.delivery.broker as Broker),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                     Container(
-                        // color: Colors.red,
+                      // color: Colors.red,
 
-                        height: size.height * 0.1,
-                        child: Card(
-                          color: lightColor,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                "Delivery status",
-                                style: TextStyle(
-                                    color: primaryColor,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20.0),
-                              ),
-                              delivery.deliveryStatus == "Accepted"
-                                  ? Text(
-                                      "Accepted",
-                                      style: TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.pink[600],
-                                      ),
-                                    )
-                                  : delivery.deliveryStatus == "Pending"
-                                      ? Text(
-                                          "Pending",
-                                          style: TextStyle(
-                                            fontSize: 18.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.grey,
-                                          ),
-                                        )
-                                      : Text(
-                                          "Done",
-                                          style: TextStyle(
-                                            fontSize: 18.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.green[600],
-                                          ),
-                                        )
-                            ],
-                          ),
-                        )),
+                      height: size.height * 0.1,
+                      child: Card(
+                        color: lightColor,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              LocaleKeys.delivery_status_label_text.tr(),
+                              style: TextStyle(
+                                  color: primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20.0),
+                            ),
+                            delivery.deliveryStatus == "Accepted"
+                                ? Text(
+                                    LocaleKeys.accepted_status_text.tr(),
+                                    style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.pink[600],
+                                    ),
+                                  )
+                                : delivery.deliveryStatus == "Pending"
+                                    ? Text(
+                                        LocaleKeys.pending_status_text.tr(),
+                                        style: TextStyle(
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.grey,
+                                        ),
+                                      )
+                                    : Text(
+                                        LocaleKeys.pending_status_text.tr(),
+                                        style: TextStyle(
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.green[600],
+                                        ),
+                                      )
+                          ],
+                        ),
+                      ),
+                    ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.03,
                     ),
@@ -162,9 +165,9 @@ class CustomerDeliveryDetails extends StatelessWidget {
                             context: context,
                             dialogType: DialogType.INFO,
                             animType: AnimType.BOTTOMSLIDE,
-                            title: 'Action Not Allowed',
+                            title: LocaleKeys.action_not_allowed_label_text.tr(),
                             desc:
-                                'To change the done status of this work, the broker should respond first',
+                                LocaleKeys.to_change_the_done_status.tr(),
                             btnCancelOnPress: () {},
                             btnOkOnPress: () {},
                           )..show();
@@ -174,9 +177,9 @@ class CustomerDeliveryDetails extends StatelessWidget {
                             context: context,
                             dialogType: DialogType.INFO,
                             animType: AnimType.BOTTOMSLIDE,
-                            title: 'Action Not Allowed',
+                            title: LocaleKeys.action_not_allowed_label_text.tr(),
                             desc:
-                                'This Delivery have been already set to Done!',
+                                LocaleKeys.this_delivery_label_status.tr(),
                             btnCancelOnPress: () {},
                             btnOkOnPress: () {},
                           )..show();
