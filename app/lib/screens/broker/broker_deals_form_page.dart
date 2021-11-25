@@ -1,10 +1,9 @@
-import 'package:app/Widget/Auth/signup/next-button.dart';
+import 'package:app/Widget/Auth/Common/color_picker.dart';
 import 'package:app/Widget/Auth/signup/signUpTextField.dart';
 import 'package:app/Widget/broker-widget/deals-submit-button.dart';
 import 'package:app/Widget/broker-widget/delivery-option-dropdown-button.dart';
 import 'package:app/Widget/broker-widget/paymet-option-dropdown-button.dart';
 import 'package:app/bloc/deals/bloc/deals_bloc.dart';
-import 'package:app/bloc/register/bloc/register_bloc.dart';
 import 'package:app/model/customer/customer.dart';
 import 'package:app/model/deals.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -58,6 +57,8 @@ class _DealsPageScreenState extends State<DealsPageScreen> {
   late DealsBloc dealsBloc;
 
   String type = 'Customer';
+
+  Color _selectedColor = Color(0xff443a49);
 
   @override
   Widget build(BuildContext context) {
@@ -302,20 +303,53 @@ class _DealsPageScreenState extends State<DealsPageScreen> {
                                     height: MediaQuery.of(context).size.height *
                                         0.02,
                                   ),
-                                  CustomTextField(
-                                      minLength: 0,
-                                      keyboardType: TextInputType.text,
-                                      textFieldName: 'Color',
-                                      enabled: true,
-                                      controller: productColorController,
-                                      initialValue: '',
-                                      validator: null,
-                                      obsecureText: false,
-                                      isRequired: false,
-                                      onChanged: (String value) {
-                                        // print("Write: ${value}");
-                                        // registerBloc.add(AddKebele(kebele: value));
-                                      }),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 10.0,
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Choose color",
+                                          style: TextStyle(
+                                            fontSize: 18.0,
+                                            color: Colors.grey[700],
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            IconButton(
+                                              icon: Icon(
+                                                Icons.colorize_rounded,
+                                              ),
+                                              onPressed: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      ColorePickerWidget(
+                                                    changeColor: (color) {
+                                                      setState(() {
+                                                        _selectedColor = color;
+                                                      });
+                                                    },
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                            Container(
+                                              height: 20.0,
+                                              width: 35.0,
+                                              color: _selectedColor,
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                   SizedBox(
                                     height: MediaQuery.of(context).size.height *
                                         0.02,

@@ -1,4 +1,3 @@
-import 'package:app/Widget/Auth/signup/add_profile_picture.dart';
 import 'package:app/Widget/Auth/signup/signUpTextField.dart';
 import 'package:app/Widget/Auth/signup/register-button.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';

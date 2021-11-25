@@ -1,10 +1,12 @@
-import 'package:app/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class LoadingIndicator extends StatelessWidget {
+
+import 'package:app/constants.dart';
+
+class ErrorIndicator extends StatelessWidget {
   final String name;
-  const LoadingIndicator({required this.name, Key? key}) : super(key: key);
+  
+  const ErrorIndicator({required this.name, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class LoadingIndicator extends StatelessWidget {
         content: SingleChildScrollView(
           child: Row(
             children: [
-              SpinKitCircle(color: primaryColor,),
+              Icon(Icons.error, color: Colors.red,),
               SizedBox(
                 width: 10.0,
               ),

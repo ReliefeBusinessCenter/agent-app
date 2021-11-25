@@ -12,6 +12,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class BrokerItem extends StatefulWidget {
+  // final Function(String filter) filter;
+
   final Broker broker;
   BrokerItem({required this.broker});
 
@@ -137,10 +139,13 @@ class _BrokerItemState extends State<BrokerItem> {
                               Broker broker = widget.broker;
                               broker.isFavorite = true;
                               favoriteBloc.add(Favorite(broker: broker));
+                              // widget
+                              //     .filter(LocaleKeys.favorite_label_text.tr());
                             } else {
                               Broker broker = widget.broker;
                               broker.isFavorite = false;
                               favoriteBloc.add(UnFavorite(broker: broker));
+                              // widget.filter(LocaleKeys.all_status_text.tr());
                             }
 
                             setState(() {

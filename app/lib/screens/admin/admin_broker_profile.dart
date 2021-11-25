@@ -1,6 +1,7 @@
 import 'package:app/Widget/Broker-profile/broker_skill_page.dart';
 import 'package:app/Widget/broker-widget/accept_button.dart';
 import 'package:app/Widget/broker-widget/reject_button.dart';
+import 'package:app/Widget/common/error_indicator.dart';
 import 'package:app/Widget/common/loading_indicator.dart';
 import 'package:app/Widget/common/user_identy_card.dart';
 import 'package:app/Widget/common/user_profile_contact.dart';
@@ -85,21 +86,15 @@ class _AdminBrokerProfilePageState extends State<AdminBrokerProfilePage> {
               context: context,
               builder: (context) => LoadingIndicator(
                 name: 'Updating',
-                leadingWidget: SpinKitCircle(
-                  color: primaryColor,
-                ),
+                
               ),
             );
           } else if (state is BrokersLoadFailed) {
             Navigator.of(context).pop();
             showDialog(
               context: context,
-              builder: (context) => LoadingIndicator(
+              builder: (context) => ErrorIndicator(
                 name: 'Something went wrong',
-                leadingWidget: Icon(
-                  Icons.error,
-                  color: Colors.red,
-                ),
               ),
             );
           } else {

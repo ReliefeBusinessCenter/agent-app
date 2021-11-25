@@ -4,6 +4,7 @@ import 'package:app/Widget/Dashboard/customSearchBar.dart';
 import 'package:app/bloc/broker/bloc/broker_bloc.dart';
 import 'package:app/bloc/category/bloc/category_bloc.dart';
 import 'package:app/constants.dart';
+import 'package:app/model/broker/broker.dart';
 import 'package:app/translations/locale_keys.g.dart';
 
 import 'package:flutter/material.dart';
@@ -12,6 +13,8 @@ import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class HomeFragment extends StatefulWidget {
+  final String filter;
+  HomeFragment(this.filter);
   @override
   State<HomeFragment> createState() => _HomeFragmentState();
 }
@@ -21,6 +24,15 @@ class _HomeFragmentState extends State<HomeFragment> {
 
   late CategoryBloc categoryBloc;
   String _initialValue = "en";
+
+  String filter = "All";
+  @override
+  void initState() {
+    setState(() {
+      filter = widget.filter;
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +51,13 @@ class _HomeFragmentState extends State<HomeFragment> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Text(LocaleKeys.welcome_text.tr(),
-                    style: TextStyle(
-                        color: Colors.pinkAccent,
-                        fontSize: MediaQuery.of(context).size.height * 0.02)),
+                child: Text(
+                  LocaleKeys.welcome_text.tr(),
+                  style: TextStyle(
+                    color: Colors.pinkAccent,
+                    fontSize: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                ),
               ),
               Container(
                 width: 50,
@@ -88,7 +103,6 @@ class _HomeFragmentState extends State<HomeFragment> {
                     if (state is CategoryLoading) {
                       return CircularProgressIndicator();
                     }
-
                     List<Widget> categories = [];
                     if (state is CategoryLoadSuccess) {
                       categories.add(CustomCategory(
@@ -144,8 +158,15 @@ class _HomeFragmentState extends State<HomeFragment> {
           ),
           Expanded(
             child: BlocBuilder<BrokerBloc, BrokerState>(
-              builder: (context, state) {
-                if (state is BrokersLoadSuccess) {
+              builder: (context, states) {
+                print("STTTTTTTTTTTTTTTTTTTTTTTTTTTTT is $filter}");
+                List<Broker> _brokers =
+                    widget.filter == LocaleKeys.all_status_text.tr()
+                        ? states.brokers
+                        : states.brokers
+                            .where((element) => element.isFavorite!)
+                            .toList();
+                if (states is BrokersLoadSuccess) {
                   return LazyLoadScrollView(
                     onEndOfPage: () {},
                     child: GridView.builder(
@@ -155,17 +176,22 @@ class _HomeFragmentState extends State<HomeFragment> {
                         mainAxisExtent:
                             MediaQuery.of(context).size.height * 0.35,
                       ),
-                      itemCount: state.brokers.length,
+                      itemCount: _brokers.length,
                       itemBuilder: (BuildContext ctx, index) {
                         return Container(
                           child: BrokerItem(
-                            broker: state.brokers[index],
+                            // filter: (value) {
+                            //   setState(() {
+                            //     filter = value;
+                            //   });
+                            // },
+                            broker: _brokers[index],
                           ),
                         );
                       },
                     ),
                   );
-                } else if (state is BrokersLoading) {
+                } else if (states is BrokersLoading) {
                   return Center(
                     child: CircularProgressIndicator(),
                   );

@@ -2,12 +2,14 @@ import 'package:app/bloc/work-deals/bloc/workdeals_bloc.dart';
 // import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
 import 'package:app/model/deals.dart';
 import 'package:app/screens/broker/broker_deals_detail.dart';
+import 'package:app/translations/locale_keys.g.dart';
 // import 'package:app/bloc/work/bloc/work_bloc.dart';
 // import 'package:app/model/work.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:easy_localization/easy_localization.dart';
+// ignore: must_be_immutable
 class DealsItem extends StatelessWidget {
   late DealsListBloc dealsBloc;
   final Deals deals;
@@ -22,6 +24,7 @@ class DealsItem extends StatelessWidget {
             Navigator.of(context).pushNamed(BrokerBrokerDealsDetail.routeName, arguments: deals);
           },
           child: Card(
+            // ignore: deprecated_member_use
             color: Theme.of(context).accentColor,
             elevation: 1.0,
             margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
@@ -69,7 +72,9 @@ class DealsItem extends StatelessWidget {
                       context: context,
                       dialogType: DialogType.WARNING,
                       animType: AnimType.BOTTOMSLIDE,
-                      title: 'Action not Allowed',
+                      btnOkText: LocaleKeys.ok_button_label_text.tr(),
+                      btnCancelText: LocaleKeys.cancel_btn_label_text.tr(),
+                      title: LocaleKeys.action_not_allowed_label_text.tr(),
                       desc:
                           'This deals have to be accepted by the customers first!',
                       btnCancelOnPress: () {},
@@ -82,10 +87,12 @@ class DealsItem extends StatelessWidget {
                     // delete the work history.
                     AwesomeDialog(
                       context: context,
+                      btnOkText: LocaleKeys.ok_button_label_text.tr(),
+                      btnCancelText: LocaleKeys.cancel_btn_label_text.tr(),
                       dialogType: DialogType.WARNING,
                       animType: AnimType.BOTTOMSLIDE,
-                      title: 'Confirm Us',
-                      desc: 'Are you sure you want to delete this work?',
+                      title: LocaleKeys.confirm_us_label_text.tr(),
+                      desc: LocaleKeys.are_you_sure_label_text.tr(),
                       btnCancelOnPress: () {},
                       btnOkOnPress: () {
                         dealsBloc.add(DeleteDeals(deals: deals));

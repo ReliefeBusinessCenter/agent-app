@@ -74,7 +74,7 @@ class CustomerDeliveryDetails extends StatelessWidget {
             listener: (context, state) {
               if (state is WorkLoading) {
                 // delivery createing
-                
+
                 final progress = ProgressHUD.of(context);
                 // if (!isShowing) {
                 //   if (progress != null) {
@@ -142,14 +142,24 @@ class CustomerDeliveryDetails extends StatelessWidget {
                                           color: Colors.grey,
                                         ),
                                       )
-                                    : Text(
-                                        LocaleKeys.pending_status_text.tr(),
-                                        style: TextStyle(
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.green[600],
-                                        ),
-                                      )
+                                    : delivery.deliveryStatus == "Rejected"
+                                        ? Text(
+                                            LocaleKeys.rejected_status_text
+                                                .tr(),
+                                            style: TextStyle(
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.green[600],
+                                            ),
+                                          )
+                                        : Text(
+                                            LocaleKeys.pending_status_text.tr(),
+                                            style: TextStyle(
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.green[600],
+                                            ),
+                                          )
                           ],
                         ),
                       ),
@@ -165,9 +175,9 @@ class CustomerDeliveryDetails extends StatelessWidget {
                             context: context,
                             dialogType: DialogType.INFO,
                             animType: AnimType.BOTTOMSLIDE,
-                            title: LocaleKeys.action_not_allowed_label_text.tr(),
-                            desc:
-                                LocaleKeys.to_change_the_done_status.tr(),
+                            title:
+                                LocaleKeys.action_not_allowed_label_text.tr(),
+                            desc: LocaleKeys.to_change_the_done_status.tr(),
                             btnCancelOnPress: () {},
                             btnOkOnPress: () {},
                           )..show();
@@ -177,9 +187,9 @@ class CustomerDeliveryDetails extends StatelessWidget {
                             context: context,
                             dialogType: DialogType.INFO,
                             animType: AnimType.BOTTOMSLIDE,
-                            title: LocaleKeys.action_not_allowed_label_text.tr(),
-                            desc:
-                                LocaleKeys.this_delivery_label_status.tr(),
+                            title:
+                                LocaleKeys.action_not_allowed_label_text.tr(),
+                            desc: LocaleKeys.this_delivery_label_status.tr(),
                             btnCancelOnPress: () {},
                             btnOkOnPress: () {},
                           )..show();

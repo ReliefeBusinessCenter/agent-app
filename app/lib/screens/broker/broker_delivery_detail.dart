@@ -1,5 +1,7 @@
 import 'package:app/Widget/broker-widget/accept_button.dart';
 import 'package:app/Widget/broker-widget/reject_button.dart';
+import 'package:app/Widget/common/error_indicator.dart';
+import 'package:app/Widget/common/loading_indicator.dart';
 import 'package:app/Widget/customer/broker_broker_profile.dart';
 import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
 import 'package:app/constants/constants.dart';
@@ -18,6 +20,7 @@ class BrokerDeliveryDetails extends StatelessWidget {
   BrokerDeliveryDetails({required this.delivery});
   static const routeName = "/broker-delivery-details";
   late WorkBloc workBloc;
+  bool _isOpen = false;
   @override
   Widget build(BuildContext context) {
     // deliveryBloc=BlocProvider()
@@ -70,121 +73,154 @@ class BrokerDeliveryDetails extends StatelessWidget {
           // ],
         ),
         body: Container(
-          child: ProgressHUD(
-            child: BlocConsumer<WorkBloc, WorkState>(
-              listener: (context, state) {
-                if (state is WorkLoading) {
-                  // delivery createing
-                  print(
-                      "+++++++++++++++++++++++++++++++++++++++work is loading");
-                  final progress = ProgressHUD.of(context);
-                  // if (!isShowing) {
-                  //   if (progress != null) {
-                  //     setState(() {
-                  //       isShowing = true;
-                  //     });
-                  // }
-                  progress!.showWithText("Updating");
-                  print("delivery creating  method called");
-                } else if (state is DeleteSuccessState) {
-                  // deleting success
-                  Navigator.pop(context);
-                  // workBloc.add(FetchWork());
-                } else if (state is DeleteFailedState) {
-                  // delete failed
-                } else if (state is UpdateSuccessState) {
-                  // update success state
-                  workBloc.add(FetchWork());
-                } else if (state is UpdateFailedState) {
-                  // update failed state
-                }
-              },
-              builder: (context, state) {
-                return Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  child: ListView(
-                    // crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      // BrokerImage(
-                      //   broker: this.delivery.broker as Broker,
-                      // ),
-                      BrokerBrokerProfile(broker: this.delivery.customer as Customer),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.03),
-                      Container(
-                          // color: Colors.red,
-
-                          height: size.height * 0.1,
-                          child: Card(
-                            color: lightColor,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  LocaleKeys.delivery_status_label_text.tr(),
-                                  style: TextStyle(
-                                      color: primaryColor,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20.0),
-                                ),
-                                delivery.deliveryStatus == "Accepted"
-                                    ? Text(
-                                        LocaleKeys.accepted_status_text.tr(),
-                                        style: TextStyle(
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.pink[600],
-                                        ),
-                                      )
-                                    : delivery.deliveryStatus == "Pending"
-                                        ? Text(
-                                            LocaleKeys.pending_status_text.tr(),
-                                            style: TextStyle(
-                                              fontSize: 18.0,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.grey,
-                                            ),
-                                          )
-                                        : Text(
-                                           LocaleKeys.done_status_text.tr(),
-                                            style: TextStyle(
-                                              fontSize: 18.0,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.green[600],
-                                            ),
-                                          )
-                              ],
-                            ),
-                          )),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.03,
-                      ),
-                      AcceptButton(title: LocaleKeys.accept_delivery_label_text.tr(), onPressed: (){
-                        workBloc.add(MarkAsAccepted(work: delivery));
-                      }),
-
-                      SizedBox(height: 10.0,),
-                      RejectButton(title: LocaleKeys.reject_delivery_label_text.tr(), onPressed: (){
-                         AwesomeDialog(
-                        context: context,
-                        dialogType: DialogType.WARNING,
-                        animType: AnimType.BOTTOMSLIDE,
-                        title: LocaleKeys.confirm_us_label_text.tr(),
-                        desc: LocaleKeys.are_you_sure_label_text.tr(),
-                        btnCancelOnPress: () {},
-                        btnOkOnPress: () {
-                          workBloc.add(MarkAsRejected(work: delivery));
-                        },
-                      )..show();
-                      }),
-                      SizedBox(
-                        height: 20.0,
-                      )
-                    ],
+          child: BlocConsumer<WorkBloc, WorkState>(
+            listener: (context, state) {
+              if (state is WorkLoading) {
+                // delivery createing
+                print("+++++++++++++++++++++++++++++++++++++++work is loading");
+                final progress = ProgressHUD.of(context);
+                // if (!isShowing) {
+                //   if (progress != null) {
+                //     setState(() {
+                //       isShowing = true;
+                //     });
+                // }
+                progress!.showWithText("Updating");
+                print("delivery creating  method called");
+                showDialog(
+                  context: context,
+                  builder: (context) => LoadingIndicator(
+                    name: "Updating",
                   ),
-                );
-              },
-            ),
+                ).then((value) => _isOpen = false);
+              } else if (state is DeleteSuccessState) {
+                // deleting success
+                Navigator.pop(context);
+
+                // workBloc.add(FetchWork());
+              } else if (state is DeleteFailedState) {
+                Navigator.of(context).pop();
+                showDialog(
+                    context: context,
+                    builder: (context) =>
+                        ErrorIndicator(name: "Delete failed"));
+                // delete failed
+              } else if (state is UpdateSuccessState) {
+                Navigator.of(context).pop();
+                // update success state
+                workBloc.add(FetchWork());
+              } else if (state is UpdateFailedState) {
+                // update failed state
+                 Navigator.of(context).pop();
+                showDialog(
+                    context: context,
+                    builder: (context) =>
+                        ErrorIndicator(name: "Update failed"));
+              }
+            },
+            builder: (context, state) {
+              return Container(
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                child: ListView(
+                  // crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // BrokerImage(
+                    //   broker: this.delivery.broker as Broker,
+                    // ),
+                    BrokerBrokerProfile(
+                        broker: this.delivery.customer as Customer),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                    Container(
+                        // color: Colors.red,
+
+                        height: size.height * 0.1,
+                        child: Card(
+                          color: lightColor,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                LocaleKeys.delivery_status_label_text.tr(),
+                                style: TextStyle(
+                                    color: primaryColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20.0),
+                              ),
+                              delivery.deliveryStatus == "Accepted"
+                                  ? Text(
+                                      LocaleKeys.accepted_status_text.tr(),
+                                      style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.pink[600],
+                                      ),
+                                    )
+                                  : delivery.deliveryStatus == "Pending"
+                                      ? Text(
+                                          LocaleKeys.pending_status_text.tr(),
+                                          style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.grey,
+                                          ),
+                                        )
+                                      : Text(
+                                          LocaleKeys.done_status_text.tr(),
+                                          style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.green[600],
+                                          ),
+                                        )
+                            ],
+                          ),
+                        )),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.03,
+                    ),
+                    AcceptButton(
+                        title: LocaleKeys.accept_delivery_label_text.tr(),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => LoadingIndicator(
+                              name: "Updating",
+                            ),
+                          );
+                          workBloc.add(MarkAsAccepted(work: delivery));
+                        }),
+
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    RejectButton(
+                        title: LocaleKeys.reject_delivery_label_text.tr(),
+                        onPressed: () {
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.WARNING,
+                            animType: AnimType.BOTTOMSLIDE,
+                            title: LocaleKeys.confirm_us_label_text.tr(),
+                            desc: LocaleKeys.are_you_sure_label_text.tr(),
+                            btnCancelOnPress: () {},
+                            btnOkOnPress: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => LoadingIndicator(
+                                  name: "Updating",
+                                ),
+                              );
+                              workBloc.add(MarkAsRejected(work: delivery));
+                            },
+                          )..show();
+                        }),
+                    SizedBox(
+                      height: 20.0,
+                    )
+                  ],
+                ),
+              );
+            },
           ),
         )
         // decoration: BoxDecoration(color: Colors.white),

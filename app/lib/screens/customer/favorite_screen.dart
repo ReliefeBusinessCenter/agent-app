@@ -7,6 +7,7 @@ class FavoritScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      // ignore: deprecated_member_use
       color: Theme.of(context).accentColor,
       child: BlocBuilder<FavoriteBloc, FavoriteState>(
         // buildWhen: (previous, current) =>
@@ -23,6 +24,7 @@ class FavoritScreen extends StatelessWidget {
                   itemBuilder: (BuildContext ctx, index) {
                     return Container(
                         child: BrokerItem(
+                      // filter: (value) {},
                       broker: state.favorit_brokers[index],
                     ));
                   });
@@ -40,6 +42,7 @@ class FavoritScreen extends StatelessWidget {
                   itemBuilder: (BuildContext ctx, index) {
                     return Container(
                         child: BrokerItem(
+                          //  filter: (value) {},
                       broker: state.favorit_brokers[index],
                     ));
                   });

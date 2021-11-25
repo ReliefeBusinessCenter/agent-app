@@ -1,5 +1,7 @@
 import 'package:app/Widget/broker-widget/accept_button.dart';
 import 'package:app/Widget/broker-widget/reject_button.dart';
+import 'package:app/Widget/common/error_indicator.dart';
+import 'package:app/Widget/common/loading_indicator.dart';
 import 'package:app/Widget/customer/deals_broker_profile.dart';
 import 'package:app/bloc/work-deals/bloc/workdeals_bloc.dart';
 import 'package:app/constants/constants.dart';
@@ -18,7 +20,8 @@ class CustomerDealsDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // deliveryBloc=BlocProvider()
-    print("++++++++++++++++++++++++++++++++++++ deals null causing is ${deals.brokerId}");
+    print(
+        "++++++++++++++++++++++++++++++++++++ deals null causing is ${deals.brokerId}");
     dealsBloc = BlocProvider.of<DealsListBloc>(context);
     // workBloc = BlocProvider.of<WorkBloc>(context);
     final size = MediaQuery.of(context).size;
@@ -69,127 +72,155 @@ class CustomerDealsDetail extends StatelessWidget {
           // ],
         ),
         body: Container(
-            child: ProgressHUD(
-          child: BlocConsumer<DealsListBloc, DealsState>(
-            listener: (context, state) {
-              if (state is DealsLoading) {
-                // delivery createing
-                print("+++++++++++++++++++++++++++++++++++++++work is loading");
-                final progress = ProgressHUD.of(context);
-                // if (!isShowing) {
-                //   if (progress != null) {
-                //     setState(() {
-                //       isShowing = true;
-                //     });
-                // }
-                progress!.showWithText("Updating");
-                print("delivery creating  method called");
-              } else if (state is DeleteDealsSuccessState) {
-                // deleting success
-                Navigator.pop(context);
-                // workBloc.add(FetchWork());
-              } else if (state is DeleteDealsFailedState) {
-                // delete failed
-              } else if (state is UpdateDealsSuccessState) {
-                // update success state
-                // workBloc.add(FetchWork());
-              } else if (state is UpdateDealsFailedState) {
-                // update failed state
-              }
-            },
-            builder: (context, state) {
-              return Container(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: ListView(
-                  // crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // BrokerImage(
-                    //   broker: this.delivery.broker as Broker,
-                    // ),
-                    DealsBrokerProfile(deals: deals),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                    Container(
-                      // color: Colors.red,
+            child: BlocConsumer<DealsListBloc, DealsState>(
+          listener: (context, state) {
+            if (state is DealsLoading) {
+              // delivery createing
+              print("+++++++++++++++++++++++++++++++++++++++work is loading");
 
-                      height: size.height * 0.1,
-                      child: Card(
-                        color: lightColor,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              "Deal status",
-                              style: TextStyle(
-                                  color: primaryColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20.0),
-                            ),
-                            deals.dealsStatus == "Accepted"
-                                ? Text(
-                                    "Accepted",
-                                    style: TextStyle(
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.pink[600],
-                                    ),
-                                  )
-                                : deals.dealsStatus == "Pending"
-                                    ? Text(
-                                        "Pending",
-                                        style: TextStyle(
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.grey,
-                                        ),
-                                      )
-                                    : Text(
-                                        "Done",
-                                        style: TextStyle(
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.green[600],
-                                        ),
-                                      )
-                          ],
-                        ),
+              // if (!isShowing) {
+              //   if (progress != null) {
+              //     setState(() {
+              //       isShowing = true;
+              //     });
+              // }
+              // showDialog(
+              //     context: context,
+              //     builder: (context) => LoadingIndicator(name: "Update"));
+
+              print("delivery creating  method called");
+            } else if (state is DeleteDealsSuccessState) {
+              // deleting success
+              // Navigator.pop(context);
+              // workBloc.add(FetchWork());
+            } else if (state is DeleteDealsFailedState) {
+              // Navigator.of(context).pop();
+              // showDialog(
+              //     context: context,
+              //     builder: (context) => ErrorIndicator(name: "Delete failed"));
+              // delete failed
+            } else if (state is UpdateDealsSuccessState) {
+              // Navigator.of(context).pop();
+              // update success state
+              // workBloc.add(FetchWork());
+            } else if (state is UpdateDealsFailedState) {
+              // Navigator.of(context).pop();
+              // showDialog(
+              //     context: context,
+              //     builder: (context) => ErrorIndicator(name: "Update failed"));
+              // update failed state
+            }
+          },
+          builder: (context, state) {
+            return Container(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: ListView(
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // BrokerImage(
+                  //   broker: this.delivery.broker as Broker,
+                  // ),
+                  DealsBrokerProfile(deals: deals),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                  Container(
+                    // color: Colors.red,
+
+                    height: size.height * 0.1,
+                    child: Card(
+                      color: lightColor,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            "Deal status",
+                            style: TextStyle(
+                                color: primaryColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.0),
+                          ),
+                          deals.dealsStatus == "Accepted"
+                              ? Text(
+                                  "Accepted",
+                                  style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.pink[600],
+                                  ),
+                                )
+                              : deals.dealsStatus == "Pending"
+                                  ? Text(
+                                      "Pending",
+                                      style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey,
+                                      ),
+                                    )
+                                  : deals.dealsStatus == "Rejected"
+                                      ? Text(
+                                          "Rejected",
+                                          style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.green[600],
+                                          ),
+                                        )
+                                      : Text(
+                                          "Done",
+                                          style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.green[600],
+                                          ),
+                                        )
+                        ],
                       ),
                     ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.03,
-                    ),
-                    AcceptButton(
-                      title: 'Accept Deals Offer',
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.03,
+                  ),
+                  AcceptButton(
+                    title: 'Accept Deals Offer',
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) =>
+                              LoadingIndicator(name: "Updating"));
+                      dealsBloc.add(MarkAsAccepted(deals: deals));
+                      // Navigator.of(context).pop();
+                    },
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  RejectButton(
+                      title: "Reject Deal Offer",
                       onPressed: () {
-                        dealsBloc.add(MarkAsAccepted(deals: deals));
-                      },
-                    ),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    RejectButton(
-                        title: "Reject Deal Offer",
-                        onPressed: () {
-                          AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.WARNING,
-                            animType: AnimType.BOTTOMSLIDE,
-                            title: 'Confirm Us',
-                            desc: 'Are you sure you want to Reject  this work?',
-                            btnCancelOnPress: () {},
-                            btnOkOnPress: () {
-                              dealsBloc.add(MarkAsRejected(work: deals));
-                            },
-                          )..show();
-                        }),
+                        AwesomeDialog(
+                          context: context,
+                          dialogType: DialogType.WARNING,
+                          animType: AnimType.BOTTOMSLIDE,
+                          title: 'Confirm Us',
+                          desc: 'Are you sure you want to Reject  this work?',
+                          btnCancelOnPress: () {},
+                          btnOkOnPress: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) =>
+                                    LoadingIndicator(name: "Updating"));
+                            dealsBloc.add(MarkAsRejected(work: deals));
+                          },
+                        )..show();
+                      }),
 
-                    SizedBox(
-                      height: 20.0,
-                    )
-                  ],
-                ),
-              );
-            },
-          ),
+                  SizedBox(
+                    height: 20.0,
+                  )
+                ],
+              ),
+            );
+          },
         ))
         // decoration: BoxDecoration(color: Colors.white),
         //     child: ProgressHUD(

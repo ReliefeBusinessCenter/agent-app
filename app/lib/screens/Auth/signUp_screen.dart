@@ -1,9 +1,12 @@
 import 'package:app/Widget/Auth/signup/broker/categories-dropdown-button.dart';
+import 'package:app/Widget/Auth/signup/cities_drop_down.dart';
 import 'package:app/Widget/Auth/signup/next-button.dart';
 import 'package:app/Widget/Auth/signup/role-dropdown.dart';
 import 'package:app/Widget/Auth/signup/sex-dropdown.dart';
 import 'package:app/Widget/Auth/signup/signUpTextField.dart';
+import 'package:app/Widget/Auth/signup/signp-customeDropDown.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';
+import 'package:app/constants/customer-page/cities.dart';
 import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'broker-detail-registeration-screen.dart';
 import 'customer-detail-registeration-screen.dart';
 import 'package:easy_localization/easy_localization.dart';
+
 class SignUpPageScreen extends StatefulWidget {
   static const routeName = '/signup';
 
@@ -102,7 +106,8 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                             child: Column(children: [
                               CustomTextField(
                                 minLength: 0,
-                                textFieldName: LocaleKeys.fullname_label_text.tr(),
+                                textFieldName:
+                                    LocaleKeys.fullname_label_text.tr(),
                                 enabled: true,
                                 controller: nameController,
                                 initialValue: '',
@@ -122,7 +127,8 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                               CustomTextField(
                                   minLength: 0,
                                   keyboardType: TextInputType.number,
-                                  textFieldName: LocaleKeys.phone_label_text.tr(),
+                                  textFieldName:
+                                      LocaleKeys.phone_label_text.tr(),
                                   controller: phoneController,
                                   enabled: true,
                                   initialValue: '',
@@ -138,27 +144,15 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                 height:
                                     MediaQuery.of(context).size.height * 0.02,
                               ),
-                              CustomTextField(
-                                  minLength: 0,
-                                  keyboardType: TextInputType.text,
-                                  textFieldName: LocaleKeys.city_form_label_text.tr(),
-                                  controller: cityController,
-                                  initialValue: '',
-                                  enabled: true,
-                                  validator: null,
-                                  obsecureText: false,
-                                  isRequired: false,
-                                  onChanged: (String value) {
-                                    print("Write: ${value}");
-                                    registerBloc.add(AddCity(city: value));
-                                  }),
+                              CitiesDropDown(),
                               SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height * 0.02,
                               ),
                               CustomTextField(
                                   minLength: 0,
-                                  textFieldName: LocaleKeys.subcity_label_text.tr(),
+                                  textFieldName:
+                                      LocaleKeys.subcity_label_text.tr(),
                                   keyboardType: TextInputType.text,
                                   controller: subCityController,
                                   enabled: true,
@@ -177,7 +171,8 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                               CustomTextField(
                                   minLength: 0,
                                   enabled: true,
-                                  textFieldName: LocaleKeys.kebele_label_text.tr(),
+                                  textFieldName:
+                                      LocaleKeys.kebele_label_text.tr(),
                                   keyboardType: TextInputType.number,
                                   controller: kebeleController,
                                   initialValue: '',
