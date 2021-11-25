@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/category.dart';
@@ -7,7 +6,6 @@ import 'package:app/model/broker/category.dart';
 import 'package:app/preferences/user_preference_data.dart';
 import 'package:flutter/cupertino.dart';
 
-import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 
 class CategoriesDataProvider {
@@ -40,7 +38,7 @@ class CategoriesDataProvider {
         final extractedData = json.decode(response.body) as List;
 
         final data = extractedData;
-        print("Extracted data: $data");
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Extracted data: $data");
         return (data.map((category) => Category.fromJson(category)).toList());
       } else {
         print(response.body);

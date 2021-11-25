@@ -39,6 +39,7 @@ void main() async {
   runApp(EasyLocalization(
     supportedLocales: [
       Locale('en'),
+      
       Locale('am'),
     ],
     assetLoader: CodegenLoader(),

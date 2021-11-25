@@ -80,4 +80,14 @@ class BecomeAgent extends RegisterEvent {
   // BecomeAgent({required this.broker});
 }
 
+class AddAbout extends RegisterEvent {
+  final String about;
+  AddAbout(this.about);
+}
+
+class AddIdImage extends RegisterEvent {
+  final String image;
+  AddIdImage(this.image);
+}
+
 class RegisterUser extends RegisterEvent {}

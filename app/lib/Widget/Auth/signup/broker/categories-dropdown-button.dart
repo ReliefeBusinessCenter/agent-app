@@ -1,4 +1,3 @@
-import 'package:app/Widget/Auth/signup/signp-customeDropDown.dart';
 import 'package:app/bloc/category/bloc/category_bloc.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';
 import 'package:app/model/broker/category.dart';
@@ -28,6 +27,7 @@ class _CategoryDropDownButtonState extends State<CategoryDropDownButton> {
 
     return BlocBuilder<CategoryBloc, CategoryState>(
       builder: (context, state) {
+        print("The categories are ${state.category}");
         // if()
         List<DropdownMenuItem<Category>> dropDownItems = [];
         print("Data at the screen: ${state.category}");

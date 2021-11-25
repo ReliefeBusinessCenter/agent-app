@@ -49,16 +49,6 @@ class _HomeFragmentState extends State<HomeFragment> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Text(
-                  LocaleKeys.welcome_text.tr(),
-                  style: TextStyle(
-                    color: Colors.pinkAccent,
-                    fontSize: MediaQuery.of(context).size.height * 0.02,
-                  ),
-                ),
-              ),
               Container(
                 width: 50,
                 child: DropdownButtonFormField<String>(

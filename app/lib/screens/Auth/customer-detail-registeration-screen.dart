@@ -32,9 +32,9 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
 
   final TextEditingController photoController = new TextEditingController();
   final TextEditingController idController = new TextEditingController();
-  final ImagePicker _picker = ImagePicker();
-  late PickedFile _imageFile;
-  late PickedFile _idImaage;
+  // final ImagePicker _picker = ImagePicker();
+  // late PickedFile _imageFile;
+  // late PickedFile _idImaage;
 
   late RegisterBloc registerBloc;
 
@@ -74,7 +74,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                 context: context,
                 dialogType: DialogType.ERROR,
                 animType: AnimType.BOTTOMSLIDE,
-                title: 'Order Creating failed',
+                title: 'Failed to create Broker',
                 desc: 'Fill all the information carefully!',
                 // btnCancelOnPress: () {
                 //   Navigator.popAndPushNamed(context, Login.routeName);
@@ -127,7 +127,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                   left:
                                       MediaQuery.of(context).size.width * 0.05),
                               child: Text(
-                               LocaleKeys.password_and_profile_label_text.tr(),
+                                LocaleKeys.password_and_profile_label_text.tr(),
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 15),
                                 textAlign: TextAlign.left,
@@ -149,7 +149,8 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                   TextFormField(
                                     obscureText: _passwordObscured,
                                     decoration: inputDecoration.copyWith(
-                                      labelText: LocaleKeys.password_label_text.tr(),
+                                      labelText:
+                                          LocaleKeys.password_label_text.tr(),
                                       suffixIcon: IconButton(
                                         onPressed: () {
                                           setState(() {
@@ -191,7 +192,9 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                       }
                                     },
                                     decoration: inputDecoration.copyWith(
-                                      labelText: LocaleKeys.confirm_password_label_text.tr(),
+                                      labelText: LocaleKeys
+                                          .confirm_password_label_text
+                                          .tr(),
                                       suffixIcon: IconButton(
                                         onPressed: () {
                                           setState(() {
@@ -244,7 +247,15 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                     height: 20.0,
                                   ),
                                   Center(
-                                    child: UploadIDImage(pickImage: (image) {}),
+                                    child: UploadIDImage(pickImage: (image) {
+                                      setState(() {
+                                        idController.text = image.path;
+                                         registerBloc
+                                          .add(AddIdImage(image.path));
+                                      });
+                                      registerBloc
+                                          .add(AddIdImage(image.path));
+                                    }),
                                   ),
                                   SizedBox(
                                     height: 10.0,

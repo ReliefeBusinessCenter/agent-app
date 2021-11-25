@@ -1,4 +1,3 @@
-import 'package:app/Widget/Dashboard/broker.dart';
 import 'package:app/Widget/Dashboard/customCategory.dart';
 import 'package:app/Widget/Dashboard/customSearchBar.dart';
 import 'package:app/Widget/welcome/welcome_home_fragment.dart';
@@ -30,7 +29,6 @@ class _WelcomeHomeFragmentState extends State<WelcomeHomeFragment> {
     brokerBloc = BlocProvider.of<BrokerBloc>(context);
     categoryBloc = BlocProvider.of<CategoryBloc>(context);
     brokerBloc.add(FetchEvent());
-
     return Container(
       color: Color(0xFFf2f6f9),
       child: Column(
@@ -40,10 +38,7 @@ class _WelcomeHomeFragmentState extends State<WelcomeHomeFragment> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Text(LocaleKeys.welcome_text.tr(),
-                    style: TextStyle(
-                        color: Colors.pinkAccent,
-                        fontSize: MediaQuery.of(context).size.height * 0.02)),
+                child: Image.asset("assets/images/logo_welcome.png")
               ),
               Container(
                 width: 50,
