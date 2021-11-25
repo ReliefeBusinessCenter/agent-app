@@ -333,7 +333,12 @@ class _DealsPageScreenState extends State<DealsPageScreen> {
                                                       ColorePickerWidget(
                                                     changeColor: (color) {
                                                       setState(() {
-                                                        _selectedColor = color;
+                                                        _selectedColor = Color(color.value);
+                                                        this
+                                                                .productColorController
+                                                                .text =
+                                                            color.value
+                                                                .toString();
                                                       });
                                                     },
                                                   ),

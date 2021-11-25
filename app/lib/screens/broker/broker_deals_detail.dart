@@ -82,35 +82,35 @@ class BrokerBrokerDealsDetail extends StatelessWidget {
               //       isShowing = true;
               //     });
               // }
-              showDialog(
-                  context: context,
-                  builder: (context) => LoadingIndicator(
-                        name: "Updating",
+              // showDialog(
+              //     context: context,
+              //     builder: (context) => LoadingIndicator(
+              //           name: "Updating",
                         
-                      ));
+              //         ));
               
             } else if (state is DeleteDealsSuccessState) {
               // deleting success
-              Navigator.pop(context);
+              // Navigator.pop(context);
               // workBloc.add(FetchWork());
             } else if (state is DeleteDealsFailedState) {
-              Navigator.of(context).pop();
-              showDialog(
-                    context: context,
-                    builder: (context) =>
-                        ErrorIndicator(name: "Delete failed"));
+              // Navigator.of(context).pop();
+              // showDialog(
+              //       context: context,
+              //       builder: (context) =>
+              //           ErrorIndicator(name: "Delete failed"));
               // delete failed
             } else if (state is UpdateDealsSuccessState) {
-               Navigator.of(context).pop();
+              //  Navigator.of(context).pop();
               // update success state
               // workBloc.add(FetchWork());
             } else if (state is UpdateDealsFailedState) {
               // update failed state
-               Navigator.of(context).pop();
-              showDialog(
-                    context: context,
-                    builder: (context) =>
-                        ErrorIndicator(name: "Update failed"));
+              //  Navigator.of(context).pop();
+              // showDialog(
+              //       context: context,
+              //       builder: (context) =>
+              //           ErrorIndicator(name: "Update failed"));
             }
           },
           builder: (context, state) {
@@ -158,7 +158,14 @@ class BrokerBrokerDealsDetail extends StatelessWidget {
                                         color: Colors.grey,
                                       ),
                                     )
-                                  : Text(
+                                  :deals.dealsStatus == "Rejected"? Text(
+                                      "Rejected",
+                                      style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.green[600],
+                                      ),
+                                    ):Text(
                                       "Done",
                                       style: TextStyle(
                                         fontSize: 18.0,

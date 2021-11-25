@@ -8,6 +8,7 @@ class User {
   String? phone;
   // String? address;
   String? picture;
+  String? identificationCard;
   String? sex;
   String? role;
   String? city;
@@ -21,6 +22,7 @@ class User {
       this.email,
       this.password,
       this.phone,
+      this.identificationCard,
       // this.address,
       this.picture,
       this.sex,
@@ -59,6 +61,7 @@ class User {
     sex = json['sex'];
     role = json['role'];
     buys = json['buys'];
+    identificationCard = json['identificationCard'];
   }
 
   Map<String, dynamic> toJson() {
@@ -77,6 +80,7 @@ class User {
     data['sex'] = this.sex;
     data['role'] = this.role;
     data['buys'] = this.buys;
+    data['identificationCard'] = this.identificationCard;
     return data;
   }
 }

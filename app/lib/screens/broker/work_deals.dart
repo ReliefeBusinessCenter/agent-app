@@ -20,47 +20,47 @@ class BrokerDealsHistoryScreen extends StatelessWidget {
         body: Container(
             // decoration: BoxDecoration(color: Colors.white),
             child: BlocBuilder<DealsListBloc, DealsState>(
-              builder: (context, state) {
-                print("the state ===============================$state");
-                if (state is DeleteDealsSuccessState) {
-                  Navigator.of(context).pop();
-                  // deleting success
-                  dealsBloc.add(FetchDeals());
-                } else if (state is DeleteDealsFailedState) {
-                  Navigator.of(context).pop();
-                  showDialog(
-                      context: context,
-                      builder: (context) =>
-                          ErrorIndicator(name: "Delete failed"));
-                  // delete failed
-                } else if (state is UpdateDealsSuccessState) {
-                  Navigator.of(context).pop();
-                 
-                  // update success state
-                  dealsBloc.add(FetchDeals());
-                } else if (state is UpdateDealsFailedState) {
-                   Navigator.of(context).pop();
-                  showDialog(
-                      context: context,
-                      builder: (context) =>
-                          ErrorIndicator(name: "Update failed"));
-                  // update failed state
-                } else if (state is DealsLoading) {
-                  return Center(child: CircularProgressIndicator());
-                } else if (state is FetchDealsSuccess) {
-                  if (state.deals_history.isEmpty) {
-                    return Center(
-                      child: Text("No deals yet!"),
-                    );
-                  }
-                  return ListView.builder(
-                      itemCount: state.deals_history.length,
-                      itemBuilder: (context, index) => DealsItem(
-                            deals: state.deals_history[index],
-                          ));
-                }
-                return Container();
-              },
-            )));
+          builder: (context, state) {
+            print("the state ===============================$state");
+            if (state is DeleteDealsSuccessState) {
+              // Navigator.of(context).pop();
+              // deleting success
+              dealsBloc.add(FetchDeals());
+            } else if (state is DeleteDealsFailedState) {
+              // Navigator.of(context).pop();
+              // showDialog(
+              //     context: context,
+              //     builder: (context) =>
+              //         ErrorIndicator(name: "Delete failed"));
+              // delete failed
+            } else if (state is UpdateDealsSuccessState) {
+              // Navigator.of(context).pop();
+
+              // update success state
+              dealsBloc.add(FetchDeals());
+            } else if (state is UpdateDealsFailedState) {
+              //  Navigator.of(context).pop();
+              // showDialog(
+              //     context: context,
+              //     builder: (context) =>
+              //         ErrorIndicator(name: "Update failed"));
+              // update failed state
+            } else if (state is DealsLoading) {
+              return Center(child: CircularProgressIndicator());
+            } else if (state is FetchDealsSuccess) {
+              if (state.deals_history.isEmpty) {
+                return Center(
+                  child: Text("No deals yet!"),
+                );
+              }
+              return ListView.builder(
+                  itemCount: state.deals_history.length,
+                  itemBuilder: (context, index) => DealsItem(
+                        deals: state.deals_history[index],
+                      ));
+            }
+            return Container();
+          },
+        )));
   }
 }

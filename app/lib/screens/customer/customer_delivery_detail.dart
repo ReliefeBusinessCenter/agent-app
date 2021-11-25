@@ -110,7 +110,6 @@ class CustomerDeliveryDetails extends StatelessWidget {
                     SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                     Container(
                       // color: Colors.red,
-
                       height: size.height * 0.1,
                       child: Card(
                         color: lightColor,

@@ -100,7 +100,6 @@ class CustomerDealsDetail extends StatelessWidget {
               //     builder: (context) => ErrorIndicator(name: "Delete failed"));
               // delete failed
             } else if (state is UpdateDealsSuccessState) {
-              // Navigator.of(context).pop();
               // update success state
               // workBloc.add(FetchWork());
             } else if (state is UpdateDealsFailedState) {
@@ -183,10 +182,6 @@ class CustomerDealsDetail extends StatelessWidget {
                   AcceptButton(
                     title: 'Accept Deals Offer',
                     onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) =>
-                              LoadingIndicator(name: "Updating"));
                       dealsBloc.add(MarkAsAccepted(deals: deals));
                       // Navigator.of(context).pop();
                     },
@@ -205,10 +200,6 @@ class CustomerDealsDetail extends StatelessWidget {
                           desc: 'Are you sure you want to Reject  this work?',
                           btnCancelOnPress: () {},
                           btnOkOnPress: () {
-                            showDialog(
-                                context: context,
-                                builder: (context) =>
-                                    LoadingIndicator(name: "Updating"));
                             dealsBloc.add(MarkAsRejected(work: deals));
                           },
                         )..show();

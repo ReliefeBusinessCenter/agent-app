@@ -7,6 +7,7 @@ class DealsBrokerProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Color is ${deals.color}");
     final size = MediaQuery.of(context).size;
     return Container(
       child: Column(
@@ -154,6 +155,30 @@ class DealsProduct extends StatelessWidget {
                   ),
                 ),
                 Text(deals.deliveryOption!),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 10.0,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Color",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Container(
+                  width: 35.0,
+                  height: 35.0,
+                  decoration: BoxDecoration(
+                    color: Color(int.parse(deals.color!)),
+                    shape: BoxShape.circle,
+                  ),
+                )
               ],
             ),
           ),
