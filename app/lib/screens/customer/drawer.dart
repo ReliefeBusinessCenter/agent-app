@@ -165,39 +165,41 @@ class _AppDrawerState extends State<AppDrawer> {
                             ),
                             CustomeList(
                               title: LocaleKeys.account_label_text.tr(),
-                              subTitle: LocaleKeys.update_button_label_text.tr(),
+                              subTitle:
+                                  LocaleKeys.update_button_label_text.tr(),
                               icon: Icon(
                                 Icons.contact_page,
                                 color: Colors.white,
                               ),
                               onPressed: () {
                                 UserPreferences _userPreferences =
-                                UserPreferences();
-                                _userPreferences.getCustomerInformation().then((customer) {
-                                     Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => UserProfilePage(
-                                        customer: customer!,
-                                      )),
-                                );
+                                    UserPreferences();
+                                _userPreferences
+                                    .getCustomerInformation()
+                                    .then((customer) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => UserProfilePage(
+                                              customer: customer!,
+                                            )),
+                                  );
                                 });
-                               
                               },
                             ),
-                            CustomeList(
-                              title: LocaleKeys.agent_label_text.tr(),
-                              subTitle: LocaleKeys.become_an_agent_label_text.tr(),
-                              icon: Icon(
-                                Icons.support_agent,
-                                color: Colors.white,
-                              ),
-                              onPressed: () {
-                                print("Setting apge");
-                                Navigator.pushNamed(
-                                    context, BecomeAnAgent.routeName);
-                              },
-                            ),
+                            // CustomeList(
+                            //   title: LocaleKeys.agent_label_text.tr(),
+                            //   subTitle: LocaleKeys.become_an_agent_label_text.tr(),
+                            //   icon: Icon(
+                            //     Icons.support_agent,
+                            //     color: Colors.white,
+                            //   ),
+                            //   onPressed: () {
+                            //     print("Setting apge");
+                            //     Navigator.pushNamed(
+                            //         context, BecomeAnAgent.routeName);
+                            //   },
+                            // ),
                             ListTile(
                               title: Text(LocaleKeys.settings_label_text.tr(),
                                   style: TextStyle(
@@ -211,7 +213,8 @@ class _AppDrawerState extends State<AppDrawer> {
                             ),
                             CustomeList(
                               title: LocaleKeys.share_label_text.tr(),
-                              subTitle: LocaleKeys.share_subtitle_label_text.tr(),
+                              subTitle:
+                                  LocaleKeys.share_subtitle_label_text.tr(),
                               icon: Icon(
                                 Icons.share,
                                 color: Colors.white,
@@ -244,8 +247,11 @@ class _AppDrawerState extends State<AppDrawer> {
                                     // Navigator.pop(context);
                                     // Navigator.popAndPushNamed(
                                     //     context, Login.routeName);
-                                         Navigator.of(context).pushNamedAndRemoveUntil(
-                                  Login.routeName, (route) => false,);
+                                    Navigator.of(context)
+                                        .pushNamedAndRemoveUntil(
+                                      Login.routeName,
+                                      (route) => false,
+                                    );
                                   }),
                             ),
                             // Divider(

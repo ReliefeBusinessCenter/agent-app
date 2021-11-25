@@ -167,7 +167,7 @@ class BrokerDataProvider {
                 "fullName": broker.user!.fullName,
                 "email": "Someone@gmail.com",
                 "password": broker.user!.password,
-                "phone": '123456789',
+                "phone":  broker.user!.phone,
                 // "address": "Ethiopia/Dessie",
                 "picture": res.body.toString(),
                  "city": broker.user!.city,
