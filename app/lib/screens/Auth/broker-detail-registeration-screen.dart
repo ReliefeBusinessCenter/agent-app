@@ -9,6 +9,7 @@ import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
 import 'login.dart';
 
+// ignore: must_be_immutable
 class BrokerDetailScreen extends StatelessWidget {
   static const routeName = '/broker-detail';
   final _formKey = GlobalKey<FormState>();
@@ -199,23 +200,58 @@ class BrokerDetailScreen extends StatelessWidget {
                                                 0.02,
                                           ),
                                           CustomTextField(
-                                              minLength: 0,
-                                              enabled: true,
-                                              textFieldName: 'Work In Progress',
-                                              keyboardType: TextInputType.text,
-                                              controller:
-                                                  workInProgressController,
-                                              initialValue: '',
-                                              validator: null,
-                                              obsecureText: false,
-                                              isRequired: false,
-                                              onChanged: (String value) {
-                                                print("Write: $value");
-                                                registerBloc.add(
-                                                    AddWorkInProgress(
-                                                        skill: double.parse(
-                                                            value)));
-                                              }),
+                                            minLength: 0,
+                                            enabled: true,
+                                            textFieldName: 'Work In Progress',
+                                            keyboardType: TextInputType.text,
+                                            controller:
+                                                workInProgressController,
+                                            initialValue: '',
+                                            validator: null,
+                                            obsecureText: false,
+                                            isRequired: false,
+                                            onChanged: (String value) {
+                                              print("Write: $value");
+                                              registerBloc.add(
+                                                  AddWorkInProgress(
+                                                      skill:
+                                                          double.parse(value)));
+                                            },
+                                          ),
+                                          SizedBox(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.02,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 10.0),
+                                            child: TextFormField(
+                                              maxLines: 6,
+                                              onChanged: (value) {
+                                                registerBloc
+                                                    .add(AddAbout(value));
+                                              },
+                                              decoration: InputDecoration(
+                                                labelText:
+                                                    "Tell us about your self...",
+                                                fillColor: Colors.white,
+                                                border: new OutlineInputBorder(
+                                                  borderRadius:
+                                                      new BorderRadius.circular(
+                                                          7.0),
+                                                  borderSide: new BorderSide(),
+                                                ),
+                                                //fillColor: Colors.green
+                                                contentPadding: EdgeInsets.only(
+                                                  top: 6,
+                                                  bottom: 6,
+                                                  left: 12,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
                                           // ProfileFileInput(
                                           //   controller: fileController,
                                           //   isRequired: true,

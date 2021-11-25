@@ -6,13 +6,11 @@ import 'package:app/model/broker/skills.dart';
 import 'package:app/model/broker/user.dart';
 // import 'package:app/model/broker/user.dart';
 import 'package:app/model/customer/customer.dart';
-import 'package:app/model/user.dart';
 import 'package:app/preferences/user_preference_data.dart';
 
 import 'package:app/repository/brokersRepository.dart';
 import 'package:app/repository/customer_repository.dart';
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 
 part 'register_event.dart';
 part 'register_state.dart';
@@ -74,6 +72,12 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
       print("Users: ${user.toJson()}");
       yield RegisterUpdateSuccess(user: user);
+    }else if (event is AddIdImage) {
+      // user = state.user as User;
+      user.identificationCard = event.image;
+
+      print("Users: ${user.toJson()}");
+      yield RegisterUpdateSuccess(user: user);
     } else if (event is AddKebele) {
       // add kebele
       // user = state.user as User;
@@ -129,7 +133,14 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       broker.skills!.workDone = event.skill;
       print("Broker: ${broker.toJson()}");
       yield RegisterUpdateSuccess(user: user, broker: broker);
-    } else if (event is AddWorkInProgress) {
+    } else if (event is AddAbout) {
+      // add workdone
+      // broker = state.broker as Broker;
+      broker.skills!.about = event.about;
+      print("Broker: ${broker.toJson()}");
+      yield RegisterUpdateSuccess(user: user, broker: broker);
+    }
+     else if (event is AddWorkInProgress) {
       // add work in progress
       // broker = state.broker as Broker;
       broker.skills!.workInProgress = event.skill;

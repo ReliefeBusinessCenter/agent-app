@@ -40,7 +40,7 @@ class CategoriesDataProvider {
         final extractedData = json.decode(response.body) as List;
 
         final data = extractedData;
-        print("Extracted data: $data");
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Extracted data: $data");
         return (data.map((category) => Category.fromJson(category)).toList());
       } else {
         print(response.body);

@@ -127,7 +127,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                   left:
                                       MediaQuery.of(context).size.width * 0.05),
                               child: Text(
-                               LocaleKeys.password_and_profile_label_text.tr(),
+                                LocaleKeys.password_and_profile_label_text.tr(),
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 15),
                                 textAlign: TextAlign.left,
@@ -149,7 +149,8 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                   TextFormField(
                                     obscureText: _passwordObscured,
                                     decoration: inputDecoration.copyWith(
-                                      labelText: LocaleKeys.password_label_text.tr(),
+                                      labelText:
+                                          LocaleKeys.password_label_text.tr(),
                                       suffixIcon: IconButton(
                                         onPressed: () {
                                           setState(() {
@@ -191,7 +192,9 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                       }
                                     },
                                     decoration: inputDecoration.copyWith(
-                                      labelText: LocaleKeys.confirm_password_label_text.tr(),
+                                      labelText: LocaleKeys
+                                          .confirm_password_label_text
+                                          .tr(),
                                       suffixIcon: IconButton(
                                         onPressed: () {
                                           setState(() {
@@ -244,7 +247,13 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                     height: 20.0,
                                   ),
                                   Center(
-                                    child: UploadIDImage(pickImage: (image) {}),
+                                    child: UploadIDImage(pickImage: (image) {
+                                      setState(() {
+                                        idController.text = _idImaage.path;
+                                      });
+                                      registerBloc
+                                          .add(AddIdImage(idController.text));
+                                    }),
                                   ),
                                   SizedBox(
                                     height: 10.0,
@@ -274,8 +283,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                     photoController.text.isNotEmpty) {
                                   print(
                                       "Register method called from the customer apage");
-                                  // registerBloc
-                                  //     .add(RegisterUser());
+                                  registerBloc.add(RegisterUser());
                                 }
                               },
                             ),
