@@ -137,6 +137,17 @@ class BrokerDataProvider {
 
       var res = await http.Response.fromStream(await request.send());
 
+      var requestId = http.MultipartRequest(
+          'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
+      print("request");
+
+      request.files.add(await http.MultipartFile.fromPath(
+          'file', broker.user!.identificationCard as String));
+      print("added to multipart");
+
+      var resId = await http.Response.fromStream(await request.send());
+
+
       print("Image Upload Response: ${res.statusCode}");
       if (res.statusCode == 200) {
         final response = await http.post(url,
@@ -174,6 +185,7 @@ class BrokerDataProvider {
             "subcity": broker.user!.subCity,
             "kebele": broker.user!.kebele,
                 "sex": broker.user!.sex,
+                "identificationCard": resId.body.toString(),
                 "role": broker.user!.role,
                 "buys": null
               }

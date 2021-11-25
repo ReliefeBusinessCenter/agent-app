@@ -1,11 +1,10 @@
 import 'package:app/Widget/agent/deals_item.dart';
+import 'package:app/Widget/common/error_indicator.dart';
 import 'package:app/bloc/work-deals/bloc/workdeals_bloc.dart';
-// import 'package:app/bloc/deals/bloc/deals_bloc.dart';
-// import 'package:app/bloc/work/bloc/work_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
+// ignore: must_be_immutable
 class BrokerDealsHistoryScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   BrokerDealsHistoryScreen({required this.scaffoldKey});
@@ -20,37 +19,48 @@ class BrokerDealsHistoryScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).accentColor,
         body: Container(
             // decoration: BoxDecoration(color: Colors.white),
-            child: ProgressHUD(
-          child: BlocBuilder<DealsListBloc, DealsState>(
-            builder: (context, state) {
-              print("the state===============================$state");
-              if (state is DeleteDealsSuccessState) {
-                // deleting success
-                dealsBloc.add(FetchDeals());
-              } else if (state is DeleteDealsFailedState) {
-                // delete failed
-              } else if (state is UpdateDealsSuccessState) {
-                // update success state
-                dealsBloc.add(FetchDeals());
-              } else if (state is UpdateDealsFailedState) {
-                // update failed state
-              } else if (state is DealsLoading) {
-                return Center(child: CircularProgressIndicator());
-              } else if (state is FetchDealsSuccess) {
-                if (state.deals_history.isEmpty) {
-                  return Center(
-                    child: Text("No deals yet!"),
-                  );
-                }
-                return ListView.builder(
-                    itemCount: state.deals_history.length,
-                    itemBuilder: (context, index) => DealsItem(
-                          deals: state.deals_history[index],
-                        ));
+            child: BlocBuilder<DealsListBloc, DealsState>(
+          builder: (context, state) {
+            print("the state ===============================$state");
+            if (state is DeleteDealsSuccessState) {
+              // Navigator.of(context).pop();
+              // deleting success
+              dealsBloc.add(FetchDeals());
+            } else if (state is DeleteDealsFailedState) {
+              // Navigator.of(context).pop();
+              // showDialog(
+              //     context: context,
+              //     builder: (context) =>
+              //         ErrorIndicator(name: "Delete failed"));
+              // delete failed
+            } else if (state is UpdateDealsSuccessState) {
+              // Navigator.of(context).pop();
+
+              // update success state
+              dealsBloc.add(FetchDeals());
+            } else if (state is UpdateDealsFailedState) {
+              //  Navigator.of(context).pop();
+              // showDialog(
+              //     context: context,
+              //     builder: (context) =>
+              //         ErrorIndicator(name: "Update failed"));
+              // update failed state
+            } else if (state is DealsLoading) {
+              return Center(child: CircularProgressIndicator());
+            } else if (state is FetchDealsSuccess) {
+              if (state.deals_history.isEmpty) {
+                return Center(
+                  child: Text("No deals yet!"),
+                );
               }
-              return Container();
-            },
-          ),
+              return ListView.builder(
+                  itemCount: state.deals_history.length,
+                  itemBuilder: (context, index) => DealsItem(
+                        deals: state.deals_history[index],
+                      ));
+            }
+            return Container();
+          },
         )));
   }
 }

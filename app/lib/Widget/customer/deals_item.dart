@@ -1,4 +1,5 @@
 // import 'package:app/bloc/work/bloc/work_bloc.dart';
+import 'package:app/Widget/common/loading_indicator.dart';
 import 'package:app/bloc/work-deals/bloc/workdeals_bloc.dart';
 // import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
 import 'package:app/model/deals.dart';
@@ -8,6 +9,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// ignore: must_be_immutable
 class CustomerDealsItem extends StatelessWidget {
   late DealsListBloc dealsBloc;
   final Deals deals;
@@ -21,9 +23,11 @@ class CustomerDealsItem extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             print("deals detail option have been clicked");
-            Navigator.pushNamed(context, CustomerDealsDetail.routeName, arguments: deals);
+            Navigator.pushNamed(context, CustomerDealsDetail.routeName,
+                arguments: deals);
           },
           child: Card(
+            // ignore: deprecated_member_use
             color: Theme.of(context).accentColor,
             elevation: 1.0,
             margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
@@ -65,9 +69,11 @@ class CustomerDealsItem extends StatelessWidget {
                     if (value == 1) {
                       // make it done
                       //  update delivery
+
                       dealsBloc.add(MarkAsAccepted(deals: deals));
                     } else {
                       // delete the work history.
+
                       AwesomeDialog(
                         context: context,
                         dialogType: DialogType.WARNING,

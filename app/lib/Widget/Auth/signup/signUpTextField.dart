@@ -12,8 +12,10 @@ class CustomTextField extends StatelessWidget {
   final Function onChanged;
   final bool enabled;
   final TextInputType keyboardType;
+  final Function? onTap;
 
   CustomTextField({
+     this.onTap,
     required this.keyboardType,
     required this.textFieldName,
     required this.controller,
@@ -43,6 +45,7 @@ class CustomTextField extends StatelessWidget {
         Container(
             width: loginSize.getTextFieldWidth,
             child: TextFormField(
+                onTap: () {},
                 keyboardType: keyboardType,
                 enabled: this.enabled,
                 controller: this.controller,

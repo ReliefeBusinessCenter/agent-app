@@ -1,3 +1,5 @@
+import 'package:app/Widget/common/error_indicator.dart';
+import 'package:app/Widget/common/loading_indicator.dart';
 import 'package:app/Widget/customer/deals_broker_profile.dart';
 import 'package:app/Widget/customer/delivery/mark_as_done_button.dart';
 import 'package:app/bloc/work-deals/bloc/workdeals_bloc.dart';
@@ -8,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
+// ignore: must_be_immutable
 class BrokerBrokerDealsDetail extends StatelessWidget {
   final Deals deals;
   static const routeName = "/brokerBrokerDealsDetails";
@@ -67,132 +70,154 @@ class BrokerBrokerDealsDetail extends StatelessWidget {
           ],
         ),
         body: Container(
-            child: ProgressHUD(
-          child: BlocConsumer<DealsListBloc, DealsState>(
-            listener: (context, state) {
-              if (state is DealsLoading) {
-                // delivery createing
-                print("+++++++++++++++++++++++++++++++++++++++work is loading");
-                final progress = ProgressHUD.of(context);
-                // if (!isShowing) {
-                //   if (progress != null) {
-                //     setState(() {
-                //       isShowing = true;
-                //     });
-                // }
-                progress!.showWithText("Updating");
-                print("delivery creating  method called");
-              } else if (state is DeleteDealsSuccessState) {
-                // deleting success
-                Navigator.pop(context);
-                // workBloc.add(FetchWork());
-              } else if (state is DeleteDealsFailedState) {
-                // delete failed
-              } else if (state is UpdateDealsSuccessState) {
-                // update success state
-                // workBloc.add(FetchWork());
-              } else if (state is UpdateDealsFailedState) {
-                // update failed state
-              }
-            },
-            builder: (context, state) {
-              return Container(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: ListView(
-                  // crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // BrokerImage(
-                    //   broker: this.delivery.broker as Broker,
-                    // ),
-                    DealsBrokerProfile(deals: deals),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                    Container(
-                      // color: Colors.red,
+            child: BlocConsumer<DealsListBloc, DealsState>(
+          listener: (context, state) {
+            if (state is DealsLoading) {
+              // delivery createing
+              print("+++++++++++++++++++++++++++++++++++++++work is loading");
+              final progress = ProgressHUD.of(context);
+              // if (!isShowing) {
+              //   if (progress != null) {
+              //     setState(() {
+              //       isShowing = true;
+              //     });
+              // }
+              // showDialog(
+              //     context: context,
+              //     builder: (context) => LoadingIndicator(
+              //           name: "Updating",
+                        
+              //         ));
+              
+            } else if (state is DeleteDealsSuccessState) {
+              // deleting success
+              // Navigator.pop(context);
+              // workBloc.add(FetchWork());
+            } else if (state is DeleteDealsFailedState) {
+              // Navigator.of(context).pop();
+              // showDialog(
+              //       context: context,
+              //       builder: (context) =>
+              //           ErrorIndicator(name: "Delete failed"));
+              // delete failed
+            } else if (state is UpdateDealsSuccessState) {
+              //  Navigator.of(context).pop();
+              // update success state
+              // workBloc.add(FetchWork());
+            } else if (state is UpdateDealsFailedState) {
+              // update failed state
+              //  Navigator.of(context).pop();
+              // showDialog(
+              //       context: context,
+              //       builder: (context) =>
+              //           ErrorIndicator(name: "Update failed"));
+            }
+          },
+          builder: (context, state) {
+            return Container(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: ListView(
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // BrokerImage(
+                  //   broker: this.delivery.broker as Broker,
+                  // ),
+                  DealsBrokerProfile(deals: deals),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                  Container(
+                    // color: Colors.red,
 
-                      height: size.height * 0.1,
-                      child: Card(
-                        color: lightColor,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              "Deal status",
-                              style: TextStyle(
-                                  color: primaryColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20.0),
-                            ),
-                            deals.dealsStatus == "Accepted"
-                                ? Text(
-                                    "Accepted",
-                                    style: TextStyle(
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.pink[600],
-                                    ),
-                                  )
-                                : deals.dealsStatus == "Pending"
-                                    ? Text(
-                                        "Pending",
-                                        style: TextStyle(
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.grey,
-                                        ),
-                                      )
-                                    : Text(
-                                        "Done",
-                                        style: TextStyle(
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.green[600],
-                                        ),
-                                      )
-                          ],
-                        ),
+                    height: size.height * 0.1,
+                    child: Card(
+                      color: lightColor,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            "Deal status",
+                            style: TextStyle(
+                                color: primaryColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.0),
+                          ),
+                          deals.dealsStatus == "Accepted"
+                              ? Text(
+                                  "Accepted",
+                                  style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.pink[600],
+                                  ),
+                                )
+                              : deals.dealsStatus == "Pending"
+                                  ? Text(
+                                      "Pending",
+                                      style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey,
+                                      ),
+                                    )
+                                  :deals.dealsStatus == "Rejected"? Text(
+                                      "Rejected",
+                                      style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.green[600],
+                                      ),
+                                    ):Text(
+                                      "Done",
+                                      style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.green[600],
+                                      ),
+                                    )
+                        ],
                       ),
                     ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.03,
-                    ),
-                    MarkAsDone(onPressed: () {
-                      if (deals.dealsStatus == "Pending") {
-                        // make it done
-                        AwesomeDialog(
-                          context: context,
-                          dialogType: DialogType.INFO,
-                          animType: AnimType.BOTTOMSLIDE,
-                          title: 'Action Not Allowed',
-                          desc:
-                              'To change the done status of this work, the broker should respond first',
-                          btnCancelOnPress: () {},
-                          btnOkOnPress: () {},
-                        )..show();
-                      } else if (deals.dealsStatus == "Done") {
-                        // make it done
-                        AwesomeDialog(
-                          context: context,
-                          dialogType: DialogType.INFO,
-                          animType: AnimType.BOTTOMSLIDE,
-                          title: 'Action Not Allowed',
-                          desc: 'This Delivery have been already set to Done!',
-                          btnCancelOnPress: () {},
-                          btnOkOnPress: () {},
-                        )..show();
-                      } else {
-                        print("mark as done button have been clicked");
-                        dealsBloc.add(MarkAsDoneDeals(deals: this.deals));
-                      }
-                    }),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.03,
+                  ),
+                  MarkAsDone(onPressed: () {
+                   
+                    if (deals.dealsStatus == "Pending") {
+                      // make it done
+                      AwesomeDialog(
+                        context: context,
+                        dialogType: DialogType.INFO,
+                        animType: AnimType.BOTTOMSLIDE,
+                        title: 'Action Not Allowed',
+                        desc:
+                            'To change the done status of this work, the broker should respond first',
+                        btnCancelOnPress: () {},
+                        btnOkOnPress: () {},
+                      )..show();
+                    } else if (deals.dealsStatus == "Done") {
+                      // make it done
+                      AwesomeDialog(
+                        context: context,
+                        dialogType: DialogType.INFO,
+                        animType: AnimType.BOTTOMSLIDE,
+                        title: 'Action Not Allowed',
+                        desc: 'This Delivery have been already set to Done!',
+                        btnCancelOnPress: () {},
+                        btnOkOnPress: () {},
+                      )..show();
+                    } else {
+                      print("mark as done button have been clicked");
+                      dealsBloc.add(MarkAsDoneDeals(deals: this.deals));
+                    }
+                  }),
 
-                    SizedBox(
-                      height: 20.0,
-                    )
-                  ],
-                ),
-              );
-            },
-          ),
+                  SizedBox(
+                    height: 20.0,
+                  )
+                ],
+              ),
+            );
+          },
         ))
         // decoration: BoxDecoration(color: Colors.white),
         //     child: ProgressHUD(

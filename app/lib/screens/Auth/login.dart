@@ -100,28 +100,32 @@ class _LoginState extends State<Login> {
               if (state.user.user!.role == "Broker") {
                 UserPreferences _userPreferences = UserPreferences();
                 _userPreferences.getBrokerInformation().then((value) => {
-                  if(value!.approved!){
-                    Navigator.of(context)
-                    .pushReplacementNamed(BrokerMain.routeName)
-                  }else {
-                    AwesomeDialog(
-                  context: context,
-                  dialogType: DialogType.ERROR,
-                  animType: AnimType.BOTTOMSLIDE,
-                  title: LocaleKeys.login_failed_label_text.tr(),
-                  desc: LocaleKeys.you_are_not_verified_yet_label_text.tr(),
-                  // btnCancelOnPress: () {
-                  //   Navigator.popAndPushNamed(context, Login.routeName);
-                  // },
-                  btnOkOnPress: () {
-                    // Navigator.pop(context);
-                    // Navigator.pop()
-                    Navigator.popAndPushNamed(context, Login.routeName);
-                  },
-                )..show()
-                  }
-                });
-                
+                      if (value!.approved!)
+                        {
+                          Navigator.of(context)
+                              .pushReplacementNamed(BrokerMain.routeName)
+                        }
+                      else
+                        {
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.ERROR,
+                            animType: AnimType.BOTTOMSLIDE,
+                            title: LocaleKeys.login_failed_label_text.tr(),
+                            desc: LocaleKeys.you_are_not_verified_yet_label_text
+                                .tr(),
+                            // btnCancelOnPress: () {
+                            //   Navigator.popAndPushNamed(context, Login.routeName);
+                            // },
+                            btnOkOnPress: () {
+                              // Navigator.pop(context);
+                              // Navigator.pop()
+                              Navigator.popAndPushNamed(
+                                  context, Login.routeName);
+                            },
+                          )..show()
+                        }
+                    });
               } else if (state.user.user!.role == "Admin") {
                 Navigator.of(context)
                     .pushReplacementNamed(AdminMainPage.routeName);
@@ -184,7 +188,8 @@ class _LoginState extends State<Login> {
                         icon: Icons.email,
                         validator: (value) {
                           if (value.isEmpty || value.toString().length < 10) {
-                            return LocaleKeys.phone_number_validation_label_text.tr();
+                            return LocaleKeys.phone_number_validation_label_text
+                                .tr();
                           } else {
                             return null;
                           }
@@ -194,13 +199,21 @@ class _LoginState extends State<Login> {
                       ),
                       SizedBox(height: height * 0.01),
                       CustomLoginTextField(
+                        isPassword: true,
+                        isObscured: (value) {
+                          setState(() {
+                            _isObscured = !_isObscured;
+                          });
+                        },
                         keyboardType: TextInputType.text,
-                        textFieldName: LocaleKeys.enter_password_label_text.tr(),
+                        textFieldName:
+                            LocaleKeys.enter_password_label_text.tr(),
                         controller: passwordController,
                         icon: Icons.lock,
                         validator: (value) {
                           if (value.isEmpty || value.toString().length < 5) {
-                            return LocaleKeys.password_validation_label_text.tr();
+                            return LocaleKeys.password_validation_label_text
+                                .tr();
                           } else {
                             return null;
                           }
@@ -239,5 +252,3 @@ class _LoginState extends State<Login> {
     );
   }
 }
-
-

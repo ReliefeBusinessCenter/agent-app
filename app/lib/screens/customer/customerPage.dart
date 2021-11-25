@@ -1,4 +1,3 @@
-
 import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -9,7 +8,6 @@ import 'history_screen.dart';
 import 'home_fragment_screen.dart';
 import 'customer_deals_page.dart';
 import 'package:easy_localization/easy_localization.dart';
-
 
 final _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -22,8 +20,10 @@ class CustomerPage extends StatefulWidget {
 
 class _CustomerPageState extends State<CustomerPage> {
   int _selectedIndex = 0;
+  late String filter = "All";
   @override
   Widget build(BuildContext context) {
+    filter = LocaleKeys.all_status_text.tr();
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -40,24 +40,31 @@ class _CustomerPageState extends State<CustomerPage> {
           ),
         ),
         actions: [
-          if(_selectedIndex == 0)
-          PopupMenuButton(
+          // if (_selectedIndex == 0)
+            PopupMenuButton(
               onSelected: (index) {
-                if (index == 1) {
-                }else{
-                  
-                }
+                print("Selected index is $index");
+                // if (index == 1) {
+                //   print("index is 1111111111111111111111111111111111");
+                //   setState(() {
+                //     filter = LocaleKeys.all_status_text.tr();
+                //   });
+                // } else if(index == 2) {
+                //   print("Index is 2222222222222222222222222222222222");
+                //   setState(() {
+                //     filter = LocaleKeys.favorite_label_text.tr();
+                //   });
+                // }
               },
               itemBuilder: (context) => [
                 PopupMenuItem(
                   child: Text(LocaleKeys.all_status_text.tr()),
                   value: 1,
                 ),
-                 PopupMenuItem(
+                PopupMenuItem(
                   child: Text(LocaleKeys.favorite_label_text.tr()),
                   value: 1,
                 ),
-                
               ],
             ),
         ],
@@ -73,7 +80,7 @@ class _CustomerPageState extends State<CustomerPage> {
       drawerEnableOpenDragGesture: true,
       body: _getDrawerItemWidget(this._selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
-        items:  <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
@@ -116,7 +123,7 @@ class _CustomerPageState extends State<CustomerPage> {
   _getDrawerItemWidget(int index) {
     switch (index) {
       case 0:
-        return new HomeFragment();
+        return new HomeFragment(filter);
       case 1:
         return new HistoryScreen();
       case 2:
@@ -125,7 +132,7 @@ class _CustomerPageState extends State<CustomerPage> {
         return new FavoritScreen();
 
       default:
-        return new HomeFragment();
+        return new HomeFragment(filter);
     }
   }
 }

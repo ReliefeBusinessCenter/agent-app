@@ -1,22 +1,19 @@
 import 'package:app/Widget/Broker-profile/custome_button.dart';
 import 'package:app/bloc/delivery/bloc/delivery_bloc.dart';
-import 'package:app/bloc/favorit/bloc/favorite_bloc.dart';
 import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
 // import 'package:app/bloc/work/bloc/work_bloc.dart';
-import 'package:app/constants/customer-page/categories.dart';
-import 'package:app/model/broker/broker.dart';
 import 'package:app/model/customer/customer.dart';
 
 // import 'package:app/model/category.dart';
 // import 'package:app/model/work.dart';
 import 'package:app/screens/broker/broker_deals_form_page.dart';
 
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // import 'custome_button.dart';
 
+// ignore: must_be_immutable
 class DealsButton extends StatelessWidget {
   late WorkBloc workBloc;
   late DeliveryBloc deliveryBloc;

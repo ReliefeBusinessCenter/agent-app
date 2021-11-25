@@ -230,6 +230,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.2"
+  flutter_colorpicker:
+    dependency: "direct main"
+    description:
+      name: flutter_colorpicker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   flutter_launcher_icons:
     dependency: "direct main"
     description:
@@ -621,6 +628,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  string_to_hex:
+    dependency: "direct main"
+    description:
+      name: string_to_hex
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.2"
   supercharged:
     dependency: transitive
     description:
