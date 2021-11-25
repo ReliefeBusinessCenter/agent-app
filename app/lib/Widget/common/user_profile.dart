@@ -13,11 +13,11 @@ import 'package:easy_localization/easy_localization.dart';
 
 // ignore: must_be_immutable
 class UserProfilePage extends StatefulWidget {
-  final Customer customer;
+ 
 
   static const routeName = "/userProfile";
   UserProfilePage({
-    required this.customer,
+    
     Key? key,
   }) : super(key: key);
 
@@ -28,8 +28,6 @@ class UserProfilePage extends StatefulWidget {
 class _UserProfilePageState extends State<UserProfilePage> {
   @override
   void initState() {
-    BlocProvider.of<CustomerBloc>(context)
-        .add(FetchCustomerByEmail(widget.customer.user!.phone!));
     super.initState();
   }
 

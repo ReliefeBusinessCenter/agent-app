@@ -12,10 +12,10 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:easy_localization/easy_localization.dart';
 // ignore: must_be_immutable
 class BrokerProfile extends StatefulWidget {
-  final Broker broker;
+  
   static const routeName = "/userProfile";
   BrokerProfile({
-    required this.broker,
+   
     Key? key,
   }) : super(key: key);
 
@@ -24,13 +24,7 @@ class BrokerProfile extends StatefulWidget {
 }
 
 class _BrokerProfileState extends State<BrokerProfile> {
-  @override
-  void initState() {
-    BlocProvider.of<BrokerBloc>(context)
-        .add(FetchBrokerByEmail(widget.broker.user!.phone!));
-
-    super.initState();
-  }
+ 
 
   Broker? broker;
 

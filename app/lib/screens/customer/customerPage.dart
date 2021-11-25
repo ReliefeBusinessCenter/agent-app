@@ -1,6 +1,9 @@
+import 'package:app/bloc/customer/customer_bloc.dart';
+import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../constants.dart';
 import 'drawer.dart';
 import 'favorite_screen.dart';
@@ -22,6 +25,23 @@ class _CustomerPageState extends State<CustomerPage> {
   int _selectedIndex = 0;
   late String filter = "All";
   @override
+  void initState() {
+    _getCustomer();
+    super.initState();
+  }
+
+  _getCustomer() async {
+    UserPreferences _userPreferences = UserPreferences();
+    _userPreferences.getCustomerInformation().then(
+      (customer) {
+        BlocProvider.of<CustomerBloc>(context).add(
+          FetchCustomerByEmail(customer!.user!.phone!),
+        );
+      },
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     filter = LocaleKeys.all_status_text.tr();
     return Scaffold(
@@ -41,32 +61,32 @@ class _CustomerPageState extends State<CustomerPage> {
         ),
         actions: [
           // if (_selectedIndex == 0)
-            PopupMenuButton(
-              onSelected: (index) {
-                print("Selected index is $index");
-                // if (index == 1) {
-                //   print("index is 1111111111111111111111111111111111");
-                //   setState(() {
-                //     filter = LocaleKeys.all_status_text.tr();
-                //   });
-                // } else if(index == 2) {
-                //   print("Index is 2222222222222222222222222222222222");
-                //   setState(() {
-                //     filter = LocaleKeys.favorite_label_text.tr();
-                //   });
-                // }
-              },
-              itemBuilder: (context) => [
-                PopupMenuItem(
-                  child: Text(LocaleKeys.all_status_text.tr()),
-                  value: 1,
-                ),
-                PopupMenuItem(
-                  child: Text(LocaleKeys.favorite_label_text.tr()),
-                  value: 1,
-                ),
-              ],
-            ),
+          PopupMenuButton(
+            onSelected: (index) {
+              print("Selected index is $index");
+              // if (index == 1) {
+              //   print("index is 1111111111111111111111111111111111");
+              //   setState(() {
+              //     filter = LocaleKeys.all_status_text.tr();
+              //   });
+              // } else if(index == 2) {
+              //   print("Index is 2222222222222222222222222222222222");
+              //   setState(() {
+              //     filter = LocaleKeys.favorite_label_text.tr();
+              //   });
+              // }
+            },
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                child: Text(LocaleKeys.all_status_text.tr()),
+                value: 1,
+              ),
+              PopupMenuItem(
+                child: Text(LocaleKeys.favorite_label_text.tr()),
+                value: 1,
+              ),
+            ],
+          ),
         ],
       ),
       drawer: Theme(

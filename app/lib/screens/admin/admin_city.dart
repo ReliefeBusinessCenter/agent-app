@@ -1,11 +1,11 @@
 import 'package:app/Widget/common/admin_category_addUpdate.dart';
-import 'package:app/bloc/category/bloc/category_bloc.dart';
+import 'package:app/Widget/common/admin_city_add_update.dart';
+import 'package:app/bloc/city/bloc/city_bloc.dart';
 import 'package:app/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AdminCity extends StatefulWidget {
-  
   AdminCity({Key? key}) : super(key: key);
 
   @override
@@ -17,8 +17,7 @@ class _AdminCityState extends State<AdminCity> {
   @override
   void initState() {
     super.initState();
-     BlocProvider.of<CategoryBloc>(context).add(FetchCategories());
-    
+    BlocProvider.of<CityBloc>(context).add(FetchCities());
   }
 
   @override
@@ -26,14 +25,15 @@ class _AdminCityState extends State<AdminCity> {
     return Scaffold(
       backgroundColor: lightColor,
       appBar: AppBar(backgroundColor: primaryColor, title: Text("Cities")),
-      body: BlocBuilder<CategoryBloc, CategoryState>(
+      body: BlocBuilder<CityBloc, CityState>(
         builder: (context, state) {
           print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!$state");
-          if (state is CategoryLoading) {
+          if (state is CityLoading) {
             return Center(
               child: CircularProgressIndicator(),
             );
-          } else if (state is CategoryLoadFailed) {
+          } else if (state is CityLoadFailed) {
+            print(state.message);
             return Center(
                 child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -48,45 +48,50 @@ class _AdminCityState extends State<AdminCity> {
                 )
               ],
             ));
-          }
-          return Container(
-            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-            child: ListView(
-              children: state.category
-                  .map((category) => Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ListTile(
-                            leading: Icon(Icons.category),
-                            title: Text(category.catigoryName!),
-                            trailing: IconButton(
-                              icon: Icon(
-                                Icons.edit,
+          } else if (state is CityLoadSuccess) {
+            return Container(
+              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+              child: ListView(
+                children: state.cities
+                    .map((city) => Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ListTile(
+                              leading: Icon(Icons.category),
+                              title: Text(city.cityName!),
+                              trailing: IconButton(
+                                icon: Icon(
+                                  Icons.edit,
+                                ),
+                                onPressed: () {
+                                  debugPrint("Editing");
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AdminCityAddUpdate(
+                                      isEdit: true,
+                                      city: city,
+                                    ),
+                                  );
+                                },
                               ),
-                              onPressed: () {
-                                debugPrint("Editing");
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => AdminCategoryAddUpdate(
-                                    isEdit: true,
-                                    category: category,
-                                  ),
-                                );
-                              },
                             ),
                           ),
-                        ),
-                      ))
-                  .toList(),
-            ),
-          );
+                        ))
+                    .toList(),
+              ),
+            );
+          } else {
+            return Center(
+              child: Text("Something went wrong"),
+            );
+          }
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
               context: context,
-              builder: (context) => AdminCategoryAddUpdate(
+              builder: (context) => AdminCityAddUpdate(
                     isEdit: false,
                   ));
         },

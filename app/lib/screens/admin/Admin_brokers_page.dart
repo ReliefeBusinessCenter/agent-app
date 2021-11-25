@@ -27,36 +27,38 @@ class _AdminBrokersPageState extends State<AdminBrokersPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BrokerBloc, BrokerState>(builder: (context, state) {
-      if (state is BrokersLoading) {
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      } else if (state is BrokersLoadFailed) {
-        return Center(
-            child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.error,
-              color: primaryColor,
-            ),
-            Text(
-              "Something went wrong",
-              style: TextStyle(fontSize: 20.0, color: primaryColor),
-            )
-          ],
-        ));
-      }
-      return SingleChildScrollView(
-        child: Container(
-          color: lightColor,
-          padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-          child: state.brokers.isEmpty
-              ? Center(child: Text("No Brokers yet"))
-              : Column(
-                  children: state.brokers
-                      .map((broker) => GestureDetector(
+    return BlocBuilder<BrokerBloc, BrokerState>(
+      builder: (context, state) {
+        if (state is BrokersLoading) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (state is BrokersLoadFailed) {
+          return Center(
+              child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.error,
+                color: primaryColor,
+              ),
+              Text(
+                "Something went wrong",
+                style: TextStyle(fontSize: 20.0, color: primaryColor),
+              )
+            ],
+          ));
+        }
+        return SingleChildScrollView(
+          child: Container(
+            color: lightColor,
+            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+            child: state.brokers.isEmpty
+                ? Center(child: Text("No Brokers yet"))
+                : Column(
+                    children: state.brokers
+                        .map(
+                          (broker) => GestureDetector(
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => AdminBrokerProfilePage(
@@ -110,11 +112,13 @@ class _AdminBrokersPageState extends State<AdminBrokersPage> {
                                   ),
                                   trailing: Text("12-12-2021"),
                                 )),
-                          ))
-                      .toList(),
-                ),
-        ),
-      );
-    });
+                          ),
+                        )
+                        .toList(),
+                  ),
+          ),
+        );
+      },
+    );
   }
 }

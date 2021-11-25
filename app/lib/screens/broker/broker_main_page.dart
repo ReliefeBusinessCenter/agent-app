@@ -1,3 +1,5 @@
+import 'package:app/bloc/broker/bloc/broker_bloc.dart';
+import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/screens/broker/broker_chat.dart';
 import 'package:app/screens/broker/broker_customer_list.dart';
 import 'package:app/screens/broker/work_order.dart';
@@ -5,7 +7,7 @@ import 'package:app/screens/broker/work_deals.dart';
 import 'package:app/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'broker_drawer.dart';
 
@@ -19,6 +21,23 @@ class BrokerMain extends StatefulWidget {
 
 class _BrokerMainState extends State<BrokerMain> {
   int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    _getBrokerInfo();
+    super.initState();
+  }
+
+  _getBrokerInfo() async {
+    UserPreferences _userPreferences = UserPreferences();
+    _userPreferences.getBrokerInformation().then(
+          (broker) => {
+            BlocProvider.of<BrokerBloc>(context)
+                .add(FetchBrokerByEmail(broker!.user!.phone!))
+          },
+      );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +68,7 @@ class _BrokerMainState extends State<BrokerMain> {
       body: _getDrawerItemWidget(this._selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Theme.of(context).accentColor,
-        items:  <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
               Icons.request_page,
