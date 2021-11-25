@@ -46,38 +46,6 @@ class _HomeFragmentState extends State<HomeFragment> {
       color: Color(0xFFf2f6f9),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                width: 50,
-                child: DropdownButtonFormField<String>(
-                    value: _initialValue,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                    ),
-                    onChanged: (value) async {
-                      setState(() {
-                        _initialValue = value!;
-                      });
-                      await context.setLocale(Locale(value.toString()));
-                    },
-                    items: [
-                      DropdownMenuItem(
-                        child: Text(
-                          'EN',
-                          style: TextStyle(color: primaryColor),
-                        ),
-                        value: 'en',
-                      ),
-                      DropdownMenuItem(
-                        child: Text('አማ'),
-                        value: 'am',
-                      )
-                    ]),
-              )
-            ],
-          ),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: SearchTextField(),

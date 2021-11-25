@@ -10,12 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:easy_localization/easy_localization.dart';
+
 // ignore: must_be_immutable
 class BrokerProfile extends StatefulWidget {
-  
   static const routeName = "/userProfile";
   BrokerProfile({
-   
     Key? key,
   }) : super(key: key);
 
@@ -24,8 +23,6 @@ class BrokerProfile extends StatefulWidget {
 }
 
 class _BrokerProfileState extends State<BrokerProfile> {
- 
-
   Broker? broker;
 
   @override
@@ -36,39 +33,50 @@ class _BrokerProfileState extends State<BrokerProfile> {
         print('!!!!!!!!!!!!!!_____state is $state');
         if (state is BrokersLoading) {
           return Scaffold(
-              appBar: AppBar(
-                backgroundColor: lightColor,
-                elevation: 0.0,
-                leading: IconButton(
-                  icon: Icon(
-                    Icons.arrow_back,
-                    color: Colors.black,
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
+            appBar: AppBar(
+              backgroundColor: lightColor,
+              elevation: 0.0,
+              leading: IconButton(
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+            body: SafeArea(
+              child: Container(
+                child: Center(
+                  child: CircularProgressIndicator(),
                 ),
               ),
-              body: SafeArea(
-                  child: Container(
-                      child: Center(child: CircularProgressIndicator()))));
+            ),
+          );
         } else if (state is BrokersLoadFailed) {
           return Scaffold(
-              appBar: AppBar(
-                  backgroundColor: lightColor,
-                  elevation: 0.0,
-                  leading: IconButton(
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: Colors.black,
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  )),
-              body: SafeArea(
-                  child: Container(
-                      child: Center(child: Text("Something went wrong")))));
+            appBar: AppBar(
+              backgroundColor: lightColor,
+              elevation: 0.0,
+              leading: IconButton(
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+            body: SafeArea(
+              child: Container(
+                child: Center(
+                  child: Text("Something went wrong"),
+                ),
+              ),
+            ),
+          );
         } else if (state is BrokersLoadSuccess) {
           Broker _broker = state.brokers[0];
           broker = _broker;
@@ -94,9 +102,12 @@ class _BrokerProfileState extends State<BrokerProfile> {
                         backgroundColor: primaryColor,
                         child: IconButton(
                           onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
                                 builder: (context) =>
-                                    BrokerProfileEditPage(broker: broker!)));
+                                    BrokerProfileEditPage(broker: broker!),
+                              ),
+                            );
                           },
                           icon: Icon(Icons.edit),
                         ),
@@ -119,7 +130,9 @@ class _BrokerProfileState extends State<BrokerProfile> {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
-                                image: imageProvider, fit: BoxFit.cover),
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                         placeholder: (context, url) => Center(

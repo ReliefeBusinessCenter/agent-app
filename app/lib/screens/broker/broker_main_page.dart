@@ -1,4 +1,5 @@
 import 'package:app/bloc/broker/bloc/broker_bloc.dart';
+import 'package:app/constants/constants.dart';
 import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/screens/broker/broker_chat.dart';
 import 'package:app/screens/broker/broker_customer_list.dart';
@@ -35,8 +36,10 @@ class _BrokerMainState extends State<BrokerMain> {
             BlocProvider.of<BrokerBloc>(context)
                 .add(FetchBrokerByEmail(broker!.user!.phone!))
           },
-      );
+        );
   }
+
+  String _initialValue = "en";
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +57,44 @@ class _BrokerMainState extends State<BrokerMain> {
             ),
           ),
         ),
+        actions: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                width: 50,
+                child: DropdownButtonFormField<String>(
+                    value: _initialValue,
+                    dropdownColor: Theme.of(context).primaryColor,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                    ),
+                    onChanged: (value) async {
+                      setState(() {
+                        _initialValue = value!;
+                      });
+                      await context.setLocale(Locale(value.toString()));
+                    },
+                    items: [
+                      DropdownMenuItem(
+                        child: Text(
+                          'EN',
+                          style: TextStyle(color: lightColor),
+                        ),
+                        value: 'en',
+                      ),
+                      DropdownMenuItem(
+                        child: Text(
+                          'አማ',
+                          style: TextStyle(color: lightColor),
+                        ),
+                        value: 'am',
+                      )
+                    ]),
+              )
+            ],
+          )
+        ],
       ),
       key: _scaffoldKey,
       drawer: Theme(
