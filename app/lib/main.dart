@@ -1,15 +1,18 @@
 import 'package:app/bloc/broker/bloc/broker_bloc.dart';
+import 'package:app/bloc/city/bloc/city_bloc.dart';
 import 'package:app/bloc/delivery/bloc/delivery_bloc.dart';
 import 'package:app/bloc/favorit/bloc/favorite_bloc.dart';
 import 'package:app/bloc/work-deals/bloc/workdeals_bloc.dart';
 // import 'package:app/bloc/work/bloc/work_bloc.dart';
 import 'package:app/data_provider/broker-data-provider.dart';
+import 'package:app/data_provider/city_data_provider.dart';
 import 'package:app/data_provider/customer-data-provider.dart';
 import 'package:app/data_provider/deals_data_provider.dart';
 import 'package:app/data_provider/delivery-data-provider.dart';
 import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/repository/brokersRepository.dart';
 import 'package:app/repository/category_repository.dart';
+import 'package:app/repository/city_repository.dart';
 import 'package:app/repository/customer_repository.dart';
 import 'package:app/repository/deals_repository.dart';
 import 'package:app/repository/delivery_repository.dart';
@@ -34,6 +37,8 @@ import 'data_provider/categories_data_provider.dart';
 import 'data_provider/user_data_provider.dart';
 
 void main() async {
+  
+
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   runApp(EasyLocalization(
@@ -53,6 +58,11 @@ void main() async {
 class MyApp extends StatelessWidget {
   // BrokersDataProvider brokersDataProvider = new BrokersDataProvider();
   http.Client httpClient = http.Client();
+  CityRepository cityRepository = CityRepository(
+    cityDataProvider: CityDataProvider(
+      httpClient: http.Client(),
+    ),
+  );
   BrokersRepository brokersRepository = new BrokersRepository(
       brokerDataProvider: BrokerDataProvider(
     httpClient: http.Client(),
@@ -104,6 +114,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
+          BlocProvider<CityBloc>(
+              create: (_) => CityBloc(
+                    cityRepository: cityRepository,
+                  )..add(FetchCities())),
           BlocProvider<BrokerBloc>(
               create: (_) => BrokerBloc(brokersRepository: brokersRepository)
                 ..add(FetchEvent())),

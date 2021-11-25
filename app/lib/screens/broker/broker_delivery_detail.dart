@@ -87,35 +87,35 @@ class BrokerDeliveryDetails extends StatelessWidget {
                 // }
                 progress!.showWithText("Updating");
                 print("delivery creating  method called");
-                showDialog(
-                  context: context,
-                  builder: (context) => LoadingIndicator(
-                    name: "Updating",
-                  ),
-                ).then((value) => _isOpen = false);
+                // showDialog(
+                //   context: context,
+                //   builder: (context) => LoadingIndicator(
+                //     name: "Updating",
+                //   ),
+                // ).then((value) => _isOpen = false);
               } else if (state is DeleteSuccessState) {
                 // deleting success
                 Navigator.pop(context);
 
                 // workBloc.add(FetchWork());
               } else if (state is DeleteFailedState) {
-                Navigator.of(context).pop();
-                showDialog(
-                    context: context,
-                    builder: (context) =>
-                        ErrorIndicator(name: "Delete failed"));
+                // Navigator.of(context).pop();
+                // showDialog(
+                //     context: context,
+                //     builder: (context) =>
+                //         ErrorIndicator(name: "Delete failed"));
                 // delete failed
               } else if (state is UpdateSuccessState) {
-                Navigator.of(context).pop();
+                // Navigator.of(context).pop();
                 // update success state
                 workBloc.add(FetchWork());
               } else if (state is UpdateFailedState) {
                 // update failed state
-                 Navigator.of(context).pop();
-                showDialog(
-                    context: context,
-                    builder: (context) =>
-                        ErrorIndicator(name: "Update failed"));
+                // Navigator.of(context).pop();
+                // showDialog(
+                //     context: context,
+                //     builder: (context) =>
+                //         ErrorIndicator(name: "Update failed"));
               }
             },
             builder: (context, state) {
@@ -164,14 +164,24 @@ class BrokerDeliveryDetails extends StatelessWidget {
                                             color: Colors.grey,
                                           ),
                                         )
-                                      : Text(
-                                          LocaleKeys.done_status_text.tr(),
-                                          style: TextStyle(
-                                            fontSize: 18.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.green[600],
-                                          ),
-                                        )
+                                      : delivery.deliveryStatus == "Rejected"
+                                          ? Text(
+                                              LocaleKeys.rejected_status_text
+                                                  .tr(),
+                                              style: TextStyle(
+                                                fontSize: 18.0,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.red[600],
+                                              ),
+                                            )
+                                          : Text(
+                                              LocaleKeys.done_status_text.tr(),
+                                              style: TextStyle(
+                                                fontSize: 18.0,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.green[600],
+                                              ),
+                                            )
                             ],
                           ),
                         )),
@@ -181,12 +191,12 @@ class BrokerDeliveryDetails extends StatelessWidget {
                     AcceptButton(
                         title: LocaleKeys.accept_delivery_label_text.tr(),
                         onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) => LoadingIndicator(
-                              name: "Updating",
-                            ),
-                          );
+                          // showDialog(
+                          //   context: context,
+                          //   builder: (context) => LoadingIndicator(
+                          //     name: "Updating",
+                          //   ),
+                          // );
                           workBloc.add(MarkAsAccepted(work: delivery));
                         }),
 
@@ -204,12 +214,12 @@ class BrokerDeliveryDetails extends StatelessWidget {
                             desc: LocaleKeys.are_you_sure_label_text.tr(),
                             btnCancelOnPress: () {},
                             btnOkOnPress: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) => LoadingIndicator(
-                                  name: "Updating",
-                                ),
-                              );
+                              // showDialog(
+                              //   context: context,
+                              //   builder: (context) => LoadingIndicator(
+                              //     name: "Updating",
+                              //   ),
+                              // );
                               workBloc.add(MarkAsRejected(work: delivery));
                             },
                           )..show();

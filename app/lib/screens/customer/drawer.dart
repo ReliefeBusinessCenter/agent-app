@@ -1,6 +1,7 @@
 import 'package:app/Widget/Drawer/custom_list.dart';
 import 'package:app/Widget/common/user_profile.dart';
 import 'package:app/bloc/auth/bloc/auth_bloc.dart';
+import 'package:app/bloc/customer/customer_bloc.dart';
 import 'package:app/constants.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/preferences/user_preference_data.dart';
@@ -26,6 +27,7 @@ class _AppDrawerState extends State<AppDrawer> {
   // late CartBloc cartBloc;
   @override
   void initState() {
+    // _getCustomer();
     super.initState();
   }
 
@@ -45,237 +47,151 @@ class _AppDrawerState extends State<AppDrawer> {
         ),
         child: Container(
             width: MediaQuery.of(context).size.width * 0.60,
-            child: Drawer(
-                child: BlocConsumer<AuthBloc, AuthState>(
-                    listener: (context, state) {},
-                    builder: (context, state) {
-                      if ((state is LoginSuccessState)) {
-                        photoPath = state.user.user!.picture ?? photoPath;
-                        if (state.user.user != null) {
-                          if (state.user.user!.picture != null) {
-                            if (state.user.user!.picture != null) {
-                              print(
-                                  "++++++++Have Image: ${state.user.user!.picture as String}");
-                              photoPath = state.user.user!.picture ?? photoPath;
-                              photo = CircleAvatar(
-                                radius: 45,
-                                backgroundColor: Colors.white,
-                                child: Container(
-                                  clipBehavior: Clip.hardEdge,
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                        "${Ip.ip}/api/users/get/?fileName=${state.user.user!.picture as String}",
-                                    placeholder: (context, url) => Center(
-                                      child: SpinKitCircle(
-                                        color: primaryColor,
-                                      ),
-                                    ),
-                                    errorWidget: (context, url, err) => Center(
-                                      child: Icon(Icons.error),
-                                    ),
-                                  ),
-                                  //  Image(
-                                  //   image: NetworkImage(
-                                  //     "${Ip.ip}/api/users/get/?fileName=${state.user.user!.picture as String}",
+            child: Drawer(child: BlocBuilder<CustomerBloc, CustomerState>(
+                builder: (context, state) {
+              if ((state is CustomersLoadSuccess)) {
+                photoPath = state.customers.first.user!.picture ?? photoPath;
 
-                                  //     // fit: BoxFit.fill,
-                                  //     // placeholder: (context, url) => Container(
-                                  //     //   color: Colors.white,
-                                  //     // ),
-                                  //     // errorWidget: (context, url, error) =>
-                                  //     //     Container(
-                                  //     //   color: Colors.black,
-                                  //     //   child: Icon(Icons.error),
-                                  //     // ),
-                                  //   ),
-                                  //   height: MediaQuery.of(context).size.height *
-                                  //       0.18,
-                                  //   width: double.infinity,
-                                  // ),
-                                  // child: Image.network('${baseUrl}/${client.photoPath}'),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(40),
-                                  ),
-                                ),
-                              );
-                            } else {
-                              photo = CircleAvatar(
-                                radius: 45,
-                                child: Container(
-                                  clipBehavior: Clip.hardEdge,
-                                  child:
-                                      Image.asset('assets/images/circular.png'),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(40),
-                                  ),
-                                ),
-                              );
-                            }
-                          } else {
-                            photo = CircleAvatar(
-                              radius: 45,
-                              child: Container(
-                                clipBehavior: Clip.hardEdge,
-                                child:
-                                    Image.asset('assets/images/circular.png'),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(40),
-                                ),
-                              ),
-                            );
-                          }
-                        } else {
-                          photo = CircleAvatar(
-                            radius: 45,
-                            child: Container(
-                              clipBehavior: Clip.hardEdge,
-                              child: Image.asset('assets/images/circular.png'),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(40),
-                              ),
-                            ),
-                          );
-                        }
-                        return ListView(
-                          children: [
-                            UserAccountsDrawerHeader(
-                              accountName: Text(
-                                  "${state.user.user!.fullName as String}"),
-                              accountEmail:
-                                  Text("${state.user.user!.email as String}"),
-                              currentAccountPicture: photo,
-                              arrowColor: Theme.of(context).accentColor,
-                              decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor),
-                            ),
-                            Divider(
-                                height: 20,
-                                color: Colors.white.withOpacity(0.6)),
-                            CustomeList(
-                              title: LocaleKeys.dashboard_label_text.tr(),
-                              subTitle: LocaleKeys.see_list_sub_lebel_text.tr(),
-                              icon: Icon(
-                                Icons.dashboard,
-                                color: Colors.white,
-                              ),
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                    context, CustomerPage.routeName);
-                              },
-                            ),
-                            CustomeList(
-                              title: LocaleKeys.account_label_text.tr(),
-                              subTitle:
-                                  LocaleKeys.update_button_label_text.tr(),
-                              icon: Icon(
-                                Icons.contact_page,
-                                color: Colors.white,
-                              ),
-                              onPressed: () {
-                                UserPreferences _userPreferences =
-                                    UserPreferences();
-                                _userPreferences
-                                    .getCustomerInformation()
-                                    .then((customer) {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => UserProfilePage(
-                                              customer: customer!,
-                                            )),
-                                  );
-                                });
-                              },
-                            ),
-                            // CustomeList(
-                            //   title: LocaleKeys.agent_label_text.tr(),
-                            //   subTitle: LocaleKeys.become_an_agent_label_text.tr(),
-                            //   icon: Icon(
-                            //     Icons.support_agent,
-                            //     color: Colors.white,
-                            //   ),
-                            //   onPressed: () {
-                            //     print("Setting apge");
-                            //     Navigator.pushNamed(
-                            //         context, BecomeAnAgent.routeName);
-                            //   },
-                            // ),
-                            ListTile(
-                              title: Text(LocaleKeys.settings_label_text.tr(),
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15)),
-                              leading: Icon(
-                                Icons.settings,
-                                color: Colors.white,
-                              ),
-                            ),
-                            CustomeList(
-                              title: LocaleKeys.share_label_text.tr(),
-                              subTitle:
-                                  LocaleKeys.share_subtitle_label_text.tr(),
-                              icon: Icon(
-                                Icons.share,
-                                color: Colors.white,
-                              ),
-                              onPressed: () {
-                                print("share");
-                              },
-                            ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.23),
-                            Divider(
-                                height: 20,
-                                color: Colors.white.withOpacity(0.6)),
-                            Container(
-                              alignment: Alignment.bottomCenter,
-                              child: ListTile(
-                                  leading: Icon(
-                                    Icons.logout,
-                                    color: Theme.of(context).errorColor,
-                                  ),
-                                  title: Text(
-                                    LocaleKeys.logout_label_text.tr(),
-                                    style: TextStyle(
-                                        color: Theme.of(context).errorColor,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  onTap: () {
-                                    // Navigator.pop(context);
-                                    // Navigator.popAndPushNamed(
-                                    //     context, Login.routeName);
-                                    Navigator.of(context)
-                                        .pushNamedAndRemoveUntil(
-                                      Login.routeName,
-                                      (route) => false,
-                                    );
-                                  }),
-                            ),
-                            // Divider(
-                            //   height: 20,
-                            // ),
-                            // ListTile(
-                            //   trailing: Icon(Icons.close,
-                            //       color: Colors.white.withOpacity(0.7)),
-                            //   title: Text(
-                            //     'Close',
-                            //     style: TextStyle(
-                            //       fontSize: 15,
-                            //       color: Colors.white.withOpacity(0.7),
-                            //       fontWeight: FontWeight.w300,
-                            //     ),
-                            //   ),
-                            //   onTap: () {
-                            //     Navigator.of(context).pop();
-                            //   },
-                            // )
-                          ],
+                return ListView(
+                  children: [
+                    UserAccountsDrawerHeader(
+                      accountName: Text(
+                          "${state.customers.first.user!.fullName as String}"),
+                      accountEmail: Text(
+                          "${state.customers.first.user!.email as String}"),
+                      currentAccountPicture:  CachedNetworkImage(
+                    imageUrl:
+                        "${Ip.ip}/api/users/get/?fileName=${state.customers.first.user!.picture as String}",
+                    imageBuilder: (context, imageProvider) => Container(
+                      width: 120.0,
+                      height: 120.0,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                            image: imageProvider, fit: BoxFit.cover),
+                      ),
+                    ),
+                    placeholder: (context, url) => Center(
+                      child: SpinKitCircle(
+                        color: primaryColor,
+                      ),
+                    ),
+                    errorWidget: (context, url, _) => Icon(Icons.error),
+                  ),
+                      arrowColor: Theme.of(context).accentColor,
+                      decoration:
+                          BoxDecoration(color: Theme.of(context).primaryColor),
+                    ),
+                    Divider(height: 20, color: Colors.white.withOpacity(0.6)),
+                    CustomeList(
+                      title: LocaleKeys.dashboard_label_text.tr(),
+                      subTitle: LocaleKeys.see_list_sub_lebel_text.tr(),
+                      icon: Icon(
+                        Icons.dashboard,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, CustomerPage.routeName);
+                      },
+                    ),
+                    CustomeList(
+                      title: LocaleKeys.account_label_text.tr(),
+                      subTitle: LocaleKeys.update_button_label_text.tr(),
+                      icon: Icon(
+                        Icons.contact_page,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => UserProfilePage(),
+                          ),
                         );
-                      }
-                      return Container();
-                    }))));
+                      },
+                    ),
+                    CustomeList(
+                      title: LocaleKeys.agent_label_text.tr(),
+                      subTitle: LocaleKeys.become_an_agent_label_text.tr(),
+                      icon: Icon(
+                        Icons.support_agent,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        print("Setting apge");
+                        Navigator.pushNamed(context, BecomeAnAgent.routeName);
+                      },
+                    ),
+                    ListTile(
+                      title: Text(LocaleKeys.settings_label_text.tr(),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15)),
+                      leading: Icon(
+                        Icons.settings,
+                        color: Colors.white,
+                      ),
+                    ),
+                    CustomeList(
+                      title: LocaleKeys.share_label_text.tr(),
+                      subTitle: LocaleKeys.share_subtitle_label_text.tr(),
+                      icon: Icon(
+                        Icons.share,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        print("share");
+                      },
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.23),
+                    Divider(height: 20, color: Colors.white.withOpacity(0.6)),
+                    Container(
+                      alignment: Alignment.bottomCenter,
+                      child: ListTile(
+                          leading: Icon(
+                            Icons.logout,
+                            color: Theme.of(context).errorColor,
+                          ),
+                          title: Text(
+                            LocaleKeys.logout_label_text.tr(),
+                            style: TextStyle(
+                                color: Theme.of(context).errorColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          onTap: () {
+                            // Navigator.pop(context);
+                            // Navigator.popAndPushNamed(
+                            //     context, Login.routeName);
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                              Login.routeName,
+                              (route) => false,
+                            );
+                          }),
+                    ),
+                    // Divider(
+                    //   height: 20,
+                    // ),
+                    // ListTile(
+                    //   trailing: Icon(Icons.close,
+                    //       color: Colors.white.withOpacity(0.7)),
+                    //   title: Text(
+                    //     'Close',
+                    //     style: TextStyle(
+                    //       fontSize: 15,
+                    //       color: Colors.white.withOpacity(0.7),
+                    //       fontWeight: FontWeight.w300,
+                    //     ),
+                    //   ),
+                    //   onTap: () {
+                    //     Navigator.of(context).pop();
+                    //   },
+                    // )
+                  ],
+                );
+              }
+              return Container();
+            }))));
   }
 }
