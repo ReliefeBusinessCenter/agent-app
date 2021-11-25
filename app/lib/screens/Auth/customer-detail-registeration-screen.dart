@@ -250,9 +250,11 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                     child: UploadIDImage(pickImage: (image) {
                                       setState(() {
                                         idController.text = _idImaage.path;
+                                         registerBloc
+                                          .add(AddIdImage(_idImaage.path));
                                       });
                                       registerBloc
-                                          .add(AddIdImage(idController.text));
+                                          .add(AddIdImage(_idImaage.path));
                                     }),
                                   ),
                                   SizedBox(

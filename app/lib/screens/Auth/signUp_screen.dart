@@ -103,123 +103,122 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                           padding:
                               EdgeInsets.only(left: 0.5, right: 0.5, top: 25),
                           child: SingleChildScrollView(
-                            child: Column(children: [
-                              CustomTextField(
-                                minLength: 0,
-                                textFieldName:
-                                    LocaleKeys.fullname_label_text.tr(),
-                                enabled: true,
-                                controller: nameController,
-                                initialValue: '',
-                                validator: null,
-                                obsecureText: false,
-                                isRequired: false,
-                                onChanged: (String value) {
-                                  print("Write: ${value}");
-                                  registerBloc.add(AddName(name: value));
-                                },
-                                keyboardType: TextInputType.text,
-                              ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.02,
-                              ),
-                              CustomTextField(
+                            child: Column(
+                              children: [
+                                CustomTextField(
                                   minLength: 0,
-                                  keyboardType: TextInputType.number,
                                   textFieldName:
-                                      LocaleKeys.phone_label_text.tr(),
-                                  controller: phoneController,
+                                      LocaleKeys.fullname_label_text.tr(),
                                   enabled: true,
+                                  controller: nameController,
                                   initialValue: '',
                                   validator: null,
                                   obsecureText: false,
                                   isRequired: false,
                                   onChanged: (String value) {
                                     print("Write: ${value}");
-                                    registerBloc
-                                        .add(AddPhone(phoneNumber: value));
-                                  }),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.02,
-                              ),
-                              CitiesDropDown(),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.02,
-                              ),
-                              CustomTextField(
-                                  minLength: 0,
-                                  textFieldName:
-                                      LocaleKeys.subcity_label_text.tr(),
+                                    registerBloc.add(AddName(name: value));
+                                  },
                                   keyboardType: TextInputType.text,
-                                  controller: subCityController,
-                                  enabled: true,
-                                  initialValue: '',
-                                  validator: null,
-                                  obsecureText: false,
-                                  isRequired: false,
-                                  onChanged: (String value) {
-                                    print("Write: ${value}");
-                                    registerBloc.add(AddCity(city: value));
-                                  }),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.02,
-                              ),
-                              CustomTextField(
-                                  minLength: 0,
-                                  enabled: true,
-                                  textFieldName:
-                                      LocaleKeys.kebele_label_text.tr(),
-                                  keyboardType: TextInputType.number,
-                                  controller: kebeleController,
-                                  initialValue: '',
-                                  validator: null,
-                                  obsecureText: false,
-                                  isRequired: false,
-                                  onChanged: (String value) {
-                                    print("Write: ${value}");
-                                    registerBloc.add(AddKebele(kebele: value));
-                                  }),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.02,
-                              ),
-                              SexDropDown(),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.02,
-                              ),
-                              RoleDropDown(),
-                              BlocBuilder<RegisterBloc, RegisterState>(
-                                builder: (context, state) {
-                                  print("Entered to the signup screen");
-                                  // if (state is RegisterUpdateLoading) {
-                                  //   return CircularProgressIndicator();
-                                  // }
-                                  if (state is RegisterUpdateSuccess) {
-                                    if (state.user!.role == "Broker") {
-                                      type = 'Broker';
-                                    } else if (state.user!.role == "Customer") {
-                                      type = 'Customer';
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.02,
+                                ),
+                                CustomTextField(
+                                    minLength: 0,
+                                    keyboardType: TextInputType.number,
+                                    textFieldName:
+                                        LocaleKeys.phone_label_text.tr(),
+                                    controller: phoneController,
+                                    enabled: true,
+                                    initialValue: '',
+                                    validator: null,
+                                    obsecureText: false,
+                                    isRequired: false,
+                                    onChanged: (String value) {
+                                      print("Write: ${value}");
+                                      registerBloc
+                                          .add(AddPhone(phoneNumber: value));
+                                    }),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.02,
+                                ),
+                                CitiesDropDown(),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.02,
+                                ),
+                                CustomTextField(
+                                    minLength: 0,
+                                    textFieldName:
+                                        LocaleKeys.subcity_label_text.tr(),
+                                    keyboardType: TextInputType.text,
+                                    controller: subCityController,
+                                    enabled: true,
+                                    initialValue: '',
+                                    validator: null,
+                                    obsecureText: false,
+                                    isRequired: false,
+                                    onChanged: (String value) {
+                                      print("Write: ${value}");
+                                      registerBloc.add(AddCity(city: value));
+                                    }),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.02,
+                                ),
+                                CustomTextField(
+                                    minLength: 0,
+                                    enabled: true,
+                                    textFieldName:
+                                        LocaleKeys.kebele_label_text.tr(),
+                                    keyboardType: TextInputType.number,
+                                    controller: kebeleController,
+                                    initialValue: '',
+                                    validator: null,
+                                    obsecureText: false,
+                                    isRequired: false,
+                                    onChanged: (String value) {
+                                      registerBloc
+                                          .add(AddKebele(kebele: value));
+                                    }),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.02,
+                                ),
+                                SexDropDown(),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.02,
+                                ),
+                                RoleDropDown(),
+                                BlocBuilder<RegisterBloc, RegisterState>(
+                                  builder: (context, state) {
+                                    if (state is RegisterUpdateSuccess) {
+                                      if (state.user!.role == "Broker") {
+                                        type = 'Broker';
+                                      } else if (state.user!.role ==
+                                          "Customer") {
+                                        type = 'Customer';
+                                      }
+                                      return Visibility(
+                                          visible: state.user!.role == "Broker"
+                                              ? true
+                                              : false,
+                                          child: CategoryDropDownButton());
                                     }
+
                                     return Visibility(
                                         visible: state.user!.role == "Broker"
                                             ? true
                                             : false,
                                         child: CategoryDropDownButton());
-                                  }
-
-                                  return Visibility(
-                                      visible: state.user!.role == "Broker"
-                                          ? true
-                                          : false,
-                                      child: CategoryDropDownButton());
-                                },
-                              )
-                            ]),
+                                  },
+                                )
+                              ],
+                            ),
                           ),
                         ),
                         Next(onTapped: () {

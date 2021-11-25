@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/category.dart';
@@ -7,7 +6,6 @@ import 'package:app/model/broker/category.dart';
 import 'package:app/preferences/user_preference_data.dart';
 import 'package:flutter/cupertino.dart';
 
-import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 
 class CategoriesDataProvider {
