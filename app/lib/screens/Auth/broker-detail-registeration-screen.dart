@@ -1,12 +1,14 @@
 import 'package:app/Widget/Auth/signup/signUpTextField.dart';
 import 'package:app/Widget/Auth/signup/register-button.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';
+import 'package:app/constants.dart';
 import 'package:app/screens/Auth/customer-detail-registeration-screen.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'login.dart';
 
 // ignore: must_be_immutable
@@ -27,7 +29,8 @@ class BrokerDetailScreen extends StatelessWidget {
     registerBloc = BlocProvider.of<RegisterBloc>(context);
     return Scaffold(
         appBar: AppBar(
-          title: Text("Broker Detail Screen"),
+          title: Text(LocaleKeys.broker_detail_label_text.tr()),
+          backgroundColor: Theme.of(context).primaryColor,
         ),
         body: ProgressHUD(
           child: BlocConsumer<RegisterBloc, RegisterState>(
@@ -107,7 +110,9 @@ class BrokerDetailScreen extends StatelessWidget {
                                                     .width *
                                                 0.05),
                                         child: Text(
-                                          "Broker Skills Registeration!",
+                                          LocaleKeys
+                                              .broker_skills_registration_label_text
+                                              .tr(),
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 15),
@@ -126,8 +131,9 @@ class BrokerDetailScreen extends StatelessWidget {
                                           CustomTextField(
                                             minLength: 0,
                                             enabled: true,
-                                            textFieldName:
-                                                'Communication Skills',
+                                            textFieldName: LocaleKeys
+                                                .communication_label_text
+                                                .tr(),
                                             controller: communicationController,
                                             initialValue: '',
                                             validator: null,
@@ -151,7 +157,9 @@ class BrokerDetailScreen extends StatelessWidget {
                                               minLength: 0,
                                               keyboardType: TextInputType.text,
                                               enabled: true,
-                                              textFieldName: 'Brooking Skills',
+                                              textFieldName: LocaleKeys
+                                                  .broker_label_text
+                                                  .tr(),
                                               controller:
                                                   brookingSkillsController,
                                               initialValue: '',
@@ -173,7 +181,9 @@ class BrokerDetailScreen extends StatelessWidget {
                                           ),
                                           CustomTextField(
                                               minLength: 0,
-                                              textFieldName: 'Work Done',
+                                              textFieldName: LocaleKeys
+                                                  .work_done_label_text
+                                                  .tr(),
                                               keyboardType: TextInputType.text,
                                               controller: workDoneController,
                                               initialValue: '',
@@ -202,7 +212,9 @@ class BrokerDetailScreen extends StatelessWidget {
                                           CustomTextField(
                                             minLength: 0,
                                             enabled: true,
-                                            textFieldName: 'Work In Progress',
+                                            textFieldName: LocaleKeys
+                                                    .Work_in_progress_label_text
+                                                .tr(),
                                             keyboardType: TextInputType.text,
                                             controller:
                                                 workInProgressController,
@@ -234,8 +246,9 @@ class BrokerDetailScreen extends StatelessWidget {
                                                     .add(AddAbout(value));
                                               },
                                               decoration: InputDecoration(
-                                                labelText:
-                                                    "Tell us about your self...",
+                                                labelText: LocaleKeys
+                                                    .tell_us_about_your_self_label_text
+                                                    .tr(),
                                                 fillColor: Colors.white,
                                                 border: new OutlineInputBorder(
                                                   borderRadius:
@@ -265,7 +278,8 @@ class BrokerDetailScreen extends StatelessWidget {
                                                 0.02,
                                           ),
                                           RegisterButton(
-                                            name: "Next",
+                                            name: LocaleKeys.next_btn_label_text
+                                                .tr(),
                                             onTapped: () {
                                               if (_formKey.currentState!
                                                   .validate()) {

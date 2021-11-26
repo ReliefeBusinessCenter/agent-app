@@ -55,6 +55,7 @@ class _WelcomeHomeFragmentState extends State<WelcomeHomeFragment> {
                     },
                     items: [
                       DropdownMenuItem(
+                        
                         child: Text(
                           'EN',
                           style: TextStyle(color: primaryColor),

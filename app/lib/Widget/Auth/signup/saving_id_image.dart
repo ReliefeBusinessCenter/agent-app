@@ -1,19 +1,24 @@
 import 'dart:io';
 
 import 'package:app/constants.dart';
+import 'package:app/ip/ip.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_picker/image_picker.dart';
 
-class UploadProfileImage extends StatefulWidget {
+class SavingIdPhotUpload extends StatefulWidget {
   final Function(File image) pickImage;
-  const UploadProfileImage({required this.pickImage, Key? key})
+  final String image;
+  const SavingIdPhotUpload(
+      {required this.pickImage, required this.image, Key? key})
       : super(key: key);
 
   @override
-  _UploadProfileImageState createState() => _UploadProfileImageState();
+  _SavingIdPhotUploadState createState() => _SavingIdPhotUploadState();
 }
 
-class _UploadProfileImageState extends State<UploadProfileImage> {
+class _SavingIdPhotUploadState extends State<SavingIdPhotUpload> {
   File? file;
   final _pickerImage = ImagePicker();
   _uploadImage() async {
@@ -40,27 +45,33 @@ class _UploadProfileImageState extends State<UploadProfileImage> {
         if (file != null) widget.pickImage(file!);
       },
       child: Container(
-        height: size.width * 0.35,
-        width: size.width * 0.35,
+        height: size.width * 0.5,
+        width: size.width * 0.85,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(size.width * 0.35),
           color: lightColor,
         ),
         child: file == null
-            ? Container(
-                child: Center(
-                
-                child: Icon(
-                  Icons.add_photo_alternate_outlined,
-                  color: primaryColor,
-                  size: size.width * 0.2,
+            ? CachedNetworkImage(
+                imageUrl: "${Ip.ip}/api/users/get/?fileName=${widget.image}",
+                imageBuilder: (context, imageProvider) => Container(
+                  height: 120.0,
+                  width: 120.0,
+                  decoration: BoxDecoration(
+                      color: Colors.red,
+                      image: DecorationImage(
+                          image: imageProvider, fit: BoxFit.fill)),
                 ),
-              ))
+                errorWidget: (context, imageProvider, _) => Center(
+                  child: Icon(Icons.error),
+                ),
+                placeholder: (context, imageProvider) => SpinKitCircle(
+                  color: primaryColor,
+                ),
+              )
             : Container(
                 height: 120.0,
                 width: 120.0,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(size.width * 0.35),
                   color: lightColor,
                   image: DecorationImage(
                     image: FileImage(

@@ -148,7 +148,20 @@
     "reject_btn_label_text": "Reject",
     "are_you_sure_reject_label_text": "Are you sure you want to reject this work",
     "search_customers_label_text": "Search Customers",
-    "favorite_label_text": "Favorite"
+    "favorite_label_text": "Favorite",
+
+    "//comment//11": "Welcome page detail",
+    "profile_label_text": "Profile",
+    "views_label_text": "Views",
+    "contact_phone_label_text": "Contact Phone",
+    "about_label_text": "About broker",
+
+    "//comment//12": "broker detail page",
+    "broker_detail_label_text": "broker detail",
+    "broker_skills_registration_label_text": "Broker skills registration",
+    "tell_us_about_your_self_label_text": "Tell us about your self..."
+
+
     
     
 }

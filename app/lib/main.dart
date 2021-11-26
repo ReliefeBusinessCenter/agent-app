@@ -2,6 +2,7 @@ import 'package:app/bloc/broker/bloc/broker_bloc.dart';
 import 'package:app/bloc/city/bloc/city_bloc.dart';
 import 'package:app/bloc/delivery/bloc/delivery_bloc.dart';
 import 'package:app/bloc/favorit/bloc/favorite_bloc.dart';
+import 'package:app/bloc/saveLoan/bloc/saveloan_bloc.dart';
 import 'package:app/bloc/work-deals/bloc/workdeals_bloc.dart';
 // import 'package:app/bloc/work/bloc/work_bloc.dart';
 import 'package:app/data_provider/broker-data-provider.dart';
@@ -9,6 +10,8 @@ import 'package:app/data_provider/city_data_provider.dart';
 import 'package:app/data_provider/customer-data-provider.dart';
 import 'package:app/data_provider/deals_data_provider.dart';
 import 'package:app/data_provider/delivery-data-provider.dart';
+import 'package:app/data_provider/save_and_loan_data_provider.dart';
+import 'package:app/model/save_loan.dart';
 import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/repository/brokersRepository.dart';
 import 'package:app/repository/category_repository.dart';
@@ -16,6 +19,7 @@ import 'package:app/repository/city_repository.dart';
 import 'package:app/repository/customer_repository.dart';
 import 'package:app/repository/deals_repository.dart';
 import 'package:app/repository/delivery_repository.dart';
+import 'package:app/repository/save_loan_repository.dart';
 import 'package:app/repository/user_repository.dart';
 import 'package:app/routes/route.dart';
 import 'package:app/screens/Auth/login.dart';
@@ -107,10 +111,18 @@ class MyApp extends StatelessWidget {
     userPreferences: UserPreferences(),
   ));
 
+  SaveLoanRepository saveLoanRepository = SaveLoanRepository(
+      saveLoanDataProvider: SaveLoanDataProvider(httpClient: http.Client()));
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
+          BlocProvider<SaveloanBloc>(
+            create: (_) => SaveloanBloc(
+              saveLoanRepository: saveLoanRepository,
+            ),
+          ),
           BlocProvider<CityBloc>(
               create: (_) => CityBloc(
                     cityRepository: cityRepository,

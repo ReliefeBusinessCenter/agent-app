@@ -23,49 +23,56 @@ class BrokersProfilePage extends StatelessWidget {
     deliveryBloc.add(DeliveryInitializationEvent());
     print("Broker name ${broker.user!.fullName}");
     return Scaffold(
-        backgroundColor: Color(0xFFf2f6f9),
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Color(0xFFf2f6f9),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
+      ),
+      body: ProgressHUD(
+        child: BlocConsumer<DeliveryBloc, DeliveryState>(
+          listener: (context, state) {
+            if (state is DeliveryCreating) {
+              // delivery createing
+              final progress = ProgressHUD.of(context);
+              // if (!isShowing) {
+              //   if (progress != null) {
+              //     setState(() {
+              //       isShowing = true;
+              //     });
+              // }
+              progress!.showWithText("Hiring");
+              print("delivery creating  method called");
+            } else if (state is DeliveryCreateSuccess) {
+              // delivery success method
+              deliveryBloc.add(DeliveryInitializationEvent());
+              Navigator.of(context).pop();
+              print("Delivery create sucess method");
+            } else if (state is DeliveryCreateFailed) {
+              // delivery failed method
+              print("Delivery create method failed");
+              AwesomeDialog(
+                context: context,
+                dialogType: DialogType.SUCCES,
+                animType: AnimType.BOTTOMSLIDE,
+                title: 'Warning',
+                desc: 'Failed to Create Delivers',
+                btnOkOnPress: () {
+                  // workBloc.add(AddWork(work: work));
+                },
+              )..show();
+            }
+          },
+          builder: (context, state) {
+            return _buildPortraitView(context);
+          },
         ),
-        body: ProgressHUD(
-          child: BlocConsumer<DeliveryBloc, DeliveryState>(
-            listener: (context, state) {
-              if (state is DeliveryCreating) {
-                // delivery createing
-                final progress = ProgressHUD.of(context);
-                // if (!isShowing) {
-                //   if (progress != null) {
-                //     setState(() {
-                //       isShowing = true;
-                //     });
-                // }
-                progress!.showWithText("Hiring");
-                print("delivery creating  method called");
-              } else if (state is DeliveryCreateSuccess) {
-                // delivery success method
-                deliveryBloc.add(DeliveryInitializationEvent());
-                Navigator.of(context).pop();
-                print("Delivery create sucess method");
-              } else if (state is DeliveryCreateFailed) {
-                // delivery failed method
-                print("Delivery create method failed");
-                AwesomeDialog(
-                  context: context,
-                  dialogType: DialogType.SUCCES,
-                  animType: AnimType.BOTTOMSLIDE,
-                  title: 'Warning',
-                  desc: 'Failed to Create Delivers',
-                  btnOkOnPress: () {
-                    // workBloc.add(AddWork(work: work));
-                  },
-                )..show();
-              }
-            },
-            builder: (context, state) {
-              return _buildPortraitView(context);
-            },
-          ),
-        ));
+      ),
+      bottomNavigationBar: SizedBox(
+        height: 60,
+        child: HireButton(
+          broker: broker,
+        ),
+      ),
+    );
   }
 
   Widget _buildPortraitView(BuildContext context) {
@@ -86,26 +93,6 @@ class BrokersProfilePage extends StatelessWidget {
       divider,
       WorkSection(broker: broker),
       divider,
-      _buildPortifolioSection(context),
-      Expanded(
-        child: Container(),
-      ),
-      HireButton(
-        broker: broker,
-      ),
     ]);
   }
-}
-
-Widget _buildPortifolioSection(BuildContext context) {
-  return Container(
-    margin: EdgeInsets.all(10),
-    child: Column(
-      children: [
-        Text(
-          'Portifolio',
-        ),
-      ],
-    ),
-  );
 }

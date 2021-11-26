@@ -1,11 +1,12 @@
 import 'package:app/constants/login/size.dart';
 import 'package:app/screens/broker/broker_main_page.dart';
-import 'package:app/screens/customer/customerPage.dart';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 
 class SavingButton extends StatelessWidget {
+  final Function onPressed;
+  SavingButton({required this.onPressed});
   @override
   Widget build(BuildContext context) {
     LoginSize loginSize = new LoginSize();
@@ -16,17 +17,8 @@ class SavingButton extends StatelessWidget {
         child: InkWell(
           splashColor: Colors.white,
           onTap: () {
-            AwesomeDialog(
-              context: context,
-              dialogType: DialogType.SUCCES,
-              animType: AnimType.BOTTOMSLIDE,
-              title: 'Done',
-              desc:
-                  'You have successfully registered for Saving and Loans Service',
-              btnOkOnPress: () {
-                Navigator.popAndPushNamed(context, BrokerMain.routeName);
-              },
-            )..show();
+            onPressed();
+           
           },
 
           // onTap: () => _pushPage(context, Register()),

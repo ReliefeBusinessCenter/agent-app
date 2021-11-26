@@ -1,6 +1,8 @@
 import 'package:app/model/broker/broker.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class AboutSection extends StatelessWidget {
   final Broker broker;
@@ -14,7 +16,7 @@ class AboutSection extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            title: Text("Contact Phone"),
+            title: Text(LocaleKeys.contact_phone_label_text.tr()),
             subtitle: Text(broker.user!.phone!),
             trailing: Padding(
               padding: EdgeInsets.all(8),
@@ -43,7 +45,7 @@ class AboutSection extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      'About',
+                      LocaleKeys.about_label_text.tr(),
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold,
