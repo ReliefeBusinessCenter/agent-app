@@ -4,9 +4,7 @@ import 'package:app/Widget/Auth/signup/next-button.dart';
 import 'package:app/Widget/Auth/signup/role-dropdown.dart';
 import 'package:app/Widget/Auth/signup/sex-dropdown.dart';
 import 'package:app/Widget/Auth/signup/signUpTextField.dart';
-import 'package:app/Widget/Auth/signup/signp-customeDropDown.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';
-import 'package:app/constants/customer-page/cities.dart';
 import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -163,7 +161,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                     isRequired: false,
                                     onChanged: (String value) {
                                       print("Write: ${value}");
-                                      registerBloc.add(AddCity(city: value));
+                                      registerBloc.add(AddSubCity(subCity: value));
                                     }),
                                 SizedBox(
                                   height:

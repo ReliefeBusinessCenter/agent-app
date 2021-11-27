@@ -34,8 +34,8 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
   final TextEditingController photoController = new TextEditingController();
   final TextEditingController idController = new TextEditingController();
   final ImagePicker _picker = ImagePicker();
-  late PickedFile _imageFile;
-  late PickedFile _idImaage;
+   PickedFile?_imageFile;
+   PickedFile? _idImaage;
 
   late RegisterBloc registerBloc;
 
@@ -254,12 +254,12 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                   Center(
                                     child: UploadIDImage(pickImage: (image) {
                                       setState(() {
-                                        idController.text = _idImaage.path;
+                                        idController.text = image.path;
                                         registerBloc
-                                            .add(AddIdImage(_idImaage.path));
+                                            .add(AddIdImage(idController.text));
                                       });
                                       registerBloc
-                                          .add(AddIdImage(_idImaage.path));
+                                          .add(AddIdImage(idController.text));
                                     }),
                                   ),
                                   SizedBox(

@@ -141,7 +141,7 @@ class BrokerDataProvider {
           'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
       print("request");
 
-      request.files.add(await http.MultipartFile.fromPath(
+      requestId.files.add(await http.MultipartFile.fromPath(
           'file', broker.user!.identificationCard as String));
       print("added to multipart");
 

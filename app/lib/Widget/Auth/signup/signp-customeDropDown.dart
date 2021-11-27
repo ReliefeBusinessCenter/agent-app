@@ -1,7 +1,4 @@
-
-import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class CustomeDropDownButton extends StatelessWidget {
   final List<DropdownMenuItem<String>> dropDownItems;
@@ -43,7 +40,7 @@ class CustomeDropDownButton extends StatelessWidget {
               hint: Container(
                 width: MediaQuery.of(context).size.width * 0.3,
                 child: Text(
-                 LocaleKeys.select_an_item_label_text.tr(),
+                  "Select item",
                   textAlign: TextAlign.center,
                 ),
               )),

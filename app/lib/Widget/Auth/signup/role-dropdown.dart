@@ -54,7 +54,8 @@ class _RoleDropDownState extends State<RoleDropDown> {
             print("Value: ${value}");
             registerBloc.add(AddTypeUser(userType: value));
           },
-          value: state.user!.role as String,
+          value:
+              state.user!.role == null ? "No role yet" : state.user!.role as String,
           // onChanged: this.onChanged,
 
           // value:state.request.paymentWhen as String,

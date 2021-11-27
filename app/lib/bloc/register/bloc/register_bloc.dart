@@ -63,7 +63,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     } else if (event is AddSubCity) {
       // add sub city
       // user = state.user as User;
-      user.city = event.subCity;
+      user.subCity = event.subCity;
       print("Users: ${user.toJson()}");
       yield RegisterUpdateSuccess(user: user);
     } else if (event is AddImage) {
