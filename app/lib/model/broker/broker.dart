@@ -60,7 +60,7 @@ class Broker {
         reviews!.add(new Reviews.fromJson(v));
       });
     }
-    skills = 
+    skills =
         json['skills'] != null ? new Skills.fromJson(json['skills']) : null;
     category = json['category'] != null
         ? new Category.fromJson(json['category'])
@@ -79,7 +79,6 @@ class Broker {
       data['portfolios'] = this.portfolios!.map((v) => v.toJson()).toList();
     }
 
-    
     if (this.delivery != null) {
       data['delivery'] = this.delivery!.map((v) => v.toJson()).toList();
     }
@@ -100,6 +99,9 @@ class Broker {
     }
     if (this.approved != null) {
       data['approved'] = this.approved;
+    }
+    if (this.about != null) {
+      data['about'] = this.about;
     }
     return data;
   }

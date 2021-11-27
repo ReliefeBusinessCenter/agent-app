@@ -15,6 +15,8 @@ class SaveLoanDataProvider {
   Future<List<SaveLoan>> getAllSaveLoans() async {
     try {
       final _response = await httpClient.get(Uri.parse(_baseURL));
+      print("Saveloan save status ${_response.statusCode}");
+
       if (_response.statusCode == 200) {
         final _jsonResponse = jsonDecode(_response.body) as List;
         return _jsonResponse
@@ -31,8 +33,12 @@ class SaveLoanDataProvider {
   // create save and loan
   Future<SaveLoan> createSaveLoan(SaveLoan saveLoan, bool isProfileImageChanged,
       bool isIdImageChanged) async {
+    print(
+        "###############################is ProfileChanged $isProfileImageChanged");
+    print("###############################is IdImage $isIdImageChanged");
     try {
-      if (!isIdImageChanged && !isIdImageChanged) {
+      if (!isProfileImageChanged && !isIdImageChanged) {
+        print("###############################is--- 1");
         final _response = await httpClient.post(
           Uri.parse(_baseURL),
           headers: {
@@ -52,6 +58,9 @@ class SaveLoanDataProvider {
           throw Exception(_response.body);
         }
       } else if (isProfileImageChanged && !isIdImageChanged) {
+                print("###############################is--- 2");
+
+        print("Profile image is changed");
         var request = http.MultipartRequest(
             'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
         print("request");
@@ -90,6 +99,8 @@ class SaveLoanDataProvider {
           throw Exception(res.body);
         }
       } else if (!isProfileImageChanged && isIdImageChanged) {
+                print("###############################is--- 3");
+
         var requestId = http.MultipartRequest(
             'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
         print("request");
@@ -125,25 +136,28 @@ class SaveLoanDataProvider {
           throw Exception(resId.body);
         }
       }
+              print("###############################is--- 3");
+
       var request = http.MultipartRequest(
           'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
+      var request2 = http.MultipartRequest(
+          'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
+
       print("request");
 
       request.files.add(await http.MultipartFile.fromPath(
           'file', saveLoan.picture as String));
-      print("added to multipart");
+      print("added profile image");
 
       var res = await http.Response.fromStream(await request.send());
 
-      var requestId = http.MultipartRequest(
-          'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
       print("request");
 
-      requestId.files.add(await http.MultipartFile.fromPath(
+      request2.files.add(await http.MultipartFile.fromPath(
           'file', saveLoan.identificationCard as String));
-      print("added to multipart");
+      print("added Identification card");
 
-      var resId = await http.Response.fromStream(await request.send());
+      var resId = await http.Response.fromStream(await request2.send());
 
       if (res.statusCode == 200 && resId.statusCode == 200) {
         final _response = await httpClient.post(
