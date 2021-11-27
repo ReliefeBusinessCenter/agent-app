@@ -1,98 +1,186 @@
-import 'dart:io';
-import 'package:app/Widget/Auth/auth-export.dart';
-import 'package:app/Widget/agent/custome_file_input.dart';
+import 'package:app/Widget/Auth/Common/material_form_field.dart';
+import 'package:app/Widget/Auth/signup/saving_id_image.dart';
+import 'package:app/Widget/Auth/signup/saving_profile_image.dart';
 import 'package:app/Widget/broker-widget/saving_submit_button.dart';
-import 'package:app/screens/broker/broker_drawer.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:app/bloc/saveLoan/bloc/saveloan_bloc.dart';
+import 'package:app/constants.dart';
+import 'package:app/model/broker/broker.dart';
+import 'package:app/model/save_loan.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SavingAndLoan extends StatefulWidget {
   static const routeName = '/saving-loan';
+  final Broker broker;
+  SavingAndLoan({required this.broker});
 
   @override
   _SavingAndLoanState createState() => _SavingAndLoanState();
 }
 
 class _SavingAndLoanState extends State<SavingAndLoan> {
-  TextEditingController fullNameController = new TextEditingController();
-  TextEditingController category = new TextEditingController();
-  TextEditingController phoneNumberController = new TextEditingController();
-  TextEditingController cityControler = new TextEditingController();
-  TextEditingController emailController = new TextEditingController();
-  TextEditingController profilePicController = new TextEditingController();
+  GlobalKey<FormState> _formKey =
+      GlobalKey<FormState>(debugLabel: "_savingAndLoan");
+  String? profileImage;
+  String? idImage;
+
+  late SaveloanBloc saveloanBloc;
+
+  @override
+  void initState() {
+    _addImages();
+    super.initState();
+  }
+
+  Map<String, dynamic> _saveLoanData = {};
+
+  _addImages() {
+    BlocProvider.of<SaveloanBloc>(context).add(SaveLoanSuccessEvent());
+    setState(() {
+      profileImage = widget.broker.user!.picture!;
+      idImage = widget.broker.user!.identificationCard!;
+      _saveLoanData['idPhoto'] = widget.broker.user!.identificationCard!;
+      _saveLoanData['profilePhoto'] = widget.broker.user!.picture!;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    saveloanBloc = BlocProvider.of<SaveloanBloc>(context);
     return Scaffold(
-      backgroundColor: Theme.of(context).accentColor,
-      appBar: AppBar(),
-      drawer: BrokerDrawer(),
-      body: Container(
-        alignment: Alignment.topCenter,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.03,
+      backgroundColor: lightColor,
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        title: Text("Create Wallet")
+      ),
+      body: BlocBuilder<SaveloanBloc, SaveloanState>(
+        builder: (context, state) {
+          if (state is SaveloanLoading) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is SaveloanFailed) {
+            return Center(
+              child: Text(state.message),
+            );
+          } else {
+            return Container(
+              alignment: Alignment.topCenter,
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: SingleChildScrollView(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.03,
+                      ),
+                      SavingCustomFormField(
+                          initialValue: widget.broker.user!.fullName!,
+                          textFieldName: "Full Name",
+                          isObsecure: false,
+                          onChanged: (value) {
+                            setState(() {
+                              _saveLoanData['fullName'] = value;
+                            });
+                          },
+                          icon: Icon(Icons.person)),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.03,
+                      ),
+                      SavingCustomFormField(
+                          initialValue: widget.broker.user!.phone!,
+                          textFieldName: "Phone",
+                          onChanged: (value) {
+                            setState(() {
+                              _saveLoanData['phone'] = value;
+                            });
+                          },
+                          // controller: phoneNumberController,
+                          isObsecure: false,
+                          icon: Icon(Icons.phone)),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      Text(
+                        LocaleKeys.profile_photo_label_text.tr(),
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Center(
+                          child: SavingProfileImageUpload(
+                              image: widget.broker.user!.picture!,
+                              pickImage: (image) {
+                                _saveLoanData['profilePhoto'] = image.path;
+                              })),
+                      SizedBox(height: 20.0),
+                      Text(
+                        LocaleKeys.id_photo_label_text.tr(),
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      Center(
+                          child: SavingIdPhotUpload(
+                              image: widget.broker.user!.picture!,
+                              pickImage: (image) {
+                                setState(() {
+                                  _saveLoanData['idPhoto'] = image.path;
+                                });
+                              })),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.03,
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.03,
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.2,
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              CustomTextField(
-                  textFieldName: "Full Name",
-                  controller: fullNameController,
-                  isObsecure: false,
-                  icon: Icon(Icons.person)),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.03,
-              ),
-              CustomTextField(
-                  textFieldName: "Phone",
-                  controller: phoneNumberController,
-                  isObsecure: false,
-                  icon: Icon(Icons.phone)),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.03,
-              ),
-              CustomFileInput(
-                  textFieldName: "Insert AA ID Document",
-                  controller: profilePicController,
-                  isRequired: true,
-                  onPressed: () async {
-                    FilePickerResult? result =
-                        await FilePicker.platform.pickFiles();
-                    if (result != null) {
-                      File file = File(result.files.single.path!);
-                      setState(() {
-                        profilePicController.text = file.path;
-                      });
-                    } else {
-                      // User canceled the picker
-                    }
-                  }),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.03,
-              ),
-              CustomFileInput(
-                  textFieldName: "Ensert Photo",
-                  controller: profilePicController,
-                  isRequired: true,
-                  onPressed: () async {
-                    FilePickerResult? result =
-                        await FilePicker.platform.pickFiles();
-                    if (result != null) {
-                      File file = File(result.files.single.path!);
-                      setState(() {
-                        profilePicController.text = file.path;
-                      });
-                    } else {
-                      // User canceled the picker
-                    }
-                  }),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.2,
-              ),
-              SavingButton(),
-            ],
-          ),
+            );
+          }
+        },
+      ),
+      bottomNavigationBar: Container(
+        height: 60.0,
+        padding: EdgeInsets.all(10.0),
+        child: SavingButton(
+          onPressed: () {
+            if (_formKey.currentState!.validate() &&
+                (profileImage != null) &&
+                idImage != null) {
+              print("Validated");
+
+              SaveLoan saveLoan = SaveLoan(
+                fullName: _saveLoanData['fullName'],
+                phone: _saveLoanData['phone'],
+                picture: _saveLoanData['profilePhoto'],
+                identificationCard: _saveLoanData['idPhoto'],
+              );
+
+              saveloanBloc.add(CreateSaveLoanEvent(saveLoan));
+            }
+            // AwesomeDialog(
+            //   context: context,
+            //   dialogType: DialogType.SUCCES,
+            //   animType: AnimType.BOTTOMSLIDE,
+            //   title: 'Done',
+            //   desc:
+            //       'You have successfully registered for Saving and Loans Service',
+            //   btnOkOnPress: () {
+            //     Navigator.popAndPushNamed(
+            //         context, BrokerMain.routeName);
+            //   },
+            // )..show();
+          },
         ),
       ),
     );

@@ -4,6 +4,7 @@ import 'package:app/bloc/auth/bloc/auth_bloc.dart';
 import 'package:app/bloc/customer/customer_bloc.dart';
 import 'package:app/constants.dart';
 import 'package:app/ip/ip.dart';
+import 'package:app/model/customer/customer.dart';
 import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/screens/Auth/login.dart';
 import 'package:app/translations/locale_keys.g.dart';
@@ -27,11 +28,21 @@ class _AppDrawerState extends State<AppDrawer> {
   // late CartBloc cartBloc;
   @override
   void initState() {
-    // _getCustomer();
+    _getCustomer();
     super.initState();
   }
 
+  Customer? _customer;
+
   String photoPath = "assets/images/circular.png";
+  _getCustomer() {
+    UserPreferences _userPreference = UserPreferences();
+    _userPreference.getCustomerInformation().then((customer) {
+      setState(() {
+        _customer = customer;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,33 +62,35 @@ class _AppDrawerState extends State<AppDrawer> {
                 builder: (context, state) {
               if ((state is CustomersLoadSuccess)) {
                 photoPath = state.customers.first.user!.picture ?? photoPath;
+                _customer = state.customers.first;
+              }
 
                 return ListView(
                   children: [
-                    UserAccountsDrawerHeader(
+                  if(_customer != null)  UserAccountsDrawerHeader(
                       accountName: Text(
-                          "${state.customers.first.user!.fullName as String}"),
+                          "${_customer!.user!.fullName as String}"),
                       accountEmail: Text(
-                          "${state.customers.first.user!.email as String}"),
-                      currentAccountPicture:  CachedNetworkImage(
-                    imageUrl:
-                        "${Ip.ip}/api/users/get/?fileName=${state.customers.first.user!.picture as String}",
-                    imageBuilder: (context, imageProvider) => Container(
-                      width: 120.0,
-                      height: 120.0,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            image: imageProvider, fit: BoxFit.cover),
+                          "${_customer!.user!.email as String}"),
+                      currentAccountPicture: CachedNetworkImage(
+                        imageUrl:
+                            "${Ip.ip}/api/users/get/?fileName=${_customer!.user!.picture as String}",
+                        imageBuilder: (context, imageProvider) => Container(
+                          width: 120.0,
+                          height: 120.0,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                image: imageProvider, fit: BoxFit.cover),
+                          ),
+                        ),
+                        placeholder: (context, url) => Center(
+                          child: SpinKitCircle(
+                            color: primaryColor,
+                          ),
+                        ),
+                        errorWidget: (context, url, _) => Icon(Icons.error),
                       ),
-                    ),
-                    placeholder: (context, url) => Center(
-                      child: SpinKitCircle(
-                        color: primaryColor,
-                      ),
-                    ),
-                    errorWidget: (context, url, _) => Icon(Icons.error),
-                  ),
                       arrowColor: Theme.of(context).accentColor,
                       decoration:
                           BoxDecoration(color: Theme.of(context).primaryColor),
@@ -191,7 +204,7 @@ class _AppDrawerState extends State<AppDrawer> {
                   ],
                 );
               }
-              return Container();
-            }))));
+             
+            ),),),);
   }
 }

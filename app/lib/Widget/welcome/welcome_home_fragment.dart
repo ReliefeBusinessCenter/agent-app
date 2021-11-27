@@ -4,7 +4,6 @@ import 'package:app/constants.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/broker.dart';
 
-import 'package:app/screens/customer/brokers_detail_screen.dart';
 import 'package:app/translations/locale_keys.g.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';

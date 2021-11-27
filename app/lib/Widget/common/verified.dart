@@ -1,4 +1,3 @@
-import 'package:app/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class VerifiedWidget extends StatelessWidget {
@@ -9,16 +8,11 @@ class VerifiedWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 15.0,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.blue,
-      ),
       child: Center(
         child: Icon(
-          Icons.check,
-          color: lightColor,
-          size: 15.0,
+          Icons.verified,
+          color: Colors.blue,
+          size: 20.0,
         ),
       ),
     );

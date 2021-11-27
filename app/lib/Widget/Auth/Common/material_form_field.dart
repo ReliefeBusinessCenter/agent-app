@@ -1,18 +1,17 @@
 import 'package:app/constants/login/size.dart';
 import 'package:flutter/material.dart';
 
-class CustomTextField extends StatelessWidget {
+class SavingCustomFormField extends StatelessWidget {
   final bool isObsecure;
   final String textFieldName;
   final Icon icon;
-  final TextEditingController controller;
-  String? initialValue;
+  final Function(String value) onChanged;
+  String initialValue;
 
-  CustomTextField(
-      {
-        this.initialValue,
-        required this.textFieldName,
-      required this.controller,
+  SavingCustomFormField(
+      {required this.initialValue,
+      required this.textFieldName,
+      required this.onChanged,
       required this.isObsecure,
       required this.icon});
   @override
@@ -26,12 +25,19 @@ class CustomTextField extends StatelessWidget {
       child: Container(
         width: loginSize.getTextFieldWidth,
         child: TextFormField(
+          
           initialValue: initialValue,
+
           onChanged: (value) {
-            print("Item : ${value}");
+            onChanged(value);
+          },
+          validator: (value) {
+            if (value!.isEmpty) {
+              return "Field required";
+            }
           },
           obscureText: this.isObsecure,
-          controller: this.controller,
+          // controller: this.controller,
           // obscureText: !ispassshow,
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.done,

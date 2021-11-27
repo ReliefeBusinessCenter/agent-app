@@ -46,38 +46,6 @@ class _HomeFragmentState extends State<HomeFragment> {
       color: Color(0xFFf2f6f9),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                width: 50,
-                child: DropdownButtonFormField<String>(
-                    value: _initialValue,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                    ),
-                    onChanged: (value) async {
-                      setState(() {
-                        _initialValue = value!;
-                      });
-                      await context.setLocale(Locale(value.toString()));
-                    },
-                    items: [
-                      DropdownMenuItem(
-                        child: Text(
-                          'EN',
-                          style: TextStyle(color: primaryColor),
-                        ),
-                        value: 'en',
-                      ),
-                      DropdownMenuItem(
-                        child: Text('አማ'),
-                        value: 'am',
-                      )
-                    ]),
-              )
-            ],
-          ),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: SearchTextField(),
@@ -85,71 +53,70 @@ class _HomeFragmentState extends State<HomeFragment> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: BlocBuilder<CategoryBloc, CategoryState>(
-                  // buildWhen: (previous, current) =>
-                  //     previous.selectedCategoryId != current.selectedCategoryId,
-                  builder: (context, state) {
-                    if (state is CategoryLoading) {
-                      return CircularProgressIndicator();
-                    }
-                    List<Widget> categories = [];
-                    if (state is CategoryLoadSuccess) {
-                      categories.add(CustomCategory(
-                        backgroundColor: state.selectedCategoryId == null
-                            ? Theme.of(context).primaryColor
-                            : Color(0xFF015777).withOpacity(0.05),
-                        fontColor: state.selectedCategoryId == null
-                            ? Colors.white
-                            : Colors.black.withOpacity(0.8),
-                        text: LocaleKeys.all_broker_tab_text.tr(),
-                        onPressed: () {
-                          // print(
-                          // "This is the name of the category:${DUMMY_CATEGORIES[i].name}");
-                          brokerBloc
-                              .add(SelectEvent(categoryId: 0, search: ''));
+              scrollDirection: Axis.horizontal,
+              child: BlocBuilder<CategoryBloc, CategoryState>(
+                // buildWhen: (previous, current) =>
+                //     previous.selectedCategoryId != current.selectedCategoryId,
+                builder: (context, state) {
+                  if (state is CategoryLoading) {
+                    return CircularProgressIndicator();
+                  }
+                  List<Widget> categories = [];
+                  if (state is CategoryLoadSuccess) {
+                    categories.add(CustomCategory(
+                      backgroundColor: state.selectedCategoryId == null
+                          ? Theme.of(context).primaryColor
+                          : Color(0xFF015777).withOpacity(0.05),
+                      fontColor: state.selectedCategoryId == null
+                          ? Colors.white
+                          : Colors.black.withOpacity(0.8),
+                      text: LocaleKeys.all_broker_tab_text.tr(),
+                      onPressed: () {
+                        // print(
+                        // "This is the name of the category:${DUMMY_CATEGORIES[i].name}");
+                        brokerBloc.add(SelectEvent(categoryId: 0, search: ''));
 
-                          categoryBloc.add(SelectCategory(categoryId: null));
-                        },
-                      ));
-                      for (int i = 0; i < state.category.length; i++) {
-                        // Category category = state.category[i] as Category;
-                        // print(category);
-                        categories.add(
-                          CustomCategory(
-                            backgroundColor: state.selectedCategoryId ==
-                                    state.category[i].categoryId
-                                ? Theme.of(context).primaryColor
-                                : Color(0xFF015777).withOpacity(0.05),
-                            fontColor: state.selectedCategoryId ==
-                                    state.category[i].categoryId
-                                ? Colors.white
-                                : Colors.black.withOpacity(0.8),
-                            text: state.category[i].catigoryName!,
-                            onPressed: () {
-                              brokerBloc.add(
-                                SelectEvent(
-                                  categoryId: state.category[i].categoryId!,
-                                  search: '',
-                                ),
-                              );
-                              categoryBloc.add(SelectCategory(
-                                  categoryId: state.category[i].categoryId!));
-                            },
-                          ),
-                        );
-                      }
-                      return Row(children: categories);
+                        categoryBloc.add(SelectCategory(categoryId: null));
+                      },
+                    ));
+                    for (int i = 0; i < state.category.length; i++) {
+                      // Category category = state.category[i] as Category;
+                      // print(category);
+                      categories.add(
+                        CustomCategory(
+                          backgroundColor: state.selectedCategoryId ==
+                                  state.category[i].categoryId
+                              ? Theme.of(context).primaryColor
+                              : Color(0xFF015777).withOpacity(0.05),
+                          fontColor: state.selectedCategoryId ==
+                                  state.category[i].categoryId
+                              ? Colors.white
+                              : Colors.black.withOpacity(0.8),
+                          text: state.category[i].catigoryName!,
+                          onPressed: () {
+                            brokerBloc.add(
+                              SelectEvent(
+                                categoryId: state.category[i].categoryId!,
+                                search: '',
+                              ),
+                            );
+                            categoryBloc.add(SelectCategory(
+                                categoryId: state.category[i].categoryId!));
+                          },
+                        ),
+                      );
                     }
+                    return Row(children: categories);
+                  }
 
-                    return Container();
-                  },
-                )),
+                  return Container();
+                },
+              ),
+            ),
           ),
           Expanded(
             child: BlocBuilder<BrokerBloc, BrokerState>(
               builder: (context, states) {
-                print("STTTTTTTTTTTTTTTTTTTTTTTTTTTTT is $filter}");
                 List<Broker> _brokers =
                     widget.filter == LocaleKeys.all_status_text.tr()
                         ? states.brokers

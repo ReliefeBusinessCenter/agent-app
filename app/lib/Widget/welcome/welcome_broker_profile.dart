@@ -87,23 +87,10 @@ class WelcomeBrokersProfilePage extends StatelessWidget {
       divider,
       WorkSection(broker: broker),
       divider,
-      _buildPortifolioSection(context),
-      Expanded(
-        child: Container(),
-      ),
+      
+     
     ]);
   }
 }
 
-Widget _buildPortifolioSection(BuildContext context) {
-  return Container(
-    margin: EdgeInsets.all(10),
-    child: Column(
-      children: [
-        Text(
-          'Portifolio',
-        ),
-      ],
-    ),
-  );
-}
+

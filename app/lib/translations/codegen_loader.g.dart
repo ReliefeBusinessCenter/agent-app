@@ -146,7 +146,16 @@ class CodegenLoader extends AssetLoader{
   "reject_btn_label_text": "ውድቅ አድርግ",
   "are_you_sure_reject_label_text": "እርግጠኛ ነህ አለመቀበል ትፈልጋለህ",
   "search_customers_label_text": "ደንበኞችን ፈልግ",
-  "favorite_label_text": "የተወደዱ"
+  "favorite_label_text": "የተወደዱ",
+  "//comment//11": "Welcome page detail",
+  "profile_label_text": "መገለጫ",
+  "views_label_text": "እይታዎች",
+  "contact_phone_label_text": "የእውቂያ ስልክ",
+  "about_label_text": "ስለ ደላላ",
+  "//comment//12": "broker detail page",
+  "broker_detail_label_text": "ደላላ ዝርዝር",
+  "broker_skills_registration_label_text": "ደላላ ችሎታ ምዝገባ",
+  "tell_us_about_your_self_label_text": "ስለ እርስዎ ይንገሩን..."
 };
 static const Map<String,dynamic> en = {
   "app_name": "Broker app",
@@ -280,7 +289,16 @@ static const Map<String,dynamic> en = {
   "reject_btn_label_text": "Reject",
   "are_you_sure_reject_label_text": "Are you sure you want to reject this work",
   "search_customers_label_text": "Search Customers",
-  "favorite_label_text": "Favorite"
+  "favorite_label_text": "Favorite",
+  "//comment//11": "Welcome page detail",
+  "profile_label_text": "Profile",
+  "views_label_text": "Views",
+  "contact_phone_label_text": "Contact Phone",
+  "about_label_text": "About broker",
+  "//comment//12": "broker detail page",
+  "broker_detail_label_text": "broker detail",
+  "broker_skills_registration_label_text": "Broker skills registration",
+  "tell_us_about_your_self_label_text": "Tell us about your self..."
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"am": am, "en": en};
 }

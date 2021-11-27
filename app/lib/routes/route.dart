@@ -1,4 +1,5 @@
 import 'package:app/Widget/common/user_profile_edit_page.dart';
+import 'package:app/model/broker/broker.dart';
 import 'package:app/model/customer/customer.dart';
 import 'package:app/model/deals.dart';
 import 'package:app/model/delivery.dart';
@@ -39,7 +40,10 @@ class AppRoutes {
     } else if (settings.name == BrokerAccountScreen.routeName) {
       return MaterialPageRoute(builder: (context) => BrokerAccountScreen());
     } else if (settings.name == SavingAndLoan.routeName) {
-      return MaterialPageRoute(builder: (context) => SavingAndLoan());
+      Broker _broker = settings.arguments as Broker;
+      return MaterialPageRoute(builder: (context) => SavingAndLoan(
+        broker: _broker,
+      ));
     } else if (settings.name == BrokerMain.routeName) {
       return MaterialPageRoute(builder: (context) => BrokerMain());
       // } else if (settings.name == BrokersProfilePage.routeName) {
@@ -63,11 +67,11 @@ class AppRoutes {
     // user profile
     // else if (settings.name == UserProfilePage.routeName) {
     //   User user = settings.arguments as User;
-      
+
     //   return MaterialPageRoute(
     //     builder: (context) => UserProfilePage(user: user,),
     //   );
-    // } 
+    // }
     else if (settings.name == UserProfileEditPage.routeName) {
       Customer _customer = settings.arguments as Customer;
       return MaterialPageRoute(
@@ -113,12 +117,13 @@ class AppRoutes {
     } else if (settings.name == AdminCustomerDeliveryDetails.routeName) {
       Delivery delivery = settings.arguments as Delivery;
       return MaterialPageRoute(
-        builder: (context) => AdminCustomerDeliveryDetails(delivery: delivery,),
+        builder: (context) => AdminCustomerDeliveryDetails(
+          delivery: delivery,
+        ),
       );
-    }else if (settings.name == AdminCategory.routeName)
+    } else if (settings.name == AdminCategory.routeName)
       return MaterialPageRoute(builder: (context) => AdminCategory());
-
-     else if (settings.name == PasswordReset.routeName)
+    else if (settings.name == PasswordReset.routeName)
       return MaterialPageRoute(builder: (context) => PasswordReset());
     // admin
     else if (settings.name == AdminMainPage.routeName) {
@@ -127,8 +132,7 @@ class AppRoutes {
       return MaterialPageRoute(builder: (context) => AdminDealPage());
     } else if (settings.name == AdminDeliveryPage.routeName) {
       return MaterialPageRoute(builder: (context) => AdminDeliveryPage());
-    }
-    else if (settings.name == AdminCustomersPage.routeName)
+    } else if (settings.name == AdminCustomersPage.routeName)
       return MaterialPageRoute(builder: (context) => AdminCustomersPage());
 
     // welcomepage

@@ -1,6 +1,5 @@
 import 'package:app/Widget/customer/deals_broker_profile.dart';
 import 'package:app/bloc/work-deals/bloc/workdeals_bloc.dart';
-import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
 import 'package:app/constants/constants.dart';
 import 'package:app/model/deals.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -8,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
+// ignore: must_be_immutable
 class AdminCustomerDealsDetail extends StatelessWidget {
   final Deals deals;
   AdminCustomerDealsDetail({required this.deals});

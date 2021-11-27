@@ -41,6 +41,8 @@ class _CustomerPageState extends State<CustomerPage> {
     );
   }
 
+  String _initialValue = "en";
+
   @override
   Widget build(BuildContext context) {
     filter = LocaleKeys.all_status_text.tr();
@@ -60,33 +62,42 @@ class _CustomerPageState extends State<CustomerPage> {
           ),
         ),
         actions: [
-          // if (_selectedIndex == 0)
-          PopupMenuButton(
-            onSelected: (index) {
-              print("Selected index is $index");
-              // if (index == 1) {
-              //   print("index is 1111111111111111111111111111111111");
-              //   setState(() {
-              //     filter = LocaleKeys.all_status_text.tr();
-              //   });
-              // } else if(index == 2) {
-              //   print("Index is 2222222222222222222222222222222222");
-              //   setState(() {
-              //     filter = LocaleKeys.favorite_label_text.tr();
-              //   });
-              // }
-            },
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                child: Text(LocaleKeys.all_status_text.tr()),
-                value: 1,
-              ),
-              PopupMenuItem(
-                child: Text(LocaleKeys.favorite_label_text.tr()),
-                value: 1,
-              ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                width: 50,
+                child: DropdownButtonFormField<String>(
+                    value: _initialValue,
+                    dropdownColor: primaryColor,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                    ),
+                    onChanged: (value) async {
+                      setState(() {
+                        _initialValue = value!;
+                      });
+                      await context.setLocale(Locale(value.toString()));
+                    },
+                    items: [
+                      DropdownMenuItem(
+                        child: Text(
+                          'EN',
+                          style: TextStyle(color: lightColor),
+                        ),
+                        value: 'en',
+                      ),
+                      DropdownMenuItem(
+                        child: Text(
+                          'አማ',
+                          style: TextStyle(color: lightColor),
+                        ),
+                        value: 'am',
+                      )
+                    ]),
+              )
             ],
-          ),
+          )
         ],
       ),
       drawer: Theme(

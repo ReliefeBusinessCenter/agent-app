@@ -120,5 +120,12 @@ abstract class  LocaleKeys {
   static const are_you_sure_reject_label_text = 'are_you_sure_reject_label_text';
   static const search_customers_label_text = 'search_customers_label_text';
   static const favorite_label_text = 'favorite_label_text';
+  static const profile_label_text = 'profile_label_text';
+  static const views_label_text = 'views_label_text';
+  static const contact_phone_label_text = 'contact_phone_label_text';
+  static const about_label_text = 'about_label_text';
+  static const broker_detail_label_text = 'broker_detail_label_text';
+  static const broker_skills_registration_label_text = 'broker_skills_registration_label_text';
+  static const tell_us_about_your_self_label_text = 'tell_us_about_your_self_label_text';
 
 }
