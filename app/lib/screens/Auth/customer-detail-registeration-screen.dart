@@ -75,7 +75,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                 context: context,
                 dialogType: DialogType.ERROR,
                 animType: AnimType.BOTTOMSLIDE,
-                title: 'Order Creating failed',
+                title: 'Failed to create Broker',
                 desc: 'Fill all the information carefully!',
                 // btnCancelOnPress: () {
                 //   Navigator.popAndPushNamed(context, Login.routeName);
@@ -247,7 +247,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                     LocaleKeys.id_photo_label_text.tr(),
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
-                                  ),
+                                  ), 
                                   SizedBox(
                                     height: 20.0,
                                   ),

@@ -60,7 +60,7 @@ class Broker {
         reviews!.add(new Reviews.fromJson(v));
       });
     }
-    skills =
+    skills = 
         json['skills'] != null ? new Skills.fromJson(json['skills']) : null;
     category = json['category'] != null
         ? new Category.fromJson(json['category'])
@@ -78,6 +78,8 @@ class Broker {
     if (this.portfolios != null) {
       data['portfolios'] = this.portfolios!.map((v) => v.toJson()).toList();
     }
+
+    
     if (this.delivery != null) {
       data['delivery'] = this.delivery!.map((v) => v.toJson()).toList();
     }

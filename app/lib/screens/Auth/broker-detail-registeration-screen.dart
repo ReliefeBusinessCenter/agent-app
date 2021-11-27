@@ -144,7 +144,7 @@ class BrokerDetailScreen extends StatelessWidget {
                                                       skill:
                                                           double.parse(value)));
                                             },
-                                            keyboardType: TextInputType.text,
+                                            keyboardType: TextInputType.number,
                                           ),
                                           SizedBox(
                                             height: MediaQuery.of(context)
@@ -154,7 +154,8 @@ class BrokerDetailScreen extends StatelessWidget {
                                           ),
                                           CustomTextField(
                                               minLength: 0,
-                                              keyboardType: TextInputType.text,
+                                              keyboardType:
+                                                  TextInputType.number,
                                               enabled: true,
                                               textFieldName: LocaleKeys
                                                   .broker_label_text

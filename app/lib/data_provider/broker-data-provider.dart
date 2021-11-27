@@ -127,29 +127,30 @@ class BrokerDataProvider {
     try {
       // final url = Uri.parse('http://csv.jithvar.com/api/v1/orders');
       final url = Uri.parse('${Ip.ip}/api/brokers/');
+
       var request = http.MultipartRequest(
           'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
+      var request2 = http.MultipartRequest(
+          'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
+
       print("request");
 
       request.files.add(await http.MultipartFile.fromPath(
           'file', broker.user!.picture as String));
-      print("added to multipart");
+      print("added profile image");
 
       var res = await http.Response.fromStream(await request.send());
 
-      var requestId = http.MultipartRequest(
-          'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
       print("request");
 
-      requestId.files.add(await http.MultipartFile.fromPath(
+      request2.files.add(await http.MultipartFile.fromPath(
           'file', broker.user!.identificationCard as String));
-      print("added to multipart");
+      print("added Identification card");
 
-      var resId = await http.Response.fromStream(await request.send());
-
+      var resId = await http.Response.fromStream(await request2.send());
 
       print("Image Upload Response: ${res.statusCode}");
-      if (res.statusCode == 200) {
+      if (res.statusCode == 200 && resId.statusCode == 200) {
         final response = await http.post(url,
             headers: {
               'Content-Type': 'application/json',
@@ -176,11 +177,14 @@ class BrokerDataProvider {
               // },
               "user": {
                 "fullName": broker.user!.fullName,
-                "email": broker.user!.email,
+                "email": "Someone@gmail.com",
                 "password": broker.user!.password,
-                "phone": '123456789',
+                "phone": broker.user!.phone,
                 // "address": "Ethiopia/Dessie",
                 "picture": res.body.toString(),
+                "city": broker.user!.city,
+                "subcity": broker.user!.subCity,
+                "kebele": broker.user!.kebele,
                 "sex": broker.user!.sex,
                 "identificationCard": resId.body.toString(),
                 "role": broker.user!.role,
@@ -378,7 +382,6 @@ class BrokerDataProvider {
         } else {
           throw Exception(res.body);
         }
-        
       }
     } catch (e) {
       throw Exception("Something went wrong");

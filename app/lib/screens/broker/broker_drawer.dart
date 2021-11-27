@@ -1,6 +1,5 @@
 import 'package:app/Widget/Drawer/custom_list.dart';
 import 'package:app/Widget/common/broker_profile.dart';
-import 'package:app/bloc/auth/bloc/auth_bloc.dart';
 import 'package:app/bloc/broker/bloc/broker_bloc.dart';
 import 'package:app/constants/constants.dart';
 import 'package:app/ip/ip.dart';

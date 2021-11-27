@@ -20,3 +20,4 @@ class SaveloanFetchSucces extends SaveloanState {
   final List<SaveLoan> saveloan;
   SaveloanFetchSucces(this.saveloan);
 }
+

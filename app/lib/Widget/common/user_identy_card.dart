@@ -21,7 +21,7 @@ class UserIdentityCard extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: CachedNetworkImage(
         imageUrl:
-            "${Ip.ip}/api/users/get/?fileName=${user.picture as String}",
+            "${Ip.ip}/api/users/get/?fileName=${user.identificationCard ?? user.picture as String}",
         imageBuilder: (context, imageProvider) => Container(
           width: size.width,
           height: size.height * 0.3,

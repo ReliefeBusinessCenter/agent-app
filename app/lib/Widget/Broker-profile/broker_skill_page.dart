@@ -1,9 +1,13 @@
+import 'package:app/model/broker/skills.dart';
 import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+
 class BrokerSkillsPage extends StatelessWidget {
-  // final Skills skill;
-  const BrokerSkillsPage({Key? key}) : super(key: key);
+  final Skills skill;
+  const BrokerSkillsPage({
+    required this.skill,
+    Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,18 +26,20 @@ class BrokerSkillsPage extends StatelessWidget {
           ),
           SizedBox(height: 20.0),
           BrokersSkillList(
+            amount: skill.communicationSkill!,
             iconData: Icons.commute_rounded,
             name: LocaleKeys.communicative_skills_label_text.tr(),
           ),
           BrokersSkillList(
+            amount: skill.brokingSkill!,
             name: LocaleKeys.broking_skills_label_text.tr(),
             iconData: Icons.broken_image_rounded,
           ),
           BrokersSkillList(
-            iconData: Icons.work,
-            name: LocaleKeys.work_done_label_text.tr()
-          ),
+            amount: skill.workDone!,
+              iconData: Icons.work, name: LocaleKeys.work_done_label_text.tr()),
           BrokersSkillList(
+            amount: skill.workInProgress!,
             iconData: Icons.confirmation_num,
             name: LocaleKeys.Work_in_progress_label_text.tr(),
           ),
@@ -48,11 +54,11 @@ class BrokerSkillsPage extends StatelessWidget {
 }
 
 class BrokersSkillList extends StatelessWidget {
-  // final Skills skills;
+  final double amount;
   final IconData iconData;
   final String name;
   const BrokersSkillList({
-    // required this.skills,
+    required this.amount,
     required this.iconData,
     required this.name,
     Key? key,
@@ -85,7 +91,7 @@ class BrokersSkillList extends StatelessWidget {
                 ],
               ),
               Text(
-                '54',
+                amount.toStringAsFixed(0),
                 style: TextStyle(fontSize: 18.0),
               ),
             ],

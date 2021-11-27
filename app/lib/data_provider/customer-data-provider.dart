@@ -93,25 +93,27 @@ class CustomerDataProvider {
 
       // image upload
 
+     
       var request = http.MultipartRequest(
           'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
+      var request2 = http.MultipartRequest(
+          'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
+
       print("request");
 
       request.files.add(await http.MultipartFile.fromPath(
           'file', customer.user!.picture as String));
-      print("added to multipart");
+      print("added profile image");
 
       var res = await http.Response.fromStream(await request.send());
 
-       var requestId = http.MultipartRequest(
-          'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
       print("request");
 
-      requestId.files.add(await http.MultipartFile.fromPath(
+      request2.files.add(await http.MultipartFile.fromPath(
           'file', customer.user!.identificationCard as String));
-      print("added to multipart");
+      print("added Identification card");
 
-      var resId = await http.Response.fromStream(await request.send());
+      var resId = await http.Response.fromStream(await request2.send());
 
       print("Image Upload Response: ${res.statusCode}");
       if (res.statusCode == 200 && resId.statusCode == 200){

@@ -15,7 +15,11 @@ class CreateSaveLoanEvent extends SaveloanEvent {
   });
 }
 
-class SaveLoanSuccessEvent extends SaveloanEvent {}
+class SaveLoanSuccessEvent extends SaveloanEvent {
+  
+}
 
-class SaveLoanFetchEvent extends SaveloanEvent {}
-
+class SaveLoanFetchEvent extends SaveloanEvent {
+  
+  
+}

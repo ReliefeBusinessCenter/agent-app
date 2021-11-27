@@ -134,7 +134,7 @@ class BrokerBrokerDealsDetail extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
-                            "Deal status",
+                            LocaleKeys.deal_status_label_text.tr(),
                             style: TextStyle(
                                 color: primaryColor,
                                 fontWeight: FontWeight.bold,
@@ -142,7 +142,7 @@ class BrokerBrokerDealsDetail extends StatelessWidget {
                           ),
                           deals.dealsStatus == "Accepted"
                               ? Text(
-                                  "Accepted",
+                                  LocaleKeys.accepted_status_text.tr(),
                                   style: TextStyle(
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold,
@@ -151,7 +151,7 @@ class BrokerBrokerDealsDetail extends StatelessWidget {
                                 )
                               : deals.dealsStatus == "Pending"
                                   ? Text(
-                                      "Pending",
+                                      LocaleKeys.pending_status_text.tr(),
                                       style: TextStyle(
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.bold,
@@ -159,14 +159,14 @@ class BrokerBrokerDealsDetail extends StatelessWidget {
                                       ),
                                     )
                                   :deals.dealsStatus == "Rejected"? Text(
-                                      "Rejected",
+                                      LocaleKeys.rejected_status_text.tr(),
                                       style: TextStyle(
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.green[600],
                                       ),
                                     ):Text(
-                                      "Done",
+                                      LocaleKeys.done_btn_label_text.tr(),
                                       style: TextStyle(
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.bold,

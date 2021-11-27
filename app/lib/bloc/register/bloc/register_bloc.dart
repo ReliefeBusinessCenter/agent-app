@@ -67,13 +67,15 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       print("Users: ${user.toJson()}");
       yield RegisterUpdateSuccess(user: user);
     } else if (event is AddImage) {
+      print("++++This is the profile image: ${event.image}");
       // user = state.user as User;
       user.picture = event.image;
 
       print("Users: ${user.toJson()}");
       yield RegisterUpdateSuccess(user: user);
-    }else if (event is AddIdImage) {
+    } else if (event is AddIdImage) {
       // user = state.user as User;
+      print("++++This is the identification card: ${event.image}");
       user.identificationCard = event.image;
 
       print("Users: ${user.toJson()}");
@@ -139,8 +141,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       broker.skills!.about = event.about;
       print("Broker: ${broker.toJson()}");
       yield RegisterUpdateSuccess(user: user, broker: broker);
-    }
-     else if (event is AddWorkInProgress) {
+    } else if (event is AddWorkInProgress) {
       // add work in progress
       // broker = state.broker as Broker;
       broker.skills!.workInProgress = event.skill;
@@ -179,6 +180,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         // broker registeration
 
         broker.user = user;
+        print("Broker to be registered: ${broker.toJson()}");
         bool isCreated = await this.brokersRepository.createBroker(broker);
         if (isCreated == true) {
           // created success

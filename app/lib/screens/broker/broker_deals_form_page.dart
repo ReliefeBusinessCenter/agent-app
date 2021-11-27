@@ -239,7 +239,10 @@ class _DealsPageScreenState extends State<DealsPageScreen> {
                                       enabled: false,
                                       controller: clientAdressController,
                                       initialValue:
-                                          widget.customer.user!.city as String,
+                                          widget.customer.user!.city != null
+                                              ? widget.customer.user!.city!
+                                                  as String
+                                              : "Unknown",
                                       validator: null,
                                       obsecureText: false,
                                       isRequired: false,

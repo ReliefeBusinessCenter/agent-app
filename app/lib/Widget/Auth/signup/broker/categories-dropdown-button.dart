@@ -1,4 +1,5 @@
 import 'package:app/bloc/category/bloc/category_bloc.dart';
+import 'package:app/bloc/register/bloc/register_bloc.dart';
 import 'package:app/model/broker/category.dart';
 
 import 'package:flutter/material.dart';
@@ -15,12 +16,12 @@ class CategoryDropDownButton extends StatefulWidget {
 
 class _CategoryDropDownButtonState extends State<CategoryDropDownButton> {
   late CategoryBloc categoryBloc;
-  // late RegisterBloc registerBloc;
+  late RegisterBloc registerBloc;
   Category? value = null;
   // late OrdersBloc ordersBloc;
   @override
   Widget build(BuildContext context) {
-    // registerBloc = BlocProvider.of<RegisterBloc>(context);
+    registerBloc = BlocProvider.of<RegisterBloc>(context);
     // ordersBloc = BlocProvider.of<OrdersBloc>(context);
     categoryBloc = BlocProvider.of<CategoryBloc>(context);
 
@@ -52,6 +53,9 @@ class _CategoryDropDownButtonState extends State<CategoryDropDownButton> {
 
         }
         if (state is CategoryLoadSuccess) {
+           registerBloc
+                          .add(AddBrokerType(category: state.category[0]));
+         
           return CategoryCustomeDropDownButton(
               dropDownItems: dropDownItems,
               onChanged: (String value) {
