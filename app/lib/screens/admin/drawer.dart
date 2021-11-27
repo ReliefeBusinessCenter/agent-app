@@ -7,6 +7,7 @@ import 'package:app/screens/admin/admin_category.dart';
 import 'package:app/screens/admin/admin_city.dart';
 import 'package:app/screens/admin/admin_deals_page.dart';
 import 'package:app/screens/admin/admin_delivery_page.dart';
+import 'package:app/screens/admin/admin_saveloan_page.dart';
 import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -177,7 +178,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
                               onPressed: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => AdminCity(),
+                                    builder: (context) => AdminSaveLoan(),
                                   ),
                                 );
                               },
