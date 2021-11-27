@@ -6,7 +6,9 @@ class SaveLoanRepository {
   SaveLoanRepository({required this.saveLoanDataProvider});
 
   // create save and loan
-  Future<SaveLoan> createSaveLoan(SaveLoan saveLoan) async {
-    return await saveLoanDataProvider.createSaveLoan(saveLoan);
+  Future<SaveLoan> createSaveLoan(SaveLoan saveLoan, bool isProfileImageChanged,
+      bool isIdImageChanged) async {
+    return await saveLoanDataProvider.createSaveLoan(saveLoan,  isProfileImageChanged,
+       isIdImageChanged);
   }
 }

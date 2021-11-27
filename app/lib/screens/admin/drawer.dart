@@ -131,7 +131,8 @@ class _AdminDrawerState extends State<AdminDrawer> {
                               currentAccountPicture: photo,
                               arrowColor: Theme.of(context).accentColor,
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor,),
+                                color: Theme.of(context).primaryColor,
+                              ),
                             ),
                             Divider(
                                 height: 20,
@@ -164,6 +165,24 @@ class _AdminDrawerState extends State<AdminDrawer> {
                               },
                             ),
                             CustomeList(
+                              title:
+                                  LocaleKeys.saving_and_loans_label_text.tr(),
+                              subTitle: LocaleKeys
+                                  .saving_and_loans_subtitle_label_text
+                                  .tr(),
+                              icon: Icon(
+                                Icons.location_city,
+                                color: Colors.white,
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => AdminCity(),
+                                  ),
+                                );
+                              },
+                            ),
+                            CustomeList(
                               title: LocaleKeys.deals_label_text.tr(),
                               subTitle: LocaleKeys.see_deals_label_text.tr(),
                               icon: Icon(
@@ -178,7 +197,8 @@ class _AdminDrawerState extends State<AdminDrawer> {
                             ),
                             CustomeList(
                               title: LocaleKeys.delivery_label_text.tr(),
-                              subTitle: LocaleKeys.see_deliveries_label_text.tr(),
+                              subTitle:
+                                  LocaleKeys.see_deliveries_label_text.tr(),
                               icon: Icon(
                                 Icons.support_agent,
                                 color: Colors.white,
@@ -186,8 +206,9 @@ class _AdminDrawerState extends State<AdminDrawer> {
                               onPressed: () {
                                 print("Setting apge");
                                 Navigator.pushNamed(
-                                    context, AdminDeliveryPage.routeName,
-                                    );
+                                  context,
+                                  AdminDeliveryPage.routeName,
+                                );
                               },
                             ),
                             SizedBox(
@@ -214,8 +235,11 @@ class _AdminDrawerState extends State<AdminDrawer> {
                                     // Navigator.pop(context);
                                     // Navigator.popAndPushNamed(
                                     //     context, Login.routeName);
-                                     Navigator.of(context).pushNamedAndRemoveUntil(
-                                  Login.routeName, (route) => false,);
+                                    Navigator.of(context)
+                                        .pushNamedAndRemoveUntil(
+                                      Login.routeName,
+                                      (route) => false,
+                                    );
                                   }),
                             ),
                           ],

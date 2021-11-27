@@ -2,11 +2,12 @@
 import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
 import 'package:app/model/delivery.dart';
 import 'package:app/screens/customer/customer_delivery_detail.dart';
+import 'package:app/translations/locale_keys.g.dart';
 // import 'package:app/model/work.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 class WorkItem extends StatelessWidget {
   late WorkBloc workBloc;
   final Delivery work;
@@ -68,9 +69,9 @@ class WorkItem extends StatelessWidget {
                         context: context,
                         dialogType: DialogType.INFO,
                         animType: AnimType.BOTTOMSLIDE,
-                        title: 'Action Not Allowed',
+                        title: LocaleKeys.action_not_allowed_label_text.tr(),
                         desc:
-                            'To change the done status of this work, the broker should respond first',
+                           LocaleKeys.to_change_the_done_status.tr(),
                         btnCancelOnPress: () {},
                         btnOkOnPress: () {},
                       )..show();
@@ -83,8 +84,8 @@ class WorkItem extends StatelessWidget {
                         context: context,
                         dialogType: DialogType.WARNING,
                         animType: AnimType.BOTTOMSLIDE,
-                        title: 'Confirm Us',
-                        desc: 'Are you sure you want to delete this work?',
+                        title: LocaleKeys.confirm_us_label_text.tr(),
+                        desc: LocaleKeys.are_you_sure_label_text.tr(),
                         btnCancelOnPress: () {},
                         btnOkOnPress: () {
                           workBloc.add(DeleteWork(work: work));

@@ -1,6 +1,5 @@
 import 'package:app/Widget/Drawer/custom_list.dart';
 import 'package:app/Widget/common/broker_profile.dart';
-import 'package:app/bloc/auth/bloc/auth_bloc.dart';
 import 'package:app/bloc/broker/bloc/broker_bloc.dart';
 import 'package:app/constants/constants.dart';
 import 'package:app/ip/ip.dart';
@@ -119,22 +118,23 @@ class _BrokerDrawerState extends State<BrokerDrawer> {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  if(_broker != null){
-                    Navigator.pushNamed(context, SavingAndLoan.routeName, arguments: _broker);
+                  if (_broker != null) {
+                    Navigator.pushNamed(
+                      context,
+                      SavingAndLoan.routeName,
+                      arguments: _broker,
+                    );
                   }
                 },
               ),
-              ListTile(
-                title: Text(LocaleKeys.settings_label_text.tr(),
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15)),
-                subtitle: Text(LocaleKeys.settings_label_subtitle_text.tr()),
-                leading: Icon(
+              CustomeList(
+                title: LocaleKeys.settings_label_text.tr(),
+                subTitle: LocaleKeys.settings_label_subtitle_text.tr(),
+                icon: Icon(
                   Icons.settings,
                   color: Colors.white,
                 ),
+                onPressed: () {},
               ),
               CustomeList(
                 title: LocaleKeys.share_label_text.tr(),

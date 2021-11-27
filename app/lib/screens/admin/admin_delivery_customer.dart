@@ -3,10 +3,12 @@ import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
 import 'package:app/constants.dart';
 import 'package:app/model/broker/broker.dart';
 import 'package:app/model/delivery.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 // ignore: must_be_immutable
 class AdminCustomerDeliveryDetails extends StatelessWidget {
@@ -25,30 +27,30 @@ class AdminCustomerDeliveryDetails extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
           title: Text(
-            'Delivery Detail',
+            LocaleKeys.delivery_details_label_text.tr(),
             style: TextStyle(fontSize: 18),
           ),
           actions: <Widget>[
             PopupMenuButton(
-              onSelected: (index){
-                if(index == 1){
+              onSelected: (index) {
+                if (index == 1) {
                   AwesomeDialog(
-                        context: context,
-                        dialogType: DialogType.WARNING,
-                        animType: AnimType.BOTTOMSLIDE,
-                        title: 'Confirm Us',
-                        desc: 'Are you sure you want to delete this work?',
-                        btnCancelOnPress: () {},
-                        btnOkOnPress: () {
-                          workBloc.add(DeleteWork(work: delivery));
-                          // Navigator.pop(context);
-                        },
-                      )..show();
+                    context: context,
+                    dialogType: DialogType.WARNING,
+                    animType: AnimType.BOTTOMSLIDE,
+                    title: LocaleKeys.confirm_us_label_text.tr(),
+                    desc: "${LocaleKeys.are_you_sure_label_text.tr()}",
+                    btnCancelOnPress: () {},
+                    btnOkOnPress: () {
+                      workBloc.add(DeleteWork(work: delivery));
+                      // Navigator.pop(context);
+                    },
+                  )..show();
                 }
               },
               itemBuilder: (context) => [
                 PopupMenuItem(
-                  child: Text("Delete"),
+                  child: Text(LocaleKeys.delete_btn_label_text.tr()),
                   value: 1,
                 ),
               ],
@@ -79,7 +81,7 @@ class AdminCustomerDeliveryDetails extends StatelessWidget {
                 //       isShowing = true;
                 //     });
                 // }
-                progress!.showWithText("Updating");
+                progress!.showWithText(LocaleKeys.updating_label_text.tr());
                 print("delivery creating  method called");
               } else if (state is DeleteSuccessState) {
                 // deleting success
@@ -114,7 +116,7 @@ class AdminCustomerDeliveryDetails extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text(
-                                "Delivery status",
+                                LocaleKeys.delivery_status_label_text.tr(),
                                 style: TextStyle(
                                     color: primaryColor,
                                     fontWeight: FontWeight.bold,
@@ -122,7 +124,7 @@ class AdminCustomerDeliveryDetails extends StatelessWidget {
                               ),
                               delivery.deliveryStatus == "Accepted"
                                   ? Text(
-                                      "Accepted",
+                                      LocaleKeys.accepted_status_text.tr(),
                                       style: TextStyle(
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.bold,
@@ -131,21 +133,28 @@ class AdminCustomerDeliveryDetails extends StatelessWidget {
                                     )
                                   : delivery.deliveryStatus == "Pending"
                                       ? Text(
-                                          "Pending",
+                                          LocaleKeys.pending_status_text.tr(),
                                           style: TextStyle(
                                             fontSize: 18.0,
                                             fontWeight: FontWeight.bold,
                                             color: Colors.grey,
                                           ),
                                         )
-                                      : Text(
-                                          "Done",
+                                      :delivery.deliveryStatus == "Rejected"? Text(
+                                          LocaleKeys.rejected_status_text.tr(),
                                           style: TextStyle(
                                             fontSize: 18.0,
                                             fontWeight: FontWeight.bold,
                                             color: Colors.green[600],
                                           ),
-                                        )
+                                        ):Text(
+                                          LocaleKeys.done_status_text.tr(),
+                                          style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.green[600],
+                                          ),
+                                        ),
                             ],
                           ),
                         )),

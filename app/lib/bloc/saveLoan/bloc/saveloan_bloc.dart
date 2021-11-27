@@ -16,7 +16,7 @@ class SaveloanBloc extends Bloc<SaveloanEvent, SaveloanState> {
       yield SaveloanLoading();
       try {
         SaveLoan _saveLoan =
-            await saveLoanRepository.createSaveLoan(event.saveLoan);
+            await saveLoanRepository.createSaveLoan(event.saveLoan, event.isProfileImageChanged, event.isIdImageChanged);
         if (_saveLoan is SaveLoan) {
           yield SaveloanSuccess(_saveLoan);
         } else {

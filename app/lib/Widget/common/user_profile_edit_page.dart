@@ -85,12 +85,14 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
                           kebele: _userData['kebele'],
                           buys: widget.customer.user!.buys,
                           password: widget.customer.user!.password,
-                          picture: _imageFile != null ? _imageFile!.path: widget.customer.user!.picture,
+                          picture: _imageFile != null
+                              ? _imageFile!.path
+                              : widget.customer.user!.picture,
                           role: widget.customer.user!.role,
                           sex: widget.customer.user!.sex,
                           userId: widget.customer.user!.userId));
                   BlocProvider.of<CustomerBloc>(context)
-                      .add(UpdateCustomerEvent(_customer,_imageFile != null));
+                      .add(UpdateCustomerEvent(_customer, _imageFile != null));
                   Navigator.of(context).pop();
                 }
               },
@@ -156,7 +158,7 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
                   },
                   validator: (value) {
                     if (value.isEmpty) {
-                      return "Field is Required!";
+                      return LocaleKeys.field_required_label_text.tr();
                     }
                   },
                 ),
@@ -174,7 +176,7 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
                       },
                       validator: (value) {
                         if (value.isEmpty) {
-                          return "Field is Required!";
+                          return LocaleKeys.field_required_label_text.tr();
                         }
                       },
                     ),
@@ -188,13 +190,13 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
                       },
                       validator: (value) {
                         if (value.isEmpty) {
-                          return "Field is Required!";
+                          return LocaleKeys.field_required_label_text.tr();
                         }
                       },
                     ),
                     ProfileFormField(
                       initialValue: widget.customer.user!.city == null
-                          ? "City Name"
+                          ? LocaleKeys.city_name_label_text.tr()
                           : widget.customer.user!.city!,
                       name: LocaleKeys.city_form_label_text.tr(),
                       onSaved: (value) {
@@ -204,13 +206,13 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
                       },
                       validator: (value) {
                         if (value.isEmpty) {
-                          return "Field is Required!";
+                          return LocaleKeys.field_required_label_text.tr();
                         }
                       },
                     ),
                     ProfileFormField(
                       initialValue: widget.customer.user!.subCity == null
-                          ? "Sub city name"
+                          ? LocaleKeys.subcity_name_label_text.tr()
                           : widget.customer.user!.subCity!,
                       name: LocaleKeys.subcity_label_text.tr(),
                       onSaved: (value) {
@@ -220,13 +222,13 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
                       },
                       validator: (value) {
                         if (value.isEmpty) {
-                          return "Field is Required!";
+                          return LocaleKeys.field_required_label_text.tr();
                         }
                       },
                     ),
                     ProfileFormField(
                       initialValue: widget.customer.user!.kebele == null
-                          ? "Kebele"
+                          ? LocaleKeys.kebele_label_text.tr()
                           : widget.customer.user!.kebele!,
                       name: LocaleKeys.kebele_label_text.tr(),
                       onSaved: (value) {
@@ -236,7 +238,7 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
                       },
                       validator: (value) {
                         if (value.isEmpty) {
-                          return "Field is Required!";
+                          return LocaleKeys.field_required_label_text.tr();
                         }
                       },
                     ),

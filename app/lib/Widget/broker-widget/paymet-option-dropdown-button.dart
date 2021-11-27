@@ -1,8 +1,10 @@
 import 'package:app/Widget/Auth/signup/signp-customeDropDown.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';
+import 'package:app/translations/locale_keys.g.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class PaymentOptionDropDown extends StatefulWidget {
   final TextEditingController paymentOptionController;
@@ -20,7 +22,7 @@ class _PaymentOptionDropDownState extends State<PaymentOptionDropDown> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Payment Option'),
+        Text(LocaleKeys.payment_option_label_text.tr()),
         SizedBox(height: MediaQuery.of(context).size.height * 0.001),
         CustomeDropDownButton(
           dropDownItems: [
@@ -30,7 +32,7 @@ class _PaymentOptionDropDownState extends State<PaymentOptionDropDown> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 11.0),
                   child: Text(
-                    "On Hand",
+                    LocaleKeys.via_cash_label_text.tr(),
                     textAlign: TextAlign.start,
                   ),
                 ),
@@ -43,7 +45,7 @@ class _PaymentOptionDropDownState extends State<PaymentOptionDropDown> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 11.0),
                   child: Text(
-                    "Via Bank",
+                    LocaleKeys.via_bank_label_text.tr(),
                     textAlign: TextAlign.start,
                   ),
                 ),

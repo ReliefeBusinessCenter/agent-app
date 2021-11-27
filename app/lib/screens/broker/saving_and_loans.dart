@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:app/Widget/Auth/Common/material_form_field.dart';
 import 'package:app/Widget/Auth/signup/saving_id_image.dart';
 import 'package:app/Widget/Auth/signup/saving_profile_image.dart';
@@ -21,8 +23,7 @@ class SavingAndLoan extends StatefulWidget {
 }
 
 class _SavingAndLoanState extends State<SavingAndLoan> {
-  GlobalKey<FormState> _formKey =
-      GlobalKey<FormState>(debugLabel: "_savingAndLoan");
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String? profileImage;
   String? idImage;
 
@@ -43,8 +44,13 @@ class _SavingAndLoanState extends State<SavingAndLoan> {
       idImage = widget.broker.user!.identificationCard!;
       _saveLoanData['idPhoto'] = widget.broker.user!.identificationCard!;
       _saveLoanData['profilePhoto'] = widget.broker.user!.picture!;
+      _saveLoanData['fullName'] = widget.broker.user!.fullName;
+      _saveLoanData['phone'] = widget.broker.user!.phone;
     });
   }
+
+  File? _profileImage;
+  File? _idImage;
 
   @override
   Widget build(BuildContext context) {
@@ -52,9 +58,8 @@ class _SavingAndLoanState extends State<SavingAndLoan> {
     return Scaffold(
       backgroundColor: lightColor,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
-        title: Text("Create Wallet")
-      ),
+          backgroundColor: Theme.of(context).primaryColor,
+          title: Text(LocaleKeys.create_wallet_label_text.tr())),
       body: BlocBuilder<SaveloanBloc, SaveloanState>(
         builder: (context, state) {
           if (state is SaveloanLoading) {
@@ -81,7 +86,7 @@ class _SavingAndLoanState extends State<SavingAndLoan> {
                       ),
                       SavingCustomFormField(
                           initialValue: widget.broker.user!.fullName!,
-                          textFieldName: "Full Name",
+                          textFieldName: LocaleKeys.fullname_label_text.tr(),
                           isObsecure: false,
                           onChanged: (value) {
                             setState(() {
@@ -94,7 +99,7 @@ class _SavingAndLoanState extends State<SavingAndLoan> {
                       ),
                       SavingCustomFormField(
                           initialValue: widget.broker.user!.phone!,
-                          textFieldName: "Phone",
+                          textFieldName: LocaleKeys.phone_label_text.tr(),
                           onChanged: (value) {
                             setState(() {
                               _saveLoanData['phone'] = value;
@@ -115,6 +120,7 @@ class _SavingAndLoanState extends State<SavingAndLoan> {
                               image: widget.broker.user!.picture!,
                               pickImage: (image) {
                                 _saveLoanData['profilePhoto'] = image.path;
+                                _profileImage = image;
                               })),
                       SizedBox(height: 20.0),
                       Text(
@@ -130,6 +136,7 @@ class _SavingAndLoanState extends State<SavingAndLoan> {
                               pickImage: (image) {
                                 setState(() {
                                   _saveLoanData['idPhoto'] = image.path;
+                                  _idImage = image;
                                 });
                               })),
                       SizedBox(
@@ -165,8 +172,13 @@ class _SavingAndLoanState extends State<SavingAndLoan> {
                 picture: _saveLoanData['profilePhoto'],
                 identificationCard: _saveLoanData['idPhoto'],
               );
+              print(saveLoan.toString());
 
-              saveloanBloc.add(CreateSaveLoanEvent(saveLoan));
+              saveloanBloc.add(CreateSaveLoanEvent(
+                saveLoan: saveLoan,
+                isProfileImageChanged: _profileImage != null,
+                isIdImageChanged: _idImage != null,
+              ));
             }
             // AwesomeDialog(
             //   context: context,

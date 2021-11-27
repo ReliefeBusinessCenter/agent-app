@@ -5,10 +5,10 @@ class SaveLoan {
   String? identificationCard;
 
   SaveLoan({
-     this.fullName,
-     this.phone,
-     this.picture,
-     this.identificationCard,
+    this.fullName,
+    this.phone,
+    this.picture,
+    this.identificationCard,
   });
 
   factory SaveLoan.fromJson(Map<String, dynamic> json) {
@@ -32,5 +32,17 @@ class SaveLoan {
     data['picture'] = this.picture;
     data['identificationCard'] = this.identificationCard;
     return data;
+  }
+
+  @override
+  String toString() {
+    return """
+    SaveLoan{
+      fullName: ${this.fullName},
+      phone: ${this.phone},
+      picture: ${this.picture},
+      identificationCard: ${this.identificationCard}
+    }
+    """;
   }
 }

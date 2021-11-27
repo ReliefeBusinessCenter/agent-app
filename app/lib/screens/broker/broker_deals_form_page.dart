@@ -6,10 +6,12 @@ import 'package:app/Widget/broker-widget/paymet-option-dropdown-button.dart';
 import 'package:app/bloc/deals/bloc/deals_bloc.dart';
 import 'package:app/model/customer/customer.dart';
 import 'package:app/model/deals.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class DealsPageScreen extends StatefulWidget {
   final Customer customer;
@@ -75,7 +77,7 @@ class _DealsPageScreenState extends State<DealsPageScreen> {
     return Scaffold(
         backgroundColor: Theme.of(context).accentColor,
         appBar: AppBar(
-          title: Text("Deals Form"),
+          title: Text(LocaleKeys.deals_form_label_text.tr()),
           backgroundColor: Theme.of(context).primaryColor,
         ),
         body: SafeArea(
@@ -91,7 +93,7 @@ class _DealsPageScreenState extends State<DealsPageScreen> {
               //     });
 
               // }
-              progress!.showWithText("Creating");
+              progress!.showWithText(LocaleKeys.createing_label_text.tr());
             } else if (state is DealsCreateSuccess) {
               // this.isShowing = false;
               // registerBloc.add(Initialization());
@@ -104,8 +106,8 @@ class _DealsPageScreenState extends State<DealsPageScreen> {
                 context: context,
                 dialogType: DialogType.ERROR,
                 animType: AnimType.BOTTOMSLIDE,
-                title: 'Order Creating failed',
-                desc: 'Fill all the information carefully!',
+                title: LocaleKeys.order_creating_failed_label_text.tr(),
+                desc: LocaleKeys.fill_all_the_information_carefully_label_text.tr(),
                 // btnCancelOnPress: () {
                 //   Navigator.popAndPushNamed(context, Login.routeName);
                 // },
@@ -156,7 +158,7 @@ class _DealsPageScreenState extends State<DealsPageScreen> {
                                     left: MediaQuery.of(context).size.width *
                                         0.05),
                                 child: Text(
-                                  "New Deals Form",
+                                  LocaleKeys.new_deals_form_label_text.tr(),
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
@@ -177,7 +179,7 @@ class _DealsPageScreenState extends State<DealsPageScreen> {
                                   CustomTextField(
                                     minLength: 0,
                                     keyboardType: TextInputType.text,
-                                    textFieldName: 'Client Name',
+                                    textFieldName: LocaleKeys.client_name_label_text.tr(),
                                     controller: clientNameController,
                                     initialValue: "",
                                     enabled: false,
@@ -196,7 +198,7 @@ class _DealsPageScreenState extends State<DealsPageScreen> {
                                   CustomTextField(
                                       minLength: 0,
                                       keyboardType: TextInputType.number,
-                                      textFieldName: 'Client Phone Number',
+                                      textFieldName: LocaleKeys.client_phone_number_label_text.tr(),
                                       controller: clientPhoneController,
                                       enabled: false,
                                       initialValue:
@@ -233,7 +235,7 @@ class _DealsPageScreenState extends State<DealsPageScreen> {
                                   CustomTextField(
                                       minLength: 0,
                                       keyboardType: TextInputType.text,
-                                      textFieldName: 'Address',
+                                      textFieldName: LocaleKeys.address_label_text.tr(),
                                       enabled: false,
                                       controller: clientAdressController,
                                       initialValue:
@@ -256,7 +258,7 @@ class _DealsPageScreenState extends State<DealsPageScreen> {
                                       minLength: 0,
                                       keyboardType: TextInputType.text,
                                       enabled: true,
-                                      textFieldName: 'Product Name',
+                                      textFieldName: LocaleKeys.product_name_label_text.tr(),
                                       controller: productNameController,
                                       initialValue: '',
                                       validator: null,
@@ -274,7 +276,7 @@ class _DealsPageScreenState extends State<DealsPageScreen> {
                                       minLength: 0,
                                       enabled: true,
                                       keyboardType: TextInputType.text,
-                                      textFieldName: 'Product Model',
+                                      textFieldName: LocaleKeys.product_model_label_text.tr(),
                                       controller: productModelController,
                                       initialValue: '',
                                       validator: null,
@@ -292,7 +294,7 @@ class _DealsPageScreenState extends State<DealsPageScreen> {
                                       minLength: 0,
                                       enabled: true,
                                       keyboardType: TextInputType.number,
-                                      textFieldName: 'Quantity',
+                                      textFieldName: LocaleKeys.quantity_label_text_label.tr(),
                                       controller: productQuantityController,
                                       initialValue: '',
                                       validator: null,
@@ -315,7 +317,7 @@ class _DealsPageScreenState extends State<DealsPageScreen> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          "Choose color",
+                                          LocaleKeys.choose_color_label_text.tr(),
                                           style: TextStyle(
                                             fontSize: 18.0,
                                             color: Colors.grey[700],

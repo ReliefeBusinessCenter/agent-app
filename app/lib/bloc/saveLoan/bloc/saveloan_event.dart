@@ -6,7 +6,20 @@ abstract class SaveloanEvent {
 
 class CreateSaveLoanEvent extends SaveloanEvent {
   final SaveLoan saveLoan;
-  CreateSaveLoanEvent(this.saveLoan);
+  bool isProfileImageChanged;
+  bool isIdImageChanged;
+  CreateSaveLoanEvent({
+    required this.saveLoan,
+    required this.isProfileImageChanged,
+    required this.isIdImageChanged,
+  });
 }
 
-class SaveLoanSuccessEvent extends SaveloanEvent {}
+class SaveLoanSuccessEvent extends SaveloanEvent {
+  
+}
+
+class SaveLoanFetchEvent extends SaveloanEvent {
+  
+  
+}

@@ -72,7 +72,7 @@ class _BrokerProfileState extends State<BrokerProfile> {
             body: SafeArea(
               child: Container(
                 child: Center(
-                  child: Text("Something went wrong"),
+                  child: Text(LocaleKeys.something_went_wrong_label_text.tr()),
                 ),
               ),
             ),
@@ -280,7 +280,7 @@ class _BrokerProfileState extends State<BrokerProfile> {
                   )),
               body: SafeArea(
                   child: Container(
-                      child: Center(child: Text("Something went wrong")))));
+                      child: Center(child: Text(LocaleKeys.something_went_wrong_label_text.tr())))));
         }
       },
     );

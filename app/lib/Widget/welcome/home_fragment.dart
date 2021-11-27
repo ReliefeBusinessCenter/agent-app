@@ -21,9 +21,10 @@ class _WelcomeHomeFragmentState extends State<WelcomeHomeFragment> {
 
   late CategoryBloc categoryBloc;
   String _initialValue = "en";
-
+ 
   @override
   Widget build(BuildContext context) {
+     _initialValue = context.locale.languageCode;
     // Category category= new Category();
     _initialValue = context.locale.languageCode;
     brokerBloc = BlocProvider.of<BrokerBloc>(context);
@@ -37,9 +38,8 @@ class _WelcomeHomeFragmentState extends State<WelcomeHomeFragment> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Image.asset("assets/images/logo_welcome.png")
-              ),
+                  padding: const EdgeInsets.all(10.0),
+                  child: Image.asset("assets/images/logo_welcome.png")),
               Container(
                 width: 50,
                 child: DropdownButtonFormField<String>(
@@ -55,7 +55,6 @@ class _WelcomeHomeFragmentState extends State<WelcomeHomeFragment> {
                     },
                     items: [
                       DropdownMenuItem(
-                        
                         child: Text(
                           'EN',
                           style: TextStyle(color: primaryColor),

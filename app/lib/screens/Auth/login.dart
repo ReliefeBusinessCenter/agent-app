@@ -93,6 +93,7 @@ class _LoginState extends State<Login> {
         backgroundColor: Theme.of(context).primaryColor,
       ),
       body: Container(
+        // ignore: deprecated_member_use
         color: Theme.of(context).accentColor,
         child: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
@@ -170,6 +171,7 @@ class _LoginState extends State<Login> {
               key: formKey, //key for form
 
               child: Scaffold(
+                // ignore: deprecated_member_use
                 backgroundColor: Theme.of(context).accentColor,
                 body: SingleChildScrollView(
                   child: Column(

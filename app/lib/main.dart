@@ -11,7 +11,6 @@ import 'package:app/data_provider/customer-data-provider.dart';
 import 'package:app/data_provider/deals_data_provider.dart';
 import 'package:app/data_provider/delivery-data-provider.dart';
 import 'package:app/data_provider/save_and_loan_data_provider.dart';
-import 'package:app/model/save_loan.dart';
 import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/repository/brokersRepository.dart';
 import 'package:app/repository/category_repository.dart';

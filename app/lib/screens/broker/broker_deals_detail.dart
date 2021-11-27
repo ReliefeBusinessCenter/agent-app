@@ -1,14 +1,14 @@
-import 'package:app/Widget/common/error_indicator.dart';
-import 'package:app/Widget/common/loading_indicator.dart';
 import 'package:app/Widget/customer/deals_broker_profile.dart';
 import 'package:app/Widget/customer/delivery/mark_as_done_button.dart';
 import 'package:app/bloc/work-deals/bloc/workdeals_bloc.dart';
 import 'package:app/constants/constants.dart';
 import 'package:app/model/deals.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 // ignore: must_be_immutable
 class BrokerBrokerDealsDetail extends StatelessWidget {
@@ -29,7 +29,7 @@ class BrokerBrokerDealsDetail extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
           title: Text(
-            'Deals Detail',
+            LocaleKeys.deals_detail_label_text.tr(),
             style: TextStyle(fontSize: 18),
           ),
           actions: <Widget>[
@@ -40,8 +40,8 @@ class BrokerBrokerDealsDetail extends StatelessWidget {
                     context: context,
                     dialogType: DialogType.WARNING,
                     animType: AnimType.BOTTOMSLIDE,
-                    title: 'Confirm Us',
-                    desc: 'Are you sure you want to delete this work?',
+                    title: LocaleKeys.confirm_us_label_text.tr(),
+                    desc: LocaleKeys.are_you_sure_label_text.tr(),
                     btnCancelOnPress: () {},
                     btnOkOnPress: () {
                       dealsBloc.add(DeleteDeals(deals: deals));
@@ -52,7 +52,7 @@ class BrokerBrokerDealsDetail extends StatelessWidget {
               },
               itemBuilder: (context) => [
                 PopupMenuItem(
-                  child: Text("Delete"),
+                  child: Text(LocaleKeys.delete_btn_label_text.tr()),
                   value: 1,
                 ),
               ],
@@ -134,7 +134,7 @@ class BrokerBrokerDealsDetail extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
-                            "Deal status",
+                            LocaleKeys.deal_status_label_text.tr(),
                             style: TextStyle(
                                 color: primaryColor,
                                 fontWeight: FontWeight.bold,
@@ -142,7 +142,7 @@ class BrokerBrokerDealsDetail extends StatelessWidget {
                           ),
                           deals.dealsStatus == "Accepted"
                               ? Text(
-                                  "Accepted",
+                                  LocaleKeys.accepted_status_text.tr(),
                                   style: TextStyle(
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold,
@@ -151,7 +151,7 @@ class BrokerBrokerDealsDetail extends StatelessWidget {
                                 )
                               : deals.dealsStatus == "Pending"
                                   ? Text(
-                                      "Pending",
+                                      LocaleKeys.pending_status_text.tr(),
                                       style: TextStyle(
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.bold,
@@ -159,14 +159,14 @@ class BrokerBrokerDealsDetail extends StatelessWidget {
                                       ),
                                     )
                                   :deals.dealsStatus == "Rejected"? Text(
-                                      "Rejected",
+                                      LocaleKeys.rejected_status_text.tr(),
                                       style: TextStyle(
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.green[600],
                                       ),
                                     ):Text(
-                                      "Done",
+                                      LocaleKeys.done_btn_label_text.tr(),
                                       style: TextStyle(
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.bold,
@@ -188,9 +188,9 @@ class BrokerBrokerDealsDetail extends StatelessWidget {
                         context: context,
                         dialogType: DialogType.INFO,
                         animType: AnimType.BOTTOMSLIDE,
-                        title: 'Action Not Allowed',
+                        title: LocaleKeys.action_not_allowed_label_text.tr(),
                         desc:
-                            'To change the done status of this work, the broker should respond first',
+                            LocaleKeys.to_change_the_done_status.tr(),
                         btnCancelOnPress: () {},
                         btnOkOnPress: () {},
                       )..show();
@@ -200,8 +200,8 @@ class BrokerBrokerDealsDetail extends StatelessWidget {
                         context: context,
                         dialogType: DialogType.INFO,
                         animType: AnimType.BOTTOMSLIDE,
-                        title: 'Action Not Allowed',
-                        desc: 'This Delivery have been already set to Done!',
+                        title: LocaleKeys.action_not_allowed_label_text.tr(),
+                        desc: LocaleKeys.this_delivery_has_set_alread_done_label_text.tr(),
                         btnCancelOnPress: () {},
                         btnOkOnPress: () {},
                       )..show();

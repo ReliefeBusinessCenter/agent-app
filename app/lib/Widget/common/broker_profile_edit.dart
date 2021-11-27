@@ -165,7 +165,7 @@ class _BrokerProfileEditPageState extends State<BrokerProfileEditPage> {
                   },
                   validator: (value) {
                     if (value.isEmpty) {
-                      return "Field required";
+                      return LocaleKeys.field_required_label_text.tr();
                     }
                   },
                 ),
@@ -183,7 +183,7 @@ class _BrokerProfileEditPageState extends State<BrokerProfileEditPage> {
                       },
                       validator: (value) {
                         if (value.isEmpty) {
-                          return "Field required";
+                          return LocaleKeys.field_required_label_text.tr();
                         }
                       },
                     ),
@@ -197,13 +197,13 @@ class _BrokerProfileEditPageState extends State<BrokerProfileEditPage> {
                       },
                       validator: (value) {
                         if (value.isEmpty) {
-                          return "Field required";
+                          return LocaleKeys.field_required_label_text.tr();
                         }
                       },
                     ),
                     ProfileFormField(
                       initialValue: widget.broker.user!.city == null
-                          ? "City Name"
+                          ? LocaleKeys.city_name_label_text.tr()
                           : widget.broker.user!.city!,
                       name: LocaleKeys.city_form_label_text.tr(),
                       onSaved: (value) {
@@ -213,13 +213,13 @@ class _BrokerProfileEditPageState extends State<BrokerProfileEditPage> {
                       },
                       validator: (value) {
                         if (value.isEmpty) {
-                          return "Field required";
+                          return LocaleKeys.field_required_label_text.tr();
                         }
                       },
                     ),
                     ProfileFormField(
                       initialValue: widget.broker.user!.subCity == null
-                          ? "Sub city name"
+                          ? LocaleKeys.subcity_name_label_text.tr()
                           : widget.broker.user!.subCity!,
                       name: LocaleKeys.subcity_label_text.tr(),
                       onSaved: (value) {
@@ -229,13 +229,13 @@ class _BrokerProfileEditPageState extends State<BrokerProfileEditPage> {
                       },
                       validator: (value) {
                         if (value.isEmpty) {
-                          return "Field required";
+                          return LocaleKeys.field_required_label_text.tr();
                         }
                       },
                     ),
                     ProfileFormField(
                       initialValue: widget.broker.user!.kebele == null
-                          ? "Kebele"
+                          ? LocaleKeys.kebele_label_text.tr()
                           : widget.broker.user!.kebele!,
                       name: LocaleKeys.kebele_label_text.tr(),
                       onSaved: (value) {
@@ -245,7 +245,7 @@ class _BrokerProfileEditPageState extends State<BrokerProfileEditPage> {
                       },
                       validator: (value) {
                         if (value.isEmpty) {
-                          return "Field required";
+                          return LocaleKeys.field_required_label_text.tr();
                         }
                       },
                     ),

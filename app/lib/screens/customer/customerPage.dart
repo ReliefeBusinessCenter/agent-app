@@ -24,6 +24,7 @@ class CustomerPage extends StatefulWidget {
 class _CustomerPageState extends State<CustomerPage> {
   int _selectedIndex = 0;
   late String filter = "All";
+  String _initialValue = "en";
   @override
   void initState() {
     _getCustomer();
@@ -31,6 +32,7 @@ class _CustomerPageState extends State<CustomerPage> {
   }
 
   _getCustomer() async {
+    
     UserPreferences _userPreferences = UserPreferences();
     _userPreferences.getCustomerInformation().then(
       (customer) {
@@ -41,10 +43,9 @@ class _CustomerPageState extends State<CustomerPage> {
     );
   }
 
-  String _initialValue = "en";
-
   @override
   Widget build(BuildContext context) {
+     _initialValue = context.locale.languageCode;
     filter = LocaleKeys.all_status_text.tr();
     return Scaffold(
       key: _scaffoldKey,

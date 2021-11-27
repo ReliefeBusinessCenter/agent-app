@@ -1,9 +1,8 @@
 import 'package:app/constants/login/size.dart';
-import 'package:app/screens/broker/broker_main_page.dart';
+import 'package:app/translations/locale_keys.g.dart';
 
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 class SavingButton extends StatelessWidget {
   final Function onPressed;
   SavingButton({required this.onPressed});
@@ -34,7 +33,7 @@ class SavingButton extends StatelessWidget {
 
               child: Center(
                   child: Text(
-                'Submit',
+               LocaleKeys.submit_btn_label_text.tr(),
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,

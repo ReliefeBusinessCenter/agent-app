@@ -59,8 +59,8 @@ class _AdminBrokerProfilePageState extends State<AdminBrokerProfilePage> {
                   context: context,
                   dialogType: DialogType.WARNING,
                   animType: AnimType.BOTTOMSLIDE,
-                  title: 'Confirm Us',
-                  desc: 'Are you sure you want to delete this broker?',
+                  title: LocaleKeys.confirm_us_label_text.tr(),
+                  desc: LocaleKeys.are_you_sure_label_text.tr(),
                   btnCancelOnPress: () {},
                   btnOkOnPress: () {
                     BlocProvider.of<BrokerBloc>(context)
@@ -85,7 +85,7 @@ class _AdminBrokerProfilePageState extends State<AdminBrokerProfilePage> {
             showDialog(
               context: context,
               builder: (context) => LoadingIndicator(
-                name: 'Updating',
+                name: LocaleKeys.updating_label_text.tr(),
                 
               ),
             );
@@ -94,7 +94,7 @@ class _AdminBrokerProfilePageState extends State<AdminBrokerProfilePage> {
             showDialog(
               context: context,
               builder: (context) => ErrorIndicator(
-                name: 'Something went wrong',
+                name: LocaleKeys.something_went_wrong_label_text.tr(),
               ),
             );
           } else {
@@ -234,7 +234,7 @@ class _AdminBrokerProfilePageState extends State<AdminBrokerProfilePage> {
                               SizedBox(
                                 height: 30,
                               ),
-                              BrokerSkillsPage(),
+                              BrokerSkillsPage(skill: state.brokers.first.skills!,),
                               SizedBox(
                                 width: size.width * 0.6,
                                 child: AcceptButton(

@@ -1,16 +1,16 @@
 import 'package:app/Widget/broker-widget/accept_button.dart';
 import 'package:app/Widget/broker-widget/reject_button.dart';
-import 'package:app/Widget/common/error_indicator.dart';
-import 'package:app/Widget/common/loading_indicator.dart';
 import 'package:app/Widget/customer/deals_broker_profile.dart';
 import 'package:app/bloc/work-deals/bloc/workdeals_bloc.dart';
 import 'package:app/constants/constants.dart';
 import 'package:app/model/deals.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_progress_hud/flutter_progress_hud.dart';
+import 'package:easy_localization/easy_localization.dart';
 
+// ignore: must_be_immutable
 class CustomerDealsDetail extends StatelessWidget {
   final Deals deals;
   CustomerDealsDetail({required this.deals});
@@ -31,7 +31,7 @@ class CustomerDealsDetail extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
           title: Text(
-            'Deals Detail',
+            LocaleKeys.deals_detail_label_text.tr(),
             style: TextStyle(fontSize: 18),
           ),
           // actions: <Widget>[
@@ -131,7 +131,7 @@ class CustomerDealsDetail extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
-                            "Deal status",
+                           LocaleKeys.deal_status_label_text.tr(),
                             style: TextStyle(
                                 color: primaryColor,
                                 fontWeight: FontWeight.bold,
@@ -139,7 +139,7 @@ class CustomerDealsDetail extends StatelessWidget {
                           ),
                           deals.dealsStatus == "Accepted"
                               ? Text(
-                                  "Accepted",
+                                  LocaleKeys.accepted_status_text.tr(),
                                   style: TextStyle(
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold,
@@ -148,7 +148,7 @@ class CustomerDealsDetail extends StatelessWidget {
                                 )
                               : deals.dealsStatus == "Pending"
                                   ? Text(
-                                      "Pending",
+                                      LocaleKeys.pending_status_text.tr(),
                                       style: TextStyle(
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.bold,
@@ -157,7 +157,7 @@ class CustomerDealsDetail extends StatelessWidget {
                                     )
                                   : deals.dealsStatus == "Rejected"
                                       ? Text(
-                                          "Rejected",
+                                         LocaleKeys.reject_btn_label_text.tr(),
                                           style: TextStyle(
                                             fontSize: 18.0,
                                             fontWeight: FontWeight.bold,
@@ -165,7 +165,7 @@ class CustomerDealsDetail extends StatelessWidget {
                                           ),
                                         )
                                       : Text(
-                                          "Done",
+                                          LocaleKeys.done_status_text.tr(),
                                           style: TextStyle(
                                             fontSize: 18.0,
                                             fontWeight: FontWeight.bold,
@@ -180,7 +180,7 @@ class CustomerDealsDetail extends StatelessWidget {
                     height: MediaQuery.of(context).size.height * 0.03,
                   ),
                   AcceptButton(
-                    title: 'Accept Deals Offer',
+                    title: LocaleKeys.accept_deal_offer_btn_label_text.tr(),
                     onPressed: () {
                       dealsBloc.add(MarkAsAccepted(deals: deals));
                       // Navigator.of(context).pop();
@@ -190,14 +190,14 @@ class CustomerDealsDetail extends StatelessWidget {
                     height: 20.0,
                   ),
                   RejectButton(
-                      title: "Reject Deal Offer",
+                      title: LocaleKeys.reject_deal_offer_btn_label_text.tr(),
                       onPressed: () {
                         AwesomeDialog(
                           context: context,
                           dialogType: DialogType.WARNING,
                           animType: AnimType.BOTTOMSLIDE,
-                          title: 'Confirm Us',
-                          desc: 'Are you sure you want to Reject  this work?',
+                          title: LocaleKeys.confirm_us_label_text.tr(),
+                          desc: LocaleKeys.are_you_sure_reject_label_text.tr(),
                           btnCancelOnPress: () {},
                           btnOkOnPress: () {
                             dealsBloc.add(MarkAsRejected(work: deals));

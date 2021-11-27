@@ -1,7 +1,5 @@
 import 'package:app/Widget/broker-widget/accept_button.dart';
 import 'package:app/Widget/broker-widget/reject_button.dart';
-import 'package:app/Widget/common/error_indicator.dart';
-import 'package:app/Widget/common/loading_indicator.dart';
 import 'package:app/Widget/customer/broker_broker_profile.dart';
 import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
 import 'package:app/constants/constants.dart';
@@ -85,7 +83,7 @@ class BrokerDeliveryDetails extends StatelessWidget {
                 //       isShowing = true;
                 //     });
                 // }
-                progress!.showWithText("Updating");
+                progress!.showWithText(LocaleKeys.updating_label_text.tr());
                 print("delivery creating  method called");
                 // showDialog(
                 //   context: context,

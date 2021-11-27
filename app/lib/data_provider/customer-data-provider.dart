@@ -93,18 +93,30 @@ class CustomerDataProvider {
 
       // image upload
 
+     
       var request = http.MultipartRequest(
           'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
+      var request2 = http.MultipartRequest(
+          'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
+
       print("request");
 
       request.files.add(await http.MultipartFile.fromPath(
           'file', customer.user!.picture as String));
-      print("added to multipart");
+      print("added profile image");
 
       var res = await http.Response.fromStream(await request.send());
 
+      print("request");
+
+      request2.files.add(await http.MultipartFile.fromPath(
+          'file', customer.user!.identificationCard as String));
+      print("added Identification card");
+
+      var resId = await http.Response.fromStream(await request2.send());
+
       print("Image Upload Response: ${res.statusCode}");
-      if (res.statusCode == 200) {
+      if (res.statusCode == 200 && resId.statusCode == 200){
         print("Photo Name:  ${res.body}");
         // send other customer data here
         final response = await http.post(
@@ -130,9 +142,11 @@ class CustomerDataProvider {
               "phone": customer.user!.phone,
               "address": "Ethiopia/Dessie",
               "picture": res.body.toString(),
+              "identificationCard": resId.body.toString(),
               "sex": customer.user!.sex,
               "role": customer.user!.role,
               "buys": null,
+
             }
           }),
         );

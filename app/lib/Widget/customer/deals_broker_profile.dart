@@ -1,6 +1,11 @@
+import 'package:app/constants/constants.dart';
+import 'package:app/ip/ip.dart';
 import 'package:app/model/deals.dart';
+import 'package:app/translations/locale_keys.g.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 class DealsBrokerProfile extends StatelessWidget {
   final Deals deals;
   const DealsBrokerProfile({required this.deals, Key? key}) : super(key: key);
@@ -16,13 +21,25 @@ class DealsBrokerProfile extends StatelessWidget {
           SizedBox(
             height: 20.0,
           ),
-          CircleAvatar(
-            maxRadius: MediaQuery.of(context).size.width * 0.15,
-            // minRadius: MediaQuery.of(context).size.width * 0.4,
-            // backgroundImage:  NetworkImage(
-            //     "${Ip.ip}/api/users/get/?fileName=${this.broker.user!.picture as String}"),
-            backgroundImage: AssetImage("assets/images/16.jpg"),
-          ),
+         CachedNetworkImage(
+                    imageUrl:
+                        "${Ip.ip}/api/users/get/?fileName=${deals.customer!.user!.picture as String}",
+                    imageBuilder: (context, imageProvider) => Container(
+                      width: 120,
+                      height: 120.0,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                            image: imageProvider, fit: BoxFit.cover),
+                      ),
+                    ),
+                    placeholder: (context, url) => Center(
+                      child: SpinKitCircle(
+                        color: primaryColor,
+                      ),
+                    ),
+                    errorWidget: (context, url, _) => Icon(Icons.error),
+                  ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
@@ -60,7 +77,7 @@ class DealsBrokerProfile extends StatelessWidget {
           ),
           SizedBox(height: 20.0),
           Text(
-            "Product",
+            LocaleKeys.product_label_text.tr(),
             style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
           ),
           // DealsProduct(
@@ -96,7 +113,7 @@ class DealsProduct extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Name ",
+                  LocaleKeys.name_label_text.tr(),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -115,7 +132,7 @@ class DealsProduct extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Model ",
+                  LocaleKeys.model_label_text.tr(),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -132,7 +149,7 @@ class DealsProduct extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Payment Option ",
+                  LocaleKeys.payment_option_label_text.tr(),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -149,7 +166,7 @@ class DealsProduct extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Delivery Option",
+                  LocaleKeys.delivery_option_label_text.tr(),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -166,7 +183,7 @@ class DealsProduct extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Color",
+                  LocaleKeys.color_label_text.tr(),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),

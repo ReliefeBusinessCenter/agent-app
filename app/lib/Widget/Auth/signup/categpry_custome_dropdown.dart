@@ -1,8 +1,10 @@
 import 'package:app/model/broker/category.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:easy_localization/easy_localization.dart';
+// ignore: must_be_immutable
 class CategoryCustomeDropDownButton extends StatelessWidget {
   final List<DropdownMenuItem<Category>> dropDownItems;
   final Category value;
@@ -55,7 +57,7 @@ class CategoryCustomeDropDownButton extends StatelessWidget {
                     hint: Container(
                       width: MediaQuery.of(context).size.width * 0.3,
                       child: Text(
-                        "Select item",
+                       LocaleKeys.select_an_item_label_text.tr(),
                         textAlign: TextAlign.center,
                       ),
                     ));
