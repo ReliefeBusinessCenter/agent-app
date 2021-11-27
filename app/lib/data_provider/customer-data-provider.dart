@@ -93,7 +93,6 @@ class CustomerDataProvider {
 
       // image upload
 
-     
       var request = http.MultipartRequest(
           'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
       var request2 = http.MultipartRequest(
@@ -116,7 +115,7 @@ class CustomerDataProvider {
       var resId = await http.Response.fromStream(await request2.send());
 
       print("Image Upload Response: ${res.statusCode}");
-      if (res.statusCode == 200 && resId.statusCode == 200){
+      if (res.statusCode == 200 && resId.statusCode == 200) {
         print("Photo Name:  ${res.body}");
         // send other customer data here
         final response = await http.post(
@@ -146,7 +145,9 @@ class CustomerDataProvider {
               "sex": customer.user!.sex,
               "role": customer.user!.role,
               "buys": null,
-
+              "city": customer.user!.city,
+              "subcity": customer.user!.subCity,
+              "kebele": customer.user!.kebele,
             }
           }),
         );
@@ -223,62 +224,61 @@ class CustomerDataProvider {
         } else {
           throw Exception(_response.body);
         }
-        
-      }
-      else{
-        var request = http.MultipartRequest(
-          'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
-      print("request");
-
-      request.files.add(await http.MultipartFile.fromPath(
-          'file', customer.user!.picture as String));
-      print("added to multipart");
-
-      var res = await http.Response.fromStream(await request.send());
-      if (res.statusCode == 200) {
-        final url = Uri.parse('${Ip.ip}/api/customers/${customer.customerId}');
-        final _response = await http.put(
-          url,
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': 'Bearer $token',
-          },
-          body: jsonEncode({
-            "customerId": 2,
-            "reviews": [],
-            "deals": [],
-            "delivery": [],
-            "sales": [],
-            "user": {
-              "userId": customer.user!.userId,
-              "fullName": customer.user!.fullName,
-              "email": customer.user!.password,
-              "password": customer.user!.password,
-              "phone": customer.user!.phone,
-              "city": customer.user!.city,
-              "subcity": customer.user!.subCity,
-              "kebele": customer.user!.kebele,
-              "picture": res.body.toString(),
-              "identificationCard": null,
-              "sex": customer.user!.sex,
-              "role": customer.user!.role,
-              "buys": null
-            }
-          }),
-        );
-
-        print("Customer update status code is ${_response.statusCode}");
-        print("customer update body${_response.body}");
-
-        if (_response.statusCode == 200) {
-          return Customer.fromJson(jsonDecode(_response.body));
-        } else {
-          throw Exception(_response.body);
-        }
       } else {
-        throw Exception(res.body);
-      }
+        var request = http.MultipartRequest(
+            'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
+        print("request");
+
+        request.files.add(await http.MultipartFile.fromPath(
+            'file', customer.user!.picture as String));
+        print("added to multipart");
+
+        var res = await http.Response.fromStream(await request.send());
+        if (res.statusCode == 200) {
+          final url =
+              Uri.parse('${Ip.ip}/api/customers/${customer.customerId}');
+          final _response = await http.put(
+            url,
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Authorization': 'Bearer $token',
+            },
+            body: jsonEncode({
+              "customerId": 2,
+              "reviews": [],
+              "deals": [],
+              "delivery": [],
+              "sales": [],
+              "user": {
+                "userId": customer.user!.userId,
+                "fullName": customer.user!.fullName,
+                "email": customer.user!.password,
+                "password": customer.user!.password,
+                "phone": customer.user!.phone,
+                "city": customer.user!.city,
+                "subcity": customer.user!.subCity,
+                "kebele": customer.user!.kebele,
+                "picture": res.body.toString(),
+                "identificationCard": null,
+                "sex": customer.user!.sex,
+                "role": customer.user!.role,
+                "buys": null
+              }
+            }),
+          );
+
+          print("Customer update status code is ${_response.statusCode}");
+          print("customer update body${_response.body}");
+
+          if (_response.statusCode == 200) {
+            return Customer.fromJson(jsonDecode(_response.body));
+          } else {
+            throw Exception(_response.body);
+          }
+        } else {
+          throw Exception(res.body);
+        }
       }
     } catch (e) {
       print("update error ${e.toString()}");

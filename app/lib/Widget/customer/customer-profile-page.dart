@@ -164,7 +164,9 @@ class CustomerProfilePage extends StatelessWidget {
                           thickness: 0.4,
                         ),
                         UserPrefileContactDetail(
-                            info: "Addis Ababa", iconData: Icons.location_city),
+                          info: customer.user!.city.toString(),
+                          iconData: Icons.location_city,
+                        ),
                         Divider(color: Colors.black),
                       ],
                     ),
