@@ -84,14 +84,10 @@ class WelcomeBrokersProfilePage extends StatelessWidget {
       SizedBox(height: MediaQuery.of(context).size.height * 0.05),
       SelectOption(),
       SizedBox(height: MediaQuery.of(context).size.height * 0.045),
-      AboutSection(broker: broker),
+      // AboutSection(broker: broker),
       divider,
       WorkSection(broker: broker),
       divider,
-      
-     
     ]);
   }
 }
-
-

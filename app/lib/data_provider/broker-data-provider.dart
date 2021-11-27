@@ -124,6 +124,8 @@ class BrokerDataProvider {
     // late List<Data> products_return = [];
     print(
         "+++++++++++++++++++++++______++++++Create broker  method invocked+++++++++++________with Data ${broker!.toJson()}");
+
+    print("++++++++####this is the broker about: ${broker.skills!.about}");
     try {
       // final url = Uri.parse('http://csv.jithvar.com/api/v1/orders');
       final url = Uri.parse('${Ip.ip}/api/brokers/');
@@ -168,7 +170,7 @@ class BrokerDataProvider {
                 "workDone": broker.skills!.workDone,
                 "workInProgress": broker.skills!.workInProgress,
               },
-              "about": broker.about,
+              "about": broker.skills!.about,
               "categoryId": broker.category!.categoryId,
               // "category": {
               //   // "categoryId"
