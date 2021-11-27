@@ -1,6 +1,7 @@
 import 'package:app/model/deals.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 class DealsBrokerProfile extends StatelessWidget {
   final Deals deals;
   const DealsBrokerProfile({required this.deals, Key? key}) : super(key: key);
@@ -60,7 +61,7 @@ class DealsBrokerProfile extends StatelessWidget {
           ),
           SizedBox(height: 20.0),
           Text(
-            "Product",
+            LocaleKeys.product_label_text.tr(),
             style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
           ),
           // DealsProduct(
@@ -96,7 +97,7 @@ class DealsProduct extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Name ",
+                  LocaleKeys.name_label_text.tr(),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -115,7 +116,7 @@ class DealsProduct extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Model ",
+                  LocaleKeys.model_label_text.tr(),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -132,7 +133,7 @@ class DealsProduct extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Payment Option ",
+                  LocaleKeys.payment_option_label_text.tr(),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -149,7 +150,7 @@ class DealsProduct extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Delivery Option",
+                  LocaleKeys.delivery_option_label_text.tr(),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -166,7 +167,7 @@ class DealsProduct extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Color",
+                  LocaleKeys.color_label_text.tr(),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),

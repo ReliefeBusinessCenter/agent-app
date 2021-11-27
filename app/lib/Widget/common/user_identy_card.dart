@@ -1,6 +1,5 @@
 import 'package:app/constants/constants.dart';
 import 'package:app/ip/ip.dart';
-import 'package:app/model/broker/broker.dart';
 import 'package:app/model/broker/user.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';

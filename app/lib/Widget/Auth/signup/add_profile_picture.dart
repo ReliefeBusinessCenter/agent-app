@@ -1,6 +1,7 @@
 import 'package:app/constants/login/size.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 class ProfileFileInput extends StatelessWidget {
   final String textFieldName;
   final TextEditingController controller;
@@ -64,7 +65,7 @@ class ProfileFileInput extends StatelessWidget {
                 color: Color(0xFFC6CBCE).withOpacity(0.8),
                 child: Center(
                   child: Text(
-                    'Browse',
+                    LocaleKeys.browse_lable_text.tr(),
                     style: TextStyle(
                       fontSize: 20,
                     ),

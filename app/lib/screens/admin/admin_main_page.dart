@@ -17,6 +17,7 @@ class AdminMainPage extends StatefulWidget {
 class _AdminMainPageState extends State<AdminMainPage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   int _selectedIndex = 0;
+  String _initialValue = "en";
 
   _onItemTapped(int index) {
     setState(() {
@@ -31,6 +32,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
 
   @override
   Widget build(BuildContext context) {
+    _initialValue = context.locale.languageCode;
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: lightColor,
@@ -47,6 +49,48 @@ class _AdminMainPageState extends State<AdminMainPage> {
             ),
           ),
         ),
+        actions: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                width: 50,
+                child: DropdownButtonFormField<String>(
+                    value: _initialValue,
+                    dropdownColor: primaryColor,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                    ),
+                    onChanged: (value) async {
+                      setState(() {
+                        _initialValue = value!;
+                      });
+                      await context.setLocale(
+                        Locale(
+                          value.toString(),
+                        ),
+                      );
+                    },
+                    items: [
+                      DropdownMenuItem(
+                        child: Text(
+                          'EN',
+                          style: TextStyle(color: lightColor),
+                        ),
+                        value: 'en',
+                      ),
+                      DropdownMenuItem(
+                        child: Text(
+                          'አማ',
+                          style: TextStyle(color: lightColor),
+                        ),
+                        value: 'am',
+                      )
+                    ]),
+              )
+            ],
+          )
+        ],
       ),
       drawer: Theme(
         data: Theme.of(context).copyWith(
@@ -64,7 +108,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
       ),
       drawerEnableOpenDragGesture: true,
       bottomNavigationBar: BottomNavigationBar(
-        items:  <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
               Icons.home,

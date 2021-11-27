@@ -3,6 +3,7 @@ import 'package:app/Widget/Auth/signup/broker/categories-dropdown-button.dart';
 import 'package:app/Widget/Auth/signup/register-button.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';
 import 'package:app/screens/Auth/login.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:app/Widget/Auth/signup/signUpTextField.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import '../../constants.dart';
 import 'drawer.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class BecomeAnAgent extends StatefulWidget {
   static const routeName = '/agent';
@@ -77,7 +79,7 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                                 top: MediaQuery.of(context).size.height * 0.02,
                                 left: MediaQuery.of(context).size.width * 0.05),
                             child: Text(
-                              "Broker Skills Registeration!",
+                              LocaleKeys.broker_skills_registration_label_text.tr(),
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 15),
                               textAlign: TextAlign.left,
@@ -102,7 +104,7 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                                 //       isShowing = true;
                                 //     });
                                 // }
-                                progress!.showWithText("Creating");
+                                progress!.showWithText(LocaleKeys.createing_label_text.tr());
                               } else if (state is BeingAnAgentSucess) {
                                 // this.isShowing = false;
                                 // registerBloc.add(Initialization());
@@ -114,8 +116,8 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                                   context: context,
                                   dialogType: DialogType.ERROR,
                                   animType: AnimType.BOTTOMSLIDE,
-                                  title: 'Failed to change role',
-                                  desc: 'Someting went Wrong!',
+                                  title: LocaleKeys.failed_to_create_label_text.tr(),
+                                  desc: LocaleKeys.something_went_wrong_label_text.tr(),
                                   // btnCancelOnPress: () {
                                   //   Navigator.popAndPushNamed(context, Login.routeName);
                                   // },
@@ -153,7 +155,7 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                                           minLength: 0,
                                           enabled: true,
                                            keyboardType: TextInputType.text,
-                                          textFieldName: 'Communication Skills',
+                                          textFieldName: LocaleKeys.communicative_skills_label_text.tr(),
                                           controller: communicationController,
                                           initialValue: '',
                                           validator: null,
@@ -176,7 +178,7 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                                             minLength: 0,
                                              keyboardType: TextInputType.text,
                                             enabled: true,
-                                            textFieldName: 'Brooking Skills',
+                                            textFieldName: LocaleKeys.broking_skills_label_text.tr(),
                                             controller:
                                                 brookingSkillsController,
                                             initialValue: '',
@@ -200,7 +202,7 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                                             minLength: 0,
                                              keyboardType: TextInputType.text,
                                             enabled: true,
-                                            textFieldName: 'Work Done',
+                                            textFieldName: LocaleKeys.work_done_label_text.tr(),
                                             controller: workDoneController,
                                             initialValue: '',
                                             validator: null,
@@ -222,7 +224,7 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                                         ),
                                         CustomTextField(
                                             minLength: 0,
-                                            textFieldName: 'Work In Progress',
+                                            textFieldName: LocaleKeys.Work_in_progress_label_text.tr(),
                                              keyboardType: TextInputType.text,
                                             controller:
                                                 workInProgressController,
@@ -248,7 +250,7 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                                               0.05,
                                         ),
                                         RegisterButton(
-                                          name: "Submit",
+                                          name: LocaleKeys.submit_btn_label_text.tr(),
                                           onTapped: () {
                                             if (_formKey.currentState!
                                                 .validate()) {

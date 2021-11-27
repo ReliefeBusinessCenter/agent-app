@@ -1,10 +1,9 @@
-import 'package:app/constants/customer-page/categories.dart';
-import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/broker.dart';
-
+import 'package:app/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 // import 'package:app/model/category.dart';
 import 'package:flutter/material.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 class BrokerImage extends StatelessWidget {
   final Broker broker;
   BrokerImage({required this.broker});
@@ -41,7 +40,7 @@ class BrokerImage extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("           Broker Information",
+                  child: Text(LocaleKeys.broker_information_label_text.tr(),
                       style: TextStyle(
                         fontSize: 20,
                         color: Theme.of(context).primaryColor.withOpacity(0.95),
@@ -70,7 +69,7 @@ class BrokerImage extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text("Broker Category:  ",
+                      child: Text("${LocaleKeys.broker_category_label_text.tr()}  ",
                           style: TextStyle(
                             fontSize: 15,
                             color:
@@ -81,7 +80,7 @@ class BrokerImage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                          "Communication Skill:  ${broker.skills!.communicationSkill}",
+                          "${LocaleKeys.communicative_skills_label_text.tr()}:  ${broker.skills!.communicationSkill}",
                           style: TextStyle(
                             fontSize: 15,
                             color:
@@ -92,7 +91,7 @@ class BrokerImage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                          "Broking Skill:  ${broker.skills!.brokingSkill!}",
+                          "${LocaleKeys.broking_skills_label_text.tr()}:  ${broker.skills!.brokingSkill!}",
                           style: TextStyle(
                             fontSize: 15,
                             color:
@@ -103,7 +102,7 @@ class BrokerImage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                          "Work In Progress:  ${broker.skills!.workInProgress!}",
+                          "${LocaleKeys.Work_in_progress_label_text.tr()}:  ${broker.skills!.workInProgress!}",
                           style: TextStyle(
                             fontSize: 15,
                             color:
@@ -114,7 +113,7 @@ class BrokerImage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child:
-                          Text("Completed Works: ${broker.skills!.workDone!}",
+                          Text("${LocaleKeys.work_done_label_text.tr()}: ${broker.skills!.workDone!}",
                               style: TextStyle(
                                 fontSize: 15,
                                 color: Theme.of(context)

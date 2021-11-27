@@ -76,7 +76,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
               ),
               body: SafeArea(
                   child: Container(
-                      child: Center(child: Text("Something went wrong")))));
+                      child: Center(child: Text(LocaleKeys.something_went_wrong_label_text.tr())))));
         } else if (state is CustomersLoadSuccess) {
           Customer customer = state.customers[0];
           _customer = customer;
@@ -275,7 +275,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
               ),
               body: SafeArea(
                   child: Container(
-                      child: Center(child: Text("Something went wrong")))));
+                      child: Center(child: Text(LocaleKeys.something_went_wrong_label_text.tr())))));
         }
       },
     );

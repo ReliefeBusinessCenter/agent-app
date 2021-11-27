@@ -13,7 +13,6 @@ import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-import 'customer-background-image.dart';
 import 'deals-button.dart';
 
 // ignore: must_be_immutable
@@ -32,7 +31,7 @@ class CustomerProfilePage extends StatelessWidget {
       backgroundColor: Color(0xFFf2f6f9),
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
-        title: Text("Customer Information"),
+        title: Text(LocaleKeys.customer_information_label_text.tr()),
       ),
       body: ProgressHUD(
         child: BlocConsumer<DeliveryBloc, DeliveryState>(
@@ -41,7 +40,7 @@ class CustomerProfilePage extends StatelessWidget {
               // delivery createing
               final progress = ProgressHUD.of(context);
 
-              progress!.showWithText("Hiring");
+              progress!.showWithText(LocaleKeys.hiring_label_text.tr());
               print("delivery creating  method called");
             } else if (state is DeliveryCreateSuccess) {
               // delivery success method
@@ -55,8 +54,8 @@ class CustomerProfilePage extends StatelessWidget {
                 context: context,
                 dialogType: DialogType.SUCCES,
                 animType: AnimType.BOTTOMSLIDE,
-                title: 'Warning',
-                desc: 'Failed to Create Delivers',
+                title: LocaleKeys.warning_label_text.tr(),
+                desc: LocaleKeys.failed_to_create_deliveries_label_text.tr(),
                 btnOkOnPress: () {
                   // workBloc.add(AddWork(work: work));
                 },

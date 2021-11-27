@@ -1,6 +1,4 @@
-import 'package:app/constants/customer-page/categories.dart';
 import 'package:app/ip/ip.dart';
-import 'package:app/model/broker/broker.dart';
 import 'package:app/model/customer/customer.dart';
 
 // import 'package:app/model/category.dart';

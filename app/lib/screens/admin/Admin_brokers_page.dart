@@ -3,11 +3,12 @@ import 'package:app/bloc/broker/bloc/broker_bloc.dart';
 import 'package:app/constants.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/screens/admin/admin_broker_profile.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 class AdminBrokersPage extends StatefulWidget {
   static const routeName = "/AdmminCustomerPage";
   AdminBrokersPage({Key? key}) : super(key: key);
@@ -43,7 +44,7 @@ class _AdminBrokersPageState extends State<AdminBrokersPage> {
                 color: primaryColor,
               ),
               Text(
-                "Something went wrong",
+                LocaleKeys.something_went_wrong_label_text.tr(),
                 style: TextStyle(fontSize: 20.0, color: primaryColor),
               )
             ],
@@ -54,7 +55,7 @@ class _AdminBrokersPageState extends State<AdminBrokersPage> {
             color: lightColor,
             padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
             child: state.brokers.isEmpty
-                ? Center(child: Text("No Brokers yet"))
+                ? Center(child: Text(LocaleKeys.no_brokers_label_text.tr()))
                 : Column(
                     children: state.brokers
                         .map(

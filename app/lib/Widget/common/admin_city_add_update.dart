@@ -1,4 +1,3 @@
-import 'package:app/bloc/category/bloc/category_bloc.dart';
 import 'package:app/bloc/city/bloc/city_bloc.dart';
 import 'package:app/constants.dart';
 import 'package:app/model/city.dart';
@@ -47,11 +46,11 @@ class _AdminCityAddUpdateState extends State<AdminCityAddUpdate> {
             },
             validator: (value) {
               if (value!.isEmpty) {
-                return "City Name required!";
+                return LocaleKeys.city_name_required_label_text.tr();
               }
             },
             decoration: InputDecoration(
-              label: Text("City Name"),
+              label: Text(LocaleKeys.city_name_label_text.tr()),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),

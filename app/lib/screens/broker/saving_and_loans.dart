@@ -53,7 +53,7 @@ class _SavingAndLoanState extends State<SavingAndLoan> {
       backgroundColor: lightColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
-        title: Text("Create Wallet")
+        title: Text(LocaleKeys.create_wallet_label_text.tr())
       ),
       body: BlocBuilder<SaveloanBloc, SaveloanState>(
         builder: (context, state) {
@@ -81,7 +81,7 @@ class _SavingAndLoanState extends State<SavingAndLoan> {
                       ),
                       SavingCustomFormField(
                           initialValue: widget.broker.user!.fullName!,
-                          textFieldName: "Full Name",
+                          textFieldName: LocaleKeys.fullname_label_text.tr(),
                           isObsecure: false,
                           onChanged: (value) {
                             setState(() {
@@ -94,7 +94,7 @@ class _SavingAndLoanState extends State<SavingAndLoan> {
                       ),
                       SavingCustomFormField(
                           initialValue: widget.broker.user!.phone!,
-                          textFieldName: "Phone",
+                          textFieldName: LocaleKeys.phone_label_text.tr(),
                           onChanged: (value) {
                             setState(() {
                               _saveLoanData['phone'] = value;

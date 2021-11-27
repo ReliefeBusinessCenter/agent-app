@@ -1,7 +1,9 @@
 import 'package:app/Widget/Dashboard/broker.dart';
 import 'package:app/bloc/favorit/bloc/favorite_bloc.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class FavoritScreen extends StatelessWidget {
   @override
@@ -29,7 +31,7 @@ class FavoritScreen extends StatelessWidget {
                     ));
                   });
             } else {
-              return Center(child: Text("No Favorite Data found"));
+              return Center(child: Text(LocaleKeys.no_favorite_data_found_label_text.tr()));
             }
           } else if (state is UnFavoriteSuccess) {
             if (state is FavoriteState) {
@@ -47,7 +49,7 @@ class FavoritScreen extends StatelessWidget {
                     ));
                   });
             } else {
-              return Center(child: Text("No Favorite Data found"));
+              return Center(child: Text(LocaleKeys.no_favorite_data_found_label_text.tr()));
             }
           }
           return Container();

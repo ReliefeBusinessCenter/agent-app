@@ -1,8 +1,9 @@
 import 'package:app/constants/login/size.dart';
 import 'package:app/screens/customer/customerPage.dart';
+import 'package:app/translations/locale_keys.g.dart';
 
 import 'package:flutter/material.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 class UpdateButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class UpdateButton extends StatelessWidget {
 
               child: Center(
                   child: Text(
-                'Update',
+               LocaleKeys.update_button_label_text.tr(),
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,

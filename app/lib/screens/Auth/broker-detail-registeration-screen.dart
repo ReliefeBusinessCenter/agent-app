@@ -1,7 +1,6 @@
 import 'package:app/Widget/Auth/signup/signUpTextField.dart';
 import 'package:app/Widget/Auth/signup/register-button.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';
-import 'package:app/constants.dart';
 import 'package:app/screens/Auth/customer-detail-registeration-screen.dart';
 import 'package:app/translations/locale_keys.g.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -55,8 +54,8 @@ class BrokerDetailScreen extends StatelessWidget {
                   context: context,
                   dialogType: DialogType.ERROR,
                   animType: AnimType.BOTTOMSLIDE,
-                  title: 'Order Creating failed',
-                  desc: 'Fill all the information carefully!',
+                  title: LocaleKeys.order_creating_failed_label_text.tr(),
+                  desc: LocaleKeys.fill_all_the_information_carefully_label_text.tr(),
                   btnCancelOnPress: () {
                     Navigator.popAndPushNamed(context, Login.routeName);
                   },

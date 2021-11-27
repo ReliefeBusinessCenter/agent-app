@@ -1,11 +1,12 @@
-import 'package:app/Widget/common/error_indicator.dart';
 import 'package:app/Widget/customer/deals_item.dart';
 import 'package:app/bloc/work-deals/bloc/workdeals_bloc.dart';
+import 'package:app/translations/locale_keys.g.dart';
 // import 'package:app/bloc/work/bloc/work_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_progress_hud/flutter_progress_hud.dart';
+import 'package:easy_localization/easy_localization.dart';
 
+// ignore: must_be_immutable
 class CustomerDealsPage extends StatelessWidget {
   late DealsListBloc dealsBloc;
   bool isShowing = false;
@@ -14,6 +15,7 @@ class CustomerDealsPage extends StatelessWidget {
     dealsBloc = BlocProvider.of<DealsListBloc>(context);
     dealsBloc.add(FetchDeals());
     return Scaffold(
+        // ignore: deprecated_member_use
         backgroundColor: Theme.of(context).accentColor,
         body: Container(
             // decoration: BoxDecoration(color: Colors.white),
@@ -46,7 +48,7 @@ class CustomerDealsPage extends StatelessWidget {
                 } else if (state is FetchDealsSuccess) {
                   print("Deals history: ${state.deals_history}");
                   return state.deals_history.length == 0
-                      ? Center(child: Text("There is not any deals yet"))
+                      ? Center(child: Text(LocaleKeys.no_deals_yet_label_text.tr()))
                       : ListView.builder(
                           itemCount: state.deals_history.length,
                           itemBuilder: (context, index) => CustomerDealsItem(

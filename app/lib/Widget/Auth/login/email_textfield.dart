@@ -1,6 +1,8 @@
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 
 import '../Common/custom_textfield.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class EmailTextField extends StatelessWidget {
   TextEditingController myemailController;
@@ -9,7 +11,7 @@ class EmailTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     // final _myemailController = TextEditingController();
     return CustomTextField(
-        textFieldName: "Enter Email",
+        textFieldName: LocaleKeys.email_label_text.tr(),
         controller: myemailController,
         isObsecure: false,
         icon: Icon(

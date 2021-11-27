@@ -14,6 +14,7 @@ import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:image_picker/image_picker.dart';
 // import 'package:image_picker/image_picker.dart';
 import 'login.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CustomerDetailScreen extends StatefulWidget {
   static const routeName = '/customer-detail';
@@ -172,7 +173,9 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                     },
                                     validator: (value) {
                                       if (value!.isEmpty) {
-                                        return "Field Required";
+                                        return LocaleKeys
+                                            .field_required_label_text
+                                            .tr();
                                       }
                                     },
                                   ),
@@ -188,7 +191,9 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                     },
                                     validator: (value) {
                                       if (value != passwordController.text) {
-                                        return "Password don't match";
+                                        return LocaleKeys
+                                            .password_dont_match_label_text
+                                            .tr();
                                       }
                                     },
                                     decoration: inputDecoration.copyWith(
@@ -250,8 +255,8 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                     child: UploadIDImage(pickImage: (image) {
                                       setState(() {
                                         idController.text = _idImaage.path;
-                                         registerBloc
-                                          .add(AddIdImage(_idImaage.path));
+                                        registerBloc
+                                            .add(AddIdImage(_idImaage.path));
                                       });
                                       registerBloc
                                           .add(AddIdImage(_idImaage.path));
@@ -262,7 +267,8 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                   ),
                                   if (photoController.text.isEmpty && _choose)
                                     Text(
-                                      "Please choose image",
+                                      LocaleKeys.please_choose_image_label_text
+                                          .tr(),
                                       style: TextStyle(
                                         color: Colors.red,
                                       ),

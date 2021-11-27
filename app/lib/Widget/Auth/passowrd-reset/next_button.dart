@@ -1,6 +1,7 @@
 import 'package:app/constants/login/size.dart';
 import 'package:app/screens/Auth/new-credentials-screen.dart';
-
+import 'package:app/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class NextButton extends StatelessWidget {
@@ -33,7 +34,7 @@ class NextButton extends StatelessWidget {
 
               child: Center(
                   child: Text(
-                'Next',
+                LocaleKeys.next_btn_label_text.tr(),
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,

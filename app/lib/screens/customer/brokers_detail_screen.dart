@@ -5,11 +5,13 @@ import 'package:app/Widget/Broker-profile/select_option.dart';
 import 'package:app/Widget/Broker-profile/work_section.dart';
 import 'package:app/bloc/delivery/bloc/delivery_bloc.dart';
 import 'package:app/model/broker/broker.dart';
+import 'package:app/translations/locale_keys.g.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class BrokersProfilePage extends StatelessWidget {
   static const routeName = '/user/category/services/technicians/detail';
@@ -39,7 +41,7 @@ class BrokersProfilePage extends StatelessWidget {
               //       isShowing = true;
               //     });
               // }
-              progress!.showWithText("Hiring");
+              progress!.showWithText(LocaleKeys.hiring_label_text.tr());
               print("delivery creating  method called");
             } else if (state is DeliveryCreateSuccess) {
               // delivery success method
@@ -53,8 +55,8 @@ class BrokersProfilePage extends StatelessWidget {
                 context: context,
                 dialogType: DialogType.SUCCES,
                 animType: AnimType.BOTTOMSLIDE,
-                title: 'Warning',
-                desc: 'Failed to Create Delivers',
+                title: LocaleKeys.warning_label_text.tr(),
+                desc: LocaleKeys.failed_to_create_deliveries_label_text.tr(),
                 btnOkOnPress: () {
                   // workBloc.add(AddWork(work: work));
                 },

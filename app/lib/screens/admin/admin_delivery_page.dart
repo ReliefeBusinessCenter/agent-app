@@ -42,8 +42,8 @@ class AdminDeliveryPage extends StatelessWidget {
                       context: context,
                       dialogType: DialogType.WARNING,
                       animType: AnimType.BOTTOMSLIDE,
-                      title: 'Confirm Us',
-                      desc: 'Are you sure you want to Reject  this work?',
+                      title: LocaleKeys.confirm_us_label_text.tr(),
+                      desc: "${LocaleKeys.are_you_sure_reject_label_text.tr()} ?",
                       btnCancelOnPress: () {},
                       btnOkOnPress: () {
                         // dealsBloc.add(MarkAsRejected(work: deals));

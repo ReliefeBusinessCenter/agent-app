@@ -43,6 +43,7 @@ class _BrokerMainState extends State<BrokerMain> {
 
   @override
   Widget build(BuildContext context) {
+    _initialValue = context.locale.languageCode;
     return Scaffold(
       appBar: AppBar(
         title: Text(LocaleKeys.trust_broker_label_text.tr()),
@@ -73,7 +74,11 @@ class _BrokerMainState extends State<BrokerMain> {
                       setState(() {
                         _initialValue = value!;
                       });
-                      await context.setLocale(Locale(value.toString()));
+                      await context.setLocale(
+                        Locale(
+                          value.toString(),
+                        ),
+                      );
                     },
                     items: [
                       DropdownMenuItem(

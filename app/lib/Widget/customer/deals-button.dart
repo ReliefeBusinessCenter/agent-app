@@ -10,6 +10,7 @@ import 'package:app/screens/broker/broker_deals_form_page.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 // import 'custome_button.dart';
 
@@ -34,7 +35,9 @@ class DealsButton extends StatelessWidget {
         margin: EdgeInsets.all(10),
         child: CustomButton(
           brokerName: customer.user!.fullName as String,
-          label: 'Send Deals Request to ${customer.user!.fullName as String}',
+          label: context.locale == Locale('en')
+              ? 'Send Deals Request to ${customer.user!.fullName as String}'
+              : "የድርድር ጥያቄን ለ ${customer.user!.fullName as String} ይላኩ",
           backgroundColor: Theme.of(context).primaryColor,
           foregroundColor: Colors.white,
           onTap: () {

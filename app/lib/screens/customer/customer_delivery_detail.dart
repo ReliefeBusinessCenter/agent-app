@@ -82,7 +82,7 @@ class CustomerDeliveryDetails extends StatelessWidget {
                 //       isShowing = true;
                 //     });
                 // }
-                progress!.showWithText("Updating");
+                progress!.showWithText(LocaleKeys.updating_label_text.tr());
                 print("delivery creating  method called");
               } else if (state is DeleteSuccessState) {
                 // deleting success
