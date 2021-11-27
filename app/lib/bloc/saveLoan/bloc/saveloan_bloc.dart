@@ -8,11 +8,11 @@ part 'saveloan_state.dart';
 class SaveloanBloc extends Bloc<SaveloanEvent, SaveloanState> {
   final SaveLoanRepository saveLoanRepository;
   SaveloanBloc({required this.saveLoanRepository})
-      : super(SaveloanSuccess(SaveLoan()));
+      : super(SaveloanLoading());
 
   @override
   Stream<SaveloanState> mapEventToState(SaveloanEvent event) async* {
-    if (event is SaveloanFetchSucces) {
+    if (event is SaveLoanFetchEvent) {
       yield SaveloanLoading();
       try {
         final _responseList = await saveLoanRepository.getAllSaveLoans();

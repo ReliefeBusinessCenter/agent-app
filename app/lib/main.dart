@@ -121,7 +121,7 @@ class MyApp extends StatelessWidget {
           BlocProvider<SaveloanBloc>(
             create: (_) => SaveloanBloc(
               saveLoanRepository: saveLoanRepository,
-            ),
+            )..add(SaveLoanFetchEvent()),
           ),
           BlocProvider<CityBloc>(
               create: (_) => CityBloc(

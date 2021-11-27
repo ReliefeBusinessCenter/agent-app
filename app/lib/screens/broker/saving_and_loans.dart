@@ -52,6 +52,8 @@ class _SavingAndLoanState extends State<SavingAndLoan> {
   File? _profileImage;
   File? _idImage;
 
+  bool _showButton = true;
+
   @override
   Widget build(BuildContext context) {
     saveloanBloc = BlocProvider.of<SaveloanBloc>(context);
@@ -63,14 +65,41 @@ class _SavingAndLoanState extends State<SavingAndLoan> {
       body: BlocBuilder<SaveloanBloc, SaveloanState>(
         builder: (context, state) {
           if (state is SaveloanLoading) {
+            _showButton = false;
             return Center(
               child: CircularProgressIndicator(),
             );
           } else if (state is SaveloanFailed) {
+            _showButton = false;
             return Center(
               child: Text(state.message),
             );
+          } else if (state is SaveloanCreateSuccess) {
+            _showButton = false;
+            return Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.check,
+                    color: Colors.green,
+                    size: 30.0,
+                  ),
+                  SizedBox(
+                    width: 20.0,
+                  ),
+                  Text(
+                    "Successfull created",
+                    style: TextStyle(
+                      color: primaryColor,
+                      fontSize: 18.0,
+                    ),
+                  )
+                ],
+              ),
+            );
           } else {
+            _showButton = true;
             return Container(
               alignment: Alignment.topCenter,
               padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -156,45 +185,35 @@ class _SavingAndLoanState extends State<SavingAndLoan> {
           }
         },
       ),
-      bottomNavigationBar: Container(
-        height: 60.0,
-        padding: EdgeInsets.all(10.0),
-        child: SavingButton(
-          onPressed: () {
-            if (_formKey.currentState!.validate() &&
-                (profileImage != null) &&
-                idImage != null) {
-              print("Validated");
+      bottomNavigationBar: _showButton
+          ? Container(
+              height: 60.0,
+              padding: EdgeInsets.all(10.0),
+              child: SavingButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate() &&
+                      (profileImage != null) &&
+                      idImage != null) {
+                    print("Validated");
 
-              SaveLoan saveLoan = SaveLoan(
-                fullName: _saveLoanData['fullName'],
-                phone: _saveLoanData['phone'],
-                picture: _saveLoanData['profilePhoto'],
-                identificationCard: _saveLoanData['idPhoto'],
-              );
-              print(saveLoan.toString());
+                    SaveLoan saveLoan = SaveLoan(
+                      fullName: _saveLoanData['fullName'],
+                      phone: _saveLoanData['phone'],
+                      picture: _saveLoanData['profilePhoto'],
+                      identificationCard: _saveLoanData['idPhoto'],
+                    );
+                    print(saveLoan.toString());
 
-              saveloanBloc.add(CreateSaveLoanEvent(
-                saveLoan: saveLoan,
-                isProfileImageChanged: _profileImage != null,
-                isIdImageChanged: _idImage != null,
-              ));
-            }
-            // AwesomeDialog(
-            //   context: context,
-            //   dialogType: DialogType.SUCCES,
-            //   animType: AnimType.BOTTOMSLIDE,
-            //   title: 'Done',
-            //   desc:
-            //       'You have successfully registered for Saving and Loans Service',
-            //   btnOkOnPress: () {
-            //     Navigator.popAndPushNamed(
-            //         context, BrokerMain.routeName);
-            //   },
-            // )..show();
-          },
-        ),
-      ),
+                    saveloanBloc.add(CreateSaveLoanEvent(
+                      saveLoan: saveLoan,
+                      isProfileImageChanged: _profileImage != null,
+                      isIdImageChanged: _idImage != null,
+                    ));
+                  }
+                },
+              ),
+            )
+          : Container(),
     );
   }
 }

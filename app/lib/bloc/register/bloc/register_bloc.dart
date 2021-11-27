@@ -136,7 +136,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       print("Broker: ${broker.toJson()}");
       yield RegisterUpdateSuccess(user: user, broker: broker);
     } else if (event is AddAbout) {
-      // add workdone
+      // add about
       // broker = state.broker as Broker;
       broker.skills!.about = event.about;
       print("Broker: ${broker.toJson()}");

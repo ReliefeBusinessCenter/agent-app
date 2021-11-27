@@ -121,6 +121,7 @@ class BrokerDataProvider {
 
   Future<bool> createBroker(Broker? broker) async {
     String? token = await this.userPreferences.getUserToken();
+    
     // late List<Data> products_return = [];
     print(
         "+++++++++++++++++++++++______++++++Create broker  method invocked+++++++++++________with Data ${broker!.toJson()}");
@@ -168,7 +169,7 @@ class BrokerDataProvider {
                 "workDone": broker.skills!.workDone,
                 "workInProgress": broker.skills!.workInProgress,
               },
-              "about": broker.about,
+              "about": broker.skills!.about,
               "categoryId": broker.category!.categoryId,
               // "category": {
               //   // "categoryId"

@@ -1,3 +1,4 @@
+import 'package:app/Widget/common/custome_divider.dart';
 import 'package:app/Widget/common/verified.dart';
 import 'package:app/bloc/broker/bloc/broker_bloc.dart';
 import 'package:app/constants.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:easy_localization/easy_localization.dart';
+
 class AdminBrokersPage extends StatefulWidget {
   static const routeName = "/AdmminCustomerPage";
   AdminBrokersPage({Key? key}) : super(key: key);
@@ -68,50 +70,56 @@ class _AdminBrokersPageState extends State<AdminBrokersPage> {
                             },
                             child: Container(
                                 margin: EdgeInsets.symmetric(vertical: 15.0),
-                                child: ListTile(
-                                  leading: Container(
-                                    width: 50.0,
-                                    child: CachedNetworkImage(
-                                      imageUrl:
-                                          "${Ip.ip}/api/users/get/?fileName=${broker.user!.picture as String}",
-                                      imageBuilder: (context, imageProvider) =>
-                                          Container(
-                                        width: 120,
-                                        height: 120.0,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          image: DecorationImage(
-                                              image: imageProvider,
-                                              fit: BoxFit.cover),
+                                child: Column(
+                                  children: [
+                                    ListTile(
+                                      leading: Container(
+                                        width: 50.0,
+                                        child: CachedNetworkImage(
+                                          imageUrl:
+                                              "${Ip.ip}/api/users/get/?fileName=${broker.user!.picture as String}",
+                                          imageBuilder:
+                                              (context, imageProvider) =>
+                                                  Container(
+                                            width: 120,
+                                            height: 120.0,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              image: DecorationImage(
+                                                  image: imageProvider,
+                                                  fit: BoxFit.cover),
+                                            ),
+                                          ),
+                                          placeholder: (context, url) => Center(
+                                            child: SpinKitCircle(
+                                              color: primaryColor,
+                                            ),
+                                          ),
+                                          errorWidget: (context, url, _) =>
+                                              Icon(Icons.error),
                                         ),
                                       ),
-                                      placeholder: (context, url) => Center(
-                                        child: SpinKitCircle(
-                                          color: primaryColor,
-                                        ),
+                                      title: Row(
+                                        children: [
+                                          Text(broker.user!.fullName!),
+                                          SizedBox(
+                                            width: 10.0,
+                                          ),
+                                          if (broker.approved!) VerifiedWidget()
+                                        ],
                                       ),
-                                      errorWidget: (context, url, _) =>
-                                          Icon(Icons.error),
+                                      subtitle: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text("Addis Ababa, Arada"),
+                                          Text(broker.category!.catigoryName!)
+                                        ],
+                                      ),
+                                      trailing: Text("12-12-2021"),
                                     ),
-                                  ),
-                                  title: Row(
-                                    children: [
-                                      Text(broker.user!.fullName!),
-                                      SizedBox(
-                                        width: 10.0,
-                                      ),
-                                      if (broker.approved!) VerifiedWidget()
-                                    ],
-                                  ),
-                                  subtitle: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text("Addis Ababa, Arada"),
-                                      Text(broker.category!.catigoryName!)
-                                    ],
-                                  ),
-                                  trailing: Text("12-12-2021"),
+                                    CustomDivider()
+                                  ],
                                 )),
                           ),
                         )
