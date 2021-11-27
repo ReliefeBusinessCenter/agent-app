@@ -11,6 +11,23 @@ class SaveLoanDataProvider {
     required this.httpClient,
   });
 
+  // fetch saveloan
+  Future<List<SaveLoan>> getAllSaveLoans() async {
+    try {
+      final _response = await httpClient.get(Uri.parse(_baseURL));
+      if (_response.statusCode == 200) {
+        final _jsonResponse = jsonDecode(_response.body) as List;
+        return _jsonResponse
+            .map((savelon) => SaveLoan.fromJson(savelon))
+            .toList();
+      } else {
+        throw Exception(_response.body);
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
   // create save and loan
   Future<SaveLoan> createSaveLoan(SaveLoan saveLoan, bool isProfileImageChanged,
       bool isIdImageChanged) async {

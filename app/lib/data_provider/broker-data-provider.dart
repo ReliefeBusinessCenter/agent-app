@@ -168,6 +168,7 @@ class BrokerDataProvider {
                 "workDone": broker.skills!.workDone,
                 "workInProgress": broker.skills!.workInProgress,
               },
+              "about": broker.about,
               "categoryId": broker.category!.categoryId,
               // "category": {
               //   // "categoryId"

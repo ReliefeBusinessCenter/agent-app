@@ -21,3 +21,6 @@ class SaveloanFetchSucces extends SaveloanState {
   SaveloanFetchSucces(this.saveloan);
 }
 
+class SaveloanCreateSuccess extends SaveloanState{
+  
+}

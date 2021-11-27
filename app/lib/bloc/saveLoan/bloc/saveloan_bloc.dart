@@ -12,13 +12,27 @@ class SaveloanBloc extends Bloc<SaveloanEvent, SaveloanState> {
 
   @override
   Stream<SaveloanState> mapEventToState(SaveloanEvent event) async* {
-    if (event is CreateSaveLoanEvent) {
+    if (event is SaveloanFetchSucces) {
       yield SaveloanLoading();
       try {
-        SaveLoan _saveLoan =
-            await saveLoanRepository.createSaveLoan(event.saveLoan, event.isProfileImageChanged, event.isIdImageChanged);
+        final _responseList = await saveLoanRepository.getAllSaveLoans();
+        if (_responseList is List<SaveLoan>) {
+          yield SaveloanFetchSucces(_responseList);
+        } else {
+          yield SaveloanFailed("Error happended");
+        }
+      } catch (e) {
+        yield SaveloanFailed(e.toString());
+      }
+    } else if (event is CreateSaveLoanEvent) {
+      yield SaveloanLoading();
+      try {
+        SaveLoan _saveLoan = await saveLoanRepository.createSaveLoan(
+            event.saveLoan,
+            event.isProfileImageChanged,
+            event.isIdImageChanged);
         if (_saveLoan is SaveLoan) {
-          yield SaveloanSuccess(_saveLoan);
+          yield SaveloanCreateSuccess();
         } else {
           yield SaveloanFailed(_saveLoan.toString());
         }
