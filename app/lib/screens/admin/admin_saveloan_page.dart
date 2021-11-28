@@ -39,7 +39,7 @@ class _AdminSaveLoanState extends State<AdminSaveLoan> {
               child: CircularProgressIndicator(),
             );
           } else if (state is SaveloanFetchSucces) {
-            return Container(
+            return state.saveloan.isEmpty ?Center(child: Text("No Save loans yet!"),): Container(
               child: ListView(
                 children: state.saveloan
                     .map(

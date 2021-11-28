@@ -241,7 +241,6 @@ class _DealsPageScreenState extends State<DealsPageScreen> {
                                       initialValue:
                                           widget.customer.user!.city != null
                                               ? widget.customer.user!.city!
-                                                  as String
                                               : "Unknown",
                                       validator: null,
                                       obsecureText: false,
