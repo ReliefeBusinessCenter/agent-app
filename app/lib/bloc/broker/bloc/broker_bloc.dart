@@ -113,9 +113,10 @@ class BrokerBloc extends Bloc<BrokerEvent, BrokerState> {
       try {
         Broker _brokerResponse =
             await brokersRepository.updateBroker(event.broker, event.status);
+          List<Broker> brokers = (await this.brokersRepository.getBrokers());
         if (_brokerResponse is Broker) {
           yield BrokersLoadSuccess(
-              brokers: [_brokerResponse],
+              brokers: brokers,
               isName: state.isName,
               selectedCategoryId: 0);
         } else {
