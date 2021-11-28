@@ -234,7 +234,7 @@ class _AdminBrokerProfilePageState extends State<AdminBrokerProfilePage> {
                               SizedBox(
                                 height: 30,
                               ),
-                              BrokerSkillsPage(skill: state.brokers.first.skills!,),
+                              BrokerSkillsPage( skill: widget.broker!.skills!,),
                               SizedBox(
                                 width: size.width * 0.6,
                                 child: AcceptButton(
