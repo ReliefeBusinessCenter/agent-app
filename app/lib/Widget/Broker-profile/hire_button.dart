@@ -2,6 +2,7 @@ import 'package:app/bloc/delivery/bloc/delivery_bloc.dart';
 import 'package:app/bloc/work-delivery/bloc/work_bloc.dart';
 // import 'package:app/bloc/work/bloc/work_bloc.dart';
 import 'package:app/model/broker/broker.dart';
+import 'package:app/preferences/user_preference_data.dart';
 
 // import 'package:app/model/category.dart';
 // import 'package:app/model/work.dart';
@@ -33,39 +34,40 @@ class HireButton extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.all(10),
         child: CustomButton(
-            brokerName: broker.user!.fullName as String,
-            label: 'Hire ${broker.user!.fullName as String}',
-            backgroundColor: Theme.of(context).primaryColor,
-            foregroundColor: Colors.white,
-            onTap: () {
-               deliveryBloc.add(SelectBrokerEvent(broker: this.broker));
-                      deliveryBloc.add(DeliveryCreateEvent());
-                      workBloc.add(FetchWork());
-              // AwesomeDialog(
-              //   context: context,
-              //   dialogType: DialogType.INFO,
-              //   animType: AnimType.BOTTOMSLIDE,
-              //   title: 'Confirm Us',
-              //   desc:
-              //       'You are Hiring ${broker.user!.fullName as String}. Do you want to continue?',
-              //   btnCancelOnPress: () {},
-              //   btnOkOnPress: () {
-              //     AwesomeDialog(
-              //       context: context,
-              //       dialogType: DialogType.SUCCES,
-              //       animType: AnimType.BOTTOMSLIDE,
-              //       title: 'Success',
-              //       desc: 'Your process have been successfully processed.',
-              //       btnOkOnPress: () {
-              //         // workBloc.add(AddWork(work: work));
-              //         deliveryBloc.add(SelectBrokerEvent(broker: this.broker));
-              //         deliveryBloc.add(DeliveryCreateEvent());
-              //         Navigator.pop(context);
-              //       },
-              //     )..show();
-              //   },
-              // )..show();
-            }),
+          brokerName: broker.user!.fullName as String,
+          label: 'Hire ${broker.user!.fullName as String}',
+          backgroundColor: Theme.of(context).primaryColor,
+          foregroundColor: Colors.white,
+          onTap: () {
+            deliveryBloc.add(SelectBrokerEvent(broker: this.broker));
+            deliveryBloc.add(DeliveryCreateEvent());
+            workBloc.add(FetchWork());
+            // AwesomeDialog(
+            //   context: context,
+            //   dialogType: DialogType.INFO,
+            //   animType: AnimType.BOTTOMSLIDE,
+            //   title: 'Confirm Us',
+            //   desc:
+            //       'You are Hiring ${broker.user!.fullName as String}. Do you want to continue?',
+            //   btnCancelOnPress: () {},
+            //   btnOkOnPress: () {
+            //     AwesomeDialog(
+            //       context: context,
+            //       dialogType: DialogType.SUCCES,
+            //       animType: AnimType.BOTTOMSLIDE,
+            //       title: 'Success',
+            //       desc: 'Your process have been successfully processed.',
+            //       btnOkOnPress: () {
+                    // workBloc.add(AddWork(work: work));
+            //         deliveryBloc.add(SelectBrokerEvent(broker: this.broker));
+            //         deliveryBloc.add(DeliveryCreateEvent());
+            //         Navigator.pop(context);
+            //       },
+            //     )..show();
+            //   },
+            // )..show();
+          },
+        ),
       ),
     );
   }

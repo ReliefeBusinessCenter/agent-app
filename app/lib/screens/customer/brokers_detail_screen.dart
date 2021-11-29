@@ -32,9 +32,10 @@ class BrokersProfilePage extends StatelessWidget {
       body: ProgressHUD(
         child: BlocConsumer<DeliveryBloc, DeliveryState>(
           listener: (context, state) {
+            final progress = ProgressHUD.of(context);
             if (state is DeliveryCreating) {
               // delivery createing
-              final progress = ProgressHUD.of(context);
+
               // if (!isShowing) {
               //   if (progress != null) {
               //     setState(() {
@@ -49,6 +50,7 @@ class BrokersProfilePage extends StatelessWidget {
               Navigator.of(context).pop();
               print("Delivery create sucess method");
             } else if (state is DeliveryCreateFailed) {
+              progress!.dismiss();
               // delivery failed method
               print("Delivery create method failed");
               AwesomeDialog(
