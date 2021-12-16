@@ -1,10 +1,82 @@
-import 'package:app/constants/login/size.dart';
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-class SplashScreen extends StatelessWidget {
+import 'package:app/constants/login/size.dart';
+import 'package:app/preferences/user_preference_data.dart';
+import 'package:app/screens/Auth/auth_exports.dart';
+import 'package:app/screens/admin/admin_main_page.dart';
+import 'package:app/screens/broker/broker_main_page.dart';
+import 'package:app/screens/customer/customerPage.dart';
+import 'package:app/screens/welcome/welcome_page.dart';
+import 'package:app/translations/locale_keys.g.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
+
+class SplashScreen extends StatefulWidget {
   late final String title;
+  static const routeName = "/trustbrokers/splashscreen";
 
   SplashScreen({required this.title});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    UserPreferences _userPreferences = UserPreferences();
+    _userPreferences.getUserInformation().then((loggedinUser) async {
+      print("Done");
+      Timer(Duration(milliseconds: 100), () {
+        if (loggedinUser == null) {
+          // print(loggedinUser!.user!.fullName);
+          print("++++++++++++++++++++++++++++++++++++++++++++++++");
+          print("User not logged in ");
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              WelcomePage.routeName, (context) => false);
+        } else {
+          if (loggedinUser.user!.role == "Broker") {
+            UserPreferences _userPreferences = UserPreferences();
+            _userPreferences.getBrokerInformation().then((value) => {
+                  if (value!.approved!)
+                    {
+                      Navigator.of(context)
+                          .pushReplacementNamed(BrokerMain.routeName)
+                    }
+                  else
+                    {
+                      AwesomeDialog(
+                        context: context,
+                        dialogType: DialogType.ERROR,
+                        animType: AnimType.BOTTOMSLIDE,
+                        title: LocaleKeys.login_failed_label_text.tr(),
+                        desc:
+                            LocaleKeys.you_are_not_verified_yet_label_text.tr(),
+                        // btnCancelOnPress: () {
+                        //   Navigator.popAndPushNamed(context, Login.routeName);
+                        // },
+                        btnOkOnPress: () {
+                          // Navigator.pop(context);
+                          // Navigator.pop()
+                          Navigator.popAndPushNamed(context, Login.routeName);
+                        },
+                      )..show()
+                    }
+                });
+          } else if (loggedinUser.user!.role == "Admin") {
+            Navigator.of(context).pushReplacementNamed(AdminMainPage.routeName);
+          } else {
+            Navigator.of(context).pushReplacementNamed(CustomerPage.routeName);
+          }
+
+          // callFetchEvents();
+
+        }
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

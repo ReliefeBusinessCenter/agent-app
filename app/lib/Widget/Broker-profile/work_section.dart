@@ -13,7 +13,7 @@ class WorkSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Container(
-      height: size.height * 0.3,
+      height: size.height * 0.4,
       padding: EdgeInsets.symmetric(horizontal: 50.0),
       child: DefaultTabController(
         initialIndex: 0,

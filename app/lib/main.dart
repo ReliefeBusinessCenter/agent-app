@@ -22,6 +22,7 @@ import 'package:app/repository/save_loan_repository.dart';
 import 'package:app/repository/user_repository.dart';
 import 'package:app/routes/route.dart';
 import 'package:app/screens/Auth/login.dart';
+import 'package:app/screens/splash_screen.dart';
 import 'package:app/screens/welcome/welcome_page.dart';
 import 'package:app/translations/codegen_loader.g.dart';
 import 'package:app/translations/locale_keys.g.dart';
@@ -219,7 +220,7 @@ class MyApp extends StatelessWidget {
                   headline6:
                       TextStyle(fontSize: 24, fontFamily: 'RobotoCondensed'))),
           // home: Login(),
-          initialRoute: WelcomePage.routeName,
+          initialRoute: SplashScreen.routeName,
           onGenerateRoute: AppRoutes.generateRoute,
 
           onUnknownRoute: (settings) {

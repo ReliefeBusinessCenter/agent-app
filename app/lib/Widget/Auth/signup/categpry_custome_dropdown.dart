@@ -24,7 +24,6 @@ class CategoryCustomeDropDownButton extends StatelessWidget {
       padding: const EdgeInsets.only(
         top: 6,
         bottom: 6,
-        // left: 12,
       ),
       child: Material(
         color: Colors.white,
@@ -46,6 +45,9 @@ class CategoryCustomeDropDownButton extends StatelessWidget {
                     // icon: Icon(Icons.category_outlined),
                     value: this.value,
                     items: this.dropDownItems,
+                    validator: (value){
+
+                    },
                     onChanged: (value) {
                       Category category = value as Category;
                       print(

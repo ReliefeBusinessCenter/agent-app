@@ -26,6 +26,7 @@ import 'package:app/screens/customer/becomeAnAgent.dart';
 import 'package:app/screens/customer/customerPage.dart';
 import 'package:app/screens/customer/customer_deals_detail.dart';
 import 'package:app/screens/customer/customer_delivery_detail.dart';
+import 'package:app/screens/splash_screen.dart';
 import 'package:app/screens/welcome/welcome_page.dart';
 import 'package:flutter/material.dart';
 
@@ -35,15 +36,20 @@ class AppRoutes {
   static Route generateRoute(RouteSettings settings) {
     if (settings.name == '/login') {
       return MaterialPageRoute(builder: (context) => Login());
+    } else if (settings.name == SplashScreen.routeName) {
+      return MaterialPageRoute(
+        builder: (context) => SplashScreen(title: "Trust Broker"),
+      );
     } else if (settings.name == CustomerPage.routeName) {
       return MaterialPageRoute(builder: (context) => CustomerPage());
     } else if (settings.name == BrokerAccountScreen.routeName) {
       return MaterialPageRoute(builder: (context) => BrokerAccountScreen());
     } else if (settings.name == SavingAndLoan.routeName) {
       Broker _broker = settings.arguments as Broker;
-      return MaterialPageRoute(builder: (context) => SavingAndLoan(
-        broker: _broker,
-      ));
+      return MaterialPageRoute(
+          builder: (context) => SavingAndLoan(
+                broker: _broker,
+              ));
     } else if (settings.name == BrokerMain.routeName) {
       return MaterialPageRoute(builder: (context) => BrokerMain());
       // } else if (settings.name == BrokersProfilePage.routeName) {

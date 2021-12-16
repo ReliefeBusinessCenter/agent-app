@@ -173,10 +173,12 @@ class _AppDrawerState extends State<AppDrawer> {
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold),
                           ),
-                          onTap: () {
+                          onTap: () async{
                             // Navigator.pop(context);
                             // Navigator.popAndPushNamed(
                             //     context, Login.routeName);
+                             UserPreferences _userPreferences = UserPreferences();
+                    await _userPreferences.removeUserInformation();
                             Navigator.of(context).pushNamedAndRemoveUntil(
                               Login.routeName,
                               (route) => false,
