@@ -12,8 +12,7 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("Language is ");
-    print(context.locale);
+   
     return Scaffold(
       backgroundColor: lightColor,
       // appBar: AppBar(

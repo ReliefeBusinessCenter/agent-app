@@ -161,7 +161,9 @@ class _BrokerDrawerState extends State<BrokerDrawer> {
                         fontSize: 15,
                         fontWeight: FontWeight.bold),
                   ),
-                  onTap: () {
+                  onTap: () async {
+                    UserPreferences _userPreferences = UserPreferences();
+                    await _userPreferences.removeUserInformation();
                     // Navigator.pop(context);
                     // Navigator.popAndPushNamed(
                     //     context, Login.routeName);

@@ -1,6 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.app">
-    <uses-permission android:name="android.permission.INTERNET"/> 
+    package="com.trustbroker">
+   <uses-permission android:name="android.permission.INTERNET"/> 
+   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+   <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
    <application
         android:label="Trust Broker"
         android:icon="@mipmap/launcher_icon">
@@ -42,6 +45,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyC0D4MSBWWsO9aJylqySkeJALF7V66Hx8Q"/>
     </application>
     
 </manifest>

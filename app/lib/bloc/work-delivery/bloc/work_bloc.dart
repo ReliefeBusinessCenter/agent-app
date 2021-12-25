@@ -51,6 +51,9 @@ class WorkBloc extends Bloc<WorkEvent, WorkState> {
         Customer customer = await this
             .customerRepository
             .getCustomerByEmail(user.phone as String) as Customer;
+        // update shared preference
+        userPreference.storeCustomerInformation(customer);
+        
         List<Delivery> delivery = customer.delivery as List<Delivery>;
         yield UpdateSuccessState(
             delivery_history: delivery, message: "Updated");

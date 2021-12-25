@@ -25,6 +25,7 @@ class _CustomerPageState extends State<CustomerPage> {
   int _selectedIndex = 0;
   late String filter = "All";
   String _initialValue = "en";
+  int _intialDistance = 1;
   @override
   void initState() {
     _getCustomer();
@@ -32,7 +33,6 @@ class _CustomerPageState extends State<CustomerPage> {
   }
 
   _getCustomer() async {
-    
     UserPreferences _userPreferences = UserPreferences();
     _userPreferences.getCustomerInformation().then(
       (customer) {
@@ -45,7 +45,7 @@ class _CustomerPageState extends State<CustomerPage> {
 
   @override
   Widget build(BuildContext context) {
-     _initialValue = context.locale.languageCode;
+    _initialValue = context.locale.languageCode;
     filter = LocaleKeys.all_status_text.tr();
     return Scaffold(
       key: _scaffoldKey,
@@ -66,6 +66,38 @@ class _CustomerPageState extends State<CustomerPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              Container(
+                width: 60,
+                child: DropdownButtonFormField<int>(
+                    value: _intialDistance,
+                    dropdownColor: primaryColor,
+                    decoration: InputDecoration(
+                      label: Text("Nearby"),
+                      border: InputBorder.none,
+                    ),
+                    onChanged: (value) async {
+                      setState(() {
+                        _intialDistance = value!;
+                      });
+                      await context.setLocale(Locale(value.toString()));
+                    },
+                    items: [
+                      DropdownMenuItem(
+                        child: Text(
+                          '1km',
+                          style: TextStyle(color: lightColor),
+                        ),
+                        value: 1,
+                      ),
+                      DropdownMenuItem(
+                        child: Text(
+                          '2km',
+                          style: TextStyle(color: lightColor),
+                        ),
+                        value: 2,
+                      )
+                    ]),
+              ),
               Container(
                 width: 50,
                 child: DropdownButtonFormField<String>(
@@ -155,7 +187,7 @@ class _CustomerPageState extends State<CustomerPage> {
   _getDrawerItemWidget(int index) {
     switch (index) {
       case 0:
-        return new HomeFragment(filter);
+        return new HomeFragment(filter,radius: 12,);
       case 1:
         return new HistoryScreen();
       case 2:
@@ -164,7 +196,7 @@ class _CustomerPageState extends State<CustomerPage> {
         return new FavoritScreen();
 
       default:
-        return new HomeFragment(filter);
+        return new HomeFragment(filter, radius: 12);
     }
   }
 }

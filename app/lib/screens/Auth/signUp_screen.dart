@@ -4,6 +4,7 @@ import 'package:app/Widget/Auth/signup/next-button.dart';
 import 'package:app/Widget/Auth/signup/role-dropdown.dart';
 import 'package:app/Widget/Auth/signup/sex-dropdown.dart';
 import 'package:app/Widget/Auth/signup/signUpTextField.dart';
+import 'package:app/bloc/bloc/phoneverification_bloc.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';
 import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
@@ -42,11 +43,12 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
   late RegisterBloc registerBloc;
 
   String type = 'Customer';
+  late PhoneverificationBloc phoneverificationBloc;
 
   @override
   Widget build(BuildContext context) {
     // String type = 'Customer';
-
+    phoneverificationBloc = BlocProvider.of<PhoneverificationBloc>(context);
     registerBloc = BlocProvider.of<RegisterBloc>(context);
     // registerBloc.add(Initialization());
     return Scaffold(
@@ -55,187 +57,247 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
           backgroundColor: Theme.of(context).primaryColor,
           title: Text(LocaleKeys.be_a_potential_user_label_text.tr()),
         ),
-        body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Material(
-              elevation: 1,
-              borderRadius: BorderRadius.circular(30),
-              child: Container(
-                  height: MediaQuery.of(context).size.height,
-                  // padding: EdgeInsets.all(16.0),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
+        body: BlocConsumer<PhoneverificationBloc, PhoneverificationState>(
+            listener: (context, state) {},
+            builder: (context, snapshot) {
+              return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Material(
+                    elevation: 1,
                     borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Form(
-                      key: _formKey,
-                      child: Column(children: [
-                        Container(
-                          // alignment: Alignment.topCenter,
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.05,
-
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular((30)),
-                                topRight: Radius.circular((30))),
-                            color:
-                                Theme.of(context).primaryColor.withOpacity(0.1),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.02,
-                                left: MediaQuery.of(context).size.width * 0.05),
-                            child: Text(
-                              LocaleKeys.register_to_continue_label_text.tr(),
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
+                    child: Container(
+                        height: MediaQuery.of(context).size.height,
+                        // padding: EdgeInsets.all(16.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(30),
                         ),
-                        Container(
-                          height: MediaQuery.of(context).size.height * 0.7,
-                          padding:
-                              EdgeInsets.only(left: 0.5, right: 0.5, top: 25),
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                CustomTextField(
-                                  minLength: 0,
-                                  textFieldName:
-                                      LocaleKeys.fullname_label_text.tr(),
-                                  enabled: true,
-                                  controller: nameController,
-                                  initialValue: '',
-                                  validator: null,
-                                  obsecureText: false,
-                                  isRequired: false,
-                                  onChanged: (String value) {
-                                    print("Write: ${value}");
-                                    registerBloc.add(AddName(name: value));
-                                  },
-                                  keyboardType: TextInputType.text,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: Form(
+                            key: _formKey,
+                            child: Column(children: [
+                              if (snapshot is PhoneVerificationError)
+                                Text(
+                                  snapshot.message,
+                                  style: TextStyle(color: Colors.red),
                                 ),
-                                SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.02,
+                              Container(
+                                // alignment: Alignment.topCenter,
+                                width: MediaQuery.of(context).size.width,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
+
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular((30)),
+                                      topRight: Radius.circular((30))),
+                                  color: Theme.of(context)
+                                      .primaryColor
+                                      .withOpacity(0.1),
                                 ),
-                                CustomTextField(
-                                    minLength: 0,
-                                    keyboardType: TextInputType.number,
-                                    textFieldName:
-                                        LocaleKeys.phone_label_text.tr(),
-                                    controller: phoneController,
-                                    enabled: true,
-                                    initialValue: '',
-                                    validator: null,
-                                    obsecureText: false,
-                                    isRequired: false,
-                                    onChanged: (String value) {
-                                      print("Write: ${value}");
-                                      registerBloc
-                                          .add(AddPhone(phoneNumber: value));
-                                    }),
-                                SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.02,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      top: MediaQuery.of(context).size.height *
+                                          0.02,
+                                      left: MediaQuery.of(context).size.width *
+                                          0.05),
+                                  child: Text(
+                                    LocaleKeys.register_to_continue_label_text
+                                        .tr(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                    textAlign: TextAlign.left,
+                                  ),
                                 ),
-                                CitiesDropDown(),
-                                SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.02,
+                              ),
+                              Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.7,
+                                padding: EdgeInsets.only(
+                                    left: 0.5, right: 0.5, top: 25),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      CustomTextField(
+                                        minLength: 0,
+                                        textFieldName:
+                                            LocaleKeys.fullname_label_text.tr(),
+                                        enabled: true,
+                                        controller: nameController,
+                                        initialValue: '',
+                                        validator: null,
+                                        obsecureText: false,
+                                        isRequired: false,
+                                        onChanged: (String value) {
+                                          print("Write: ${value}");
+                                          registerBloc
+                                              .add(AddName(name: value));
+                                        },
+                                        keyboardType: TextInputType.text,
+                                      ),
+                                      SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02,
+                                      ),
+                                      CustomTextField(
+                                          minLength: 0,
+                                          keyboardType: TextInputType.number,
+                                          textFieldName:
+                                              LocaleKeys.phone_label_text.tr(),
+                                          controller: phoneController,
+                                          enabled: true,
+                                          initialValue: '',
+                                          validator: null,
+                                          obsecureText: false,
+                                          isRequired: false,
+                                          onChanged: (String value) {
+                                            print("Write: ${value}");
+                                            registerBloc.add(
+                                                AddPhone(phoneNumber: value));
+                                          }),
+                                      SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02,
+                                      ),
+                                      CitiesDropDown(),
+                                      SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02,
+                                      ),
+                                      CustomTextField(
+                                          minLength: 0,
+                                          textFieldName: LocaleKeys
+                                              .subcity_label_text
+                                              .tr(),
+                                          keyboardType: TextInputType.text,
+                                          controller: subCityController,
+                                          enabled: true,
+                                          initialValue: '',
+                                          validator: null,
+                                          obsecureText: false,
+                                          isRequired: false,
+                                          onChanged: (String value) {
+                                            print("Write: ${value}");
+                                            registerBloc.add(
+                                                AddSubCity(subCity: value));
+                                          }),
+                                      SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02,
+                                      ),
+                                      CustomTextField(
+                                          minLength: 0,
+                                          enabled: true,
+                                          textFieldName:
+                                              LocaleKeys.kebele_label_text.tr(),
+                                          keyboardType: TextInputType.number,
+                                          controller: kebeleController,
+                                          initialValue: '',
+                                          validator: null,
+                                          obsecureText: false,
+                                          isRequired: false,
+                                          onChanged: (String value) {
+                                            registerBloc
+                                                .add(AddKebele(kebele: value));
+                                          }),
+                                      SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02,
+                                      ),
+                                      SexDropDown(),
+                                      SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02,
+                                      ),
+                                      RoleDropDown(),
+                                      BlocBuilder<RegisterBloc, RegisterState>(
+                                        builder: (context, state) {
+                                          if (state is RegisterUpdateSuccess) {
+                                            if (state.user!.role == "Broker") {
+                                              type = 'Broker';
+                                            } else if (state.user!.role ==
+                                                "Customer") {
+                                              type = 'Customer';
+                                            }
+                                            return Visibility(
+                                                visible:
+                                                    state.user!.role == "Broker"
+                                                        ? true
+                                                        : false,
+                                                child:
+                                                    CategoryDropDownButton());
+                                          }
+
+                                          return Visibility(
+                                              visible:
+                                                  state.user!.role == "Broker"
+                                                      ? true
+                                                      : false,
+                                              child: CategoryDropDownButton());
+                                        },
+                                      )
+                                    ],
+                                  ),
                                 ),
-                                CustomTextField(
-                                    minLength: 0,
-                                    textFieldName:
-                                        LocaleKeys.subcity_label_text.tr(),
-                                    keyboardType: TextInputType.text,
-                                    controller: subCityController,
-                                    enabled: true,
-                                    initialValue: '',
-                                    validator: null,
-                                    obsecureText: false,
-                                    isRequired: false,
-                                    onChanged: (String value) {
-                                      print("Write: ${value}");
-                                      registerBloc.add(AddSubCity(subCity: value));
-                                    }),
-                                SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.02,
-                                ),
-                                CustomTextField(
-                                    minLength: 0,
-                                    enabled: true,
-                                    textFieldName:
-                                        LocaleKeys.kebele_label_text.tr(),
-                                    keyboardType: TextInputType.number,
-                                    controller: kebeleController,
-                                    initialValue: '',
-                                    validator: null,
-                                    obsecureText: false,
-                                    isRequired: false,
-                                    onChanged: (String value) {
-                                      registerBloc
-                                          .add(AddKebele(kebele: value));
-                                    }),
-                                SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.02,
-                                ),
-                                SexDropDown(),
-                                SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.02,
-                                ),
-                                RoleDropDown(),
-                                BlocBuilder<RegisterBloc, RegisterState>(
-                                  builder: (context, state) {
-                                    if (state is RegisterUpdateSuccess) {
-                                      if (state.user!.role == "Broker") {
-                                        type = 'Broker';
-                                      } else if (state.user!.role ==
-                                          "Customer") {
-                                        type = 'Customer';
+                              ),
+                              Next(
+                                  child: snapshot is PhoneVerificationLoading
+                                      ? CircularProgressIndicator()
+                                      : Center(
+                                          child: Text(
+                                              LocaleKeys.next_btn_label_text
+                                                  .tr(),
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                              )),
+                                        ),
+                                  onTapped: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      print("Validated successfully");
+                                      print("User Type: ${type}");
+                                      // phoneverificationBloc.add(VerifyPhone(
+                                      //   routeName: ,
+                                      // context: context,
+                                      // phoneNumber:
+                                      //     "+251${phoneController.text.substring(1)}"));
+                                      
+                                      if (type == 'Customer') {
+                                         phoneverificationBloc.add(VerifyPhone(
+                                        routeName:  CustomerDetailScreen.routeName,
+                                      context: context,
+                                      phoneNumber:
+                                          "+251${phoneController.text.substring(1)}"));
+                                        // Navigator.of(context).pushNamed(
+                                        //     CustomerDetailScreen.routeName,
+                                        //     arguments: phoneController.text
+                                        //         .substring(1));
+                                      } else {
+                                         phoneverificationBloc.add(VerifyPhone(
+                                        routeName:  BrokerDetailScreen.routeName,
+                                      context: context,
+                                      phoneNumber:
+                                          "+251${phoneController.text.substring(1)}"));
+                                        // Navigator.of(context).pushNamed(
+                                        //     BrokerDetailScreen.routeName,
+                                        //     arguments: phoneController.text
+                                        //         .substring(1));
                                       }
-                                      return Visibility(
-                                          visible: state.user!.role == "Broker"
-                                              ? true
-                                              : false,
-                                          child: CategoryDropDownButton());
                                     }
-
-                                    return Visibility(
-                                        visible: state.user!.role == "Broker"
-                                            ? true
-                                            : false,
-                                        child: CategoryDropDownButton());
-                                  },
-                                )
-                              ],
-                            ),
+                                  }),
+                            ]),
                           ),
-                        ),
-                        Next(onTapped: () {
-                          if (_formKey.currentState!.validate()) {
-                            print("Validated successfully");
-                            print("User Type: ${type}");
-                            if (type == 'Customer') {
-                              Navigator.of(context)
-                                  .pushNamed(CustomerDetailScreen.routeName);
-                            } else {
-                              Navigator.of(context)
-                                  .pushNamed(BrokerDetailScreen.routeName);
-                            }
-                          }
-                        }),
-                      ]),
-                    ),
-                  )),
-            )));
+                        )),
+                  ));
+            }));
   }
 
   void validate() {

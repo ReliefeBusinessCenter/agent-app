@@ -9,6 +9,7 @@ class ConfirmPasswordTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     final _mypasswordController = TextEditingController();
     return CustomTextField(
+      onChanged: (value) {},
       isObsecure: true,
       textFieldName: LocaleKeys.confirm_password_label_text.tr(),
       controller: _mypasswordController,

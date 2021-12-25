@@ -63,15 +63,20 @@ class DealsListBloc extends Bloc<DealsEvent, DealsState> {
         LoggedUserInfo? loggedUserInfo =
             await userPreference.getUserInformation();
 // define user here
+        print(
+            "The feeeeeeeeeeeeeeeettttttttttttttcccccccccccccched user is ${user.phone}");
 
-        Broker broker = await this
+        Broker? broker = await this
             .brokerRepository
-            .getBrokerByEmail(user.phone as String) as Broker;
-        List<Deals> deals = broker.deals as List<Deals>;
+            .getBrokerByEmail(user.phone as String);
+        if(broker is Broker){
+           List<Deals> deals = broker.deals as List<Deals>;
         yield UpdateDealsSuccessState(deals_history: deals, message: "Updated");
         print("Broker Data: ${broker.toJson()}");
         print("User Email address: ${user.email}");
         works = broker.deals as List<Deals>;
+        }
+       
       }
 
       // List<Delivery> works = customer.delivery as List<Delivery>;

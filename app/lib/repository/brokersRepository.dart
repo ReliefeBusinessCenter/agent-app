@@ -1,4 +1,3 @@
-import 'package:app/Widget/Broker-profile/Broker-background-image.dart';
 import 'package:app/data_provider/broker-data-provider.dart';
 import 'package:app/model/broker/broker.dart';
 

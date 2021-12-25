@@ -5,6 +5,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class NextButton extends StatelessWidget {
+  final Function() onPressed;
+  NextButton({required this.onPressed});
   @override
   Widget build(BuildContext context) {
     LoginSize loginSize = new LoginSize();
@@ -14,12 +16,12 @@ class NextButton extends StatelessWidget {
         height: loginSize.getLoginButtonHeight,
         child: InkWell(
           splashColor: Colors.white,
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => NewCredentialsScreen()),
-            );
-          },
+          onTap: onPressed,
+          //   Navigator.push(
+          //     context,
+          //     MaterialPageRoute(builder: (context) => NewCredentialsScreen()),
+          //   );
+          // },
 
           // onTap: () => _pushPage(context, Register()),
           child: Material(

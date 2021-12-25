@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:app/constants/dummy_brokers.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/broker.dart';
 import 'package:app/preferences/user_preference_data.dart';
@@ -19,34 +20,43 @@ class BrokerDataProvider {
     String? token = await this.userPreferences.getUserToken();
     late List<Broker> brokers_return = [];
     print("This is the caategory Id");
+
     try {
-      final url = Uri.parse('${Ip.ip}/api/brokers');
-
-      final response = await http.get(
-        url,
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        },
-      );
-      print(response.statusCode);
-      if (response.statusCode == 200) {
-        final extractedData = json.decode(response.body) as List;
-
-        final data = extractedData;
-
-        print("Data:${data}");
-
-        return (data.map((broker) => Broker.fromJson(broker)).toList());
-      } else {
-        print(response.body);
-        throw Exception('Failed to load courses');
-      }
+      return (brokers.map((broker) => Broker.fromJson(broker)).toList());
     } catch (e) {
-      print("Exception throuwn $e");
+      throw Exception(e);
     }
-    return brokers_return;
+    // try {
+    //   final url = Uri.parse('${Ip.ip}/api/brokers');
+
+    //   final response = await http.get(
+    //     url,
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'Accept': 'application/json',
+    //       'Authorization': 'Bearer $token',
+    //     },
+    //   );
+    //   print(response.statusCode);
+    //   if (response.statusCode == 200) {
+    //     final extractedData = json.decode(response.body) as List;
+
+    //     final data = extractedData;
+
+    //     print("Data:${data}");
+
+    //     return (brokers
+    //         .map((broker) => Broker.fromJson(broker))
+    //         .toList());
+    //   } else {
+    //     print(response.body);
+    //     throw Exception('Failed to load courses');
+    //   }
+    // } catch (e) {
+    //   print("Exception throuwn $e");
+    //   throw Exception(e);
+    // }
+    // return brokers_return;
   }
 
   Future<Broker?> getBrokerByEmail(String email) async {
@@ -65,7 +75,7 @@ class BrokerDataProvider {
         },
       );
       print('Arrived here ${response.body}');
-      print("Response status${response.statusCode}");
+      print("Response status ${response.statusCode}");
       if (response.statusCode == 200) {
         final extractedData = json.decode(response.body);
 
@@ -121,7 +131,7 @@ class BrokerDataProvider {
 
   Future<bool> createBroker(Broker? broker) async {
     String? token = await this.userPreferences.getUserToken();
-    
+
     // late List<Data> products_return = [];
     print(
         "+++++++++++++++++++++++______++++++Create broker  method invocked+++++++++++________with Data ${broker!.toJson()}");

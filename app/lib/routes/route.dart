@@ -22,10 +22,12 @@ import 'package:app/screens/broker/broker_deals_form_page.dart';
 import 'package:app/screens/broker/broker_delivery_detail.dart';
 import 'package:app/screens/broker/broker_main_page.dart';
 import 'package:app/screens/broker/saving_and_loans.dart';
+import 'package:app/screens/common/verify_phone.dart';
 import 'package:app/screens/customer/becomeAnAgent.dart';
 import 'package:app/screens/customer/customerPage.dart';
 import 'package:app/screens/customer/customer_deals_detail.dart';
 import 'package:app/screens/customer/customer_delivery_detail.dart';
+import 'package:app/screens/splash_screen.dart';
 import 'package:app/screens/welcome/welcome_page.dart';
 import 'package:flutter/material.dart';
 
@@ -35,15 +37,24 @@ class AppRoutes {
   static Route generateRoute(RouteSettings settings) {
     if (settings.name == '/login') {
       return MaterialPageRoute(builder: (context) => Login());
+    } else if (settings.name == SplashScreen.routeName) {
+      return MaterialPageRoute(
+        builder: (context) => SplashScreen(title: "Trust Broker"),
+      );
+    } else if (settings.name == PhoneVerification.routeName) {
+      final PhoneArgument phoneNumber = settings.arguments as PhoneArgument;
+      return MaterialPageRoute(
+          builder: (context) => PhoneVerification(phoneNumber));
     } else if (settings.name == CustomerPage.routeName) {
       return MaterialPageRoute(builder: (context) => CustomerPage());
     } else if (settings.name == BrokerAccountScreen.routeName) {
       return MaterialPageRoute(builder: (context) => BrokerAccountScreen());
     } else if (settings.name == SavingAndLoan.routeName) {
       Broker _broker = settings.arguments as Broker;
-      return MaterialPageRoute(builder: (context) => SavingAndLoan(
-        broker: _broker,
-      ));
+      return MaterialPageRoute(
+          builder: (context) => SavingAndLoan(
+                broker: _broker,
+              ));
     } else if (settings.name == BrokerMain.routeName) {
       return MaterialPageRoute(builder: (context) => BrokerMain());
       // } else if (settings.name == BrokersProfilePage.routeName) {
@@ -58,11 +69,24 @@ class AppRoutes {
     } else if (settings.name == PasswordRegisterScreen.routeName) {
       return MaterialPageRoute(builder: (context) => PasswordRegisterScreen());
     } else if (settings.name == BrokerDetailScreen.routeName) {
-      return MaterialPageRoute(builder: (context) => BrokerDetailScreen());
+      final String phoneNumber = settings.arguments as String;
+      return MaterialPageRoute(
+        builder: (context) => BrokerDetailScreen(
+          phoneNumber: phoneNumber,
+        ),
+      );
     } else if (settings.name == CustomerDetailScreen.routeName) {
-      return MaterialPageRoute(builder: (context) => CustomerDetailScreen());
+      final String phoneNumber = settings.arguments as String;
+      return MaterialPageRoute(
+          builder: (context) => CustomerDetailScreen(
+                phoneNumber: phoneNumber,
+              ));
     } else if (settings.name == CustomerDetailScreen.routeName) {
-      return MaterialPageRoute(builder: (context) => CustomerDetailScreen());
+      final String phoneNumber = settings.arguments as String;
+      return MaterialPageRoute(
+          builder: (context) => CustomerDetailScreen(
+                phoneNumber: phoneNumber,
+              ));
     }
     // user profile
     // else if (settings.name == UserProfilePage.routeName) {

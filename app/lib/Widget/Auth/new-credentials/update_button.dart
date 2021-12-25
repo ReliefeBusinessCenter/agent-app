@@ -4,7 +4,10 @@ import 'package:app/translations/locale_keys.g.dart';
 
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+
 class UpdateButton extends StatelessWidget {
+  final Function() onPressed;
+  UpdateButton({required this.onPressed});
   @override
   Widget build(BuildContext context) {
     LoginSize loginSize = new LoginSize();
@@ -14,12 +17,7 @@ class UpdateButton extends StatelessWidget {
         height: loginSize.getLoginButtonHeight,
         child: InkWell(
           splashColor: Colors.white,
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => CustomerPage()),
-            );
-          },
+          onTap: onPressed,
           child: Material(
             color: Theme.of(context).primaryColor,
             shape:
@@ -32,7 +30,7 @@ class UpdateButton extends StatelessWidget {
 
               child: Center(
                   child: Text(
-               LocaleKeys.update_button_label_text.tr(),
+                LocaleKeys.update_button_label_text.tr(),
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,

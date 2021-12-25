@@ -14,18 +14,15 @@ class DeliveryDataProvider {
   DeliveryDataProvider(
       {required this.httpClient, required this.userPreferences})
       : assert(httpClient != null);
-      
-
-
-
 
 // create delivery
   Future<bool> createDelivery(Delivery? delivery) async {
     print("Entered to the delivery method");
     String? token = await this.userPreferences.getUserToken();
     // late List<Data> products_return = [];
-    print("++++++++++++++++++++++++++++Delivery create method invoked");
-    print("Customer Data:${delivery!.toJson()}");
+    print(
+        "++++++++++++++++++++++++++++Delivery create method invoked ${delivery!.broker!.brokerId}");
+    print("Customer Data:${delivery.toJson()}");
     try {
       // final url = Uri.parse('http://csv.jithvar.com/api/v1/orders');
       final url = Uri.parse('${Ip.ip}/api/delivery/');
@@ -36,7 +33,7 @@ class DeliveryDataProvider {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Authorization': 'Bearer $token', 
+          'Authorization': 'Bearer $token',
         },
         body: jsonEncode({
           "deliveryStatus": "Pending",
@@ -101,7 +98,6 @@ class DeliveryDataProvider {
       // final url = Uri.parse('http://csv.jithvar.com/api/v1/orders');
 
       final url = Uri.parse('${Ip.ip}/api/delivery/${delivery.deliveryId}');
-
 
       // send other customer data here
       final response = await http.put(

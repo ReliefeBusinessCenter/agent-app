@@ -7,14 +7,18 @@ class CustomTextField extends StatelessWidget {
   final Icon icon;
   final TextEditingController controller;
   String? initialValue;
+  final Function(String value) onChanged;
+  final TextInputType? textInputType;
 
   CustomTextField(
       {
+        this.textInputType,
         this.initialValue,
-        required this.textFieldName,
+      required this.textFieldName,
       required this.controller,
       required this.isObsecure,
-      required this.icon});
+      required this.icon,
+      required this.onChanged});
   @override
   Widget build(BuildContext context) {
     LoginSize loginSize = new LoginSize();
@@ -27,13 +31,12 @@ class CustomTextField extends StatelessWidget {
         width: loginSize.getTextFieldWidth,
         child: TextFormField(
           initialValue: initialValue,
-          onChanged: (value) {
-            print("Item : ${value}");
-          },
+
+          onChanged: onChanged,
           obscureText: this.isObsecure,
-          controller: this.controller,
+          controller: controller,
           // obscureText: !ispassshow,
-          keyboardType: TextInputType.text,
+          keyboardType: textInputType == null?TextInputType.text: textInputType ,
           textInputAction: TextInputAction.done,
           onEditingComplete: () => FocusScope.of(context).unfocus(),
           style: TextStyle(fontSize: 18, color: Colors.grey),

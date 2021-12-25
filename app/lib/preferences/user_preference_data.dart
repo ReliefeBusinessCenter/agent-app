@@ -16,9 +16,18 @@ class UserPreferences {
   Future<LoggedUserInfo?> getUserInformation() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? uInfo = prefs.getString('user_info');
-    Map<String, dynamic> json = jsonDecode(uInfo!) as Map<String, dynamic>;
-    var user = LoggedUserInfo.fromJson(json);
-    return user;
+    if (uInfo != null) {
+      Map<String, dynamic> json = jsonDecode(uInfo) as Map<String, dynamic>;
+      var user = LoggedUserInfo.fromJson(json);
+      return user;
+    } else {
+      return null;
+    }
+  }
+
+  Future<void> removeUserInformation() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
   }
 
   // Customer Information

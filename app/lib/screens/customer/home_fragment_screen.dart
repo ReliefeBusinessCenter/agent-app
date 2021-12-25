@@ -4,17 +4,21 @@ import 'package:app/Widget/Dashboard/customSearchBar.dart';
 import 'package:app/bloc/broker/bloc/broker_bloc.dart';
 import 'package:app/bloc/category/bloc/category_bloc.dart';
 import 'package:app/constants.dart';
+import 'package:app/constants/filter_nerby_brokers.dart';
 import 'package:app/model/broker/broker.dart';
 import 'package:app/translations/locale_keys.g.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class HomeFragment extends StatefulWidget {
   final String filter;
-  HomeFragment(this.filter);
+  final int radius;
+
+  HomeFragment(this.filter, { required this.radius});
   @override
   State<HomeFragment> createState() => _HomeFragmentState();
 }
@@ -31,7 +35,16 @@ class _HomeFragmentState extends State<HomeFragment> {
     setState(() {
       filter = widget.filter;
     });
+    _getNearByBrokers();
     super.initState();
+  }
+   List<Broker> _brokers = [];
+
+  _getNearByBrokers()async{
+    List<Broker> _br = await nearByUser(3);
+    setState(() {
+      _brokers = _br;
+    });
   }
 
   @override
@@ -75,7 +88,6 @@ class _HomeFragmentState extends State<HomeFragment> {
                         // print(
                         // "This is the name of the category:${DUMMY_CATEGORIES[i].name}");
                         brokerBloc.add(SelectEvent(categoryId: 0, search: ''));
-
                         categoryBloc.add(SelectCategory(categoryId: null));
                       },
                     ));
@@ -117,12 +129,13 @@ class _HomeFragmentState extends State<HomeFragment> {
           Expanded(
             child: BlocBuilder<BrokerBloc, BrokerState>(
               builder: (context, states) {
-                List<Broker> _brokers =
-                    widget.filter == LocaleKeys.all_status_text.tr()
-                        ? states.brokers
-                        : states.brokers
-                            .where((element) => element.isFavorite!)
-                            .toList();
+                // List<Broker> _brokers = await nearByUser(10);
+                // List<Broker> _brokers =
+                //     widget.filter == LocaleKeys.all_status_text.tr()
+                //         ? states.brokers
+                //         : states.brokers
+                //             .where((element) => element.isFavorite!)
+                //             .toList();
                 if (states is BrokersLoadSuccess) {
                   return LazyLoadScrollView(
                     onEndOfPage: () {},

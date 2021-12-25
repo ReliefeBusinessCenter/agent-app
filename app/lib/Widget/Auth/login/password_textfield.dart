@@ -10,6 +10,7 @@ class PasswordTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomTextField(
+      onChanged: (value) {},
       isObsecure: true,
       textFieldName: LocaleKeys.password_label_text.tr(),
       controller: mypasswordController,

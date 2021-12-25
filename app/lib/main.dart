@@ -1,8 +1,10 @@
+import 'package:app/bloc/bloc/phoneverification_bloc.dart';
 import 'package:app/bloc/broker/bloc/broker_bloc.dart';
 import 'package:app/bloc/city/bloc/city_bloc.dart';
 import 'package:app/bloc/delivery/bloc/delivery_bloc.dart';
 import 'package:app/bloc/favorit/bloc/favorite_bloc.dart';
 import 'package:app/bloc/saveLoan/bloc/saveloan_bloc.dart';
+import 'package:app/bloc/user/bloc/user_bloc.dart';
 import 'package:app/bloc/work-deals/bloc/workdeals_bloc.dart';
 // import 'package:app/bloc/work/bloc/work_bloc.dart';
 import 'package:app/data_provider/broker-data-provider.dart';
@@ -10,6 +12,7 @@ import 'package:app/data_provider/city_data_provider.dart';
 import 'package:app/data_provider/customer-data-provider.dart';
 import 'package:app/data_provider/deals_data_provider.dart';
 import 'package:app/data_provider/delivery-data-provider.dart';
+import 'package:app/data_provider/firebase_phone_verifcation_data_provider.dart';
 import 'package:app/data_provider/save_and_loan_data_provider.dart';
 import 'package:app/preferences/user_preference_data.dart';
 import 'package:app/repository/brokersRepository.dart';
@@ -18,14 +21,18 @@ import 'package:app/repository/city_repository.dart';
 import 'package:app/repository/customer_repository.dart';
 import 'package:app/repository/deals_repository.dart';
 import 'package:app/repository/delivery_repository.dart';
+import 'package:app/repository/firbase_phone_verification_repository.dart';
 import 'package:app/repository/save_loan_repository.dart';
 import 'package:app/repository/user_repository.dart';
 import 'package:app/routes/route.dart';
 import 'package:app/screens/Auth/login.dart';
+import 'package:app/screens/splash_screen.dart';
 import 'package:app/screens/welcome/welcome_page.dart';
 import 'package:app/translations/codegen_loader.g.dart';
 import 'package:app/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
@@ -44,10 +51,10 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(EasyLocalization(
     supportedLocales: [
       Locale('en'),
-      
       Locale('am'),
     ],
     assetLoader: CodegenLoader(),
@@ -60,7 +67,14 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   // BrokersDataProvider brokersDataProvider = new BrokersDataProvider();
+
   http.Client httpClient = http.Client();
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
+
+  PhoneVerificationRepository _phoneVerificationRepository =
+      PhoneVerificationRepository(
+          dataProvider: PhoneVerificationDataProvider());
   CityRepository cityRepository = CityRepository(
     cityDataProvider: CityDataProvider(
       httpClient: http.Client(),
@@ -120,6 +134,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
+           BlocProvider<UserBloc>(
+            create: (_) => UserBloc(
+              userRepository: userRepository,
+            ),
+          ),
           BlocProvider<SaveloanBloc>(
             create: (_) => SaveloanBloc(
               saveLoanRepository: saveLoanRepository,
@@ -138,6 +157,11 @@ class MyApp extends StatelessWidget {
               userRepository: this.userRepository,
               userPreference: UserPreferences(),
             )..add(AutoLoginEvent()),
+          ),
+          BlocProvider<PhoneverificationBloc>(
+            create: (_) => PhoneverificationBloc(
+              verificationRepository: _phoneVerificationRepository,
+            ),
           ),
 
           BlocProvider<customerBloc.CustomerBloc>(
@@ -221,7 +245,7 @@ class MyApp extends StatelessWidget {
                   headline6:
                       TextStyle(fontSize: 24, fontFamily: 'RobotoCondensed'))),
           // home: Login(),
-          initialRoute: WelcomePage.routeName,
+          initialRoute: SplashScreen.routeName,
           onGenerateRoute: AppRoutes.generateRoute,
 
           onUnknownRoute: (settings) {

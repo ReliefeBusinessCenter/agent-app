@@ -6,14 +6,22 @@ import 'package:easy_localization/easy_localization.dart';
 
 class EmailTextField extends StatelessWidget {
   TextEditingController myemailController;
-  EmailTextField({required this.myemailController});
+  final TextInputType? textInputType;
+  final Function(String value) onChanged;
+  EmailTextField({
+    required this.myemailController,
+    required this.onChanged,
+    this.textInputType
+  });
   @override
   Widget build(BuildContext context) {
     // final _myemailController = TextEditingController();
     return CustomTextField(
-        textFieldName: LocaleKeys.email_label_text.tr(),
+        onChanged: (value) {},
+        textFieldName: "Enter Phone",
         controller: myemailController,
         isObsecure: false,
+        textInputType: textInputType,
         icon: Icon(
           Icons.email,
           color: Colors.black,
