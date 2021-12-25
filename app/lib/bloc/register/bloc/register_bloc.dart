@@ -87,7 +87,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       print("Users: ${user.toJson()}");
       yield RegisterUpdateSuccess(user: user);
     } else if (event is AddGender) {
-      // add gender
+      // add genderFlat
       // user = state.user as User;
       user.sex = event.gender;
       print("Users: ${user.toJson()}");
@@ -128,6 +128,14 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       broker.skills!.brokingSkill = event.skill;
       // broker.skills = skills;
       print("Broker: ${broker.toJson()}");
+      yield RegisterUpdateSuccess(user: user, broker: broker);
+    } else if (event is AddLatitudeLongitude) {
+      print(
+          "===============================================================Longituder--${event.latitude}");
+            print(
+          "===============================================================Longituder--${event.longitude}");
+      broker.user!.latitude = event.latitude;
+      broker.user!.longitude = event.longitude;
       yield RegisterUpdateSuccess(user: user, broker: broker);
     } else if (event is AddWorkDone) {
       // add workdone

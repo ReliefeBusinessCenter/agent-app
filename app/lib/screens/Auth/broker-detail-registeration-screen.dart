@@ -184,7 +184,7 @@ class _BrokerDetailScreenState extends State<BrokerDetailScreen> {
                                       minLength: 0,
                                       textFieldName:
                                           LocaleKeys.work_done_label_text.tr(),
-                                      keyboardType: TextInputType.text,
+                                      keyboardType: TextInputType.number,
                                       controller: workDoneController,
                                       initialValue: '',
                                       enabled: true,
@@ -209,7 +209,7 @@ class _BrokerDetailScreenState extends State<BrokerDetailScreen> {
                                     enabled: true,
                                     textFieldName: LocaleKeys
                                         .Work_in_progress_label_text.tr(),
-                                    keyboardType: TextInputType.text,
+                                    keyboardType: TextInputType.number,
                                     controller: workInProgressController,
                                     initialValue: '',
                                     validator: null,
@@ -292,6 +292,8 @@ class _BrokerDetailScreenState extends State<BrokerDetailScreen> {
                                         _latitude = result.latitude;
                                         _longitude = result.longitude;
                                       });
+
+                                      registerBloc.add(AddLatitudeLongitude(latitude: result.latitude, longitude: result.longitude));
 
                                       debugPrint(
                                           "=============================================================The result is ${result.latitude}");

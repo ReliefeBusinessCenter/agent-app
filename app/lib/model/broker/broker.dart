@@ -109,6 +109,12 @@ class Broker {
     if (this.about != null) {
       data['about'] = this.about;
     }
+     if (this.latitude != null) {
+      data['latitude'] = this.latitude;
+    }
+    if (this.longitude != null) {
+      data['longitude'] = this.longitude;
+    }
     return data;
   }
 }

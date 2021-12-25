@@ -218,7 +218,8 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                                 0.02,
                                       ),
                                       RoleDropDown(),
-                                      BlocBuilder<RegisterBloc, RegisterState>(
+                                      BlocConsumer<RegisterBloc, RegisterState>(
+                                        listener: (context, state) {},
                                         builder: (context, state) {
                                           if (state is RegisterUpdateSuccess) {
                                             if (state.user!.role == "Broker") {
@@ -269,23 +270,21 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                       // context: context,
                                       // phoneNumber:
                                       //     "+251${phoneController.text.substring(1)}"));
-                                      
+
                                       if (type == 'Customer') {
-                                         phoneverificationBloc.add(VerifyPhone(
-                                        routeName:  CustomerDetailScreen.routeName,
-                                      context: context,
-                                      phoneNumber:
-                                          "+251${phoneController.text.substring(1)}"));
-                                        // Navigator.of(context).pushNamed(
-                                        //     CustomerDetailScreen.routeName,
-                                        //     arguments: phoneController.text
-                                        //         .substring(1));
+                                        phoneverificationBloc.add(VerifyPhone(
+                                            routeName:
+                                                CustomerDetailScreen.routeName,
+                                            context: context,
+                                            phoneNumber:
+                                                "+251${phoneController.text.substring(1)}"));
                                       } else {
-                                         phoneverificationBloc.add(VerifyPhone(
-                                        routeName:  BrokerDetailScreen.routeName,
-                                      context: context,
-                                      phoneNumber:
-                                          "+251${phoneController.text.substring(1)}"));
+                                        phoneverificationBloc.add(VerifyPhone(
+                                            routeName:
+                                                BrokerDetailScreen.routeName,
+                                            context: context,
+                                            phoneNumber:
+                                                "+251${phoneController.text.substring(1)}"));
                                         // Navigator.of(context).pushNamed(
                                         //     BrokerDetailScreen.routeName,
                                         //     arguments: phoneController.text

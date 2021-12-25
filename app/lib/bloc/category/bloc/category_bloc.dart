@@ -27,16 +27,13 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     CategoryEvent event,
   ) async* {
     if (event is FetchCategories) {
-      print("categoris fetch is being called!");
       yield CategoryLoading();
       try {
         List<Category> categories =
             await this.categoryRepository.getCategories();
         if (categories == []) {
-          print("Failed to fech categories");
           yield CategoryLoadFailed(message: "Failed to Fetch");
         } else {
-          print("Data arrived at the bloc: ${categories}");
           yield CategoryLoadSuccess(
               category: categories, selectedCategoryId: null);
         }
@@ -57,7 +54,6 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
           yield CategoryLoadFailed(message: "Failed to fetch");
         }
       } catch (e) {
-        print("The errrorrrrrrrrrrrrrrrcreate is ${e.toString()}");
         yield CategoryLoadFailed(message: "Failed to fetch");
       }
     } else if (event is UpdateCategory) {
