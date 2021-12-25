@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/broker.dart';
+import 'package:app/model/broker/user.dart';
 import 'package:app/model/customer/customer.dart';
 import 'package:app/model/login_info.dart';
 import 'package:app/preferences/user_preference_data.dart';
@@ -161,6 +162,43 @@ class UserDataProvider {
       }
     } catch (e) {
       throw (e);
+    }
+  }
+
+  Future<User> getUserByPhone(String phone) async {
+    print(
+        "============================================================================");
+    print("Fetching of user $phone");
+    final response = await httpClient.get(
+      Uri.parse('https://broker-service-api.herokuapp.com/api/users/$phone'),
+    );
+    print("Fetch user response is ${response.statusCode}");
+
+    if (response.statusCode == 200) {
+      return User.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception(response.body);
+    }
+  }
+
+  Future<bool> updateUser(User user) async {
+    final response = await httpClient.put(
+      Uri.parse(
+          'https://broker-service-api.herokuapp.com/api/users/${user.userId}'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        // 'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(
+        user.toJson(),
+      ),
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      throw Exception(response.body);
     }
   }
 }

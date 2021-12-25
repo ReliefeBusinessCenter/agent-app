@@ -43,6 +43,7 @@ class BrokerBloc extends Bloc<BrokerEvent, BrokerState> {
         }
       } catch (e) {}
     }
+    
     if (event is DeleteBrokerEvent) {
       try {
         bool _deleteResponse = await brokersRepository.deleteBroker(event.id);

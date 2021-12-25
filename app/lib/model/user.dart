@@ -12,7 +12,9 @@
 //   String? subCity;
 //   String? kebele;
 //   Null? buys;
-//   String? imagePath;
+//   String? identificationCard;
+//   double? latitude;
+//   double? longitude;
 
 //   User(
 //       {this.userId,
@@ -27,10 +29,13 @@
 //       this.city,
 //       this.subCity,
 //       this.kebele,
-//       this.imagePath,
-//       this.buys});
+//       this.identificationCard,
+//       this.buys,
+//       this.latitude,
+//       this.longitude
+//       });
 
-//   User.fromJson(Map<String, dynamic> json) {
+//  factory User.fromJson(Map<String, dynamic> json) {
 //     userId = json['userId'];
 //     fullName = json['fullName'];
 //     email = json['email'];
@@ -41,6 +46,7 @@
 //     sex = json['sex'];
 //     role = json['role'];
 //     buys = json['buys'];
+//     latitude = json
 //   }
 
 //   Map<String, dynamic> toJson() {

@@ -2,8 +2,10 @@ import 'package:app/Widget/Auth/signup/register-button.dart';
 import 'package:app/Widget/Auth/signup/upload_id_image.dart';
 import 'package:app/Widget/Auth/signup/upload_profile_image.dart';
 import 'package:app/Widget/common/constants.dart';
+import 'package:app/bloc/bloc/phoneverification_bloc.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';
 import 'package:app/constants/constants.dart';
+import 'package:app/screens/common/verify_phone.dart';
 import 'package:app/translations/locale_keys.g.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 // import 'package:file/file.dart';
@@ -14,10 +16,11 @@ import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:image_picker/image_picker.dart';
 // import 'package:image_picker/image_picker.dart';
 import 'login.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class CustomerDetailScreen extends StatefulWidget {
   static const routeName = '/customer-detail';
+  final String phoneNumber;
+  CustomerDetailScreen({required this.phoneNumber});
 
   @override
   _CustomerDetailScreenState createState() => _CustomerDetailScreenState();
@@ -34,10 +37,11 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
   final TextEditingController photoController = new TextEditingController();
   final TextEditingController idController = new TextEditingController();
   final ImagePicker _picker = ImagePicker();
-   PickedFile?_imageFile;
-   PickedFile? _idImaage;
+  PickedFile? _imageFile;
+  PickedFile? _idImaage;
 
   late RegisterBloc registerBloc;
+  late PhoneverificationBloc phoneverificationBloc;
 
   bool _passwordObscured = true;
   bool _confirmObscured = true;
@@ -46,6 +50,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
   @override
   Widget build(BuildContext context) {
     registerBloc = BlocProvider.of<RegisterBloc>(context);
+   
     return Scaffold(
       backgroundColor: lightColor,
       appBar: AppBar(
@@ -57,19 +62,15 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
           listener: (context, state) {
             if (state is RegisterCreateLoading) {
               final progress = ProgressHUD.of(context);
-              // if (!isShowing) {
-              //   if (progress != null) {
-              //     setState(() {
-              //       isShowing = true;
-              //     });
-
-              // }
+              
               progress!.showWithText("Creating");
             } else if (state is RegisterCreateSuccess) {
-              // this.isShowing = false;
+              print(
+                  "Successfull registerd===================================================================================");
+
+            
               registerBloc.add(Initialization());
-              Navigator.popAndPushNamed(context, Login.routeName);
-              // return Container(child: Text("Created Successfully"));
+               Navigator.pushNamed(context, Login.routeName);
             } else if (state is RegisterCreateFailed) {
               AwesomeDialog(
                 context: context,
@@ -247,7 +248,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                     LocaleKeys.id_photo_label_text.tr(),
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
-                                  ), 
+                                  ),
                                   SizedBox(
                                     height: 20.0,
                                   ),
@@ -283,7 +284,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                           Center(
                             child: RegisterButton(
                               name: LocaleKeys.register_btn_label_text.tr(),
-                              onTapped: () {
+                              onTapped: () async {
                                 setState(() {
                                   _choose = true;
                                 });
@@ -291,6 +292,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                     photoController.text.isNotEmpty) {
                                   print(
                                       "Register method called from the customer apage");
+                                  
                                   registerBloc.add(RegisterUser());
                                 }
                               },

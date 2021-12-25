@@ -6,7 +6,7 @@ class User {
   String? email;
   String? password;
   String? phone;
-  // String? address;
+  String? address;
   String? picture;
   String? identificationCard;
   String? sex;
@@ -15,6 +15,8 @@ class User {
   String? subCity;
   String? kebele;
   List<dynamic>? buys;
+  double? latitude;
+  double? longitude;
 
   User(
       {this.userId,
@@ -23,14 +25,16 @@ class User {
       this.password,
       this.phone,
       this.identificationCard,
-      // this.address,
+      this.address,
       this.picture,
       this.sex,
       this.role,
       this.city,
       this.subCity,
       this.kebele,
-      this.buys});
+      this.buys,
+      this.latitude,
+      this.longitude});
 
 // "userId": 1,
 //             "fullName": "Customer Fasikaw",
@@ -51,7 +55,7 @@ class User {
     email = json['email'];
     password = json['password'];
     phone = json['phone'];
-    // address = json['address'];
+    address = json['address'];
     city = json['city'];
     subCity = json['subcity'];
     kebele = json['kebele'];
@@ -62,6 +66,8 @@ class User {
     role = json['role'];
     buys = json['buys'];
     identificationCard = json['identificationCard'];
+    latitude = json['latitude'];
+    longitude = json['longtiude'];
   }
 
   Map<String, dynamic> toJson() {
@@ -81,6 +87,8 @@ class User {
     data['role'] = this.role;
     data['buys'] = this.buys;
     data['identificationCard'] = this.identificationCard;
+    data['longtiude'] = this.longitude;
+    data['latitude'] = this.latitude;
     return data;
   }
 }

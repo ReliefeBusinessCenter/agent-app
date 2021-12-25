@@ -1,4 +1,5 @@
 import 'package:app/data_provider/user_data_provider.dart';
+import 'package:app/model/broker/user.dart';
 import 'package:app/model/login_info.dart';
 
 class UserRepository {
@@ -23,5 +24,13 @@ class UserRepository {
       String email, otp, password, confirmed_password) async {
     await userDataProvider.changePassword(
         email, otp, password, confirmed_password);
+  }
+
+  Future<User> getUserByPhone(String phone) async {
+    return await userDataProvider.getUserByPhone(phone);
+  }
+
+  Future<bool> updateUser(User user) async {
+    return await userDataProvider.updateUser(user);
   }
 }

@@ -16,6 +16,8 @@ import 'login.dart';
 // ignore: must_be_immutable
 class BrokerDetailScreen extends StatefulWidget {
   static const routeName = '/broker-detail';
+  final String phoneNumber;
+  BrokerDetailScreen({required this.phoneNumber});
 
   @override
   State<BrokerDetailScreen> createState() => _BrokerDetailScreenState();
@@ -64,7 +66,7 @@ class _BrokerDetailScreenState extends State<BrokerDetailScreen> {
             } else if (state is RegisterCreateSuccess) {
               // this.isShowing = false;
 
-              Navigator.popAndPushNamed(context, Login.routeName);
+              // Navigator.popAndPushNamed(context, Login.routeName);
               // return Container(child: Text("Created Successfully"));
             } else if (state is RegisterCreateFailed) {
               AwesomeDialog(
@@ -306,7 +308,7 @@ class _BrokerDetailScreenState extends State<BrokerDetailScreen> {
                                         print(
                                             "Register method called from the broker page");
                                         Navigator.pushNamed(context,
-                                            CustomerDetailScreen.routeName);
+                                            CustomerDetailScreen.routeName,arguments: widget.phoneNumber);
                                       }
                                     },
                                   )

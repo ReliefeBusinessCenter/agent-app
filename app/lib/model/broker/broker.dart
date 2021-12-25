@@ -19,6 +19,8 @@ class Broker {
   bool? approved;
   bool? isFavorite;
   String? about;
+  double? latitude;
+  double? longitude;
 
   Broker({
     this.brokerId,
@@ -32,6 +34,8 @@ class Broker {
     this.user,
     this.approved,
     this.about,
+    this.latitude,
+    this.longitude,
   });
 
   Broker.fromJson(Map<String, dynamic> json) {
@@ -60,8 +64,8 @@ class Broker {
         reviews!.add(new Reviews.fromJson(v));
       });
     }
-    skills =
-        json['skills'] != null ? new Skills.fromJson(json['skills']) : null;
+    // skills =
+    //     json['skills'] != null ? new Skills.fromJson(json['skills']) : null;
     category = json['category'] != null
         ? new Category.fromJson(json['category'])
         : null;
@@ -70,6 +74,8 @@ class Broker {
     approved = json['approved'];
 
     about = json['about'];
+    latitude = json['latitude'] != null ? json['latitude'] : 0.0;
+    longitude = json['longitude'] != null ? json['longitude'] : 0.0;
   }
 
   Map<String, dynamic> toJson() {

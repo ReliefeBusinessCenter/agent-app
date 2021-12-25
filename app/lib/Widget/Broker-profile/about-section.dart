@@ -27,8 +27,8 @@ class AboutSection extends StatelessWidget {
                   size: 30.0,
                 ),
                 onPressed: () async {
-                  if (await canLaunch('tel:+${broker.user!.phone}')) {
-                    await launch('tel:+${broker.user!.phone}');
+                  if (await canLaunch('tel:${broker.user!.phone}')) {
+                    await launch('tel:${broker.user!.phone}');
                   } else {
                     throw "Could not launch ";
                   }
