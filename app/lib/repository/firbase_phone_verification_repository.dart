@@ -6,8 +6,8 @@ class PhoneVerificationRepository {
   final PhoneVerificationDataProvider dataProvider;
   PhoneVerificationRepository({required this.dataProvider});
 
-  Future<String> verifyPhone(String phoneNumber, BuildContext context, String routeName) async {
-    return await dataProvider.verifyPhone(phoneNumber, context, routeName);
+  Future<String> verifyPhone(String phoneNumber, BuildContext context, String routeName, VerificationType verificationType) async {
+    return await dataProvider.verifyPhone(phoneNumber, context, routeName, verificationType);
   }
 
   Future<PhoneVerificationStatus> siginInWithCredential(

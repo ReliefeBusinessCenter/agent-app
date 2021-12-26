@@ -29,16 +29,14 @@ class _CategoryDropDownButtonState extends State<CategoryDropDownButton> {
       builder: (context, state) {
         // print("The categories are ${state.category}");
         // if()
-        print("The category status is $state");
 
         if (state is CategoryLoadSuccess) {
            List<DropdownMenuItem<Category>> dropDownItems = [];
           if (state.category.isNotEmpty) {
            
-            print("Data at the screen: ${state.category}");
             for (int i = 0; i < state.category.length; i++) {
               Category category = state.category[i];
-              print("Category: ${category.categoryId}");
+             
               dropDownItems.add(DropdownMenuItem(
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.8,
@@ -78,7 +76,6 @@ class _CategoryDropDownButtonState extends State<CategoryDropDownButton> {
             return CategoryCustomeDropDownButton(
                 dropDownItems: dropDownItems,
                 onChanged: (String value) {
-                  print("Selected value: $value");
                 },
                 value: state.category[0]
                 // onChanged: this.onChanged,

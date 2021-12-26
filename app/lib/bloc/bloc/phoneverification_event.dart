@@ -11,12 +11,14 @@ class VerifyPhone extends PhoneverificationEvent {
   final String phoneNumber;
   final BuildContext context;
   final String routeName;
+  final VerificationType verificationType;
 
-  VerifyPhone({
-    required this.phoneNumber,
-    required this.context,
-    required this.routeName
-  });
+  VerifyPhone(
+      {required this.phoneNumber,
+      required this.context,
+      required this.routeName,
+      required this.verificationType,
+      });
 }
 
 class SigninWithCredential extends PhoneverificationEvent {

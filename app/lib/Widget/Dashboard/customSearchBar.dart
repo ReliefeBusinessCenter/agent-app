@@ -11,14 +11,14 @@ class SearchTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     brokerBloc = BlocProvider.of<BrokerBloc>(context);
-    LoginSize loginSize = new LoginSize();
-    loginSize.build(context);
+    // LoginSize loginSize = new LoginSize();
+    // loginSize.build(context);
     return Center(
       child: Container(
           decoration: BoxDecoration(
               color: Theme.of(context).primaryColor.withOpacity(0.1),
               borderRadius: BorderRadius.circular(40)),
-          width: loginSize.getTextFieldWidth,
+          // width: loginSize.getTextFieldWidth,
           child: BlocBuilder<BrokerBloc, BrokerState>(
             builder: (context, state) {
               return TextField(

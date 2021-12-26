@@ -90,4 +90,13 @@ class AddIdImage extends RegisterEvent {
   AddIdImage(this.image);
 }
 
+class AddLatitudeLongitude extends RegisterEvent {
+  final double latitude;
+  final double longitude;
+  AddLatitudeLongitude({
+    required this.latitude,
+    required this.longitude,
+  });
+}
+
 class RegisterUser extends RegisterEvent {}

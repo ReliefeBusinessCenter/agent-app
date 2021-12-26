@@ -19,44 +19,42 @@ class BrokerDataProvider {
   Future<List<Broker>?> getBrokers() async {
     String? token = await this.userPreferences.getUserToken();
     late List<Broker> brokers_return = [];
-    print("This is the caategory Id");
+    // print("This is the caategory Id");
 
-    try {
-      return (brokers.map((broker) => Broker.fromJson(broker)).toList());
-    } catch (e) {
-      throw Exception(e);
-    }
     // try {
-    //   final url = Uri.parse('${Ip.ip}/api/brokers');
-
-    //   final response = await http.get(
-    //     url,
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       'Accept': 'application/json',
-    //       'Authorization': 'Bearer $token',
-    //     },
-    //   );
-    //   print(response.statusCode);
-    //   if (response.statusCode == 200) {
-    //     final extractedData = json.decode(response.body) as List;
-
-    //     final data = extractedData;
-
-    //     print("Data:${data}");
-
-    //     return (brokers
-    //         .map((broker) => Broker.fromJson(broker))
-    //         .toList());
-    //   } else {
-    //     print(response.body);
-    //     throw Exception('Failed to load courses');
-    //   }
+    //   return (brokers.map((broker) => Broker.fromJson(broker)).toList());
     // } catch (e) {
-    //   print("Exception throuwn $e");
     //   throw Exception(e);
     // }
-    // return brokers_return;
+    try {
+      final url = Uri.parse('${Ip.ip}/api/brokers');
+
+      final response = await http.get(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        final extractedData = json.decode(response.body) as List;
+
+        
+
+        return extractedData
+            .map((broker) => Broker.fromJson(broker))
+            .toList();
+      } else {
+        print(response.body);
+        throw Exception('Failed to load courses');
+      }
+    } catch (e) {
+      print("Exception throuwn $e");
+      throw Exception(e);
+    }
+    return brokers_return;
   }
 
   Future<Broker?> getBrokerByEmail(String email) async {
@@ -135,8 +133,8 @@ class BrokerDataProvider {
     // late List<Data> products_return = [];
     print(
         "+++++++++++++++++++++++______++++++Create broker  method invocked+++++++++++________with Data ${broker!.toJson()}");
-
-    print("++++++++####this is the broker about: ${broker.skills!.about}");
+     print(
+        "+++++++++++++++++++++++______++++++Create broker  method invocked+++++++++++________with Data ${broker.user!.toJson()}");
     try {
       // final url = Uri.parse('http://csv.jithvar.com/api/v1/orders');
       final url = Uri.parse('${Ip.ip}/api/brokers/');
@@ -202,7 +200,9 @@ class BrokerDataProvider {
                 "sex": broker.user!.sex,
                 "identificationCard": resId.body.toString(),
                 "role": broker.user!.role,
-                "buys": null
+                "buys": null,
+                "latitude": broker.user!.latitude,
+                "longtiude": broker.user!.longitude
               }
             }));
         print(

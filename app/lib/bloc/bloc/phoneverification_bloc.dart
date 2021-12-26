@@ -20,7 +20,7 @@ class PhoneverificationBloc
   Stream<PhoneverificationState> mapEventToState(
       PhoneverificationEvent event) async* {
     if (event is VerifyPhone) {
-      yield* _verifyPhone(event.context, event.phoneNumber, event.routeName);
+      yield* _verifyPhone(event.context, event.phoneNumber, event.routeName, event.verificationType);
     } else if (event is SigninWithCredential) {
       yield* _signinWithCredential(event.credential, event.context, event.routeName);
     } else if (event is Signout) {
@@ -30,11 +30,11 @@ class PhoneverificationBloc
   }
 
   Stream<PhoneverificationState> _verifyPhone(
-      BuildContext context, String phoneNumber, String routeName) async* {
+      BuildContext context, String phoneNumber, String routeName, VerificationType verificationType) async* {
     yield PhoneVerificationLoading();
     try {
       final response =
-          await verificationRepository.verifyPhone(phoneNumber, context, routeName);
+          await verificationRepository.verifyPhone(phoneNumber, context, routeName,verificationType );
       if (response is String) {
         yield PhoneVerificationSuccess(
             status: PhoneVerificationStatus.unverified,

@@ -9,63 +9,111 @@ enum PhoneVerificationStatus {
   unverified,
 }
 
+enum VerificationType{
+  register,
+  reset
+}
+
 class PhoneVerificationDataProvider {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-
   // PhoneVerificationDataProvider({required this.firebaseAuth});
-
   String verificationID = '';
 
-  Future<String> verifyPhone(String phoneNumber, BuildContext context,String routeName) async {
+  Future<String> verifyPhone(
+      String phoneNumber, BuildContext context, String routeName, VerificationType verificationType) async {
     print("============================Verifying user phone number");
     try {
-      await firebaseAuth.verifyPhoneNumber(
-        phoneNumber: phoneNumber,
-        verificationCompleted: (PhoneAuthCredential authCredential) async {
-          debugPrint("verification completed${authCredential.smsCode}");
-          User? user = FirebaseAuth.instance.currentUser;
+      if(verificationType == VerificationType.register){
 
-          if (authCredential.smsCode != null) {
-            try {
-              await user!.linkWithCredential(authCredential);
-            } on FirebaseAuthException catch (e) {
-              if (e.code == 'provider-already-linked') {
-                await siginInWithCredential(authCredential, context, "/");
+        //  if (firebaseAuth.currentUser == null) {
+        await firebaseAuth.verifyPhoneNumber(
+          phoneNumber: phoneNumber,
+          verificationCompleted: (PhoneAuthCredential authCredential) async {
+            debugPrint("verification completed${authCredential.smsCode}");
+            User? user = FirebaseAuth.instance.currentUser;
+
+            if (authCredential.smsCode != null) {
+              try {
+                await user!.linkWithCredential(authCredential);
+              } on FirebaseAuthException catch (e) {
+                if (e.code == 'provider-already-linked') {
+                  await siginInWithCredential(authCredential, context, "/");
+                }
               }
             }
-          }
-        },
-        verificationFailed: _onVerificationFailed,
-        codeSent: (String verificationId, int? forceResendingToken) {
-          print(
-              "=========================================================================++Code sent==========================");
-          verificationID = verificationId;
-          PhoneArgument phoneArgument =
-              PhoneArgument(phone: phoneNumber, verificationID: verificationId, routeName: routeName);
-          Navigator.of(context)
-              .pushNamed(PhoneVerification.routeName, arguments: phoneArgument);
-        },
-        codeAutoRetrievalTimeout: _onCodeAutoRetrievalTimeout,
-      );
-      return verificationID;
+          },
+          verificationFailed: _onVerificationFailed,
+          codeSent: (String verificationId, int? forceResendingToken) {
+            
+            print(
+                "=========================================================================++Code sent==========================");
+            verificationID = verificationId;
+            PhoneArgument phoneArgument = PhoneArgument(
+                phone: phoneNumber,
+                verificationID: verificationId,
+                routeName: routeName);
+            Navigator.of(context).pushNamed(PhoneVerification.routeName,
+                arguments: phoneArgument);
+          },
+          codeAutoRetrievalTimeout: _onCodeAutoRetrievalTimeout,
+        );
+        return verificationID;
+      // } else {
+      //   throw FirebaseException(
+      //       plugin: "al-ready-existed", message: "Already existed");
+      // }
+      }else{
+         await firebaseAuth.verifyPhoneNumber(
+          phoneNumber: phoneNumber,
+          verificationCompleted: (PhoneAuthCredential authCredential) async {
+            debugPrint("verification completed${authCredential.smsCode}");
+            User? user = FirebaseAuth.instance.currentUser;
+
+            if (authCredential.smsCode != null) {
+              try {
+                await user!.linkWithCredential(authCredential);
+              } on FirebaseAuthException catch (e) {
+                if (e.code == 'provider-already-linked') {
+                  await siginInWithCredential(authCredential, context, "/");
+                }
+              }
+            }
+          },
+          verificationFailed: _onVerificationFailed,
+          codeSent: (String verificationId, int? forceResendingToken) {
+            print(
+                "=========================================================================++Code sent==========================");
+            verificationID = verificationId;
+            PhoneArgument phoneArgument = PhoneArgument(
+                phone: phoneNumber,
+                verificationID: verificationId,
+                routeName: routeName);
+            Navigator.of(context).pushNamed(PhoneVerification.routeName,
+                arguments: phoneArgument);
+          },
+          codeAutoRetrievalTimeout: _onCodeAutoRetrievalTimeout,
+        );
+        return verificationID;
+      }
     } on FirebaseAuthException catch (e) {
       String message = getMessageFromErrorCode(e.code);
-      throw Exception(message); 
+      throw Exception(message);
     } catch (e) {
       throw Exception(e.toString());
     }
   }
 
   Future<PhoneVerificationStatus> siginInWithCredential(
-      PhoneAuthCredential phoneAuthCredential, BuildContext context, String routeName) async {
+      PhoneAuthCredential phoneAuthCredential,
+      BuildContext context,
+      String routeName) async {
     try {
       PhoneVerificationStatus _status = PhoneVerificationStatus.unverified;
       await firebaseAuth
           .signInWithCredential(phoneAuthCredential)
           .then((value) {
         if (value.user != null) {
-          Navigator.of(context)
-              .pushNamed(routeName, arguments: "");
+          Navigator.of(context).pushNamed(routeName, arguments: "");
         }
       });
       return _status;
