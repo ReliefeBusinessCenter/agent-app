@@ -1,6 +1,7 @@
 import 'package:app/Widget/Auth/auth-export.dart';
 import 'package:app/bloc/bloc/phoneverification_bloc.dart';
 import 'package:app/bloc/user/bloc/user_bloc.dart';
+import 'package:app/data_provider/firebase_phone_verifcation_data_provider.dart';
 import 'package:app/model/broker/user.dart';
 import 'package:app/screens/Auth/auth_exports.dart';
 import 'package:app/screens/common/verify_phone.dart';
@@ -49,7 +50,9 @@ class _PasswordResetState extends State<PasswordReset> {
                 phoneverificationBloc.add(VerifyPhone(
                     phoneNumber: "+251${user.phone!.substring(1)}",
                     context: context,
-                    routeName: NewCredentialsScreen.routeName));
+                    routeName: NewCredentialsScreen.routeName,
+                    verificationType: VerificationType.reset
+                    ));
               }
               // if (phoneState is PhoneVerificationSuccess) {
 

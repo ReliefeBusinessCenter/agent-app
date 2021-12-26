@@ -2,6 +2,7 @@ import 'dart:async';
 
 // import 'package:app/Widget/Dashboard/broker.dart';
 
+import 'package:app/constants/filter_nerby_brokers.dart';
 import 'package:app/model/broker/broker.dart';
 // import 'package:app/model/category.dart';
 import 'package:app/repository/brokersRepository.dart';
@@ -43,7 +44,7 @@ class BrokerBloc extends Bloc<BrokerEvent, BrokerState> {
         }
       } catch (e) {}
     }
-    
+
     if (event is DeleteBrokerEvent) {
       try {
         bool _deleteResponse = await brokersRepository.deleteBroker(event.id);
@@ -59,6 +60,24 @@ class BrokerBloc extends Bloc<BrokerEvent, BrokerState> {
         }
       } catch (e) {
         yield BrokersLoadFailed(message: "Unable to load brokers");
+      }
+    } else if (event is FilterBrokerEvent) {
+      yield BrokersLoading(isName: state.isName);
+      try {
+        print("The current brokers are _$brokerList");
+        List<Broker> _filtedBroker =
+            await nearByUser(event.distance, brokerList);
+        if (_filtedBroker is List) {
+          print("The filted brokes are $_filtedBroker");
+          yield BrokersLoadSuccess(
+              isName: state.isName,
+              selectedCategoryId: 0,
+              brokers: _filtedBroker);
+        } else {
+          yield BrokersLoadFailed(message: "Unable To filter");
+        }
+      } catch (e) {
+        yield BrokersLoadFailed(message: "Unable To filter");
       }
     }
     if (event is SelectEvent) {
@@ -114,23 +133,20 @@ class BrokerBloc extends Bloc<BrokerEvent, BrokerState> {
       try {
         Broker _brokerResponse =
             await brokersRepository.updateBroker(event.broker, event.status);
-          List<Broker> brokers = (await this.brokersRepository.getBrokers());
+        List<Broker> brokers = (await this.brokersRepository.getBrokers());
         if (_brokerResponse is Broker) {
           yield BrokersLoadSuccess(
-              brokers: brokers,
-              isName: state.isName,
-              selectedCategoryId: 0);
+              brokers: brokers, isName: state.isName, selectedCategoryId: 0);
         } else {
           yield BrokersLoadFailed(message: "Failed to update broker");
         }
       } catch (e) {
         yield BrokersLoadFailed(message: "Failed to update broker");
       }
-    }
-    else if (event is UpdateBrokerProfileEvent) {
+    } else if (event is UpdateBrokerProfileEvent) {
       try {
-        Broker _brokerResponse =
-            await brokersRepository.updateBrokerProfile(event.broker, event.imageChanged);
+        Broker _brokerResponse = await brokersRepository.updateBrokerProfile(
+            event.broker, event.imageChanged);
         if (_brokerResponse is Broker) {
           yield BrokersLoadSuccess(
               brokers: [_brokerResponse],
@@ -142,8 +158,7 @@ class BrokerBloc extends Bloc<BrokerEvent, BrokerState> {
       } catch (e) {
         yield BrokersLoadFailed(message: "Failed to update broker");
       }
-    }
-     else if (event is SearchEvent) {
+    } else if (event is SearchEvent) {
       // search event
       //
       this.searchedBrokers = [];

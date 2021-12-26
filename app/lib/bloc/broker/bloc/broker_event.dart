@@ -44,3 +44,8 @@ class UpdateBrokerProfileEvent extends BrokerEvent {
 
   UpdateBrokerProfileEvent(this.broker, this.imageChanged);
 }
+
+class FilterBrokerEvent extends BrokerEvent {
+  final int distance;
+  FilterBrokerEvent({required this.distance});
+}

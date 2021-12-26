@@ -134,8 +134,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           "===============================================================Longituder--${event.latitude}");
             print(
           "===============================================================Longituder--${event.longitude}");
-      broker.user!.latitude = event.latitude;
-      broker.user!.longitude = event.longitude;
+      user.latitude = event.latitude;
+      user.longitude = event.longitude;
       yield RegisterUpdateSuccess(user: user, broker: broker);
     } else if (event is AddWorkDone) {
       // add workdone

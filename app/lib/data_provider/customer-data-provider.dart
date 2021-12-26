@@ -148,6 +148,8 @@ class CustomerDataProvider {
               "city": customer.user!.city,
               "subcity": customer.user!.subCity,
               "kebele": customer.user!.kebele,
+              "latitude": customer.user!.latitude,
+              "longtiude": customer.user!.longitude
             }
           }),
         );

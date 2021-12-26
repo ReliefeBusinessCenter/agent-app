@@ -25,7 +25,6 @@ class _CustomerPageState extends State<CustomerPage> {
   int _selectedIndex = 0;
   late String filter = "All";
   String _initialValue = "en";
-  int _intialDistance = 1;
   @override
   void initState() {
     _getCustomer();
@@ -63,73 +62,36 @@ class _CustomerPageState extends State<CustomerPage> {
           ),
         ),
         actions: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                width: 60,
-                child: DropdownButtonFormField<int>(
-                    value: _intialDistance,
-                    dropdownColor: primaryColor,
-                    decoration: InputDecoration(
-                      label: Text("Nearby"),
-                      border: InputBorder.none,
+          Container(
+            width: 50,
+            child: DropdownButtonFormField<String>(
+                value: _initialValue,
+                dropdownColor: primaryColor,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                ),
+                onChanged: (value) async {
+                  setState(() {
+                    _initialValue = value!;
+                  });
+                  await context.setLocale(Locale(value.toString()));
+                },
+                items: [
+                  DropdownMenuItem(
+                    child: Text(
+                      'EN',
+                      style: TextStyle(color: lightColor),
                     ),
-                    onChanged: (value) async {
-                      setState(() {
-                        _intialDistance = value!;
-                      });
-                      await context.setLocale(Locale(value.toString()));
-                    },
-                    items: [
-                      DropdownMenuItem(
-                        child: Text(
-                          '1km',
-                          style: TextStyle(color: lightColor),
-                        ),
-                        value: 1,
-                      ),
-                      DropdownMenuItem(
-                        child: Text(
-                          '2km',
-                          style: TextStyle(color: lightColor),
-                        ),
-                        value: 2,
-                      )
-                    ]),
-              ),
-              Container(
-                width: 50,
-                child: DropdownButtonFormField<String>(
-                    value: _initialValue,
-                    dropdownColor: primaryColor,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
+                    value: 'en',
+                  ),
+                  DropdownMenuItem(
+                    child: Text(
+                      'አማ',
+                      style: TextStyle(color: lightColor),
                     ),
-                    onChanged: (value) async {
-                      setState(() {
-                        _initialValue = value!;
-                      });
-                      await context.setLocale(Locale(value.toString()));
-                    },
-                    items: [
-                      DropdownMenuItem(
-                        child: Text(
-                          'EN',
-                          style: TextStyle(color: lightColor),
-                        ),
-                        value: 'en',
-                      ),
-                      DropdownMenuItem(
-                        child: Text(
-                          'አማ',
-                          style: TextStyle(color: lightColor),
-                        ),
-                        value: 'am',
-                      )
-                    ]),
-              )
-            ],
+                    value: 'am',
+                  )
+                ]),
           )
         ],
       ),

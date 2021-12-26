@@ -40,9 +40,7 @@ class _BrokerDetailScreenState extends State<BrokerDetailScreen> {
   late RegisterBloc registerBloc;
 
   final TextEditingController _aboutController = new TextEditingController();
-  double _latitude = 0.0;
-  double _longitude = 0.0;
-  @override
+ 
   Widget build(BuildContext context) {
     registerBloc = BlocProvider.of<RegisterBloc>(context);
     return Scaffold(
@@ -258,51 +256,12 @@ class _BrokerDetailScreenState extends State<BrokerDetailScreen> {
                                   //   onPressed: () {},
                                   //   textFieldName: '',
                                   // ),
-                                  Text("Lat: $_latitude"),
-                                  Text("Long: $_longitude"),
-
+                                 
                                   SizedBox(
                                     height: MediaQuery.of(context).size.height *
                                         0.02,
                                   ),
-                                  ElevatedButton(
-                                    child: const Text("choose location"),
-                                    onPressed: () async {
-                                      Position position =
-                                          await Geolocator.getCurrentPosition(
-                                              desiredAccuracy:
-                                                  LocationAccuracy.high);
-                                      Location locationObject = Location(
-                                        latitude: position.latitude,
-                                        longitude: position.longitude,
-                                        timestamp: DateTime.now(),
-                                      );
-
-                                      LocationArgument result =
-                                          await Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => MapScreen(
-                                            location: locationObject,
-                                          ),
-                                        ),
-                                      );
-
-                                      setState(() {
-                                        _latitude = result.latitude;
-                                        _longitude = result.longitude;
-                                      });
-
-                                      registerBloc.add(AddLatitudeLongitude(latitude: result.latitude, longitude: result.longitude));
-
-                                      debugPrint(
-                                          "=============================================================The result is ${result.latitude}");
-                                      debugPrint(
-                                          "=============================================================The result is ${result.longitude}");
-                                      debugPrint(
-                                          "=============================================================The result is ${result.address}");
-                                    },
-                                  ),
+                                 
                                   RegisterButton(
                                     name: LocaleKeys.next_btn_label_text.tr(),
                                     onTapped: () {
