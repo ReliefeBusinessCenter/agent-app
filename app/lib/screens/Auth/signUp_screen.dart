@@ -6,6 +6,7 @@ import 'package:app/Widget/Auth/signup/sex-dropdown.dart';
 import 'package:app/Widget/Auth/signup/signUpTextField.dart';
 import 'package:app/bloc/bloc/phoneverification_bloc.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';
+import 'package:app/bloc/user/bloc/user_bloc.dart';
 import 'package:app/data_provider/firebase_phone_verifcation_data_provider.dart';
 import 'package:app/screens/broker/broker_location_page.dart';
 import 'package:app/translations/locale_keys.g.dart';
@@ -50,12 +51,14 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
   late PhoneverificationBloc phoneverificationBloc;
   double _latitude = 0.0;
   double _longitude = 0.0;
+  late UserBloc userBloc;
   @override
   @override
   Widget build(BuildContext context) {
     // String type = 'Customer';
     phoneverificationBloc = BlocProvider.of<PhoneverificationBloc>(context);
     registerBloc = BlocProvider.of<RegisterBloc>(context);
+    userBloc = BlocProvider.of<UserBloc>(context);
     // registerBloc.add(Initialization());
     return Scaffold(
         backgroundColor: Theme.of(context).accentColor,
@@ -68,9 +71,28 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
           if (state is PhoneVerificationError) {
             showDialog(
                 context: context,
-                builder: (context) => Container(
-                      child: Text(state.message, style: TextStyle(color: Colors.red),),
+                builder: (context) => Center(
+                      child: Container(
+                        height: 100,
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        padding: EdgeInsets.symmetric(horizontal: 20.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: Colors.white,
+                        ),
+                        child: Center(
+                          child: Text(
+                            "invalid Phone format",
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                      ),
                     ));
+          } else if (state is PhoneVerificationLoading) {
+            showDialog(
+              context: context,
+              builder: (context) => Center(child: CircularProgressIndicator()),
+            );
           }
         }, builder: (context, snapshot) {
           return Padding(
@@ -90,11 +112,71 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                       child: Form(
                         key: _formKey,
                         child: Column(children: [
-                          if (snapshot is PhoneVerificationError)
-                            Text(
-                              snapshot.message,
-                              style: TextStyle(color: Colors.red),
-                            ),
+                          BlocConsumer<UserBloc, UserState>(
+                              listener: (context, state) {
+                                if (state is UserError) {
+                                  print(
+                                      "The erro is ${state.error == "Exception: "}");
+                                  Navigator.of(context).pop();
+                                  if (state.error == "Exception: ") {
+                                    print(
+                                        "getting user ---------------------------------------------------------0");
+                                    if (type == 'Customer') {
+                                      phoneverificationBloc.add(VerifyPhone(
+                                          verificationType:
+                                              VerificationType.register,
+                                          routeName:
+                                              CustomerDetailScreen.routeName,
+                                          context: context,
+                                          phoneNumber:
+                                              "+251${phoneController.text.substring(1)}"));
+                                    } else {
+                                      phoneverificationBloc.add(VerifyPhone(
+                                          verificationType:
+                                              VerificationType.register,
+                                          routeName:
+                                              BrokerDetailScreen.routeName,
+                                          context: context,
+                                          phoneNumber:
+                                              "+251${phoneController.text.substring(1)}"));
+                                    }
+                                  }
+                                } else if (state is UserLoading) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => Center(
+                                        child: CircularProgressIndicator()),
+                                  );
+                                } else if (state is UserSuccess) {
+                                  Navigator.of(context).pop();
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => Center(
+                                            child: Container(
+                                              height: 100,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.8,
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 20.0),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                                color: Colors.white,
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  "Phone Number Already Existed",
+                                                  style: TextStyle(
+                                                      color: Colors.red),
+                                                ),
+                                              ),
+                                            ),
+                                          ));
+                                }
+                              },
+                              builder: (context, snapshot) => Container()),
                           Container(
                             // alignment: Alignment.topCenter,
                             width: MediaQuery.of(context).size.width,
@@ -280,13 +362,6 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                         registerBloc.add(AddLatitudeLongitude(
                                             latitude: result.latitude,
                                             longitude: result.longitude));
-
-                                        debugPrint(
-                                            "=============================================================The result is ${result.latitude}");
-                                        debugPrint(
-                                            "=============================================================The result is ${result.longitude}");
-                                        debugPrint(
-                                            "=============================================================The result is ${result.address}");
                                       },
                                     ),
                                   ),
@@ -309,34 +384,8 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                 if (_formKey.currentState!.validate()) {
                                   print("Validated successfully");
                                   print("User Type: ${type}");
-                                  // phoneverificationBloc.add(VerifyPhone(
-                                  //   routeName: ,
-                                  // context: context,
-                                  // phoneNumber:
-                                  //     "+251${phoneController.text.substring(1)}"));
-
-                                  if (type == 'Customer') {
-                                    phoneverificationBloc.add(VerifyPhone(
-                                        verificationType:
-                                            VerificationType.register,
-                                        routeName:
-                                            CustomerDetailScreen.routeName,
-                                        context: context,
-                                        phoneNumber:
-                                            "+251${phoneController.text.substring(1)}"));
-                                  } else {
-                                    phoneverificationBloc.add(VerifyPhone(
-                                        verificationType:
-                                            VerificationType.register,
-                                        routeName: BrokerDetailScreen.routeName,
-                                        context: context,
-                                        phoneNumber:
-                                            "+251${phoneController.text.substring(1)}"));
-                                    // Navigator.of(context).pushNamed(
-                                    //     BrokerDetailScreen.routeName,
-                                    //     arguments: phoneController.text
-                                    //         .substring(1));
-                                  }
+                                  userBloc.add(GetUserByPhone(
+                                      phone: phoneController.text));
                                 }
                               }),
                         ]),
