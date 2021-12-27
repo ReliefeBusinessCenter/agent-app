@@ -11,6 +11,7 @@ class WorkSection extends StatelessWidget {
   WorkSection({required this.broker});
   @override
   Widget build(BuildContext context) {
+    print("Broker Data skills is ${broker.skills}");
     final size = MediaQuery.of(context).size;
     return Container(
       height: size.height * 0.4,

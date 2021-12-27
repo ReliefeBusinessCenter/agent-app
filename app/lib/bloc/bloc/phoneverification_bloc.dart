@@ -1,10 +1,8 @@
-import 'package:app/bloc/auth/bloc/auth_bloc.dart';
 import 'package:app/data_provider/firebase_phone_verifcation_data_provider.dart';
 import 'package:app/repository/firbase_phone_verification_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 
 part 'phoneverification_event.dart';
