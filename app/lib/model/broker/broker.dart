@@ -64,8 +64,8 @@ class Broker {
         reviews!.add(new Reviews.fromJson(v));
       });
     }
-    // skills =
-    //     json['skills'] != null ? new Skills.fromJson(json['skills']) : null;
+    skills =
+        json['skills'] != null ? new Skills.fromJson(json['skills']) : null;
     category = json['category'] != null
         ? new Category.fromJson(json['category'])
         : null;
