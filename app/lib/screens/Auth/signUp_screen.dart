@@ -14,13 +14,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-
 import 'broker-detail-registeration-screen.dart';
 import 'customer-detail-registeration-screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class SignUpPageScreen extends StatefulWidget {
-  static const routeName = '/signup';
+  static const routeName = '/signup';  
 
   @override
   _SignUpPageScreenState createState() => _SignUpPageScreenState();
@@ -117,7 +116,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                 if (state is UserError) {
                                   print(
                                       "The erro is ${state.error == "Exception: "}");
-                                  Navigator.of(context).pop();
+                                  // Navigator.of(context).pop();
                                   if (state.error == "Exception: ") {
                                     print(
                                         "getting user ---------------------------------------------------------0");
@@ -383,7 +382,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                               onTapped: () {
                                 if (_formKey.currentState!.validate()) {
                                   print("Validated successfully");
-                                  print("User Type: ${type}");
+                                  print("User Type: $type");
                                   userBloc.add(GetUserByPhone(
                                       phone: phoneController.text));
                                 }

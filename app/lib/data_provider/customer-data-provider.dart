@@ -11,8 +11,7 @@ class CustomerDataProvider {
   final UserPreferences userPreferences;
 
   CustomerDataProvider(
-      {required this.httpClient, required this.userPreferences})
-      : assert(httpClient != null);
+      {required this.httpClient, required this.userPreferences});
 
   Future<List<Customer>?> getCustomers() async {
     String? token = await this.userPreferences.getUserToken();
@@ -140,7 +139,7 @@ class CustomerDataProvider {
               "password": customer.user!.password,
               "phone": customer.user!.phone,
               "address": "Ethiopia/Dessie",
-              "picture": res.body.toString(),
+              "picture": "test.jpg",
               "identificationCard": resId.body.toString(),
               "sex": customer.user!.sex,
               "role": customer.user!.role,

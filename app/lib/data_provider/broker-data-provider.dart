@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:app/constants/dummy_brokers.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/broker.dart';
 import 'package:app/preferences/user_preference_data.dart';
@@ -8,26 +6,16 @@ import 'package:app/preferences/user_preference_data.dart';
 import 'package:http/http.dart' as http;
 
 class BrokerDataProvider {
-  final _baseUrl = 'http://192.168.106.201:5000/api/brokers';
+  final _baseUrl = '${Ip.ip}/api/brokers';
   final http.Client httpClient;
   final UserPreferences userPreferences;
-  // final token = '628|uESSMWAkhzp5igcBdc93thXMR8Qm8CbrPQwPVTy7';
 
-  BrokerDataProvider({required this.httpClient, required this.userPreferences})
-      : assert(httpClient != null);
+  BrokerDataProvider({required this.httpClient, required this.userPreferences});
 
   Future<List<Broker>?> getBrokers() async {
     String? token = await this.userPreferences.getUserToken();
-    late List<Broker> brokers_return = [];
-    // print("This is the caategory Id");
-
-    // try {
-    //   return (brokers.map((broker) => Broker.fromJson(broker)).toList());
-    // } catch (e) {
-    //   throw Exception(e);
-    // }
     try {
-      final url = Uri.parse('${Ip.ip}/api/brokers');
+      final url = Uri.parse('$_baseUrl');
 
       final response = await http.get(
         url,
@@ -40,9 +28,6 @@ class BrokerDataProvider {
       print(response.statusCode);
       if (response.statusCode == 200) {
         final extractedData = json.decode(response.body) as List;
-
-        
-
         return extractedData
             .map((broker) => Broker.fromJson(broker))
             .toList();
@@ -54,22 +39,18 @@ class BrokerDataProvider {
       print("Exception throuwn $e");
       throw Exception(e);
     }
-    return brokers_return;
   }
 
   Future<Broker?> getBrokerByEmail(String email) async {
-    // String? token = await this.userPreferences.getUserToken();
-    // late List<Category> categories_return = [];
-    late Broker broker;
+    String? token = await this.userPreferences.getUserToken();
     try {
-      final url = Uri.parse('${Ip.ip}/api/brokers/$email');
-
+      final url = Uri.parse('$_baseUrl/$email');
       final response = await http.get(
         url,
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          // 'Authorization': 'Bearer $token',
+          'Authorization': 'Bearer $token',
         },
       );
       print('Arrived here ${response.body}');
@@ -95,11 +76,8 @@ class BrokerDataProvider {
 
   Future<Broker?> getBrokerById(int id) async {
     String? token = await this.userPreferences.getUserToken();
-    Broker? broker_return = null;
-    print("This is the Broker Id:${id}");
     try {
-      final url = Uri.parse('${Ip.ip}/api/brokers/${id}');
-
+      final url = Uri.parse('$_baseUrl/$id');
       final response = await http.get(
         url,
         headers: {
@@ -111,11 +89,7 @@ class BrokerDataProvider {
       print(response.statusCode);
       if (response.statusCode == 200) {
         final extractedData = json.decode(response.body);
-
         final data = extractedData;
-
-        print("Data:${data}");
-
         return Broker.fromJson(data);
       } else {
         print(response.body);
@@ -124,20 +98,14 @@ class BrokerDataProvider {
     } catch (e) {
       print("Exception throuwn $e");
     }
-    return broker_return;
+    // return broker_return;
   }
 
   Future<bool> createBroker(Broker? broker) async {
     String? token = await this.userPreferences.getUserToken();
-
-    // late List<Data> products_return = [];
-    print(
-        "+++++++++++++++++++++++______++++++Create broker  method invocked+++++++++++________with Data ${broker!.toJson()}");
-     print(
-        "+++++++++++++++++++++++______++++++Create broker  method invocked+++++++++++________with Data ${broker.user!.toJson()}");
     try {
       // final url = Uri.parse('http://csv.jithvar.com/api/v1/orders');
-      final url = Uri.parse('${Ip.ip}/api/brokers/');
+      final url = Uri.parse('$_baseUrl');
 
       var request = http.MultipartRequest(
           'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
@@ -147,7 +115,7 @@ class BrokerDataProvider {
       print("request");
 
       request.files.add(await http.MultipartFile.fromPath(
-          'file', broker.user!.picture as String));
+          'file', broker?.user!.picture as String));
       print("added profile image");
 
       var res = await http.Response.fromStream(await request.send());
@@ -155,7 +123,7 @@ class BrokerDataProvider {
       print("request");
 
       request2.files.add(await http.MultipartFile.fromPath(
-          'file', broker.user!.identificationCard as String));
+          'file', broker?.user!.identificationCard as String));
       print("added Identification card");
 
       var resId = await http.Response.fromStream(await request2.send());
@@ -174,13 +142,13 @@ class BrokerDataProvider {
               "deals": [],
               "reviews": [],
               "skills": {
-                "communicationSkill": broker.skills!.communicationSkill,
-                "brokingSkill": broker.skills!.brokingSkill,
-                "workDone": broker.skills!.workDone,
-                "workInProgress": broker.skills!.workInProgress,
+                "communicationSkill": broker?.skills!.communicationSkill,
+                "brokingSkill": broker?.skills!.brokingSkill,
+                "workDone": broker?.skills!.workDone,
+                "workInProgress": broker?.skills!.workInProgress,
               },
-              "about": broker.skills!.about,
-              "categoryId": broker.category!.categoryId,
+              "about": broker?.skills!.about,
+              "categoryId": broker?.category!.categoryId,
               // "category": {
               //   // "categoryId"
               //   // "catigoryName": broker.category!.catigory
@@ -188,21 +156,21 @@ class BrokerDataProvider {
               //   "catigoryName": "Bussiness1  Broker"
               // },
               "user": {
-                "fullName": broker.user!.fullName,
+                "fullName": broker?.user!.fullName,
                 "email": "Someone@gmail.com",
-                "password": broker.user!.password,
-                "phone": broker.user!.phone,
+                "password": broker?.user!.password,
+                "phone": broker?.user!.phone,
                 // "address": "Ethiopia/Dessie",
                 "picture": res.body.toString(),
-                "city": broker.user!.city,
-                "subcity": broker.user!.subCity,
-                "kebele": broker.user!.kebele,
-                "sex": broker.user!.sex,
+                "city": broker?.user!.city,
+                "subcity": broker?.user!.subCity,
+                "kebele": broker?.user!.kebele,
+                "sex": broker?.user!.sex,
                 "identificationCard": resId.body.toString(),
-                "role": broker.user!.role,
+                "role": broker?.user!.role,
                 "buys": null,
-                "latitude": broker.user!.latitude,
-                "longtiude": broker.user!.longitude
+                "latitude": broker?.user!.latitude,
+                "longtiude": broker?.user!.longitude
               }
             }));
         print(
@@ -227,7 +195,7 @@ class BrokerDataProvider {
     print("Customer Id:$id");
     try {
       // final url = Uri.parse('http://csv.jithvar.com/api/v1/orders');
-      final url = Uri.parse('${Ip.ip}/api/brokers/${id}');
+      final url = Uri.parse('$_baseUrl/$id');
       // final url = Uri.parse('http://192.168.211.201:5000/api/delivery/${id}');
 
       // send other customer data here
@@ -252,7 +220,7 @@ class BrokerDataProvider {
     print("++++++++++++++++++++++++++++ updating Broker");
     String? token = await this.userPreferences.getUserToken();
     try {
-      final url = Uri.parse('${Ip.ip}/api/brokers/${broker.brokerId}');
+      final url = Uri.parse('$_baseUrl/${broker.brokerId}');
       final _response = await http.put(
         url,
         headers: {
@@ -299,7 +267,7 @@ class BrokerDataProvider {
     String? token = await this.userPreferences.getUserToken();
     try {
       if (!imageChanged) {
-        final url = Uri.parse('${Ip.ip}/api/brokers/${broker.brokerId}');
+        final url = Uri.parse('$_baseUrl/${broker.brokerId}');
         final _response = await http.put(
           url,
           headers: {

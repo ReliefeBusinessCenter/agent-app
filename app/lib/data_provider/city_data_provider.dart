@@ -1,10 +1,11 @@
 import 'dart:convert';
 
+import 'package:app/ip/ip.dart';
 import 'package:app/model/city.dart';
 import 'package:http/http.dart' as http;
 
 class CityDataProvider {
-  final _baseURL = "http://broker-service-api.herokuapp.com/api/city/";
+  final _baseURL = "${Ip.ip}/api/city/";
   final http.Client httpClient;
 
   CityDataProvider({required this.httpClient});

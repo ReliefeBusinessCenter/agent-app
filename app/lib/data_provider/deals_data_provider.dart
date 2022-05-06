@@ -1,11 +1,8 @@
 import 'dart:convert';
 
 import 'package:app/ip/ip.dart';
-import 'package:app/model/customer/customer.dart';
 import 'package:app/model/deals.dart';
-import 'package:app/model/delivery.dart';
 import 'package:app/preferences/user_preference_data.dart';
-
 import 'package:http/http.dart' as http;
 
 class DealsDataProvider {
