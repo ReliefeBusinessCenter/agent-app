@@ -50,7 +50,7 @@ class UserDataProvider {
       } else {
         final extractedData =
             json.decode(response.body) as Map<String, dynamic>;
-        print("success, ${extractedData}");
+        print("success, $extractedData");
         loggedUserInfo = LoggedUserInfo.fromJson(extractedData);
         print("----55");
         await this.userPreferences.storeUserInformation(loggedUserInfo);
@@ -64,13 +64,16 @@ class UserDataProvider {
         await this.userPreferences.storeEmail(loginInfo.phoneNumber);
         print("----59");
         await this.userPreferences.storePassword(loginInfo.password);
-
+        print('----60');
         // Store Role Information
         if (loggedUserInfo.user!.role == "Customer") {
+          print("the Role is Customer");
           Customer customer = await this
                   .customerRepository
                   .getCustomerByEmail(loggedUserInfo.user!.phone as String)
               as Customer;
+          print("----61");
+          print("Customer data: ${customer.toJson()}");
           await this.userPreferences.storeCustomerInformation(customer);
         } else if ((loggedUserInfo.user!.role == "Broker")) {
           Broker broker = await this
@@ -183,8 +186,7 @@ class UserDataProvider {
 
   Future<bool> updateUser(User user) async {
     final response = await httpClient.put(
-      Uri.parse(
-          '$baseUrl/${user.userId}'),
+      Uri.parse('$baseUrl/${user.userId}'),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',

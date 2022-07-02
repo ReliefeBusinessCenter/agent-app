@@ -78,6 +78,7 @@ class MyApp extends StatelessWidget {
   CityRepository cityRepository = CityRepository(
     cityDataProvider: CityDataProvider(
       httpClient: http.Client(),
+        userPreferences: UserPreferences(),
     ),
   );
   BrokersRepository brokersRepository = new BrokersRepository(

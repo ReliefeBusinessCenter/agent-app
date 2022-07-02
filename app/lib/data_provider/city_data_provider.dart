@@ -2,17 +2,23 @@ import 'dart:convert';
 
 import 'package:app/ip/ip.dart';
 import 'package:app/model/city.dart';
+import 'package:app/preferences/user_preference_data.dart';
 import 'package:http/http.dart' as http;
 
 class CityDataProvider {
   final _baseURL = "${Ip.ip}/api/city/";
   final http.Client httpClient;
+  late String? token;
+  final UserPreferences userPreferences;
+  CityDataProvider({required this.httpClient, required this.userPreferences});
 
-  CityDataProvider({required this.httpClient});
+  Future<void> initState() async {
+    token = await userPreferences.getUserToken();
+  }
 
   // Fetch all cities
   Future<List<City>> getCities() async {
-    print("@@@@@@@@@@@@@@@@@fetching cities");
+    // initState();
     try {
       final _response = await httpClient.get(
         Uri.parse(_baseURL),
@@ -22,11 +28,9 @@ class CityDataProvider {
           // 'Authorization': 'Bearer $token',
         },
       );
-      print("Response status");
-      print(_response.statusCode);
       if (_response.statusCode == 200) {
+        print("++++++++++Arrived here on cities");
         final _jsonList = jsonDecode(_response.body) as List;
-        print("data is $_jsonList");
         return _jsonList.map((city) => City.fromJson(city)).toList();
       } else {
         throw Exception(_response.body);
@@ -38,12 +42,13 @@ class CityDataProvider {
 
   // create city
   Future<City> createCity(City city) async {
+    initState();
     try {
       final _response = await httpClient.post(Uri.parse(_baseURL),
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            // 'Authorization': 'Bearer $token',
+            'Authorization': 'Bearer $token',
           },
           body: jsonEncode({
             "cityName": city.cityName,
@@ -60,20 +65,19 @@ class CityDataProvider {
 
   // update city
   Future<City> updateCity(City city) async {
-    print("@@@@@@@@@@@@@@@@@@@@@@ UPDATE");
+    initState();
     try {
-      final _response = await httpClient.put(Uri.parse(_baseURL+"${city.cityId}"),
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            // 'Authorization': 'Bearer $token',
-          },
-          body: jsonEncode({
-            "cityId": city.cityId,
-            "cityName": city.cityName,
-          }));
-      print("City update status code${_response.statusCode}");
-      print("City update body${_response.body}");
+      final _response =
+          await httpClient.put(Uri.parse(_baseURL + "${city.cityId}"),
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer $token',
+              },
+              body: jsonEncode({
+                "cityId": city.cityId,
+                "cityName": city.cityName,
+              }));
 
       if (_response.statusCode == 200) {
         return City.fromJson(jsonDecode(_response.body));

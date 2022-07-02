@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 class MapScreen extends StatefulWidget {
   final Location location;
   MapScreen({required this.location});
@@ -38,12 +39,10 @@ class _MyAppState extends State<MapScreen> {
     );
     mapController = controller;
     await centerScreen(position);
-
   }
 
   @override
   void initState() {
-
     GeolocatorService().getCurrentLocation().listen((position) async {
       setState(
         () {
@@ -61,7 +60,6 @@ class _MyAppState extends State<MapScreen> {
         },
       );
       await centerScreen(position);
-
     });
 
     super.initState();
@@ -69,8 +67,9 @@ class _MyAppState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final LatLng _center = LatLng(widget.location.latitude , widget.location.longitude);
-    
+    final LatLng _center =
+        LatLng(widget.location.latitude, widget.location.longitude);
+
     return Scaffold(
       body: Column(
         children: [
@@ -89,30 +88,32 @@ class _MyAppState extends State<MapScreen> {
                 myLocationButtonEnabled: true,
               ),
               Positioned(
-                bottom: 0,
-                left: 100,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    var address= await  _fetchLocation(_currentLocation);
+                  bottom: 0,
+                  left: 100,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      var address = await _fetchLocation(_currentLocation);
 
-                    Navigator.of(context).pop(LocationArgument(latitude: _currentLocation.latitude,
-                      longitude: _currentLocation.longitude,
-                      address: address
-
-                    ));
-                  },
-                  child: const Text("Confirm Location",style: TextStyle(
-                    color: Colors.white
-                  ),),
-                )
-              ),
+                      Navigator.of(context).pop(LocationArgument(
+                          latitude: _currentLocation.latitude,
+                          longitude: _currentLocation.longitude,
+                          address: address));
+                    },
+                    child: const Text(
+                      "Confirm Location",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  )),
               Positioned(
                   top: 20,
                   child: IconButton(
-
-                icon:const Icon(Icons.arrow_back,color: Colors.white, size: 30,),
-                onPressed: ()=> Navigator.of(context).pop(),
-              ))
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ))
             ]),
           ),
         ],
@@ -136,7 +137,7 @@ class _MyAppState extends State<MapScreen> {
         draggable: true,
         onDragEnd: (value) => _handleTap(value),
       ));
-      _currentLocation=tappedPoint;
+      _currentLocation = tappedPoint;
       print(tappedPoint);
     });
     centerScreen(Position(
@@ -149,20 +150,17 @@ class _MyAppState extends State<MapScreen> {
       speed: 1.0,
       speedAccuracy: 1.0,
     ));
-
-
   }
 
-
-  Future<String>_fetchLocation(LatLng position) async {
+  Future<String> _fetchLocation(LatLng position) async {
     // Position position = await Geolocator.getCurrentPosition(
     //     desiredAccuracy: LocationAccuracy.best);
 
     ///Here you have choose level of distance
-    var latitude = position.latitude.toString() ;
+    var latitude = position.latitude.toString();
     var longitude = position.longitude.toString();
     var placemarks =
-    await placemarkFromCoordinates(position.latitude, position.longitude);
+        await placemarkFromCoordinates(position.latitude, position.longitude);
     var address =
         '${placemarks.first.name!.isNotEmpty ? placemarks.first.name! + ', ' : ''}${placemarks.first.subLocality!.isNotEmpty ? placemarks.first.subLocality! + ', ' : ''}${placemarks.first.locality!.isNotEmpty ? placemarks.first.locality! + ', ' : ''}${placemarks.first.subAdministrativeArea!.isNotEmpty ? placemarks.first.subAdministrativeArea! + ', ' : ''}';
     print("latitude" + latitude);
@@ -186,11 +184,11 @@ class GeolocatorService {
   }
 }
 
-
-class LocationArgument{
+class LocationArgument {
   final double latitude;
   final double longitude;
   final String address;
 
-  LocationArgument({required this.latitude, required this.longitude,required this.address});
+  LocationArgument(
+      {required this.latitude, required this.longitude, required this.address});
 }

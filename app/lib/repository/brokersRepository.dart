@@ -26,13 +26,13 @@ class BrokersRepository {
   }
 
   Future<Broker?> getBrokerByEmail(String email) async {
-    Broker? data = await brokerDataProvider.getBrokerByEmail(email);
+    Broker? data = await brokerDataProvider.getBrokerByPhone(email);
     // print("Broker arrived at the repository: ${data!.toJson()}");
     return data;
   }
 
   Future<bool> deleteBroker(int id) async {
-    return await brokerDataProvider.DeleteBrokerEvent(id);
+    return await brokerDataProvider.deleteBrokerEvent(id);
   }
 
   // update broker

@@ -15,15 +15,12 @@ class CustomerRepository {
   }
 
   Future<Customer?> getCustomerByEmail(String email) async {
-    Customer? data = await customerDataProvider.getCustomerByEmail(email);
-    print("Customer arrived at the repository: ${data!.toJson()}");
+    Customer? data = await customerDataProvider.getCustomerByPhone(email);
     return data;
   }
 
   Future<List<Customer>> getCustomers() async {
-    List<Customer> data =
-        await customerDataProvider.getCustomers() as List<Customer>;
-    print("Data arrived at the data provider ${data.map((e) => e.toJson())}");
+    List<Customer> data = await customerDataProvider.getCustomers();
     return data;
   }
 

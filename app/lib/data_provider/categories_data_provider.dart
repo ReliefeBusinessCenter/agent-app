@@ -8,13 +8,17 @@ class CategoriesDataProvider {
   final _baseUrl = '${Ip.ip}/api/categories/';
   final http.Client httpClient;
   final UserPreferences userPreferences;
-
+  late String? token;
   CategoriesDataProvider(
       {required this.httpClient, required this.userPreferences});
 
+  Future<void> initState() async {
+    token = await userPreferences.getUserToken();
+  }
+
+// get categories
   Future<List<Category>> getCategories() async {
-    // String? token = await this.userPreferences.getUserToken();
-    late List<Category> categoriesReturn = [];
+    initState();
     try {
       final url = Uri.parse('$_baseUrl');
 
@@ -30,25 +34,24 @@ class CategoriesDataProvider {
         final extractedData = json.decode(response.body) as List;
         final data = extractedData;
         return (data.map((category) => Category.fromJson(category)).toList());
-      } else {
-        print(response.body);
-        throw Exception('Failed to load courses');
       }
+      throw Exception('Failed to load categories');
     } catch (e) {
-      print("Exception throuwn $e");
+      throw Exception(e);
     }
-    return categoriesReturn;
   }
 
   // add categories
   Future<Category> addCategory(Category category) async {
-    // late Category _resultCategory;
+    initState();
     try {
       final url = Uri.parse('$_baseUrl');
       final response = await http.post(
         url,
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
         },
         body: jsonEncode(
           <String, dynamic>{"catigoryName": category.catigoryName},
@@ -67,11 +70,14 @@ class CategoriesDataProvider {
 
   // Update categories
   Future<Category> updateCategory(Category category) async {
+    initState();
     try {
       final url = Uri.parse('$_baseUrl${category.categoryId}');
       final response = await http.put(url,
           headers: {
             'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer $token',
           },
           body: jsonEncode(<String, dynamic>{
             "categoryId": category.categoryId,

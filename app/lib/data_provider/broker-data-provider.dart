@@ -9,11 +9,16 @@ class BrokerDataProvider {
   final _baseUrl = '${Ip.ip}/api/brokers';
   final http.Client httpClient;
   final UserPreferences userPreferences;
-
+  late String? token;
   BrokerDataProvider({required this.httpClient, required this.userPreferences});
 
+  Future<void> initState() async {
+    token = await userPreferences.getUserToken();
+  }
+
+// get broker data
   Future<List<Broker>?> getBrokers() async {
-    String? token = await this.userPreferences.getUserToken();
+    initState();
     try {
       final url = Uri.parse('$_baseUrl');
 
@@ -25,26 +30,24 @@ class BrokerDataProvider {
           'Authorization': 'Bearer $token',
         },
       );
-      print(response.statusCode);
       if (response.statusCode == 200) {
         final extractedData = json.decode(response.body) as List;
-        return extractedData
-            .map((broker) => Broker.fromJson(broker))
-            .toList();
+        return extractedData.map((broker) => Broker.fromJson(broker)).toList();
       } else {
         print(response.body);
-        throw Exception('Failed to load courses');
+        throw Exception('Failed to Load Broker Data');
       }
     } catch (e) {
-      print("Exception throuwn $e");
+      print("Exception thrown $e");
       throw Exception(e);
     }
   }
 
-  Future<Broker?> getBrokerByEmail(String email) async {
-    String? token = await this.userPreferences.getUserToken();
+// get broker by phone
+  Future<Broker?> getBrokerByPhone(String phone) async {
+    initState();
     try {
-      final url = Uri.parse('$_baseUrl/$email');
+      final url = Uri.parse('$_baseUrl/$phone');
       final response = await http.get(
         url,
         headers: {
@@ -53,20 +56,12 @@ class BrokerDataProvider {
           'Authorization': 'Bearer $token',
         },
       );
-      print('Arrived here ${response.body}');
-      print("Response status ${response.statusCode}");
       if (response.statusCode == 200) {
         final extractedData = json.decode(response.body);
-
         final data = extractedData;
-        print(
-            "Data after Parsing +++++>>>>> ${Broker.fromJson(data).toJson()}");
         return Broker.fromJson(data);
-
-        // return (data.map((customer) => Customer.fromJson(customer)).toList());
       } else {
-        print(response.body);
-        throw Exception('Failed to get broker by email');
+        throw Exception('Failed to get broker by phone');
       }
     } catch (e) {
       print("Exception throuwn $e");
@@ -74,8 +69,9 @@ class BrokerDataProvider {
     return null;
   }
 
+// get broker by Id
   Future<Broker?> getBrokerById(int id) async {
-    String? token = await this.userPreferences.getUserToken();
+    initState();
     try {
       final url = Uri.parse('$_baseUrl/$id');
       final response = await http.get(
@@ -86,13 +82,12 @@ class BrokerDataProvider {
           'Authorization': 'Bearer $token',
         },
       );
-      print(response.statusCode);
+
       if (response.statusCode == 200) {
         final extractedData = json.decode(response.body);
         final data = extractedData;
         return Broker.fromJson(data);
       } else {
-        print(response.body);
         throw Exception('Failed to load courses');
       }
     } catch (e) {
@@ -102,33 +97,24 @@ class BrokerDataProvider {
   }
 
   Future<bool> createBroker(Broker? broker) async {
-    String? token = await this.userPreferences.getUserToken();
+    initState();
     try {
-      // final url = Uri.parse('http://csv.jithvar.com/api/v1/orders');
       final url = Uri.parse('$_baseUrl');
-
       var request = http.MultipartRequest(
           'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
       var request2 = http.MultipartRequest(
           'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
 
-      print("request");
-
       request.files.add(await http.MultipartFile.fromPath(
           'file', broker?.user!.picture as String));
-      print("added profile image");
 
       var res = await http.Response.fromStream(await request.send());
 
-      print("request");
-
       request2.files.add(await http.MultipartFile.fromPath(
           'file', broker?.user!.identificationCard as String));
-      print("added Identification card");
 
       var resId = await http.Response.fromStream(await request2.send());
 
-      print("Image Upload Response: ${res.statusCode}");
       if (res.statusCode == 200 && resId.statusCode == 200) {
         final response = await http.post(url,
             headers: {
@@ -173,8 +159,6 @@ class BrokerDataProvider {
                 "longtiude": broker?.user!.longitude
               }
             }));
-        print(
-            "Http response ${response.statusCode} and response body ${response.body}");
         if (response.statusCode == 200) {
           return true;
         } else {
@@ -187,28 +171,20 @@ class BrokerDataProvider {
     }
     return false;
   }
-   
-  Future<bool> DeleteBrokerEvent(int id) async {
-    String? token = await this.userPreferences.getUserToken();
-    // late List<Data> products_return = [];
-    print("++++++++++++++++++++++++++++Customer Delete method Invocked");
-    print("Customer Id:$id");
-    try {
-      // final url = Uri.parse('http://csv.jithvar.com/api/v1/orders');
-      final url = Uri.parse('$_baseUrl/$id');
-      // final url = Uri.parse('http://192.168.211.201:5000/api/delivery/${id}');
 
-      // send other customer data here
+// delete Broker
+  Future<bool> deleteBrokerEvent(int id) async {
+    initState();
+    try {
+      final url = Uri.parse('$_baseUrl/$id');
       final response = await http.delete(
         url,
       );
-      print(
-          "Http response ${response.statusCode} and response body ${response.body}");
+
       if (response.statusCode == 200) {
         return true;
       } else {
-        print(response.body);
-        throw Exception('Failed to Delete Customer');
+        throw Exception('Failed to Delete Broker');
       }
     } catch (e) {
       print("Exception throuwn $e");
@@ -216,9 +192,9 @@ class BrokerDataProvider {
     return false;
   }
 
+// Update Broker
   Future<Broker> updateBroker(Broker broker, bool status) async {
-    print("++++++++++++++++++++++++++++ updating Broker");
-    String? token = await this.userPreferences.getUserToken();
+    initState();
     try {
       final url = Uri.parse('$_baseUrl/${broker.brokerId}');
       final _response = await http.put(
@@ -248,10 +224,6 @@ class BrokerDataProvider {
           },
         ),
       );
-      print(
-          "!!!!!!!!!!!!!!!!!!!!!!!!!! Status code is ${_response.statusCode}");
-      print('!!!!!!!!!!!!!!!!!!!!! status Body is ${_response.body}');
-
       if (_response.statusCode == 200) {
         return Broker.fromJson(jsonDecode(_response.body));
       } else {
@@ -262,9 +234,9 @@ class BrokerDataProvider {
     }
   }
 
+// update broker profile
   Future<Broker> updateBrokerProfile(Broker broker, bool imageChanged) async {
-    print("++++++++++++++++++++++++++++ updating Broker");
-    String? token = await this.userPreferences.getUserToken();
+    initState();
     try {
       if (!imageChanged) {
         final url = Uri.parse('$_baseUrl/${broker.brokerId}');
@@ -351,10 +323,6 @@ class BrokerDataProvider {
               },
             ),
           );
-
-          print(
-              "!!!!!!!!!!!!!!!!!!!!!!!!!! Status code is ${_response.statusCode}");
-          print('!!!!!!!!!!!!!!!!!!!!! status Body is ${_response.body}');
 
           if (_response.statusCode == 200) {
             return Broker.fromJson(jsonDecode(_response.body));

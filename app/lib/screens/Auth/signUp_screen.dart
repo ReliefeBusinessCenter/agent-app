@@ -19,7 +19,7 @@ import 'customer-detail-registeration-screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class SignUpPageScreen extends StatefulWidget {
-  static const routeName = '/signup';  
+  static const routeName = '/signup';
 
   @override
   _SignUpPageScreenState createState() => _SignUpPageScreenState();
@@ -81,7 +81,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                         ),
                         child: Center(
                           child: Text(
-                            "invalid Phone format",
+                            "Invalid Phone code",
                             style: TextStyle(color: Colors.red),
                           ),
                         ),

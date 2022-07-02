@@ -13,7 +13,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
-import 'package:image_picker/image_picker.dart';
+// import 'package:image_picker/image_picker.dart';
 // import 'package:image_picker/image_picker.dart';
 import 'login.dart';
 
@@ -36,9 +36,9 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
 
   final TextEditingController photoController = new TextEditingController();
   final TextEditingController idController = new TextEditingController();
-  final ImagePicker _picker = ImagePicker();
-  PickedFile? _imageFile;
-  PickedFile? _idImaage;
+  // final ImagePicker _picker = ImagePicker();
+  // PickedFile? _imageFile;
+  // PickedFile? _idImaage;
 
   late RegisterBloc registerBloc;
   late PhoneverificationBloc phoneverificationBloc;

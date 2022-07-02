@@ -1,5 +1,4 @@
 class Ip {
-  static const ip = "http://164.90.205.249";
+  static const ip = "https://broker-service-api.herokuapp.com";
 }
-
-
+  
