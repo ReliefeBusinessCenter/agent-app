@@ -9,22 +9,18 @@ enum PhoneVerificationStatus {
   unverified,
 }
 
-enum VerificationType{
-  register,
-  reset
-}
+enum VerificationType { register, reset }
 
 class PhoneVerificationDataProvider {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   // PhoneVerificationDataProvider({required this.firebaseAuth});
   String verificationID = '';
 
-  Future<String> verifyPhone(
-      String phoneNumber, BuildContext context, String routeName, VerificationType verificationType) async {
+  Future<String> verifyPhone(String phoneNumber, BuildContext context,
+      String routeName, VerificationType verificationType) async {
     print("============================Verifying user phone number");
     try {
-      if(verificationType == VerificationType.register){
-
+      if (verificationType == VerificationType.register) {
         //  if (firebaseAuth.currentUser == null) {
         await firebaseAuth.verifyPhoneNumber(
           phoneNumber: phoneNumber,
@@ -44,7 +40,6 @@ class PhoneVerificationDataProvider {
           },
           verificationFailed: _onVerificationFailed,
           codeSent: (String verificationId, int? forceResendingToken) {
-            
             print(
                 "=========================================================================++Code sent==========================");
             verificationID = verificationId;
@@ -58,12 +53,12 @@ class PhoneVerificationDataProvider {
           codeAutoRetrievalTimeout: _onCodeAutoRetrievalTimeout,
         );
         return verificationID;
-      // } else {
-      //   throw FirebaseException(
-      //       plugin: "al-ready-existed", message: "Already existed");
-      // }
-      }else{
-         await firebaseAuth.verifyPhoneNumber(
+        // } else {
+        //   throw FirebaseException(
+        //       plugin: "al-ready-existed", message: "Already existed");
+        // }
+      } else {
+        await firebaseAuth.verifyPhoneNumber(
           phoneNumber: phoneNumber,
           verificationCompleted: (PhoneAuthCredential authCredential) async {
             debugPrint("verification completed${authCredential.smsCode}");
@@ -129,6 +124,7 @@ class PhoneVerificationDataProvider {
 
   _onVerificationFailed(FirebaseAuthException exception) {
     String message = getMessageFromErrorCode(exception.code);
+    debugPrint("Exception: $message");
     throw Exception(message);
   }
 
