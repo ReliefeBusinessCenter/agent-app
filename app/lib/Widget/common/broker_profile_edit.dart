@@ -90,7 +90,7 @@ class _BrokerProfileEditPageState extends State<BrokerProfileEditPage> {
                           email: _userObject['email'],
                           password: widget.broker.user!.password,
                           phone: _userObject['phone'],
-                          picture:_imageFile != null ? _imageFile!.path: widget.broker.user!.picture,
+                          picture:_imageFile != null ? _imageFile: widget.broker.user!.picture,
                           role: widget.broker.user!.role,
                           sex: widget.broker.user!.sex,
                           userId: widget.broker.user!.userId,

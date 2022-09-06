@@ -26,7 +26,7 @@ class UserRepository {
         email, otp, password, confirmed_password);
   }
 
-  Future<User> getUserByPhone(String phone) async {
+  Future<User?> getUserByPhone(String phone) async {
     return await userDataProvider.getUserByPhone(phone);
   }
 

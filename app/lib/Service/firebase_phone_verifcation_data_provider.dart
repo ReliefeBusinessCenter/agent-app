@@ -1,6 +1,4 @@
-import 'package:app/screens/Auth/auth_exports.dart';
-import 'package:app/screens/Auth/customer-detail-registeration-screen.dart';
-import 'package:app/screens/common/verify_phone.dart';
+import 'package:app/screens/PhoneVerification/otp_code_entring_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -47,7 +45,7 @@ class PhoneVerificationDataProvider {
                 phone: phoneNumber,
                 verificationID: verificationId,
                 routeName: routeName);
-            Navigator.of(context).pushNamed(PhoneVerification.routeName,
+            Navigator.of(context).pushNamed(PhoneVerificationPage.routeName,
                 arguments: phoneArgument);
           },
           codeAutoRetrievalTimeout: _onCodeAutoRetrievalTimeout,
@@ -83,7 +81,7 @@ class PhoneVerificationDataProvider {
                 phone: phoneNumber,
                 verificationID: verificationId,
                 routeName: routeName);
-            Navigator.of(context).pushNamed(PhoneVerification.routeName,
+            Navigator.of(context).pushNamed(PhoneVerificationPage.routeName,
                 arguments: phoneArgument);
           },
           codeAutoRetrievalTimeout: _onCodeAutoRetrievalTimeout,
@@ -102,18 +100,27 @@ class PhoneVerificationDataProvider {
       PhoneAuthCredential phoneAuthCredential,
       BuildContext context,
       String routeName) async {
+    print("ARGUMENTS: ${phoneAuthCredential.smsCode}");
     try {
       PhoneVerificationStatus _status = PhoneVerificationStatus.unverified;
-      await firebaseAuth
-          .signInWithCredential(phoneAuthCredential)
-          .then((value) {
-        if (value.user != null) {
-          Navigator.of(context).pushNamed(routeName, arguments: "");
-        }
-      });
+
+      final AuthCredential credential = PhoneAuthProvider.credential(
+          verificationId: phoneAuthCredential.verificationId.toString(),
+          smsCode: phoneAuthCredential.smsCode.toString());
+
+      final UserCredential user =
+          (await firebaseAuth.signInWithCredential(credential));
+
+      print("User Credentials: ${user}");
+      // await firebaseAuth.signInWithCredential(credential).then((value) {
+      //   print("Value : ${value}");
+      //   if (value.user != null) {
+      //     Navigator.of(context).pushNamed(routeName, arguments: "");
+      //   }
+      // });
       return _status;
     } catch (e) {
-      debugPrint("Error");
+      debugPrint("Error on resp: $e");
       if (e.toString().toLowerCase().contains("auth credential is invalid")) {
       } else {
         print('Error');
@@ -124,7 +131,7 @@ class PhoneVerificationDataProvider {
 
   _onVerificationFailed(FirebaseAuthException exception) {
     String message = getMessageFromErrorCode(exception.code);
-    debugPrint("Exception: $message");
+    debugPrint("Failed Exception: ${exception}");
     throw Exception(message);
   }
 

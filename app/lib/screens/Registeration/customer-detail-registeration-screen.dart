@@ -2,10 +2,8 @@ import 'package:app/Widget/Auth/signup/register-button.dart';
 import 'package:app/Widget/Auth/signup/upload_id_image.dart';
 import 'package:app/Widget/Auth/signup/upload_profile_image.dart';
 import 'package:app/Widget/common/constants.dart';
-import 'package:app/bloc/bloc/phoneverification_bloc.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';
 import 'package:app/constants/constants.dart';
-import 'package:app/screens/common/verify_phone.dart';
 import 'package:app/translations/locale_keys.g.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 // import 'package:file/file.dart';
@@ -15,7 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 // import 'package:image_picker/image_picker.dart';
 // import 'package:image_picker/image_picker.dart';
-import 'login.dart';
+import '../login.dart';
 
 class CustomerDetailScreen extends StatefulWidget {
   static const routeName = '/customer-detail';
@@ -41,7 +39,6 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
   // PickedFile? _idImaage;
 
   late RegisterBloc registerBloc;
-  late PhoneverificationBloc phoneverificationBloc;
 
   bool _passwordObscured = true;
   bool _confirmObscured = true;
@@ -50,7 +47,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
   @override
   Widget build(BuildContext context) {
     registerBloc = BlocProvider.of<RegisterBloc>(context);
-   
+
     return Scaffold(
       backgroundColor: lightColor,
       appBar: AppBar(
@@ -62,15 +59,14 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
           listener: (context, state) {
             if (state is RegisterCreateLoading) {
               final progress = ProgressHUD.of(context);
-              
+
               progress!.showWithText("Creating");
             } else if (state is RegisterCreateSuccess) {
               print(
                   "Successfull registerd===================================================================================");
 
-            
               registerBloc.add(Initialization());
-               Navigator.pushNamed(context, Login.routeName);
+              Navigator.pushNamed(context, Login.routeName);
             } else if (state is RegisterCreateFailed) {
               AwesomeDialog(
                 context: context,
@@ -233,12 +229,11 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                     child:
                                         UploadProfileImage(pickImage: (image) {
                                       setState(() {
-                                        photoController.text = image.path;
-                                        registerBloc.add(AddImage(
-                                            image: photoController.text));
+                                        // photoController.text = image.path;
+                                        registerBloc
+                                            .add(AddImage(image: image));
                                       });
-                                      registerBloc.add(AddImage(
-                                          image: photoController.text));
+                                      registerBloc.add(AddImage(image: image));
                                     }),
                                   ),
                                   SizedBox(
@@ -255,12 +250,10 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                   Center(
                                     child: UploadIDImage(pickImage: (image) {
                                       setState(() {
-                                        idController.text = image.path;
-                                        registerBloc
-                                            .add(AddIdImage(idController.text));
+                                        // idController.text = image.path;
+                                        registerBloc.add(AddIdImage(image));
                                       });
-                                      registerBloc
-                                          .add(AddIdImage(idController.text));
+                                      registerBloc.add(AddIdImage(image));
                                     }),
                                   ),
                                   SizedBox(
@@ -292,7 +285,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                     photoController.text.isNotEmpty) {
                                   print(
                                       "Register method called from the customer apage");
-                                  
+
                                   registerBloc.add(RegisterUser());
                                 }
                               },

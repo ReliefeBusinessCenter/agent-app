@@ -2,15 +2,16 @@ import 'dart:async';
 
 import 'package:app/constants/login/size.dart';
 import 'package:app/preferences/user_preference_data.dart';
-import 'package:app/screens/Auth/auth_exports.dart';
 import 'package:app/screens/admin/admin_main_page.dart';
 import 'package:app/screens/broker/broker_main_page.dart';
 import 'package:app/screens/customer/customerPage.dart';
-import 'package:app/screens/welcome/welcome_page.dart';
+import 'package:app/screens/login.dart';
 import 'package:app/translations/locale_keys.g.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+
+import 'Splash/welcome_page.dart';
 
 class SplashScreen extends StatefulWidget {
   late final String title;

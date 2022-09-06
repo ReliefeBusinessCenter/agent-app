@@ -40,8 +40,8 @@ class _SavingAndLoanState extends State<SavingAndLoan> {
   _addImages() {
     BlocProvider.of<SaveloanBloc>(context).add(SaveLoanSuccessEvent());
     setState(() {
-      profileImage = widget.broker.user!.picture!;
-      idImage = widget.broker.user!.identificationCard!;
+      profileImage = widget.broker.user!.picture!.path;
+      idImage = widget.broker.user!.identificationCard!.path;
       _saveLoanData['idPhoto'] = widget.broker.user!.identificationCard!;
       _saveLoanData['profilePhoto'] = widget.broker.user!.picture!;
       _saveLoanData['fullName'] = widget.broker.user!.fullName;
@@ -146,7 +146,7 @@ class _SavingAndLoanState extends State<SavingAndLoan> {
                       ),
                       Center(
                           child: SavingProfileImageUpload(
-                              image: widget.broker.user!.picture!,
+                              image: widget.broker.user!.picture!.path,
                               pickImage: (image) {
                                 _saveLoanData['profilePhoto'] = image.path;
                                 _profileImage = image;
@@ -161,7 +161,7 @@ class _SavingAndLoanState extends State<SavingAndLoan> {
                       ),
                       Center(
                           child: SavingIdPhotUpload(
-                              image: widget.broker.user!.picture!,
+                              image: widget.broker.user!.picture!.path,
                               pickImage: (image) {
                                 setState(() {
                                   _saveLoanData['idPhoto'] = image.path;

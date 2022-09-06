@@ -1,7 +1,7 @@
 import 'package:app/Widget/Auth/login/login_button_outline.dart';
 import 'package:app/Widget/welcome/home_fragment.dart';
 import 'package:app/constants.dart';
-import 'package:app/screens/Auth/auth_exports.dart';
+import 'package:app/screens/PhoneVerification/phone_verification_screen.dart';
 import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -12,7 +12,6 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       backgroundColor: lightColor,
       // appBar: AppBar(
@@ -33,7 +32,7 @@ class WelcomePage extends StatelessWidget {
         ),
         child: CustomOutlineButton(
             onPressed: () {
-              Navigator.of(context).pushNamed(Login.routeName);
+              Navigator.of(context).pushNamed(GoIn.routeName);
             },
             title: LocaleKeys.go_in_button_text.tr()),
       ),

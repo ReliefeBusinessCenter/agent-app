@@ -2,7 +2,7 @@ import 'package:app/Widget/Drawer/custom_list.dart';
 import 'package:app/bloc/auth/bloc/auth_bloc.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/preferences/user_preference_data.dart';
-import 'package:app/screens/Auth/login.dart';
+import 'package:app/screens/login.dart';
 import 'package:app/screens/admin/admin_category.dart';
 import 'package:app/screens/admin/admin_city.dart';
 import 'package:app/screens/admin/admin_deals_page.dart';
@@ -48,13 +48,13 @@ class _AdminDrawerState extends State<AdminDrawer> {
                     listener: (context, state) {},
                     builder: (context, state) {
                       if ((state is LoginSuccessState)) {
-                        photoPath = state.user.user!.picture ?? photoPath;
+                        photoPath = state.user.user!.picture!.path.toString();
                         if (state.user.user != null) {
                           if (state.user.user!.picture != null) {
                             if (state.user.user!.picture != null) {
                               print(
                                   "++++++++Have Image: ${state.user.user!.picture as String}");
-                              photoPath = state.user.user!.picture ?? photoPath;
+                              photoPath = state.user.user!.picture!.path.toString();
                               photo = CircleAvatar(
                                 radius: 45,
                                 backgroundColor: Colors.white,

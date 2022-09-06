@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'package:app/Service/fireabse_service.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/model/broker/broker.dart';
 import 'package:app/preferences/user_preference_data.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:path/path.dart';
 
 class BrokerDataProvider {
   final _baseUrl = '${Ip.ip}/api/brokers';
@@ -100,22 +102,24 @@ class BrokerDataProvider {
     initState();
     try {
       final url = Uri.parse('$_baseUrl');
-      var request = http.MultipartRequest(
-          'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
-      var request2 = http.MultipartRequest(
-          'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
+      // var request = http.MultipartRequest(
+      //     'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
+      // var request2 = http.MultipartRequest(
+      //     'POST', Uri.parse('${Ip.ip}/api/users/uploadfileg'));
 
-      request.files.add(await http.MultipartFile.fromPath(
-          'file', broker?.user!.picture as String));
+      // request.files.add(await http.MultipartFile.fromPath(
+      //     'file', broker?.user!.picture as String));
 
-      var res = await http.Response.fromStream(await request.send());
+      // var res = await http.Response.fromStream(await request.send());
 
-      request2.files.add(await http.MultipartFile.fromPath(
-          'file', broker?.user!.identificationCard as String));
+      // request2.files.add(await http.MultipartFile.fromPath(
+      //     'file', broker?.user!.identificationCard as String));
 
-      var resId = await http.Response.fromStream(await request2.send());
-
-      if (res.statusCode == 200 && resId.statusCode == 200) {
+      // var resId = await http.Response.fromStream(await request2.send());
+      try {
+        FirebaseService.uploadFile(broker?.user!.picture, "users/");
+        FirebaseService.uploadFile(
+            broker?.user!.identificationCard, "identificationCard/");
         final response = await http.post(url,
             headers: {
               'Content-Type': 'application/json',
@@ -147,16 +151,17 @@ class BrokerDataProvider {
                 "password": broker?.user!.password,
                 "phone": broker?.user!.phone,
                 // "address": "Ethiopia/Dessie",
-                "picture": res.body.toString(),
-                "city": broker?.user!.city,
-                "subcity": broker?.user!.subCity,
-                "kebele": broker?.user!.kebele,
-                "sex": broker?.user!.sex,
-                "identificationCard": resId.body.toString(),
-                "role": broker?.user!.role,
+                "picture": basename(broker!.user!.picture!.path.toString()),
+                "city": broker.user!.city,
+                "subcity": broker.user!.subCity,
+                "kebele": broker.user!.kebele,
+                "sex": broker.user!.sex,
+                "identificationCard":
+                    basename(broker.user!.identificationCard!.path.toString()),
+                "role": broker.user!.role,
                 "buys": null,
-                "latitude": broker?.user!.latitude,
-                "longtiude": broker?.user!.longitude
+                "latitude": broker.user!.latitude,
+                "longtiude": broker.user!.longitude
               }
             }));
         if (response.statusCode == 200) {
@@ -165,6 +170,8 @@ class BrokerDataProvider {
           print(response.body);
           throw Exception('Failed to load courses');
         }
+      } catch (e) {
+        print("Error occured: $e");
       }
     } catch (e) {
       print("Exception throuwn $e");

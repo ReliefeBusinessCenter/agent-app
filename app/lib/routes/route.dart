@@ -3,12 +3,13 @@ import 'package:app/model/broker/broker.dart';
 import 'package:app/model/customer/customer.dart';
 import 'package:app/model/deals.dart';
 import 'package:app/model/delivery.dart';
-import 'package:app/screens/Auth/auth_exports.dart';
-import 'package:app/screens/Auth/broker-detail-registeration-screen.dart';
-import 'package:app/screens/Auth/customer-detail-registeration-screen.dart';
-import 'package:app/screens/Auth/password-register-screen.dart';
-import 'package:app/screens/Auth/password_reset_screen.dart';
-import 'package:app/screens/Auth/signUp_screen.dart';
+import 'package:app/screens/Registeration/auth_exports.dart';
+import 'package:app/screens/Registeration/broker-detail-registeration-screen.dart';
+import 'package:app/screens/Registeration/customer-detail-registeration-screen.dart';
+import 'package:app/screens/Registeration/password-register-screen.dart';
+import 'package:app/screens/Registeration/signUp_screen.dart';
+import 'package:app/screens/Splash/welcome_page.dart';
+import 'package:app/screens/PhoneVerification/phone_verification_screen.dart';
 import 'package:app/screens/admin/admin_category.dart';
 import 'package:app/screens/admin/admin_customers_page.dart';
 import 'package:app/screens/admin/admin_deals_customer.dart';
@@ -22,13 +23,12 @@ import 'package:app/screens/broker/broker_deals_form_page.dart';
 import 'package:app/screens/broker/broker_delivery_detail.dart';
 import 'package:app/screens/broker/broker_main_page.dart';
 import 'package:app/screens/broker/saving_and_loans.dart';
-import 'package:app/screens/common/verify_phone.dart';
+import 'package:app/screens/PhoneVerification/otp_code_entring_screen.dart';
 import 'package:app/screens/customer/becomeAnAgent.dart';
 import 'package:app/screens/customer/customerPage.dart';
 import 'package:app/screens/customer/customer_deals_detail.dart';
 import 'package:app/screens/customer/customer_delivery_detail.dart';
 import 'package:app/screens/splash_screen.dart';
-import 'package:app/screens/welcome/welcome_page.dart';
 import 'package:flutter/material.dart';
 
 bool isAuthenticated = false;
@@ -41,10 +41,10 @@ class AppRoutes {
       return MaterialPageRoute(
         builder: (context) => SplashScreen(title: "Trust Broker"),
       );
-    } else if (settings.name == PhoneVerification.routeName) {
+    } else if (settings.name == PhoneVerificationPage.routeName) {
       final PhoneArgument phoneNumber = settings.arguments as PhoneArgument;
       return MaterialPageRoute(
-          builder: (context) => PhoneVerification(phoneNumber));
+          builder: (context) => PhoneVerificationPage(phoneNumber));
     } else if (settings.name == CustomerPage.routeName) {
       return MaterialPageRoute(builder: (context) => CustomerPage());
     } else if (settings.name == BrokerAccountScreen.routeName) {
@@ -65,7 +65,12 @@ class AppRoutes {
     } else if (settings.name == BecomeAnAgent.routeName) {
       return MaterialPageRoute(builder: (context) => BecomeAnAgent());
     } else if (settings.name == SignUpPageScreen.routeName) {
-      return MaterialPageRoute(builder: (context) => SignUpPageScreen());
+      // final String phoneNumber = settings.arguments as String;
+      final PhoneArgument phoneArgument = settings.arguments as PhoneArgument;
+      return MaterialPageRoute(
+          builder: (context) => SignUpPageScreen(
+                phoneNumber: phoneArgument.phone,
+              ));
     } else if (settings.name == PasswordRegisterScreen.routeName) {
       return MaterialPageRoute(builder: (context) => PasswordRegisterScreen());
     } else if (settings.name == BrokerDetailScreen.routeName) {
@@ -87,6 +92,10 @@ class AppRoutes {
           builder: (context) => CustomerDetailScreen(
                 phoneNumber: phoneNumber,
               ));
+    } else if (settings.name == GoIn.routeName) {
+      return MaterialPageRoute(
+        builder: (context) => GoIn(),
+      );
     }
     // user profile
     // else if (settings.name == UserProfilePage.routeName) {

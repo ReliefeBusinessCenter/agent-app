@@ -168,7 +168,7 @@ class UserDataProvider {
     }
   }
 
-  Future<User> getUserByPhone(String phone) async {
+  Future<User?> getUserByPhone(String phone) async {
     print(
         "============================================================================");
     print("Fetching of user $phone");

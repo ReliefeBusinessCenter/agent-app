@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
-
 class DidnotReceiveCode extends StatelessWidget {
   const DidnotReceiveCode({
     required this.onPressed,
     Key? key,
   }) : super(key: key);
-  final Function() onPressed; 
+  final Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +18,7 @@ class DidnotReceiveCode extends StatelessWidget {
         ),
         TextButton(
           onPressed: onPressed,
-          child: const Text( 
-            
+          child: const Text(
             "RESEND",
             style: TextStyle(
                 color: Colors.lightBlue,

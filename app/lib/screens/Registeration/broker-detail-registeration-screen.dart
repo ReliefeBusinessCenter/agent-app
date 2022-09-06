@@ -1,14 +1,14 @@
 import 'package:app/Widget/Auth/signup/signUpTextField.dart';
 import 'package:app/Widget/Auth/signup/register-button.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';
-import 'package:app/screens/Auth/customer-detail-registeration-screen.dart';
 import 'package:app/translations/locale_keys.g.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'login.dart';
+import '../login.dart';
+import 'customer-detail-registeration-screen.dart';
 
 // ignore: must_be_immutable
 class BrokerDetailScreen extends StatefulWidget {

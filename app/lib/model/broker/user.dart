@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:image_picker/image_picker.dart';
+
 import 'buy.dart';
 
 class User {
@@ -7,8 +11,8 @@ class User {
   String? password;
   String? phone;
   String? address;
-  String? picture;
-  String? identificationCard;
+  File? picture;
+  File? identificationCard;
   String? sex;
   String? role;
   String? city;

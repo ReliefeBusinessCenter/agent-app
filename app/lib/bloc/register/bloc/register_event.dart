@@ -40,7 +40,7 @@ class AddTypeUser extends RegisterEvent {
 }
 
 class AddImage extends RegisterEvent {
-  final String image;
+  final File image;
   AddImage({required this.image});
 }
 
@@ -86,7 +86,7 @@ class AddAbout extends RegisterEvent {
 }
 
 class AddIdImage extends RegisterEvent {
-  final String image;
+  final File image;
   AddIdImage(this.image);
 }
 
