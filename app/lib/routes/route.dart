@@ -6,7 +6,7 @@ import 'package:app/model/delivery.dart';
 import 'package:app/screens/Registeration/auth_exports.dart';
 import 'package:app/screens/Registeration/broker-detail-registeration-screen.dart';
 import 'package:app/screens/Registeration/customer-detail-registeration-screen.dart';
-import 'package:app/screens/Registeration/password-register-screen.dart';
+// import 'package:app/screens/Registeration/password-register-screen.dart';
 import 'package:app/screens/Registeration/signUp_screen.dart';
 import 'package:app/screens/Splash/welcome_page.dart';
 import 'package:app/screens/PhoneVerification/phone_verification_screen.dart';
@@ -71,8 +71,8 @@ class AppRoutes {
           builder: (context) => SignUpPageScreen(
                 phoneNumber: phoneArgument.phone,
               ));
-    } else if (settings.name == PasswordRegisterScreen.routeName) {
-      return MaterialPageRoute(builder: (context) => PasswordRegisterScreen());
+    // } else if (settings.name == PasswordRegisterScreen.routeName) {
+    //   return MaterialPageRoute(builder: (context) => PasswordRegisterScreen());
     } else if (settings.name == BrokerDetailScreen.routeName) {
       final String phoneNumber = settings.arguments as String;
       return MaterialPageRoute(

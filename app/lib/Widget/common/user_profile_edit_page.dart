@@ -86,7 +86,7 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
                           buys: widget.customer.user!.buys,
                           password: widget.customer.user!.password,
                           picture: _imageFile != null
-                              ? _imageFile
+                              ? _imageFile!.path
                               : widget.customer.user!.picture,
                           role: widget.customer.user!.role,
                           sex: widget.customer.user!.sex,

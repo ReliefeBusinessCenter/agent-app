@@ -70,14 +70,14 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     } else if (event is AddImage) {
       print("++++This is the profile image: ${event.image}");
       // user = state.user as User;
-      user.picture = event.image;
+      user.picture = event.image.path;
 
       print("Users: ${user.toJson()}");
       yield RegisterUpdateSuccess(user: user);
     } else if (event is AddIdImage) {
       // user = state.user as User;
       print("++++This is the identification card: ${event.image}");
-      user.identificationCard = event.image;
+      user.identificationCard = event.image.path;
 
       print("Users: ${user.toJson()}");
       yield RegisterUpdateSuccess(user: user);

@@ -60,7 +60,7 @@ class _AppDrawerState extends State<AppDrawer> {
             child: Drawer(child: BlocBuilder<CustomerBloc, CustomerState>(
                 builder: (context, state) {
               if ((state is CustomersLoadSuccess)) {
-                photoPath = state.customers.first.user!.picture!.path;
+                photoPath = state.customers.first.user!.picture!;
                 _customer = state.customers.first;
               }
 

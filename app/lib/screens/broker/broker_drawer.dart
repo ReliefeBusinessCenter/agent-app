@@ -50,7 +50,7 @@ class _BrokerDrawerState extends State<BrokerDrawer> {
       child: Drawer(
         child: BlocBuilder<BrokerBloc, BrokerState>(builder: (context, state) {
           if ((state is BrokersLoadSuccess)) {
-            photoPath = state.brokers.first.user!.picture!.path;
+            photoPath = state.brokers.first.user!.picture!;
             _broker = state.brokers.first;
           }
           return ListView(

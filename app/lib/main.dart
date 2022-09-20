@@ -8,7 +8,6 @@ import 'package:app/bloc/work-deals/bloc/workdeals_bloc.dart';
 import 'package:app/data_provider/broker-data-provider.dart';
 import 'package:app/data_provider/city_data_provider.dart';
 import 'package:app/data_provider/customer-data-provider.dart';
-import 'package:app/data_provider/deals_data_provider.dart';
 import 'package:app/data_provider/delivery-data-provider.dart';
 import 'package:app/data_provider/save_and_loan_data_provider.dart';
 import 'package:app/preferences/user_preference_data.dart';
@@ -39,6 +38,7 @@ import 'bloc/deals/bloc/deals_bloc.dart';
 import 'bloc/register/bloc/register_bloc.dart';
 import 'bloc/work-delivery/bloc/work_bloc.dart';
 import 'data_provider/categories_data_provider.dart';
+import 'data_provider/deals_data_provider.dart';
 import 'data_provider/user_data_provider.dart';
 
 void main() async {

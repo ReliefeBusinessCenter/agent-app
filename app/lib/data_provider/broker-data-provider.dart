@@ -20,6 +20,7 @@ class BrokerDataProvider {
 
 // get broker data
   Future<List<Broker>?> getBrokers() async {
+    print("I am on get broker method: ");
     initState();
     try {
       final url = Uri.parse('$_baseUrl');
@@ -29,7 +30,7 @@ class BrokerDataProvider {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
+          // 'Authorization': 'Bearer $token',
         },
       );
       if (response.statusCode == 200) {
@@ -117,9 +118,19 @@ class BrokerDataProvider {
 
       // var resId = await http.Response.fromStream(await request2.send());
       try {
-        FirebaseService.uploadFile(broker?.user!.picture, "users/");
-        FirebaseService.uploadFile(
-            broker?.user!.identificationCard, "identificationCard/");
+        if (broker?.user!.picture == null)
+          throw new Exception("Profile picture is required");
+        if (broker?.user!.identificationCard == null)
+          throw new Exception("Broker Identification card is required");
+
+        String picturePath =
+            FirebaseService.uploadFile((broker!.user!.picture), "users/")
+                .toString();
+
+        String idPath = FirebaseService.uploadFile(
+                broker.user!.identificationCard, "identificationCard/")
+            .toString();
+
         final response = await http.post(url,
             headers: {
               'Content-Type': 'application/json',
@@ -132,13 +143,13 @@ class BrokerDataProvider {
               "deals": [],
               "reviews": [],
               "skills": {
-                "communicationSkill": broker?.skills!.communicationSkill,
-                "brokingSkill": broker?.skills!.brokingSkill,
-                "workDone": broker?.skills!.workDone,
-                "workInProgress": broker?.skills!.workInProgress,
+                "communicationSkill": broker.skills!.communicationSkill,
+                "brokingSkill": broker.skills!.brokingSkill,
+                "workDone": broker.skills!.workDone,
+                "workInProgress": broker.skills!.workInProgress,
               },
-              "about": broker?.skills!.about,
-              "categoryId": broker?.category!.categoryId,
+              "about": broker.skills!.about,
+              "categoryId": broker.category!.categoryId,
               // "category": {
               //   // "categoryId"
               //   // "catigoryName": broker.category!.catigory
@@ -146,18 +157,18 @@ class BrokerDataProvider {
               //   "catigoryName": "Bussiness1  Broker"
               // },
               "user": {
-                "fullName": broker?.user!.fullName,
+                "fullName": broker.user!.fullName,
                 "email": "Someone@gmail.com",
-                "password": broker?.user!.password,
-                "phone": broker?.user!.phone,
+                "password": broker.user!.password,
+                "phone": broker.user!.phone,
                 // "address": "Ethiopia/Dessie",
-                "picture": basename(broker!.user!.picture!.path.toString()),
+                "picture": picturePath,
                 "city": broker.user!.city,
                 "subcity": broker.user!.subCity,
                 "kebele": broker.user!.kebele,
                 "sex": broker.user!.sex,
                 "identificationCard":
-                    basename(broker.user!.identificationCard!.path.toString()),
+                    idPath,
                 "role": broker.user!.role,
                 "buys": null,
                 "latitude": broker.user!.latitude,

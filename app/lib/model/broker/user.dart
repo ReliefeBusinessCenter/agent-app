@@ -11,8 +11,8 @@ class User {
   String? password;
   String? phone;
   String? address;
-  File? picture;
-  File? identificationCard;
+  String? picture;
+  String? identificationCard;
   String? sex;
   String? role;
   String? city;
