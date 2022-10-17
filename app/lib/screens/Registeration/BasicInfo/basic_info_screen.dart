@@ -1,11 +1,12 @@
-import 'package:app/Widget/Auth/signup/broker/categories-dropdown-button.dart';
-import 'package:app/Widget/Auth/signup/cities_drop_down.dart';
+import 'package:app/screens/Registeration/BasicInfo/Components/cities_drop_down.dart';
 import 'package:app/Widget/Auth/signup/next-button.dart';
-import 'package:app/Widget/Auth/signup/role-dropdown.dart';
-import 'package:app/Widget/Auth/signup/sex-dropdown.dart';
+import 'package:app/screens/Registeration/BasicInfo/Components/role-dropdown.dart';
+import 'package:app/screens/Registeration/BasicInfo/Components/sex-dropdown.dart';
 import 'package:app/Widget/Auth/signup/signUpTextField.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';
 import 'package:app/bloc/user/bloc/user_bloc.dart';
+import 'package:app/model/broker/user.dart';
+import 'package:app/model/city.dart';
 import 'package:app/screens/broker/broker_location_page.dart';
 import 'package:app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +15,8 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-import 'broker-detail-registeration-screen.dart';
-import 'customer-detail-registeration-screen.dart';
+import '../BrokerAdditionalDetail/brokers_details_screen.dart';
+import '../DetailInfo/detail_info.dart.dart';
 
 class SignUpPageScreen extends StatefulWidget {
   static const routeName = '/signup';
@@ -42,11 +43,13 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
 
   final TextEditingController kebeleController = new TextEditingController();
 
+  String sex = 'Male';
+  String role = 'Customer';
+
   final _formKey = GlobalKey<FormState>();
 
   late RegisterBloc registerBloc;
 
-  String type = 'Customer';
   double _latitude = 0.0;
   double _longitude = 0.0;
   late UserBloc userBloc;
@@ -125,10 +128,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                   validator: null,
                                   obsecureText: false,
                                   isRequired: false,
-                                  onChanged: (String value) {
-                                    print("Write: ${value}");
-                                    registerBloc.add(AddName(name: value));
-                                  },
+                                  onChanged: (String value) {},
                                   keyboardType: TextInputType.text,
                                 ),
                                 SizedBox(
@@ -139,7 +139,13 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                   height:
                                       MediaQuery.of(context).size.height * 0.02,
                                 ),
-                                CitiesDropDown(),
+                                CitiesDropDown(
+                                  changeCity: (City value) {
+                                    cityController.text =
+                                        value.cityName.toString();
+                                  },
+                                  cityController: cityController,
+                                ),
                                 SizedBox(
                                   height:
                                       MediaQuery.of(context).size.height * 0.02,
@@ -155,11 +161,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                     validator: null,
                                     obsecureText: false,
                                     isRequired: false,
-                                    onChanged: (String value) {
-                                      print("Write: ${value}");
-                                      registerBloc
-                                          .add(AddSubCity(subCity: value));
-                                    }),
+                                    onChanged: (String value) {}),
                                 SizedBox(
                                   height:
                                       MediaQuery.of(context).size.height * 0.02,
@@ -175,42 +177,27 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                     validator: null,
                                     obsecureText: false,
                                     isRequired: false,
-                                    onChanged: (String value) {
-                                      registerBloc
-                                          .add(AddKebele(kebele: value));
-                                    }),
+                                    onChanged: (String value) {}),
                                 SizedBox(
                                   height:
                                       MediaQuery.of(context).size.height * 0.02,
                                 ),
-                                SexDropDown(),
+                                SexDropDown(
+                                  changeSex: (String value) {
+                                    setState(() {
+                                      sex = value;
+                                    });
+                                  },
+                                ),
                                 SizedBox(
                                   height:
                                       MediaQuery.of(context).size.height * 0.02,
                                 ),
-                                RoleDropDown(),
-                                BlocConsumer<RegisterBloc, RegisterState>(
-                                  listener: (context, state) {},
-                                  builder: (context, state) {
-                                    if (state is RegisterUpdateSuccess) {
-                                      if (state.user!.role == "Broker") {
-                                        type = 'Broker';
-                                      } else if (state.user!.role ==
-                                          "Customer") {
-                                        type = 'Customer';
-                                      }
-                                      return Visibility(
-                                          visible: state.user!.role == "Broker"
-                                              ? true
-                                              : false,
-                                          child: CategoryDropDownButton());
-                                    }
-
-                                    return Visibility(
-                                        visible: state.user!.role == "Broker"
-                                            ? true
-                                            : false,
-                                        child: CategoryDropDownButton());
+                                RoleDropDown(
+                                  changeRole: (String value) {
+                                    setState(() {
+                                      role = value;
+                                    });
                                   },
                                 ),
                                 Text("Lat: $_latitude"),
@@ -245,10 +232,6 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                         _latitude = result.latitude;
                                         _longitude = result.longitude;
                                       });
-
-                                      registerBloc.add(AddLatitudeLongitude(
-                                          latitude: result.latitude,
-                                          longitude: result.longitude));
                                     },
                                   ),
                                 ),
@@ -267,11 +250,22 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                             onTapped: () {
                               if (_formKey.currentState!.validate()) {
                                 print("Validated successfully");
-                                print("User Type: $type");
-                                if (type == 'Customer') {
+                                print("User Type: $role");
+                                User user = User();
+                                user.fullName = nameController.text;
+                                user.city = cityController.text;
+                                user.subCity = subCityController.text;
+                                user.kebele = kebeleController.text;
+                                user.phone = phoneController.text;
+                                user.sex = sex;
+                                user.role = role;
+                                user.latitude = _latitude;
+                                user.longitude = _longitude;
+                                registerBloc.add(AddBasicInfo(user: user));
+                                if (role == 'Customer') {
                                   Navigator.pushNamed(
                                     context,
-                                    CustomerDetailScreen.routeName,
+                                    DetailScreen.routeName,
                                   );
                                 } else {
                                   Navigator.pushNamed(
@@ -285,9 +279,5 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                     ),
                   )),
             )));
-  }
-
-  void validate() {
-    final _formKey = GlobalKey<FormState>();
   }
 }

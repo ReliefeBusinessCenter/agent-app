@@ -1,7 +1,8 @@
 // import 'package:app/Widget/Auth/auth-export.dart';
-import 'package:app/Widget/Auth/signup/broker/categories-dropdown-button.dart';
 import 'package:app/Widget/Auth/signup/register-button.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';
+import 'package:app/model/broker/category.dart';
+import 'package:app/screens/Registeration/BrokerAdditionalDetail/Components/categories-dropdown-button.dart';
 import 'package:app/screens/login.dart';
 import 'package:app/translations/locale_keys.g.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -43,7 +44,7 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
       new TextEditingController();
 
   late RegisterBloc registerBloc;
-
+  Category? brokeringCategory;
   @override
   Widget build(BuildContext context) {
     String type = 'Broker';
@@ -79,7 +80,8 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                                 top: MediaQuery.of(context).size.height * 0.02,
                                 left: MediaQuery.of(context).size.width * 0.05),
                             child: Text(
-                              LocaleKeys.broker_skills_registration_label_text.tr(),
+                              LocaleKeys.broker_skills_registration_label_text
+                                  .tr(),
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 15),
                               textAlign: TextAlign.left,
@@ -104,7 +106,8 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                                 //       isShowing = true;
                                 //     });
                                 // }
-                                progress!.showWithText(LocaleKeys.createing_label_text.tr());
+                                progress!.showWithText(
+                                    LocaleKeys.createing_label_text.tr());
                               } else if (state is BeingAnAgentSucess) {
                                 // this.isShowing = false;
                                 // registerBloc.add(Initialization());
@@ -116,8 +119,11 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                                   context: context,
                                   dialogType: DialogType.ERROR,
                                   animType: AnimType.BOTTOMSLIDE,
-                                  title: LocaleKeys.failed_to_create_label_text.tr(),
-                                  desc: LocaleKeys.something_went_wrong_label_text.tr(),
+                                  title: LocaleKeys.failed_to_create_label_text
+                                      .tr(),
+                                  desc: LocaleKeys
+                                      .something_went_wrong_label_text
+                                      .tr(),
                                   // btnCancelOnPress: () {
                                   //   Navigator.popAndPushNamed(context, Login.routeName);
                                   // },
@@ -142,7 +148,13 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
-                                        CategoryDropDownButton(),
+                                        CategoryDropDownButton(
+                                          changeCategory: (Category value) {
+                                            setState(() {
+                                              brokeringCategory = value;
+                                            });
+                                          },
+                                        ),
 
                                         SizedBox(
                                           height: MediaQuery.of(context)
@@ -154,19 +166,16 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                                         CustomTextField(
                                           minLength: 0,
                                           enabled: true,
-                                           keyboardType: TextInputType.text,
-                                          textFieldName: LocaleKeys.communicative_skills_label_text.tr(),
+                                          keyboardType: TextInputType.text,
+                                          textFieldName: LocaleKeys
+                                              .communicative_skills_label_text
+                                              .tr(),
                                           controller: communicationController,
                                           initialValue: '',
                                           validator: null,
                                           obsecureText: false,
                                           isRequired: false,
-                                          onChanged: (String value) {
-                                            registerBloc.add(
-                                                AddCommunicationSkills(
-                                                    skill:
-                                                        double.parse(value)));
-                                          },
+                                          onChanged: (String value) {},
                                         ),
                                         SizedBox(
                                           height: MediaQuery.of(context)
@@ -176,9 +185,11 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                                         ),
                                         CustomTextField(
                                             minLength: 0,
-                                             keyboardType: TextInputType.text,
+                                            keyboardType: TextInputType.text,
                                             enabled: true,
-                                            textFieldName: LocaleKeys.broking_skills_label_text.tr(),
+                                            textFieldName: LocaleKeys
+                                                .broking_skills_label_text
+                                                .tr(),
                                             controller:
                                                 brookingSkillsController,
                                             initialValue: '',
@@ -187,10 +198,6 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                                             isRequired: false,
                                             onChanged: (String value) {
                                               print("Write: $value");
-                                              registerBloc.add(
-                                                  AddBrookingSkills(
-                                                      skill:
-                                                          double.parse(value)));
                                             }),
                                         SizedBox(
                                           height: MediaQuery.of(context)
@@ -200,19 +207,17 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                                         ),
                                         CustomTextField(
                                             minLength: 0,
-                                             keyboardType: TextInputType.text,
+                                            keyboardType: TextInputType.text,
                                             enabled: true,
-                                            textFieldName: LocaleKeys.work_done_label_text.tr(),
+                                            textFieldName: LocaleKeys
+                                                .work_done_label_text
+                                                .tr(),
                                             controller: workDoneController,
                                             initialValue: '',
                                             validator: null,
                                             obsecureText: false,
                                             isRequired: false,
-                                            onChanged: (String value) {
-                                              print("Write: $value");
-                                              registerBloc.add(AddWorkDone(
-                                                  skill: double.parse(value)));
-                                            }),
+                                            onChanged: (String value) {}),
                                         // SizedBox(
                                         //   height: MediaQuery.of(context).size.height * 0.02,
                                         // ),
@@ -224,8 +229,10 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                                         ),
                                         CustomTextField(
                                             minLength: 0,
-                                            textFieldName: LocaleKeys.Work_in_progress_label_text.tr(),
-                                             keyboardType: TextInputType.text,
+                                            textFieldName: LocaleKeys
+                                                    .Work_in_progress_label_text
+                                                .tr(),
+                                            keyboardType: TextInputType.text,
                                             controller:
                                                 workInProgressController,
                                             initialValue: '',
@@ -250,7 +257,8 @@ class _BecomeAnAgentState extends State<BecomeAnAgent> {
                                               0.05,
                                         ),
                                         RegisterButton(
-                                          name: LocaleKeys.submit_btn_label_text.tr(),
+                                          name: LocaleKeys.submit_btn_label_text
+                                              .tr(),
                                           onTapped: () {
                                             if (_formKey.currentState!
                                                 .validate()) {

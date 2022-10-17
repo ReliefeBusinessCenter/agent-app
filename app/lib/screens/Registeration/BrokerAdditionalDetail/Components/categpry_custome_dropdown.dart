@@ -16,7 +16,7 @@ class CategoryCustomeDropDownButton extends StatelessWidget {
       required this.value,
       required this.onChanged});
 
-  // late OrdersBloc ordersBloc;
+
   @override
   Widget build(BuildContext context) {
     registerBloc = BlocProvider.of<RegisterBloc>(context);
@@ -48,14 +48,7 @@ class CategoryCustomeDropDownButton extends StatelessWidget {
                     validator: (value){
 
                     },
-                    onChanged: (value) {
-                      Category category = value as Category;
-                      print(
-                          "+++++++++++++++++++++++++++++++++++++_______Broker Category Seelction with value ${category.toJson()}");
-                      // this.onChanged(value);
-                      registerBloc
-                          .add(AddBrokerType(category: value));
-                    },
+                    onChanged: (value) => this.onChanged(value),
                     hint: Container(
                       width: MediaQuery.of(context).size.width * 0.3,
                       child: Text(

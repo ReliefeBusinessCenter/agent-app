@@ -2,9 +2,8 @@ import 'dart:async';
 import 'package:app/Widget/common/phone_verification_did_not_reveive.dart';
 import 'package:app/Widget/common/phone_verification_enter_code_text.dart';
 import 'package:app/Widget/common/phone_verification_enter_phone.dart';
-import 'package:app/bloc/register/bloc/register_bloc.dart';
 import 'package:app/bloc/user/bloc/user_bloc.dart';
-import 'package:app/screens/Registeration/signUp_screen.dart';
+import 'package:app/screens/Registeration/BasicInfo/basic_info_screen.dart';
 import 'package:app/screens/login.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -39,9 +38,6 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
   late UserBloc userBloc;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   TextEditingController otpController = TextEditingController();
-  // ..text = "123456";
-
-  // ignore: close_sinks
   StreamController<ErrorAnimationType>? errorController;
 
   bool hasError = false;
@@ -71,16 +67,6 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
             color: Colors.red, fontSize: 12, fontWeight: FontWeight.w400),
       ),
     );
-  }
-
-  _onPressed() async {
-    formKey.currentState!.validate();
-    // conditions for validating
-    if (currentText.length != 6) {
-      errorController!
-          .add(ErrorAnimationType.shake); // Triggering error shake animation
-      setState(() => hasError = true);
-    } else {}
   }
 
   @override
@@ -135,13 +121,6 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
                 const SizedBox(
                   height: 20,
                 ),
-                // if (phoneverificationBloc.state is PhoneVerificationError)
-                //   Center(
-                //     child: Text(
-                //       '${state.message}',
-                //       style: const TextStyle(color: Colors.amber),
-                //     ),
-                //   ),
                 _pleaseFillAllCell(),
                 DidnotReceiveCode(
                   onPressed: () {},
@@ -149,14 +128,14 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
                 const SizedBox(
                   height: 14,
                 ),
-                // if(state is PhoneVerificationLoading)
-                // (state is PhoneVerificationLoading)
-
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   alignment: Alignment.center,
                   child: ElevatedButton(
-                    // color: Theme.of(context).primaryColor,
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          Theme.of(context).primaryColor),
+                    ),
                     child: isLoading
                         ? CircularProgressIndicator(
                             color: Colors.white,
@@ -174,17 +153,6 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
                             } else {
                               print(
                                   "the verification Id is ${widget.phoneArgument.verificationID}");
-                              // phoneverificationBloc.add(
-                              //   SigninWithCredential(
-                              //     context: context,
-                              //     routeName: widget.phoneArgument.routeName,
-                              //     credential: PhoneAuthProvider.credential(
-                              //         verificationId:
-                              //            widget.phoneArgument.verificationID,
-                              //         smsCode: otpController.text),
-                              //   ),
-                              // );
-
                               signInWithPhoneNumber();
                             }
                           }
@@ -216,7 +184,8 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
       if (userRegistered) {
         Navigator.popAndPushNamed(context, Login.routeName);
       } else {
-        Navigator.popAndPushNamed(context, SignUpPageScreen.routeName, arguments: widget.phoneArgument);
+        Navigator.popAndPushNamed(context, SignUpPageScreen.routeName,
+            arguments: widget.phoneArgument);
       }
     } catch (e) {
       setState(() {
@@ -234,14 +203,22 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
   }
 
   bool checkIfThisUserRegister(String phone) {
-    userBloc.add(GetUserByPhone(phone: phone));
+    userBloc.add(GetUserByPhone(phone: '0${phone.substring(4)}'));
     bool userRegistered = false;
     BlocListener(
+     // listenWhen: ,
+      bloc: userBloc,
       listener: (context, state) => {
         if (state is UserSuccess)
-          {userRegistered = true}
+          setState(() {
+            print("User existed");
+            userRegistered = true;
+          })
         else if (state is UserError)
-          {userRegistered = false}
+          setState(() {
+            print("User doesn't exist");
+            userRegistered = false;
+          })
       },
     );
     return userRegistered;

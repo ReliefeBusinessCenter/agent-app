@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:app/Service/fireabse_service.dart';
 import 'package:app/ip/ip.dart';
 import 'package:app/model/customer/customer.dart';
 import 'package:app/preferences/user_preference_data.dart';
@@ -16,7 +17,7 @@ class CustomerDataProvider {
 
   Future<void> initState() async {
     print("init is being called");
-    token = (await userPreferences.getUserToken())!;
+    // token = (await userPreferences.getUserToken())!;
   }
 
 // get customers
@@ -73,76 +74,66 @@ class CustomerDataProvider {
     }
   }
 
+  Future<String> storeImage(String? image, String folder) async {
+    return await FirebaseService.uploadFile((image), "$folder/").toString();
+  }
+
 // create new customer
   Future<bool> createCustomer(Customer customer) async {
     initState();
     String? token = await this.userPreferences.getUserToken();
     try {
       final url = Uri.parse(_baseUrl);
-      // image upload
-// request for adding profile image
-      var request = http.MultipartRequest(
-          'POST', Uri.parse('${Ip.ip}/api/users/uploadfile'));
 
-// request for adding identifiaction card
-      var request2 = http.MultipartRequest(
-          'POST', Uri.parse('${Ip.ip}/api/users/uploadfile'));
+      if (customer.user!.picture == null)
+        throw new Exception("Profile picture is required");
+      if (customer.user!.identificationCard == null)
+        throw new Exception("Broker Identification card is required");
 
-      request.files.add(await http.MultipartFile.fromPath(
-          'file', customer.user!.picture as String));
+      String picturePath =
+          storeImage(customer.user!.picture, '/customers').toString();
 
-      var resProfileImage =
-          await http.Response.fromStream(await request.send());
+      String idPath =
+          storeImage(customer.user!.identificationCard, '/IdentificationCard')
+              .toString();
 
-      request2.files.add(await http.MultipartFile.fromPath(
-          'file', customer.user!.identificationCard as String));
+      // send other customer data here
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          // 'Authorization': 'Bearer $token',
+        },
+        body: jsonEncode({
+          "reviews": [],
+          "deals": [],
+          "delivery": [],
+          "sales": [],
+          "user": {
+            "fullName": customer.user!.fullName,
+            "email": "someone@gmail.com",
+            "password": customer.user!.password,
+            "phone": customer.user!.phone,
+            "address": "Ethiopia/Dessie",
+            "picture": picturePath,
+            "identificationCard": idPath,
+            "sex": customer.user!.sex,
+            "role": customer.user!.role,
+            "buys": null,
+            "city": customer.user!.city,
+            "subcity": customer.user!.subCity,
+            "kebele": customer.user!.kebele,
+            "latitude": customer.user!.latitude,
+            "longtiude": customer.user!.longitude
+          }
+        }),
+      );
 
-      var resIdenditficaitonCard =
-          await http.Response.fromStream(await request2.send());
-
-      if (resProfileImage.statusCode == 200 &&
-          resIdenditficaitonCard.statusCode == 200) {
-        // send other customer data here
-        final response = await http.post(
-          url,
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': 'Bearer $token',
-          },
-          body: jsonEncode({
-            "reviews": [],
-            "deals": [],
-            "delivery": [],
-            "sales": [],
-            "user": {
-              "fullName": customer.user!.fullName,
-              "email": "someone@gmail.com",
-              "password": customer.user!.password,
-              "phone": customer.user!.phone,
-              "address": "Ethiopia/Dessie", 
-              "picture": resProfileImage.body.toString(),
-              "identificationCard": resIdenditficaitonCard.body.toString(),
-              "sex": customer.user!.sex,
-              "role": customer.user!.role,
-              "buys": null,
-              "city": customer.user!.city,
-              "subcity": customer.user!.subCity,
-              "kebele": customer.user!.kebele,
-              "latitude": customer.user!.latitude,
-              "longtiude": customer.user!.longitude
-            }
-          }),
-        ); 
-
-        if (response.statusCode == 200) {
-          return true;
-        } else {
-          throw Exception('Failed to Save Customer Data');
-        }
+      if (response.statusCode == 200) {
+        return true;
       } else {
-        // error
-        throw Exception("Failed to upload image");
+        throw Exception('Failed to Save Customer Data');
       }
     } catch (e) {
       throw Exception(e);

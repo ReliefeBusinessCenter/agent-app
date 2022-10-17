@@ -1,11 +1,8 @@
 import 'dart:async';
-import 'dart:io';
-
 import 'package:app/model/broker/broker.dart';
 import 'package:app/model/broker/category.dart';
 import 'package:app/model/broker/skills.dart';
 import 'package:app/model/broker/user.dart';
-// import 'package:app/model/broker/user.dart';
 import 'package:app/model/customer/customer.dart';
 import 'package:app/preferences/user_preference_data.dart';
 
@@ -43,120 +40,27 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
       print("Users: ${user.toJson()}");
       yield RegisterUpdateSuccess(user: user);
-    } else if (event is AddName) {
+    } else if (event is AddBasicInfo) {
       // add name
       // user = state.user as User;
-      user.fullName = event.name;
+      user = event.user;
       print("Users: ${user.toJson()}");
       yield RegisterUpdateSuccess(user: user);
-    } else if (event is AddPhone) {
-      // add email
-      // user = state.user as User;
-      user.phone = event.phoneNumber;
-      print("Users: ${user.toJson()}");
-      yield RegisterUpdateSuccess(user: user);
-    } else if (event is AddCity) {
+    } else if (event is AddDetailInfo) {
       // add city
       // user = state.user as User;
-      user.city = event.city;
+      user = event.user;
       print("Users: ${user.toJson()}");
       yield RegisterUpdateSuccess(user: user);
-    } else if (event is AddSubCity) {
-      // add sub city
-      // user = state.user as User;
-      user.subCity = event.subCity;
-      print("Users: ${user.toJson()}");
-      yield RegisterUpdateSuccess(user: user);
-    } else if (event is AddImage) {
-      print("++++This is the profile image: ${event.image}");
-      // user = state.user as User;
-      user.picture = event.image.path;
-
-      print("Users: ${user.toJson()}");
-      yield RegisterUpdateSuccess(user: user);
-    } else if (event is AddIdImage) {
-      // user = state.user as User;
-      print("++++This is the identification card: ${event.image}");
-      user.identificationCard = event.image.path;
-
-      print("Users: ${user.toJson()}");
-      yield RegisterUpdateSuccess(user: user);
-    } else if (event is AddKebele) {
-      // add kebele
-      // user = state.user as User;
-      user.kebele = event.kebele;
-      print("Users: ${user.toJson()}");
-      yield RegisterUpdateSuccess(user: user);
-    } else if (event is AddGender) {
-      // add genderFlat
-      // user = state.user as User;
-      user.sex = event.gender;
-      print("Users: ${user.toJson()}");
-      yield RegisterUpdateSuccess(user: user);
-    } else if (event is AddTypeUser) {
-      // add type user
-      print("Role: ${event.userType}");
-      // user = state.user as User;
-      user.role = event.userType;
-      print("+++++++++++++++Users Object on Type: ${user.toJson()}");
-      yield RegisterUpdateSuccess(user: user);
-    } else if (event is AddPassword) {
-      // add password
-      // user = state.user as User;
-      user.password = event.password;
-      print("Users: ${user.toJson()}");
-      yield RegisterUpdateSuccess(user: user);
-      // broker skill registeration
-    } else if (event is AddCommunicationSkills) {
+    } else if (event is AddBrokerDetail) {
       // broker = state.broker as Broker;
-      broker.skills!.communicationSkill = event.skill;
+      broker = event.broker;
       print("Broker: ${broker.toJson()}");
       yield RegisterUpdateSuccess(user: user, broker: broker);
       // add communication skills
-    } else if (event is AddBrokerType) {
-      print(
-          "++++++++________Arrived on the bloc with the follwoing value: ${event.category!.categoryId}");
-      // adding the broker category here
-      // Category category = event.category;
-      broker.category = event.category;
-      print("Broker: ${broker.toJson()}");
-      yield RegisterUpdateSuccess(user: user, broker: broker);
-    } else if (event is AddBrookingSkills) {
-      // add brooking skills
-      // broker = state.broker as Broker;
-
-      // skills.brokingSkill = event.skill;
-      broker.skills!.brokingSkill = event.skill;
-      // broker.skills = skills;
-      print("Broker: ${broker.toJson()}");
-      yield RegisterUpdateSuccess(user: user, broker: broker);
-    } else if (event is AddLatitudeLongitude) {
-      print(
-          "===============================================================Longituder--${event.latitude}");
-            print(
-          "===============================================================Longituder--${event.longitude}");
+    } else if (event is AddLocation) {
       user.latitude = event.latitude;
-      user.longitude = event.longitude;
-      yield RegisterUpdateSuccess(user: user, broker: broker);
-    } else if (event is AddWorkDone) {
-      // add workdone
-      // broker = state.broker as Broker;
-      broker.skills!.workDone = event.skill;
-      print("Broker: ${broker.toJson()}");
-      yield RegisterUpdateSuccess(user: user, broker: broker);
-    } else if (event is AddAbout) {
-      // add about
-      // broker = state.broker as Broker;
-      broker.skills!.about = event.about;
-      print("Broker: ${broker.toJson()}");
-      yield RegisterUpdateSuccess(user: user, broker: broker);
-    } else if (event is AddWorkInProgress) {
-      // add work in progress
-      // broker = state.broker as Broker;
-      broker.skills!.workInProgress = event.skill;
-      print("Broker: ${broker.toJson()}");
-      yield RegisterUpdateSuccess(user: user, broker: broker);
-      // Registeration
+      user.longitude = event.longtiude;
     } else if (event is RegisterUser) {
       print("Entered to the register bloc");
       print(

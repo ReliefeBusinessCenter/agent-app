@@ -23,7 +23,7 @@ class WelcomeBrokersProfilePage extends StatelessWidget {
     // Broker brokedr = ModalRoute.of(context)!.settings.arguments as Broker;
     deliveryBloc = BlocProvider.of<DeliveryBloc>(context);
     deliveryBloc.add(DeliveryInitializationEvent());
-    print("Broker name ${broker.user!.fullName}");
+
     return Scaffold(
         backgroundColor: Color(0xFFf2f6f9),
         appBar: AppBar(

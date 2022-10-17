@@ -64,6 +64,10 @@ class _GoInState extends State<GoIn> {
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             alignment: Alignment.center,
             child: ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all(Theme.of(context).primaryColor),
+              ),
               // color: Theme.of(context).primaryColor,
               child: isLoading
                   ? CircularProgressIndicator(
@@ -183,6 +187,7 @@ class _GoInState extends State<GoIn> {
   }
 
   void showSnackbar(String message) {
-   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
   }
 }

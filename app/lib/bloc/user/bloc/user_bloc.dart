@@ -24,12 +24,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     yield UserLoading();
     try {
       final user = await userRepository.getUserByPhone(phone);
-      if (user !=null) {
+      if (user != null) {
         yield UserSuccess(data: user);
       } else {
+        print("have Error");
         yield UserError(error: "Unable to fetch user");
       }
     } catch (e) {
+      print("have Error: ${e.toString()}");
       yield UserError(error: e.toString());
     }
   }

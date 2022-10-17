@@ -1,5 +1,5 @@
 import 'package:app/constants/login/size.dart';
-import 'package:app/screens/Registeration/signUp_screen.dart';
+import 'package:app/screens/Registeration/BasicInfo/basic_info_screen.dart';
 import 'package:app/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:auto_size_text/auto_size_text.dart';

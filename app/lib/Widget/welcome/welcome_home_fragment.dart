@@ -21,7 +21,7 @@ class WelcomeBrokerItem extends StatefulWidget {
 
 class _WelcomeBrokerItemState extends State<WelcomeBrokerItem> {
   Future<String>? _future;
-
+  String? imageUrl;
   late FavoriteBloc favoriteBloc;
   bool isFav = false;
 
@@ -45,7 +45,10 @@ class _WelcomeBrokerItemState extends State<WelcomeBrokerItem> {
 
     return InkWell(
       onTap: () {
-        print("This is the broker name ${widget.broker.user!.fullName}");
+        Broker broker = widget.broker;
+        broker.user!.picture = imageUrl;
+        print(
+            "This is the broker name with broker image of ${broker.user!.picture}");
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -94,6 +97,7 @@ class _WelcomeBrokerItemState extends State<WelcomeBrokerItem> {
                           case ConnectionState.active:
                             return Text('');
                           case ConnectionState.done:
+                            imageUrl = snapshot.data;
                             return CachedNetworkImage(
                               fit: BoxFit.fill,
                               height: size.height / 6,

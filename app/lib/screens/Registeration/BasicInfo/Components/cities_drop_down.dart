@@ -1,11 +1,16 @@
-import 'package:app/Widget/Auth/signup/signp-customeDropDown.dart';
+import 'package:app/Widget/Auth/signup/customeDropDown.dart';
 import 'package:app/bloc/city/bloc/city_bloc.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';
+import 'package:app/model/city.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CitiesDropDown extends StatefulWidget {
-  const CitiesDropDown({Key? key}) : super(key: key);
+  final TextEditingController cityController;
+  final ValueChanged<City> changeCity;
+  CitiesDropDown(
+      {Key? key, required this.changeCity, required this.cityController})
+      : super(key: key);
 
   @override
   _CitiesDropDownState createState() => _CitiesDropDownState();
@@ -13,13 +18,14 @@ class CitiesDropDown extends StatefulWidget {
 
 class _CitiesDropDownState extends State<CitiesDropDown> {
   late RegisterBloc registerBloc;
-  // String _selectedName = "Dire Dawa";
+  City? selectedCity;
   @override
   Widget build(BuildContext context) {
     registerBloc = BlocProvider.of<RegisterBloc>(context);
     return BlocBuilder<CityBloc, CityState>(
       builder: (context, state) {
         if (state is CityLoadSuccess) {
+          widget.cityController.text = state.cities.first.cityName!;
           return state.cities.isNotEmpty
               ? CustomeDropDownButton(
                   dropDownItems: state.cities
@@ -34,10 +40,10 @@ class _CitiesDropDownState extends State<CitiesDropDown> {
                       )
                       .toList(),
                   onChanged: (value) {
-                    // setState(() {
-                    //   _selectedName = value;
-                    // });
-                    registerBloc.add(AddCity(city: value));
+                    setState(() {
+                      selectedCity = value;
+                      widget.changeCity(value);
+                    });
                   },
                   value: state.cities.first.cityName!,
                 )

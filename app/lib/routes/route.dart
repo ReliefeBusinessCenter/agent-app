@@ -3,11 +3,11 @@ import 'package:app/model/broker/broker.dart';
 import 'package:app/model/customer/customer.dart';
 import 'package:app/model/deals.dart';
 import 'package:app/model/delivery.dart';
-import 'package:app/screens/Registeration/auth_exports.dart';
-import 'package:app/screens/Registeration/broker-detail-registeration-screen.dart';
-import 'package:app/screens/Registeration/customer-detail-registeration-screen.dart';
+import 'package:app/screens/Registeration/registeration_exports.dart';
+import 'package:app/screens/Registeration/BrokerAdditionalDetail/brokers_details_screen.dart';
+import 'package:app/screens/Registeration/DetailInfo/detail_info.dart.dart';
 // import 'package:app/screens/Registeration/password-register-screen.dart';
-import 'package:app/screens/Registeration/signUp_screen.dart';
+import 'package:app/screens/Registeration/BasicInfo/basic_info_screen.dart';
 import 'package:app/screens/Splash/welcome_page.dart';
 import 'package:app/screens/PhoneVerification/phone_verification_screen.dart';
 import 'package:app/screens/admin/admin_category.dart';
@@ -80,16 +80,16 @@ class AppRoutes {
           phoneNumber: phoneNumber,
         ),
       );
-    } else if (settings.name == CustomerDetailScreen.routeName) {
+    } else if (settings.name == DetailScreen.routeName) {
       final String phoneNumber = settings.arguments as String;
       return MaterialPageRoute(
-          builder: (context) => CustomerDetailScreen(
+          builder: (context) => DetailScreen(
                 phoneNumber: phoneNumber,
               ));
-    } else if (settings.name == CustomerDetailScreen.routeName) {
+    } else if (settings.name == DetailScreen.routeName) {
       final String phoneNumber = settings.arguments as String;
       return MaterialPageRoute(
-          builder: (context) => CustomerDetailScreen(
+          builder: (context) => DetailScreen(
                 phoneNumber: phoneNumber,
               ));
     } else if (settings.name == GoIn.routeName) {

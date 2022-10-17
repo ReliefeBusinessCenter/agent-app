@@ -23,8 +23,7 @@ class BrokerBackgroundImage extends StatelessWidget {
             width: size.width,
             child: CachedNetworkImage(
               fit: BoxFit.fill,
-              imageUrl:
-                  "${Ip.ip}/api/users/get/?fileName=${this.broker.user!.picture as String}",
+              imageUrl: this.broker.user!.picture.toString(),
               placeholder: (context, url) => CircularProgressIndicator(),
               errorWidget: (context, url, error) => Icon(Icons.error),
             ),
@@ -43,8 +42,7 @@ class BrokerBackgroundImage extends StatelessWidget {
                     ),
                     CachedNetworkImage(
                       fit: BoxFit.contain,
-                      imageUrl:
-                          "${Ip.ip}/api/users/get/?fileName=${this.broker.user!.picture as String}",
+                      imageUrl: this.broker.user!.picture.toString(),
                       imageBuilder: (context, imageProvider) => Container(
                         height: size.height * 0.2,
                         width: size.width * 0.3,
@@ -89,4 +87,3 @@ class BrokerBackgroundImage extends StatelessWidget {
     );
   }
 }
-

@@ -1,14 +1,16 @@
 import 'package:app/Widget/Auth/signup/signUpTextField.dart';
 import 'package:app/Widget/Auth/signup/register-button.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';
+import 'package:app/model/broker/category.dart';
 import 'package:app/translations/locale_keys.g.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:easy_localization/easy_localization.dart';
-import '../login.dart';
-import 'customer-detail-registeration-screen.dart';
+import '../../login.dart';
+import '../DetailInfo/detail_info.dart.dart';
+import 'Components/categories-dropdown-button.dart';
 
 // ignore: must_be_immutable
 class BrokerDetailScreen extends StatefulWidget {
@@ -37,7 +39,7 @@ class _BrokerDetailScreenState extends State<BrokerDetailScreen> {
   late RegisterBloc registerBloc;
 
   final TextEditingController _aboutController = new TextEditingController();
- 
+  Category? brokingCategory;
   Widget build(BuildContext context) {
     registerBloc = BlocProvider.of<RegisterBloc>(context);
     return Scaffold(
@@ -134,6 +136,17 @@ class _BrokerDetailScreenState extends State<BrokerDetailScreen> {
                             child: SingleChildScrollView(
                               child: Column(
                                 children: [
+                                  CategoryDropDownButton(
+                                    changeCategory: (Category value) {
+                                      setState(() {
+                                        brokingCategory = value;
+                                      });
+                                    },
+                                  ),
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.02,
+                                  ),
                                   CustomTextField(
                                     minLength: 0,
                                     enabled: true,
@@ -146,8 +159,7 @@ class _BrokerDetailScreenState extends State<BrokerDetailScreen> {
                                     obsecureText: false,
                                     isRequired: false,
                                     onChanged: (String value) {
-                                      registerBloc.add(AddCommunicationSkills(
-                                          skill: double.parse(value)));
+                                      if (value.isEmpty) {}
                                     },
                                     keyboardType: TextInputType.number,
                                   ),
@@ -156,21 +168,22 @@ class _BrokerDetailScreenState extends State<BrokerDetailScreen> {
                                         0.02,
                                   ),
                                   CustomTextField(
-                                      minLength: 0,
-                                      keyboardType: TextInputType.number,
-                                      enabled: true,
-                                      textFieldName:
-                                          LocaleKeys.broker_label_text.tr(),
-                                      controller: brookingSkillsController,
-                                      initialValue: '',
-                                      validator: null,
-                                      obsecureText: false,
-                                      isRequired: false,
-                                      onChanged: (String value) {
-                                        print("Write: $value");
-                                        registerBloc.add(AddBrookingSkills(
-                                            skill: double.parse(value)));
-                                      }),
+                                    minLength: 0,
+                                    keyboardType: TextInputType.number,
+                                    enabled: true,
+                                    textFieldName:
+                                        LocaleKeys.broker_label_text.tr(),
+                                    controller: brookingSkillsController,
+                                    initialValue: '',
+                                    validator: null,
+                                    obsecureText: false,
+                                    isRequired: false,
+                                    onChanged: (String value) {
+                                      print("Write: $value");
+                                      brookingSkillsController.text = value;
+                                    },
+                                  ),
+
                                   SizedBox(
                                     height: MediaQuery.of(context).size.height *
                                         0.02,
@@ -188,9 +201,9 @@ class _BrokerDetailScreenState extends State<BrokerDetailScreen> {
                                       isRequired: false,
                                       onChanged: (String value) {
                                         print("Write: $value");
-                                        registerBloc.add(AddWorkDone(
-                                            skill: double.parse(value)));
+                                        workDoneController.text = value;
                                       }),
+
                                   SizedBox(
                                     height: MediaQuery.of(context).size.height *
                                         0.02,
@@ -212,8 +225,7 @@ class _BrokerDetailScreenState extends State<BrokerDetailScreen> {
                                     isRequired: false,
                                     onChanged: (String value) {
                                       print("Write: $value");
-                                      registerBloc.add(AddWorkInProgress(
-                                          skill: double.parse(value)));
+                                      workInProgressController.text = value;
                                     },
                                   ),
                                   SizedBox(
@@ -226,7 +238,7 @@ class _BrokerDetailScreenState extends State<BrokerDetailScreen> {
                                     child: TextFormField(
                                       maxLines: 6,
                                       onChanged: (value) {
-                                        registerBloc.add(AddAbout(value));
+                                        _aboutController.text = value;
                                       },
                                       decoration: InputDecoration(
                                         labelText: LocaleKeys
@@ -253,12 +265,12 @@ class _BrokerDetailScreenState extends State<BrokerDetailScreen> {
                                   //   onPressed: () {},
                                   //   textFieldName: '',
                                   // ),
-                                 
+
                                   SizedBox(
                                     height: MediaQuery.of(context).size.height *
                                         0.02,
                                   ),
-                                 
+
                                   RegisterButton(
                                     name: LocaleKeys.next_btn_label_text.tr(),
                                     onTapped: () {
@@ -266,7 +278,8 @@ class _BrokerDetailScreenState extends State<BrokerDetailScreen> {
                                         print(
                                             "Register method called from the broker page");
                                         Navigator.pushNamed(context,
-                                            CustomerDetailScreen.routeName,arguments: widget.phoneNumber);
+                                            DetailScreen.routeName,
+                                            arguments: widget.phoneNumber);
                                       }
                                     },
                                   )

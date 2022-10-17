@@ -4,15 +4,16 @@ import 'package:app/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class UploadIDImage extends StatefulWidget {
-  final Function(File image) pickImage;
-  const UploadIDImage({required this.pickImage, Key? key}) : super(key: key);
+class UploadProfileImage extends StatefulWidget {
+  final ValueChanged<File> pickImage;
+  const UploadProfileImage({required this.pickImage, Key? key})
+      : super(key: key);
 
   @override
-  _UploadIDImageState createState() => _UploadIDImageState();
+  _UploadProfileImageState createState() => _UploadProfileImageState();
 }
 
-class _UploadIDImageState extends State<UploadIDImage> {
+class _UploadProfileImageState extends State<UploadProfileImage> {
   File? file;
   final _pickerImage = ImagePicker();
   _uploadImage() async {
@@ -23,8 +24,6 @@ class _UploadIDImageState extends State<UploadIDImage> {
       setState(() {
         file = File(pickedFile.path);
       });
-      // print("Uploaded File Image: ${photoController.text}");
-      // registerBloc.add(AddImage(image: photoController.text));
     } catch (e) {
       print("Image picker error " + e.toString());
     }
@@ -39,14 +38,16 @@ class _UploadIDImageState extends State<UploadIDImage> {
         if (file != null) widget.pickImage(file!);
       },
       child: Container(
-        height: size.width * 0.5,
-        width: size.width * 0.85,
+        height: size.width * 0.35,
+        width: size.width * 0.35,
         decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(size.width * 0.35),
           color: lightColor,
         ),
         child: file == null
             ? Container(
                 child: Center(
+                
                 child: Icon(
                   Icons.add_photo_alternate_outlined,
                   color: primaryColor,
@@ -57,6 +58,7 @@ class _UploadIDImageState extends State<UploadIDImage> {
                 height: 120.0,
                 width: 120.0,
                 decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(size.width * 0.35),
                   color: lightColor,
                   image: DecorationImage(
                     image: FileImage(

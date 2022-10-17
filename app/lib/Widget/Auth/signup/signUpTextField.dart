@@ -46,6 +46,7 @@ class CustomTextField extends StatelessWidget {
         Container(
             width: loginSize.getTextFieldWidth,
             child: TextFormField(
+              
                 onTap: () {},
                 keyboardType: keyboardType,
                 enabled: this.enabled,
