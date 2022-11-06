@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "593084094988",
+    "project_id": "trust-broker-c7fa1",
+    "storage_bucket": "trust-broker-c7fa1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593084094988:android:696350bc558ab1c9beec29",
+        "android_client_info": {
+          "package_name": "com.trustbroker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "593084094988-3rusab0kvudqep58vu6up5d7opodmr6k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4eYi_AC9psPxfzmV-tFBezLLm5i_o05o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "593084094988-3rusab0kvudqep58vu6up5d7opodmr6k.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "593084094988-vfqjd4rug2ohvfioke6u03fe4mqbndo1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
