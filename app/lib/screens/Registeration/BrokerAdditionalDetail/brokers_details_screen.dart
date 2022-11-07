@@ -1,7 +1,11 @@
+import 'dart:ffi';
+
 import 'package:app/Widget/Auth/signup/signUpTextField.dart';
 import 'package:app/Widget/Auth/signup/register-button.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';
 import 'package:app/model/broker/category.dart';
+import 'package:app/model/broker/skills.dart';
+
 import 'package:app/translations/locale_keys.g.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +67,7 @@ class _BrokerDetailScreenState extends State<BrokerDetailScreen> {
             } else if (state is RegisterCreateSuccess) {
               // this.isShowing = false;
 
-              // Navigator.popAndPushNamed(context, Login.routeName);
+              Navigator.popAndPushNamed(context, Login.routeName);
               // return Container(child: Text("Created Successfully"));
             } else if (state is RegisterCreateFailed) {
               AwesomeDialog(
@@ -74,10 +78,14 @@ class _BrokerDetailScreenState extends State<BrokerDetailScreen> {
                 desc: LocaleKeys.fill_all_the_information_carefully_label_text
                     .tr(),
                 btnCancelOnPress: () {
-                  Navigator.popAndPushNamed(context, Login.routeName);
+                   Navigator.pushNamed(context,
+                                            DetailScreen.routeName,
+                                            arguments: widget.phoneNumber);
                 },
                 btnOkOnPress: () {
-                  Navigator.popAndPushNamed(context, Login.routeName);
+                    Navigator.popAndPushNamed(
+                                      context, DetailScreen.routeName);
+                                  registerBloc.add(Initialization());
                 },
               )..show();
             }
@@ -277,6 +285,13 @@ class _BrokerDetailScreenState extends State<BrokerDetailScreen> {
                                       if (_formKey.currentState!.validate()) {
                                         print(
                                             "Register method called from the broker page");
+                                          Skills skills =  Skills();
+                                          skills.brokingSkill = double.parse(brookingSkillsController.text);
+                                          skills.communicationSkill = double.parse(communicationController.text);
+                                          skills.workDone = double.parse(workDoneController.text);
+                                          skills.workInProgress = double.parse(workInProgressController.text);
+                                        print("the v is ${skills.brokingSkill}");
+                                          
                                         Navigator.pushNamed(context,
                                             DetailScreen.routeName,
                                             arguments: widget.phoneNumber);

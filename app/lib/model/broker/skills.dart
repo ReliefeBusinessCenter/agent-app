@@ -4,14 +4,15 @@ class Skills {
   double? brokingSkill;
   double? workDone;
   double? workInProgress;
-  String? about;
+  // String? about;
 
   Skills(
-      {this.skillsId,
+      {
+        this.skillsId,
       this.communicationSkill,
       this.brokingSkill,
       this.workDone,
-      this.about,
+      // this.about,
       this.workInProgress});
 
   Skills.fromJson(Map<String, dynamic> json) {
@@ -21,7 +22,7 @@ class Skills {
     brokingSkill = json['brokingSkill'];
     workDone = json['workDone'];
     workInProgress = json['workInProgress'];
-    about = json['about'];
+    // about = json['about'];
 
     print("+++++++++++++++Finished parsing skills");
   }
@@ -33,7 +34,7 @@ class Skills {
     data['brokingSkill'] = this.brokingSkill;
     data['workDone'] = this.workDone;
     data['workInProgress'] = this.workInProgress;
-    data['about'] = this.about;
+    // data['about'] = this.about;
     return data;
   }
 }

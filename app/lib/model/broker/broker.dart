@@ -9,6 +9,7 @@ import 'user.dart';
 
 class Broker {
   int? brokerId;
+  int? categoryId;
   List<Portfolios>? portfolios;
   List<Delivery>? delivery;
   List<Deals>? deals;
@@ -36,6 +37,7 @@ class Broker {
     this.about,
     this.latitude,
     this.longitude,
+    this.categoryId
   });
 
   Broker.fromJson(Map<String, dynamic> json) {
@@ -74,6 +76,7 @@ class Broker {
     approved = json['approved'];
 
     about = json['about'];
+    categoryId = json['categoryId'];
     latitude = json['latitude'] != null ? json['latitude'] : 0.0;
     longitude = json['longitude'] != null ? json['longitude'] : 0.0;
   }

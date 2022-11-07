@@ -186,9 +186,9 @@ class _DetailScreenState extends State<DetailScreen> {
                                 btnOkOnPress: () {
                                   // Navigator.pop(context);
                                   // Navigator.pop()
-                                  // Navigator.popAndPushNamed(
-                                  //     context, Detail.routeName);
-                                  // registerBloc.add(Initialization());
+                                  Navigator.popAndPushNamed(
+                                      context, DetailScreen.routeName);
+                                  registerBloc.add(Initialization());
                                 },
                               )..show();
                             }
