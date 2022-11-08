@@ -8,6 +8,10 @@ class AddBasicInfo extends RegisterEvent {
   final User user;
   AddBasicInfo({required this.user});
 }
+class AddSkills extends RegisterEvent {
+  final Skills skills;
+  AddSkills({required this.skills});
+}
 
 class AddDetailInfo extends RegisterEvent {
   final User user;

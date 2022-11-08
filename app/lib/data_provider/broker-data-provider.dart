@@ -125,22 +125,19 @@ class BrokerDataProvider {
         String? piPath;
         // String? iPath;
         String picturePath =
-          await   FirebaseService.uploadFile((broker!.user!.picture), "users/")
-              .then((value) => {
-                 piPath = value
-                 
-              })
-              .toString();
-        
+            await FirebaseService.uploadFile((broker!.user!.picture), "users/")
+                .then((value) => {piPath = value})
+                .toString();
 
-        String idPath =  FirebaseService.uploadFile(
+        String idPath = FirebaseService.uploadFile(
                 broker.user!.identificationCard, "IdentificationCard/")
-                // .then((value) => {
-                //   iPath = value
-                // })
+            // .then((value) => {
+            //   iPath = value
+            // })
             .toString();
-        
-        print("w d i iss : ${broker.skills!.workDone} Identification path is :  ${idPath}");
+
+        print(
+            "c s  about i iss : ${broker.skills!.about} Identification path is :  ${idPath}");
         final response = await http.post(url,
             headers: {
               'Content-Type': 'application/json',
@@ -159,19 +156,16 @@ class BrokerDataProvider {
                 "workInProgress": broker.skills!.workInProgress?.toDouble(),
                 //  "about": broker.skills!.about.toString(),
               },
-              "about":broker.about,
-              "categoryId":broker.categoryId,
-             
-             "category": {
-                    "categoryId": broker.category!.categoryId?.toInt(),
-                    "catigoryName":"",
-             },
+              "about": broker.skills!.about,
+              "categoryId": 2,
+              
               // "category": {
               //   // "categoryId"
               //   // "catigoryName": broker.category!.catigory
               //   // "categoryId": 2,
               //   "catigoryName": "Bussiness1  Broker"
               // },
+
               "user": {
                 "fullName": broker.user!.fullName,
                 "email": "Someone@gmail.com",
@@ -179,14 +173,14 @@ class BrokerDataProvider {
                 "phone": broker.user!.phone,
                 // "address": "Ethiopia/Dessie",
                 "picture": "dentificationCard/image_picker846259987.jpg",
-                "city": broker.user!.city,
+                "city": "broker.user!.city",
                 "subcity": broker.user!.subCity,
                 "kebele": broker.user!.kebele,
                 "sex": broker.user!.sex,
                 "identificationCard":
                     "dentificationCard/image_picker846259987.jpg",
                 "role": broker.user!.role,
-                "buys": null,
+                "buys": "",
                 "latitude": broker.user!.latitude,
                 "longtiude": broker.user!.longitude
               }
@@ -195,11 +189,11 @@ class BrokerDataProvider {
           return true;
         } else {
           print(response.body);
-          print("Picture path: ${picturePath} Identification path:  ${idPath}   and about done is ${broker.about}");
+          print(
+              "Picture path: ${picturePath} Identification path:  ${idPath}   and about done is ");
           throw Exception('Failed to load courses');
         }
       } catch (e) {
-        
         print("Error occured: $e");
       }
     } catch (e) {

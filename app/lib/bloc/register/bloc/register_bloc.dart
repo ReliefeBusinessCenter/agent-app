@@ -18,6 +18,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   final BrokersRepository brokersRepository;
   User user = User();
   Broker broker = Broker();
+  Skills skills = Skills();
   RegisterBloc(
       {required this.customerRepositoy, required this.brokersRepository})
       : super(RegisterInitial(user: User()));
@@ -46,7 +47,15 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       user = event.user;
       print("Users: ${user.toJson()}");
       yield RegisterUpdateSuccess(user: user);
-    } else if (event is AddDetailInfo) {
+    } else if(event is AddSkills){
+          skills = event.skills;
+           print("User Skills: ${skills.toJson()}");
+      yield RegisterUpdateSuccess(skills: skills);
+
+
+    }
+    
+    else if (event is AddDetailInfo) {
       // add city
       // user = state.user as User;
       user = event.user;
@@ -93,6 +102,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         // broker registeration
 
         broker.user = user;
+        broker.skills = skills;
         print("Broker to be registered: ${broker.toJson()}");
         bool isCreated = await this.brokersRepository.createBroker(broker);
         print("the value of isCreated is ${isCreated}");

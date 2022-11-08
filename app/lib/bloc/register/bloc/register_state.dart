@@ -3,11 +3,13 @@ part of 'register_bloc.dart';
 class RegisterState {
   final User? user;
   final Broker? broker;
-  RegisterState({this.user, this.broker});
+  final Skills? skills;
+  RegisterState({this.user, this.broker, this.skills});
 }
 
 class RegisterInitial extends RegisterState {
   final User user;
+  
   // RegisterInitial({required this.user});
   RegisterInitial({required this.user}) : super(user: User(), broker: Broker());
 }
@@ -15,9 +17,10 @@ class RegisterInitial extends RegisterState {
 class RegisterUpdateSuccess extends RegisterState {
   final User? user;
   final Broker? broker;
+  final Skills? skills;
   // RegisterUpdateSuccess();
-  RegisterUpdateSuccess({this.user, this.broker})
-      : super(user: user, broker: broker);
+  RegisterUpdateSuccess({this.user, this.broker, this.skills})
+      : super(user: user, broker: broker,skills: skills);
 }
 
 class RegisterUpdateLoading extends RegisterState {}

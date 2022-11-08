@@ -5,6 +5,7 @@ import 'package:app/Widget/Auth/signup/register-button.dart';
 import 'package:app/bloc/register/bloc/register_bloc.dart';
 import 'package:app/model/broker/category.dart';
 import 'package:app/model/broker/skills.dart';
+import 'package:app/model/broker/user.dart';
 
 import 'package:app/translations/locale_keys.g.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -20,6 +21,7 @@ import 'Components/categories-dropdown-button.dart';
 class BrokerDetailScreen extends StatefulWidget {
   static const routeName = '/broker-detail';
   final String phoneNumber;
+  
   BrokerDetailScreen({required this.phoneNumber});
 
   @override
@@ -286,11 +288,13 @@ class _BrokerDetailScreenState extends State<BrokerDetailScreen> {
                                         print(
                                             "Register method called from the broker page");
                                           Skills skills =  Skills();
+                                          User user = User();
                                           skills.brokingSkill = double.parse(brookingSkillsController.text);
                                           skills.communicationSkill = double.parse(communicationController.text);
                                           skills.workDone = double.parse(workDoneController.text);
                                           skills.workInProgress = double.parse(workInProgressController.text);
-                                        print("the v is ${skills.brokingSkill}");
+                                          skills.about = _aboutController.text;
+                                          registerBloc.add(AddSkills(skills: skills));
                                           
                                         Navigator.pushNamed(context,
                                             DetailScreen.routeName,
