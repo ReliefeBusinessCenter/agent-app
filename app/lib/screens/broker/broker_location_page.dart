@@ -13,7 +13,7 @@ class MapScreen extends StatefulWidget {
 
 class _MyAppState extends State<MapScreen> {
   List<Marker> myMarker = [];
-   GoogleMapController? mapController;
+  late GoogleMapController mapController;
   // final LatLng _center = LatLng(9, 38.7);
 
    LatLng? _currentLocation;
