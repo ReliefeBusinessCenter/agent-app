@@ -263,10 +263,9 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                 user.longitude = _longitude;
                                 registerBloc.add(AddBasicInfo(user: user));
                                 if (role == 'Customer') {
-                                  Navigator.pushNamed(
-                                    context,
-                                    DetailScreen.routeName,
-                                  );
+                                  Navigator.pushNamed(context,
+                                            DetailScreen.routeName,
+                                            arguments: widget.phoneNumber);
                                 } else {
                                   Navigator.pushNamed(
                                     context,

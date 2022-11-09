@@ -54,7 +54,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
 
         LoggedUserInfo u = await userRepository.login(user);
-      
+         print("user info is ${u}");
         yield LoginSuccessState(user: u);
       
     } on HttpException catch (e) {

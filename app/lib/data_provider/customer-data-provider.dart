@@ -114,8 +114,8 @@ class CustomerDataProvider {
             "fullName": customer.user!.fullName,
             "email": "someone@gmail.com",
             "password": customer.user!.password,
-            "phone": customer.user!.phone,
-            "address": "Ethiopia/Dessie",
+            "phone": '0${customer.user!.phone!.substring(4)}',
+
             "picture": picturePath,
             "identificationCard": idPath,
             "sex": customer.user!.sex,

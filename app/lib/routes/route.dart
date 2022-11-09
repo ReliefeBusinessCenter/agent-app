@@ -81,7 +81,7 @@ class AppRoutes {
         ),
       );
     } else if (settings.name == DetailScreen.routeName) {
-       String phoneNumber = settings.arguments as String;
+       String? phoneNumber = settings.arguments as String;
       return MaterialPageRoute(
           builder: (context) => DetailScreen(
                 phoneNumber: phoneNumber,

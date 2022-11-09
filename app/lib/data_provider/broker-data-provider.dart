@@ -165,6 +165,7 @@ class BrokerDataProvider {
                   }
                 }));
             if (response.statusCode == 200) {
+              print("response is ${response.statusCode}");
               return true;
             } else {
               print(response.body);
@@ -173,7 +174,7 @@ class BrokerDataProvider {
               throw Exception('Failed to load courses');
             }
           });
-        }).toString();
+        });
 
         // String idPath = FirebaseService.uploadFile(
         //         broker.user!.identificationCard, "IdentificationCard/")
@@ -187,6 +188,7 @@ class BrokerDataProvider {
     } catch (e) {
       print("Exception throuwn $e");
     }
+    print("++++++++++++");
     return false;
   }
 

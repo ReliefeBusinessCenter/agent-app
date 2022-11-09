@@ -237,9 +237,7 @@ class _LoginState extends State<Login> {
                       SizedBox(
                         height: height * 0.03,
                       ),
-                      SignUp(
-                          // onPressed: () => forgotPasswordHandler(context),
-                          ),
+                    
                       SizedBox(
                         height: height * 0.03,
                       ),

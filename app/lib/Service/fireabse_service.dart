@@ -11,7 +11,7 @@ class FirebaseService {
 
     try {
       final ref =
-       await   FirebaseStorage.instance.ref().child('$folderName$fileName');
+       await   FirebaseStorage.instance.ref().child('$fileName');
       await ref.putFile(File(_photo));
       print("reference path: ${ref.fullPath}");
       

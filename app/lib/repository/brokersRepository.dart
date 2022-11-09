@@ -14,10 +14,10 @@ class BrokersRepository {
   }
 
   Future<bool> createBroker(Broker broker) async {
-    bool data = (await brokerDataProvider.createBroker(broker));
+    bool data = !(await brokerDataProvider.createBroker(broker));
     print("Data arrived at the data provider $data");
     return data;
-  }
+  } 
 
   Future<Broker?> getBrokerById(int id) async {
     Broker data = await brokerDataProvider.getBrokerById(id) as Broker;
