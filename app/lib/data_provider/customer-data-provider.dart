@@ -89,16 +89,20 @@ class CustomerDataProvider {
         throw new Exception("Profile picture is required");
       if (customer.user!.identificationCard == null)
         throw new Exception("Broker Identification card is required");
+          // String picturePath =
+      //     storeImage(customer.user!.picture, '/customers').toString();
 
-      String picturePath =
-          storeImage(customer.user!.picture, '/customers').toString();
-
-      String idPath =
-          storeImage(customer.user!.identificationCard, '/IdentificationCard')
-              .toString();
+      // String idPath =
+      //     storeImage(customer.user!.identificationCard, '/IdentificationCard')
+      //         .toString();
 
       // send other customer data here
-      final response = await http.post(
+
+    await FirebaseService.uploadFile(customer.user!.picture, '/customers')
+    .then((picturePath)  async{
+             await FirebaseService.uploadFile(customer.user!.identificationCard, '/IdentificationCard')
+             .then((idPath) async {
+               final response = await http.post(
         url,
         headers: {
           'Content-Type': 'application/json',
@@ -131,13 +135,27 @@ class CustomerDataProvider {
       );
 
       if (response.statusCode == 200) {
+        print("failed to create customer using data ${response.statusCode}");
         return true;
       } else {
+        print("failed to create customer using data ${response.statusCode}");
         throw Exception('Failed to Save Customer Data');
       }
+              
+
+             });
+    });
+
+
+
+
+
+    
+     
     } catch (e) {
       throw Exception(e);
     }
+     return false;
   }
 
   // delete customer

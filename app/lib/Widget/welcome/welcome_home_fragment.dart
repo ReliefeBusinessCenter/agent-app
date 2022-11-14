@@ -27,7 +27,7 @@ class _WelcomeBrokerItemState extends State<WelcomeBrokerItem> {
 
   Future<String> getImage() async {
     String imageUrl = await FirebaseService.loadImage(
-        widget.broker.user!.picture.toString(), '/brokers');
+        widget.broker.user!.picture.toString().substring(8), 'brokers');
     print("IMage Url: $imageUrl");
     return imageUrl;
   }
@@ -111,7 +111,9 @@ class _WelcomeBrokerItemState extends State<WelcomeBrokerItem> {
                                   Icon(Icons.error),
                             );
                         }
-                      })),
+                      }
+                      )
+                      ),
               Container(
                 width: 300,
                 color: Theme.of(context).primaryColor.withOpacity(0.1),

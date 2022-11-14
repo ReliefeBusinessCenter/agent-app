@@ -1,8 +1,4 @@
-import 'dart:io';
 
-import 'package:image_picker/image_picker.dart';
-
-import 'buy.dart';
 
 class User {
   int? userId;
@@ -61,7 +57,7 @@ class User {
     phone = json['phone'];
     address = json['address'];
     city = json['city'];
-    subCity = json['subcity'];
+    subCity = json['subCity'];
     kebele = json['kebele'];
 
     picture = json['picture'];
@@ -71,7 +67,7 @@ class User {
     buys = json['buys'];
     identificationCard = json['identificationCard'];
     latitude = json['latitude'];
-    longitude = json['longtiude'];
+    longitude = json['longitude'];
   }
 
   Map<String, dynamic> toJson() {
@@ -83,7 +79,7 @@ class User {
     data['phone'] = this.phone;
     // data['address'] = this.address;
     data['city'] = this.city;
-    data['subcity'] = this.subCity;
+    data['subCity'] = this.subCity;
     data['kebele'] = this.kebele;
 
     data['picture'] = this.picture;
@@ -91,8 +87,13 @@ class User {
     data['role'] = this.role;
     data['buys'] = this.buys;
     data['identificationCard'] = this.identificationCard;
-    data['longtiude'] = this.longitude;
+    data['longitude'] = this.longitude;
     data['latitude'] = this.latitude;
     return data;
   }
+  
+   @override
+  String toString() =>
+      'User { userId: $userId, fullName: $fullName, email: $email, password: $password, phone: $phone,city: $city, subcity: $subCity,kebele:$kebele,picture:$picture,sex:$sex,role:$role, buys:$buys,identificationCard:$identificationCard,longtiude:$longitude,latitude:$latitude}';
+
 }

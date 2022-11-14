@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+import '../../repository/user_repository.dart';
+
 class PhoneArgument {
   String routeName;
   String verificationID;
@@ -25,9 +27,11 @@ class PhoneArgument {
 
 class PhoneVerificationPage extends StatefulWidget {
   static const routeName = '/mvvp/phoneverification';
+  static bool uR = false;
   final PhoneArgument phoneArgument;
+ 
 
-  PhoneVerificationPage(this.phoneArgument, {Key? key}) : super(key: key);
+  PhoneVerificationPage(this.phoneArgument,{Key? key}) : super(key: key);
 
   @override
   _PhoneVerificationPageState createState() => _PhoneVerificationPageState();
@@ -35,21 +39,32 @@ class PhoneVerificationPage extends StatefulWidget {
 
 class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
   bool isLoading = false;
+  bool ur = false;
   late UserBloc userBloc;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   TextEditingController otpController = TextEditingController();
   StreamController<ErrorAnimationType>? errorController;
+  late Future<User?> userInfo;
 
   bool hasError = false;
   String currentText = "";
+   UserRepository? userRepository;
+ 
   final formKey = GlobalKey<FormState>();
-
   @override
-  void initState() {
+  initState() {
     errorController = StreamController<ErrorAnimationType>();
     super.initState();
     userBloc = BlocProvider.of<UserBloc>(context);
+    
+    
+    
   }
+  // Future<User?> fetchUserData(String phone) async{
+  //   final user = await userRepository?.getUserByPhone(phone);
+  //     print("u at bloc is ${user}");
+  //     return user;
+  // }
 
   @override
   void dispose() {
@@ -72,6 +87,7 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
@@ -145,7 +161,7 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
                             style: TextStyle(color: Colors.white),
                           ),
                     onPressed: currentText.length == 6
-                        ? () {
+                        ? () async {
                             if (currentText.length != 6) {
                               errorController!.add(ErrorAnimationType
                                   .shake); // Triggering error shake animation
@@ -153,6 +169,14 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
                             } else {
                               print(
                                   "the verification Id is ${widget.phoneArgument.verificationID}");
+                              //    String phoneNum = '0${widget.phoneArgument.phone.substring(4)}';
+                              // final user1 =  userRepository?.getUserByPhone(widget.phoneArgument.phone);
+                              // if (widget.phoneArgument.verificationID == null)
+                              //   return;
+                             
+
+                              
+
                               signInWithPhoneNumber();
                             }
                           }
@@ -179,8 +203,11 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
       final UserCredential user =
           (await _auth.signInWithCredential(credential));
 
-      print("Successfully signed in UID: ${user.user?.uid}");
-      bool userRegistered = checkIfThisUserRegister(widget.phoneArgument.phone);
+      print("Successfully signed in UID: ${user.user?.uid} adn u i is ");
+      // checkIfUR(context, widget.phoneArgument.phone);
+    bool userRegistered =
+          checkIfThisUserRegister(context, widget.phoneArgument.phone);
+      print("the value if u r is ${userRegistered}");
       if (userRegistered) {
         Navigator.popAndPushNamed(context, Login.routeName);
       } else {
@@ -202,25 +229,68 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
     }
   }
 
-  bool checkIfThisUserRegister(String phone) {
-    userBloc.add(GetUserByPhone(phone: '0${phone.substring(4)}'));
-    bool userRegistered = false;
-    BlocListener(
-     // listenWhen: ,
-      bloc: userBloc,
-      listener: (context, state) => {
-        if (state is UserSuccess)
-          setState(() {
-            print("User existed");
-            userRegistered = true;
-          })
-        else if (state is UserError)
-          setState(() {
-            print("User doesn't exist");
-            userRegistered = false;
-          })
-      },
-    );
-    return userRegistered;
+
+  bool checkIfThisUserRegister(BuildContext context, String phone)  {
+    bool userRegis = false;
+    userBloc.add(GetUserByPhone(phone: phone));
+    
+
+    var state =  BlocProvider.of<UserBloc>(context).state;
+    //  final user1 =  userRepository?.getUserByPhone(phone);
+    //  print('user one is ${user1}');
+    //  if(user1 != null){
+    //   return true;
+    //  } else{
+    //   return false;
+    //  }
+    if (state is UserSuccess) {
+      setState(() {
+        userRegis = true;
+      });
+    }
+
+    if (state is UserError) {
+      setState(() {
+        userRegis = false;
+      });
+    }
+    return userRegis;
+    // userBloc.add(GetUserByPhone(phone: '0${phone.substring(4)}'));
+    // bool userRegistered = false;
+
+    // BlocListener(
+    //   // listenWhen: ,
+    //   bloc: userBloc,
+    //   // listenWhen: (){
+    //   //    return trye
+
+    //   // },
+    //   listener: (context, state) => {
+    // if (state is UserLoading)
+    //   {
+    //     setState(() {
+    //       print("User in loading");
+    //       userRegistered = false;
+    //     })
+    //   }
+    //     else if (state is UserSuccess)
+    //       {
+    //         setState(() {
+    //           print("User existed");
+    //           userRegistered = true;
+    //         })
+    //       }
+    // else if (state is UserError)
+    //   {
+    //     print("user is in anerror"),
+    //     setState(() {
+    //       print("User doesn't exist");
+    //       userRegistered = false;
+    //     })
+    //   }
+    //   },
+    // );
+    // print("the return value    is .....${userRegistered}");
+    // return userRegistered;
   }
 }

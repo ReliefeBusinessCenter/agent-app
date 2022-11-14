@@ -172,7 +172,9 @@ class _DetailScreenState extends State<DetailScreen> {
                                   "Successfull registerd===================================================================================");
 
                               registerBloc.add(Initialization());
+                              // Navigator.of(context).pushNamedAndRemoveUntil(Login.routeName, (route) => false);
                               Navigator.pushNamed(context, Login.routeName);
+                              ;
                             } else if (state is RegisterCreateFailed) {
                               AwesomeDialog(
                                 context: context,

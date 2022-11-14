@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:easy_localization/easy_localization.dart';
+import '../../Service/fireabse_service.dart';
 import 'saving_and_loans.dart';
 
 class BrokerDrawer extends StatefulWidget {
@@ -26,6 +27,7 @@ class _BrokerDrawerState extends State<BrokerDrawer> {
   bool status = false;
   String photoPath = "assets/images/circular.png";
   Broker? _broker;
+  String? imageUrl;
   @override
   void initState() {
     super.initState();
@@ -39,6 +41,13 @@ class _BrokerDrawerState extends State<BrokerDrawer> {
         _broker = broker;
       });
     });
+  }
+
+  Future<String> getImage() async {
+    String imageUrl = await FirebaseService.loadImage(
+        _broker!.user!.picture.toString().substring(8), 'brokers');
+    print("IMage Url: $imageUrl");
+    return imageUrl;
   }
 
   @override
@@ -59,25 +68,52 @@ class _BrokerDrawerState extends State<BrokerDrawer> {
                 UserAccountsDrawerHeader(
                   accountName: Text("${_broker!.user!.fullName as String}"),
                   accountEmail: Text("${_broker!.user!.email as String}"),
-                  currentAccountPicture: CachedNetworkImage(
-                    imageUrl:
-                        "${Ip.ip}/api/users/get/?fileName=${_broker!.user!.picture as String}",
-                    imageBuilder: (context, imageProvider) => Container(
-                      width: 120.0,
-                      height: 120.0,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            image: imageProvider, fit: BoxFit.cover),
-                      ),
-                    ),
-                    placeholder: (context, url) => Center(
-                      child: SpinKitCircle(
-                        color: primaryColor,
-                      ),
-                    ),
-                    errorWidget: (context, url, _) => Icon(Icons.error),
-                  ),
+                  currentAccountPicture: FutureBuilder(
+                      future: getImage(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<dynamic> snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.none:
+                            return Text('none');
+                          case ConnectionState.waiting:
+                            return Center(
+                                child: Column(
+                              children: [
+                                Text("Future builder"),
+                                Center(
+                                    child: SpinKitCircle(
+                                  color: primaryColor,
+                                )),
+                              ],
+                            ));
+                          case ConnectionState.active:
+                            return Text('');
+                          case ConnectionState.done:
+                            imageUrl = snapshot.data;
+                            return CachedNetworkImage(
+                              fit: BoxFit.fill,
+                              height: 12.0,
+                              width: 12.0,
+                              imageUrl: snapshot.data,
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                width: 120.0,
+                                height: 120.0,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      image: imageProvider, fit: BoxFit.cover),
+                                ),
+                              ),
+                              placeholder: (context, url) => Center(
+                                  child: SpinKitCircle(
+                                color: primaryColor,
+                              )),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            );
+                        }
+                      }),
                   arrowColor: Theme.of(context).accentColor,
                   decoration:
                       BoxDecoration(color: Theme.of(context).primaryColor),

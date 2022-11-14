@@ -9,7 +9,7 @@ class CustomerRepository {
   });
 
   Future<bool> createCustomers(Customer customer) async {
-    bool data = (await customerDataProvider.createCustomer(customer));
+    bool data = !(await customerDataProvider.createCustomer(customer));
     print("Data arrived at the data provider $data");
     return data;
   }

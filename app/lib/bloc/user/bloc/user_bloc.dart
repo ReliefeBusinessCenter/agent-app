@@ -21,10 +21,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   // when getUserByPhoneIs Called
   Stream<UserState> _getUser(String phone) async* {
-    yield UserLoading();
     try {
       final user = await userRepository.getUserByPhone(phone);
+      print("u at bloc is ${user}");
       if (user != null) {
+        print("it is not null");
+
         yield UserSuccess(data: user);
       } else {
         print("have Error");

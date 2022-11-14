@@ -16,3 +16,7 @@ class UpdateUser extends UserEvent {
   final User user;
   UpdateUser({required this.user});
 }
+class FetchUserInformation extends UserEvent {
+  final String phone;
+  FetchUserInformation({required this.phone});
+}

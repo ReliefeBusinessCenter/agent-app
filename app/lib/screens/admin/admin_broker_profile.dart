@@ -19,6 +19,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+import '../../Service/fireabse_service.dart';
+
 class AdminBrokerProfilePage extends StatefulWidget {
   final Broker? broker;
 
@@ -30,6 +32,14 @@ class AdminBrokerProfilePage extends StatefulWidget {
 }
 
 class _AdminBrokerProfilePageState extends State<AdminBrokerProfilePage> {
+  String? imageUrl;
+  Future<String> getImage() async {
+    String imageUrl = await FirebaseService.loadImage(
+        widget.broker!.user!.picture.toString().substring(8), 'brokers');
+    print("IMage Url: $imageUrl");
+    return imageUrl;
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -86,7 +96,6 @@ class _AdminBrokerProfilePageState extends State<AdminBrokerProfilePage> {
               context: context,
               builder: (context) => LoadingIndicator(
                 name: LocaleKeys.updating_label_text.tr(),
-                
               ),
             );
           } else if (state is BrokersLoadFailed) {
@@ -108,28 +117,52 @@ class _AdminBrokerProfilePageState extends State<AdminBrokerProfilePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  CachedNetworkImage(
-                    imageUrl:
-                        "${Ip.ip}/api/users/get/?fileName=${widget.broker!.user!.picture as String}",
-                    imageBuilder: (context, imageProvider) => Container(
-                      width: 120,
-                      height: 120.0,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            image: imageProvider, fit: BoxFit.cover),
-                      ),
-                    ),
-                    placeholder: (context, url) => Center(
-                      child: SpinKitCircle(
-                        color: primaryColor,
-                      ),
-                    ),
-                    errorWidget: (context, url, _) => Icon(Icons.error),
-                  ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
+                  FutureBuilder(
+                      future: getImage(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<dynamic> snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.none:
+                            return Text('none');
+                          case ConnectionState.waiting:
+                            return Center(
+                                child: Column(
+                              children: [
+                                Text("Future builder"),
+                                Center(
+                                    child: SpinKitCircle(
+                                  color: primaryColor,
+                                )),
+                              ],
+                            ));
+                          case ConnectionState.active:
+                            return Text('');
+                          case ConnectionState.done:
+                            imageUrl = snapshot.data;
+                            return CachedNetworkImage(
+                              fit: BoxFit.fill,
+                              height: 120.0,
+                              width: 120.0,
+                              imageUrl: snapshot.data,
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                width: 120.0,
+                                height: 120.0,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      image: imageProvider, fit: BoxFit.cover),
+                                ),
+                              ),
+                              placeholder: (context, url) => Center(
+                                  child: SpinKitCircle(
+                                color: primaryColor,
+                              )),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            );
+                        }
+                      }),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -234,7 +267,9 @@ class _AdminBrokerProfilePageState extends State<AdminBrokerProfilePage> {
                               SizedBox(
                                 height: 30,
                               ),
-                              BrokerSkillsPage( skill: widget.broker!.skills!,),
+                              BrokerSkillsPage(
+                                skill: widget.broker!.skills!,
+                              ),
                               SizedBox(
                                 width: size.width * 0.6,
                                 child: AcceptButton(

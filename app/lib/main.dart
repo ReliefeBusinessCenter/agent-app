@@ -5,6 +5,7 @@ import 'package:app/bloc/favorit/bloc/favorite_bloc.dart';
 import 'package:app/bloc/saveLoan/bloc/saveloan_bloc.dart';
 import 'package:app/bloc/user/bloc/user_bloc.dart';
 import 'package:app/bloc/work-deals/bloc/workdeals_bloc.dart';
+import 'package:app/bloc_observer.dart';
 import 'package:app/data_provider/broker-data-provider.dart';
 import 'package:app/data_provider/city_data_provider.dart';
 import 'package:app/data_provider/customer-data-provider.dart';
@@ -45,6 +46,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp();
+  Bloc.observer = SampleObsever();
   runApp(EasyLocalization(
     supportedLocales: [
       Locale('en'),

@@ -39,6 +39,7 @@ class UserDataProvider {
             // 'Authorization': 'Bearer $token',
           },
           body: jsonEncode({
+           
             "phone": loginInfo.phoneNumber.toString(),
             "password": loginInfo.password.toString()
           }));
@@ -76,15 +77,16 @@ class UserDataProvider {
           print("Customer data: ${customer.toJson()}");
           await this.userPreferences.storeCustomerInformation(customer);
         } else if ((loggedUserInfo.user!.role == "Broker")) {
+          print("even it reaches at this stage ${loggedUserInfo.user!.role}");
           Broker broker = await this
               .brokerRepository
               .getBrokerByEmail(loggedUserInfo.user!.phone as String) as Broker;
           print("Broker To Be stored ${broker.toJson()}");
           await this.userPreferences.storeBrokerInformation(broker);
         }
-        print('--------------login');
-        print(loggedUserInfo.token);
-        print('--------------login');
+        // print('--------------login');
+        // print(loggedUserInfo.token);
+        // print('--------------login');
       }
     } catch (e) {
       print("login--failed");
@@ -168,16 +170,19 @@ class UserDataProvider {
     }
   }
 
-  Future<User?> getUserByPhone(String phone) async {
+   Future<User?> getUserByPhone(String phone) async {
     print(
         "============================================================================");
-    print("Fetching of user $phone");
+        
+        String phoneNumber = "0${phone.toString().substring(4)}";
+    print("Fetching of user $phoneNumber");
     final response = await httpClient.get(
-      Uri.parse('$baseUrl/$phone'),
+      Uri.parse('$baseUrl/$phoneNumber'),
     );
     print("Fetch user response is ${response.statusCode}");
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 || response.statusCode == 204) {
+      print("the user data iss : ${User.fromJson(jsonDecode(response.body))}");
       return User.fromJson(jsonDecode(response.body));
     } else {
       throw Exception(response.body);

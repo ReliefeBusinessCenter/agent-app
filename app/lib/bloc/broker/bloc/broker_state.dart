@@ -63,6 +63,8 @@ class BrokersLoadFailed extends BrokerState {
   List<Object?> get props => [];
 }
 
+
+
 class SearchModeChanged extends BrokerState {
   final bool isName;
   final int selectedCategoryId;

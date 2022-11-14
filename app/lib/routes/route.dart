@@ -3,6 +3,7 @@ import 'package:app/model/broker/broker.dart';
 import 'package:app/model/customer/customer.dart';
 import 'package:app/model/deals.dart';
 import 'package:app/model/delivery.dart';
+import 'package:app/repository/user_repository.dart';
 import 'package:app/screens/Registeration/registeration_exports.dart';
 import 'package:app/screens/Registeration/BrokerAdditionalDetail/brokers_details_screen.dart';
 import 'package:app/screens/Registeration/DetailInfo/detail_info.dart.dart';

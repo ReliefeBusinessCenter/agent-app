@@ -112,7 +112,7 @@ class BrokerDataProvider {
         String? piPath;
         // String? iPath;
 
-        await FirebaseService.uploadFile((broker!.user!.picture), "users/")
+        await FirebaseService.uploadFile((broker!.user!.picture), "brokers/")
             .then((picturePath) async {
           print('Picture path: ${picturePath.toString()}');
           await FirebaseService.uploadFile(
@@ -152,12 +152,12 @@ class BrokerDataProvider {
                     "password": broker.user!.password,
                     "phone": '0${broker.user!.phone!.substring(4)}',
                     // "address": "Ethiopia/Dessie",
-                    "picture": picturePath.toString(),
+                    "picture": picturePath,
                     "city": broker.user!.city,
                     "subcity": broker.user!.subCity,
                     "kebele": broker.user!.kebele,
                     "sex": broker.user!.sex,
-                    "identificationCard": idPath.toString(),
+                    "identificationCard": idPath,
                     "role": broker.user!.role,
                     "buys": "",
                     "latitude": broker.user!.latitude,

@@ -10,6 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+import '../../Service/fireabse_service.dart';
+
 class AdminCustomersPage extends StatefulWidget {
   static const routeName = "/AdmminCustomerPage";
   AdminCustomersPage({Key? key}) : super(key: key);
@@ -20,10 +22,20 @@ class AdminCustomersPage extends StatefulWidget {
 
 class _AdminCustomersPageState extends State<AdminCustomersPage> {
   List<int> _users = [1, 2, 3, 4, 5, 6, 7];
+  String? imageUrl;
   @override
   void initState() {
     BlocProvider.of<CustomerBloc>(context).add(FetchEvent());
     super.initState();
+  }
+
+  Future<String> getImage(
+    String? pictureName,
+  ) async {
+    String imageUrl = await FirebaseService.loadImage(
+        pictureName.toString().substring(8), 'customers');
+    print("IMage Url: $imageUrl");
+    return imageUrl;
   }
 
   @override
@@ -79,28 +91,62 @@ class _AdminCustomersPageState extends State<AdminCustomersPage> {
                                     ListTile(
                                       leading: Container(
                                         width: 50.0,
-                                        child: CachedNetworkImage(
-                                          imageUrl:
-                                              "${Ip.ip}/api/users/get/?fileName=${customer.user!.picture as String}",
-                                          imageBuilder:
-                                              (context, imageProvider) =>
-                                                  Container(
-                                            width: 120,
-                                            height: 120.0,
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              image: DecorationImage(
-                                                  image: imageProvider,
-                                                  fit: BoxFit.cover),
-                                            ),
-                                          ),
-                                          placeholder: (context, url) => Center(
-                                              child: SpinKitCircle(
-                                            color: primaryColor,
-                                          )),
-                                          errorWidget: (context, url, _) =>
-                                              Icon(Icons.error),
-                                        ),
+                                        child: FutureBuilder(
+                                            future: getImage(
+                                                customer.user!.picture),
+                                            builder: (BuildContext context,
+                                                AsyncSnapshot<dynamic>
+                                                    snapshot) {
+                                              switch (
+                                                  snapshot.connectionState) {
+                                                case ConnectionState.none:
+                                                  return Text('none');
+                                                case ConnectionState.waiting:
+                                                  return Center(
+                                                      child: Column(
+                                                    children: [
+                                                      Text("Future builder"),
+                                                      Center(
+                                                          child: SpinKitCircle(
+                                                        color: primaryColor,
+                                                      )),
+                                                    ],
+                                                  ));
+                                                case ConnectionState.active:
+                                                  return Text('');
+                                                case ConnectionState.done:
+                                                  imageUrl = snapshot.data;
+                                                  return CachedNetworkImage(
+                                                    fit: BoxFit.fill,
+                                                    height: 120.0,
+                                                    width: 120.0,
+                                                    imageUrl: snapshot.data,
+                                                    imageBuilder: (context,
+                                                            imageProvider) =>
+                                                        Container(
+                                                      width: 120.0,
+                                                      height: 120.0,
+                                                      decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        image: DecorationImage(
+                                                            image:
+                                                                imageProvider,
+                                                            fit: BoxFit.cover),
+                                                      ),
+                                                    ),
+                                                    placeholder: (context,
+                                                            url) =>
+                                                        Center(
+                                                            child:
+                                                                SpinKitCircle(
+                                                      color: primaryColor,
+                                                    )),
+                                                    errorWidget:
+                                                        (context, url, error) =>
+                                                            Icon(Icons.error),
+                                                  );
+                                              }
+                                            }),
                                       ),
                                       title: Text(customer.user!.fullName!),
                                       subtitle: Text("Addis Ababa, Arada"),
