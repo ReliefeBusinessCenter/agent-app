@@ -44,7 +44,7 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   TextEditingController otpController = TextEditingController();
   StreamController<ErrorAnimationType>? errorController;
-  late Future<User?> userInfo;
+
 
   bool hasError = false;
   String currentText = "";
@@ -59,12 +59,13 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
     
     
     
+    
   }
-  // Future<User?> fetchUserData(String phone) async{
-  //   final user = await userRepository?.getUserByPhone(phone);
-  //     print("u at bloc is ${user}");
-  //     return user;
-  // }
+  Future<Future<User?>> fetchUserData(String phone) async{
+    final userInformationTest = await userRepository!.getUserByPhone(phone);
+      print("uuuu at bloc is ${userInformationTest}");
+      return userInformationTest as Future<User?>;
+  }
 
   @override
   void dispose() {
@@ -204,6 +205,7 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
           (await _auth.signInWithCredential(credential));
 
       print("Successfully signed in UID: ${user.user?.uid} adn u i is ");
+     
       // checkIfUR(context, widget.phoneArgument.phone);
     bool userRegistered =
           checkIfThisUserRegister(context, widget.phoneArgument.phone);
@@ -234,8 +236,10 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
     bool userRegis = false;
     userBloc.add(GetUserByPhone(phone: phone));
     
+    
 
     var state =  BlocProvider.of<UserBloc>(context).state;
+   
     //  final user1 =  userRepository?.getUserByPhone(phone);
     //  print('user one is ${user1}');
     //  if(user1 != null){
@@ -243,6 +247,8 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
     //  } else{
     //   return false;
     //  }
+
+
     if (state is UserSuccess) {
       setState(() {
         userRegis = true;

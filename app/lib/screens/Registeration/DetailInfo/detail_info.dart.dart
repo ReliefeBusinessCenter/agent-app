@@ -27,6 +27,7 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
   final _formKey = GlobalKey<FormState>();
+    bool registerLoading = false;
 
   final TextEditingController passwordController = new TextEditingController();
 
@@ -42,6 +43,10 @@ class _DetailScreenState extends State<DetailScreen> {
   bool _confirmObscured = true;
 
   bool _choose = false;
+  @override
+void dispose() {
+  super.dispose();
+}
   @override
   Widget build(BuildContext context) {
     registerBloc = BlocProvider.of<RegisterBloc>(context);
@@ -164,14 +169,18 @@ class _DetailScreenState extends State<DetailScreen> {
                               // final progress = ProgressHUD.of(context);
 
                               // progress!.showWithText("Creating");
-                              CircularProgressIndicator(
-                                color: Colors.white,
-                              );
+                              
+                             
+                              setState(() {
+                                registerLoading = true;
+
+                              });
                             } else if (state is RegisterCreateSuccess) {
                               print(
                                   "Successfull registerd===================================================================================");
 
                               registerBloc.add(Initialization());
+                             
                               // Navigator.of(context).pushNamedAndRemoveUntil(Login.routeName, (route) => false);
                               Navigator.pushNamed(context, Login.routeName);
                               ;
@@ -196,7 +205,9 @@ class _DetailScreenState extends State<DetailScreen> {
                             }
                           },
                           builder: (context, state) {
-                            return RegisterButton(
+                            return registerLoading?CircularProgressIndicator(
+                              color: Colors.black,
+                            )  : RegisterButton(
                               name: LocaleKeys.register_btn_label_text.tr(),
                               onTapped: () async {
                                 // setState(() {
@@ -215,6 +226,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                 }
                               },
                             );
+
                           },
                         ),
                       )

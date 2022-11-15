@@ -74,8 +74,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       print("Entered to the register bloc");
       print(
           "+++++++++++++++++++++++++++++++++++++++++User Role on register method :${user.role}+++++++++");
-
-      yield RegisterCreateLoading();
+    yield RegisterCreateLoading();
+    
       // register user event
 
       print("user object:${user.toJson()}");

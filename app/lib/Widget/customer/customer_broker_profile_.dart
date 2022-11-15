@@ -9,9 +9,20 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import '../../Service/fireabse_service.dart';
+
 class BrokerProfile extends StatelessWidget {
   final Broker broker;
-  const BrokerProfile({required this.broker, Key? key}) : super(key: key);
+    String? imageUrl;
+   BrokerProfile({required this.broker, Key? key}) : super(key: key);
+  
+
+   Future<String> getImage(String? imageName) async {
+    String imageUrl = await FirebaseService.loadImage(
+        (imageName.toString().substring(8)), 'brokers/');
+    print("IMage Url: $imageUrl");
+    return imageUrl;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,25 +34,52 @@ class BrokerProfile extends StatelessWidget {
           SizedBox(
             height: 20.0,
           ),
-          CachedNetworkImage(
-                    imageUrl:
-                        "${Ip.ip}/api/users/get/?fileName=${broker.user!.picture as String}",
-                    imageBuilder: (context, imageProvider) => Container(
-                      width: 120,
-                      height: 120.0,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            image: imageProvider, fit: BoxFit.cover),
-                      ),
-                    ),
-                    placeholder: (context, url) => Center(
-                      child: SpinKitCircle(
-                        color: primaryColor,
-                      ),
-                    ),
-                    errorWidget: (context, url, _) => Icon(Icons.error),
-                  ),
+          FutureBuilder(
+                      future: getImage(broker.user!.picture),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<dynamic> snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.none:
+                            return Text('none');
+                          case ConnectionState.waiting:
+                            return Center(
+                                child: Column(
+                              children: [
+                                Text("Future builder"),
+                                Center(
+                                    child: SpinKitCircle(
+                                  color: primaryColor,
+                                )),
+                              ],
+                            ));
+                          case ConnectionState.active:
+                            return Text('');
+                          case ConnectionState.done:
+                            imageUrl = snapshot.data;
+                            return CachedNetworkImage(
+                              fit: BoxFit.fill,
+                              height: 120.0,
+                              width: 120.0,
+                              imageUrl: snapshot.data,
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                width: 120.0,
+                                height: 120.0,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      image: imageProvider, fit: BoxFit.cover),
+                                ),
+                              ),
+                              placeholder: (context, url) => Center(
+                                  child: SpinKitCircle(
+                                color: primaryColor,
+                              )),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            );
+                        }
+                      }),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(

@@ -13,10 +13,12 @@ class MapScreen extends StatefulWidget {
 
 class _MyAppState extends State<MapScreen> {
   List<Marker> myMarker = [];
-   GoogleMapController? mapController;
+   late GoogleMapController mapController;
   // final LatLng _center = LatLng(9, 38.7);
 
-   LatLng? _currentLocation;
+
+   late LatLng _currentLocation;
+   
   void _onMapCreated(GoogleMapController controller) async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
@@ -30,9 +32,9 @@ class _MyAppState extends State<MapScreen> {
         myMarker.add(
           Marker(
             markerId: MarkerId(_currentLocation.toString()),
-            position: _currentLocation!,
+            position: _currentLocation,
             draggable: true,
-            onDragEnd: (value) => _handleTap(_currentLocation!),
+            onDragEnd: (value) => _handleTap(_currentLocation),
           ),
         );
       },
@@ -52,9 +54,9 @@ class _MyAppState extends State<MapScreen> {
           myMarker.add(
             Marker(
               markerId: MarkerId(_currentLocation.toString()),
-              position: _currentLocation!,
+              position: _currentLocation,
               draggable: true,
-              onDragEnd: (value) => _handleTap(_currentLocation!),
+              onDragEnd: (value) => _handleTap(_currentLocation),
             ),
           );
         },
@@ -92,11 +94,11 @@ class _MyAppState extends State<MapScreen> {
                   left: 100,
                   child: ElevatedButton(
                     onPressed: () async {
-                      var address = await _fetchLocation(_currentLocation!);
+                      var address = await _fetchLocation(_currentLocation);
 
                       Navigator.of(context).pop(LocationArgument(
-                          latitude: _currentLocation!.latitude,
-                          longitude: _currentLocation!.longitude,
+                          latitude: _currentLocation.latitude,
+                          longitude: _currentLocation.longitude,
                           address: address));
                     },
                     child: const Text(
@@ -122,7 +124,7 @@ class _MyAppState extends State<MapScreen> {
   }
 
   Future<void> centerScreen(Position position) async {
-    await mapController!.animateCamera(CameraUpdate.newCameraPosition(
+    await mapController.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(
             target: LatLng(position.latitude, position.longitude),
             zoom: 18.0)));
@@ -141,8 +143,8 @@ class _MyAppState extends State<MapScreen> {
       print(tappedPoint);
     });
     centerScreen(Position(
-      latitude: _currentLocation!.latitude,
-      longitude: _currentLocation!.longitude,
+      latitude: _currentLocation.latitude,
+      longitude: _currentLocation.longitude,
       accuracy: 1.0,
       timestamp: DateTime.now(),
       altitude: 100.0,

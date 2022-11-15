@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import '../../Service/fireabse_service.dart';
+
 class BrokerItem extends StatefulWidget {
   // final Function(String filter) filter;
 
@@ -24,6 +26,13 @@ class BrokerItem extends StatefulWidget {
 class _BrokerItemState extends State<BrokerItem> {
   late FavoriteBloc favoriteBloc;
   bool isFav = false;
+  String? imageUrl;
+   Future<String> getImage(String? imageName) async {
+    String imageUrl = await FirebaseService.loadImage(
+        imageName.toString().substring(8), 'brokers');
+    print("IMage Url: $imageUrl");
+    return imageUrl;
+  }
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -59,18 +68,54 @@ class _BrokerItemState extends State<BrokerItem> {
                       (15),
                     ),
                   ),
-                  child: CachedNetworkImage(
-                    fit: BoxFit.fill,
-                    height: size.height / 6,
-                    width: size.width,
-                    imageUrl:
-                        "${Ip.ip}/api/users/get/?fileName=${widget.broker.user!.picture as String}",
-                    placeholder: (context, url) => Center(
-                        child: SpinKitCircle(
-                      color: primaryColor,
-                    )),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
-                  )),
+                  child: FutureBuilder(
+                      future: getImage(widget.broker.user!.picture),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<dynamic> snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.none:
+                            return Text('none');
+                          case ConnectionState.waiting:
+                            return Center(
+                                child: Column(
+                              children: [
+                                Text("Future builder"),
+                                Center(
+                                    child: SpinKitCircle(
+                                  color: primaryColor,
+                                )),
+                              ],
+                            ));
+                          case ConnectionState.active:
+                            return Text('');
+                          case ConnectionState.done:
+                            imageUrl = snapshot.data;
+                            return CachedNetworkImage(
+                              fit: BoxFit.fill,
+                              height: 120.0,
+                              width: 120.0,
+                              imageUrl: snapshot.data,
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                width: 120.0,
+                                height: 120.0,
+                                decoration: BoxDecoration(
+                                
+                                  image: DecorationImage(
+                                      image: imageProvider, fit: BoxFit.cover),
+                                ),
+                              ),
+                              placeholder: (context, url) => Center(
+                                  child: SpinKitCircle(
+                                color: primaryColor,
+                              )),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            );
+                        }
+                      }
+                      )
+                  ),
               Container(
                 width: 300,
                 color: Theme.of(context).primaryColor.withOpacity(0.1),

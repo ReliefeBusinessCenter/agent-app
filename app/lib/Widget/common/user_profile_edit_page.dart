@@ -15,6 +15,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+import '../../Service/fireabse_service.dart';
+
 class UserProfileEditPage extends StatefulWidget {
   final Customer customer;
   static const routeName = '/userProfileEditPage';
@@ -30,6 +32,7 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
   final _formKey = GlobalKey<FormState>();
   final ImagePicker _picker = ImagePicker();
   File? _imageFile;
+  String? imageUrl;
 
   void uploadPhotoHandler() async {
     try {
@@ -43,6 +46,12 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
     } catch (e) {
       print("Image picker error " + e.toString());
     }
+  }
+    Future<String> getImage(String? imageName) async {
+    String imageUrl = await FirebaseService.loadImage(
+        imageName.toString().substring(8), 'brokers');
+    print("IMage Url: $imageUrl");
+    return imageUrl;
   }
 
   Map<String, dynamic> _userData = {};
@@ -114,23 +123,53 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
                 _imageFile == null
                     ? GestureDetector(
                         onTap: uploadPhotoHandler,
-                        child: CachedNetworkImage(
-                          imageUrl:
-                              "${Ip.ip}/api/users/get/?fileName=${widget.customer.user!.picture as String}",
-                          imageBuilder: (context, imageProvider) => Container(
-                            width: 120,
-                            height: 120.0,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                  image: imageProvider, fit: BoxFit.cover),
-                            ),
-                          ),
-                          placeholder: (context, url) => Center(
-                            child: SpinKitCircle(),
-                          ),
-                          errorWidget: (context, url, _) => Icon(Icons.error),
-                        ),
+                        child: FutureBuilder(
+                      future: getImage(widget.customer.user!.picture),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<dynamic> snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.none:
+                            return Text('none');
+                          case ConnectionState.waiting:
+                            return Center(
+                                child: Column(
+                              children: [
+                                Text("Future builder"),
+                                Center(
+                                    child: SpinKitCircle(
+                                  color: primaryColor,
+                                )),
+                              ],
+                            ));
+                          case ConnectionState.active:
+                            return Text('');
+                          case ConnectionState.done:
+                            imageUrl = snapshot.data;
+                            return CachedNetworkImage(
+                              fit: BoxFit.fill,
+                              height: 120.0,
+                              width: 120.0,
+                              imageUrl: snapshot.data,
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                width: 120.0,
+                                height: 120.0,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      image: imageProvider, fit: BoxFit.cover),
+                                ),
+                              ),
+                              placeholder: (context, url) => Center(
+                                  child: SpinKitCircle(
+                                color: primaryColor,
+                              )),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            );
+                        }
+                      }
+                      )
                       )
                     : GestureDetector(
                         onTap: uploadPhotoHandler,

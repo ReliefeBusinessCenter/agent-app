@@ -113,7 +113,8 @@ class _BrokerDrawerState extends State<BrokerDrawer> {
                                   Icon(Icons.error),
                             );
                         }
-                      }),
+                      }
+                      ),
                   arrowColor: Theme.of(context).accentColor,
                   decoration:
                       BoxDecoration(color: Theme.of(context).primaryColor),

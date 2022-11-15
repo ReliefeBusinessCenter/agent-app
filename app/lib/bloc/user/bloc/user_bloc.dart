@@ -16,7 +16,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       yield* _getUser(event.phone);
     } else if (event is UpdateUser) {
       yield* _updateUser(event.user);
-    }
+    } 
+
   }
 
   // when getUserByPhoneIs Called
@@ -51,5 +52,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     } catch (e) {
       yield UserError(error: e.toString());
     }
+  }
+Stream<User?> _fetchUserInfo(String phone) async*{
+    final ur = await userRepository.getUserByPhone(phone);
+    print("ur at bloc is ${ur}");
+    yield ur;
   }
 }

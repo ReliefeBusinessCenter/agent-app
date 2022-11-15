@@ -9,9 +9,14 @@ import 'package:app/screens/admin/admin_deals_page.dart';
 import 'package:app/screens/admin/admin_delivery_page.dart';
 import 'package:app/screens/admin/admin_saveloan_page.dart';
 import 'package:app/translations/locale_keys.g.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+import '../../Service/fireabse_service.dart';
+import '../../constants/constants.dart';
 
 UserPreferences pref = UserPreferences();
 
@@ -22,9 +27,17 @@ class AdminDrawer extends StatefulWidget {
 
 class _AdminDrawerState extends State<AdminDrawer> {
   // late CartBloc cartBloc;
+   String? imageUrl;
   @override
   void initState() {
     super.initState();
+  }
+
+  Future<String> getImage(String? pictureName) async {
+    String imageUrl = await FirebaseService.loadImage(
+        pictureName.toString().substring(8), 'brokers');
+    print("IMage Url: $imageUrl");
+    return imageUrl;
   }
 
   String photoPath = "assets/images/circular.png";
@@ -60,24 +73,52 @@ class _AdminDrawerState extends State<AdminDrawer> {
                                 backgroundColor: Colors.white,
                                 child: Container(
                                   clipBehavior: Clip.hardEdge,
-                                  child: Image(
-                                    image: NetworkImage(
-                                      "${Ip.ip}/api/users/get/?fileName=${state.user.user!.picture as String}",
-
-                                      // fit: BoxFit.fill,
-                                      // placeholder: (context, url) => Container(
-                                      //   color: Colors.white,
-                                      // ),
-                                      // errorWidget: (context, url, error) =>
-                                      //     Container(
-                                      //   color: Colors.black,
-                                      //   child: Icon(Icons.error),
-                                      // ),
-                                    ),
-                                    height: MediaQuery.of(context).size.height *
-                                        0.18,
-                                    width: double.infinity,
-                                  ),
+                                  child: FutureBuilder(
+                      future: getImage(state.user.user!.picture),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<dynamic> snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.none:
+                            return Text('none');
+                          case ConnectionState.waiting:
+                            return Center(
+                                child: Column(
+                              children: [
+                                Text("Future builder"),
+                                Center(
+                                    child: SpinKitCircle(
+                                  color: primaryColor,
+                                )),
+                              ],
+                            ));
+                          case ConnectionState.active:
+                            return Text('');
+                          case ConnectionState.done:
+                            imageUrl = snapshot.data;
+                            return CachedNetworkImage(
+                              fit: BoxFit.fill,
+                              height: 12.0,
+                              width: 12.0,
+                              imageUrl: snapshot.data,
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                width: 120.0,
+                                height: 120.0,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      image: imageProvider, fit: BoxFit.cover),
+                                ),
+                              ),
+                              placeholder: (context, url) => Center(
+                                  child: SpinKitCircle(
+                                color: primaryColor,
+                              )),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            );
+                        }
+                      }),
                                   // child: Image.network('${baseUrl}/${client.photoPath}'),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(40),
